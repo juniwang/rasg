@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style"
+	content="black-translucent" />
+<link rel="stylesheet" type="text/css" href="/mojo/min/serve/g/pageLoginCss/lm/pageLoginCss?v=0.1" />
+<script type="text/javascript" src="/mojo/min/serve/g/pageLoginJs/lm/pageLoginJs?v=0.1"></script>
+</head>
+<script type="text/javascript">
+Mojo.app.baseUrl = "/mojo/ipad";
+Mojo.ajax.baseUrl = "/mojo";
+Mojo.app.weibo.appKey = "3426130896";
+Mojo.app.weibo.officialWeiboId = "2548651527";
+Mojo.app.isNd = false;
+Mojo.gap.init({
+	device : 'ipad',
+});
+Mojo.app.data.facebookAppId = "380594571975716";
+Mojo.app.fbparams = {
+	appId : "380594571975716",
+	channelUrl : "http://wsa.sg21.redatoms.com/mojo/ipad/facebook/channel/",
+	status : true,
+	cookie : true,
+	xfbml : true
+};
+
+</script>
+<script>
+(function(w,$,undefined){
+	w.Mojo = w.Mojo || {};
+    var g = w.Mojo.app = w.Mojo.app || {};
+    g.saveStorage = g.saveStorage || function (key, value) {
+        if (!window.localStorage) {
+            return false;
+        }
+        localStorage[key] = value;
+    };
+    g.getStorage = g.getStorage || function (key) {
+        if (!window.localStorage) {
+            return false;
+        }
+        return localStorage[key];
+    };
+    g.automode = g.automode || {};
+    // 可选fn: "signin":签到; "force":内政; "collect":收宝; "zhufushi":祝福石兑换
+    g.automode.accounts = {
+		"common": {
+			"pass": "111222",
+			"fn":["force", "zhufushi"]
+		},
+		"users" : [
+			{"name":"将夜", "fn":["force", "collect", "zhufushi"]},
+			{"name":"天下枭雄" ,"fn":["force", "collect", "zhufushi"]},
+			{"name":"Ningque01", "fn":["force", "collect", "zhufushi"]}
+		]
+	};	
+	for (var i = 2; i < 21; i++) {
+		var user_a = {};
+		if(i<10) user_a.name = "Ningque0" + i;
+		else	user_a.name = "Ningque" + i;
+		if(i ==  new Date().getDate()) user_a.fn = ["force", "collect", "zhufushi"];
+		g.automode.accounts.users.push(user_a);
+	};
+	g.automode.getNextIndex = function(name){
+		for (var i = g.automode.accounts.users.length - 1; i >= 0; i--) {
+			if(g.automode.accounts.users[i].name === name){
+				return (i+1)%g.automode.accounts.users.length;
+			}
+		};
+		return 0;
+	};
+	g.automode.getNextUser = function(){
+		var last_user = Mojo.app.getStorage("auto-mode-last-user");
+		var user = g.automode.accounts.users[0];
+		if(last_user){
+			var index = g.automode.getNextIndex(JSON.parse(last_user).name);
+			user = g.automode.accounts.users[index];
+		}	
+		if(!user.pass) user.pass = g.automode.accounts.common.pass;
+		if(!user.fn) user.fn = g.automode.accounts.common.fn;
+		return user;
+	};
+	g.automode.getUser = function(name){
+		var user;
+		for (var i = g.automode.accounts.users.length - 1; i >= 0; i--) {
+			if(g.automode.accounts.users[i].name === name){
+				user = g.automode.accounts.users[i];
+			}
+		};
+		if(user){
+			if(!user.pass) user.pass = g.automode.accounts.common.pass;
+			if(!user.fn) user.fn = g.automode.accounts.common.fn;
+		}
+		return user;
+	};
+	g.automode.setCurrentUser = function(name){
+		var user = g.automode.getUser(name);
+		if(user){
+			g.saveStorage("auto-mode-last-user", JSON.stringify(user));
+		}
+	};
+	g.automode.isAuto = function(){
+		var _auto = g.getStorage("auto-mode");
+		return _auto==="true";
+	};
+	g.automode.auto = function(auto){
+		g.saveStorage("auto-mode", auto);
+	};
+})(window, jQuery);
+</script>
+<body>
+    <div id="fb-root"></div>
+	<script type="text/javascript">
+<!--
+Mojo.app.serverNode = {
+    userRegionId: 1,regionId: 1,groupId:1,name: '太平三国'};
+Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});
+Mojo.app.data.socialPlatform = "weibo";
+Mojo.app.data.userLanguage = "zh_cn";
+$(function() {
+	$("#page-default-login > .login > .login-title")
+		.html(Mojo.utils.locale('default', 'login_title'));
+
+	var serverNode = Mojo.app.getServerNode();
+	if (false && serverNode != null) {
+		$('#page-default-login > .login > .mojo-com-server > .name').html(serverNode.name + Mojo.utils.locale('common', 'relation', {platform : serverNode.platform}));
+		$('#page-default-login > .login > .mojo-com-server > .signal').addClass(serverNode.signal);
+		$('#page-default-login > .login > .mojo-com-server > .flag').addClass(serverNode.flag).html(Mojo.utils.locale('common', serverNode.flag));
+		//如果用户名和密码均输入错误，则改变登录按钮的位置
+		if (nameerr != '' && pwderr != '') {
+			//$('#login-buttons').css('top', 350);
+		}
+	} else {
+//		$('#server').css('visibility', 'hidden');
+		$('#server').hide();
+		//如果用户名和密码均输入错误，则改变登录按钮的位置
+		if (nameerr != '' && pwderr != '') {
+			//$('#login-buttons').css('top', 320);
+		} else {
+			//$('#login-buttons').css('top', 300);
+		}
+	}  
+
+   	//新旧版本区分：旧版本无选服功能，隐藏关闭按钮
+	var isNew = Mojo.app.isNewVersion();
+
+	$("#page-default-login > .login > .button-close").click(function() {
+		Mojo.utils.showWait();
+//		if (isNew == true) {
+//			Mojo.app.redirect('/server');
+//		} else {
+//			Mojo.app.redirect('/default/index');
+//		}
+		Mojo.app.redirect('/default/index');//修改为返回登录选择页面
+	});
+
+	//Init toast
+	Mojo.app.toast.show('', 10, true);
+
+	//登录按钮
+	new Mojo.ui.Button(undefined, {
+        text : Mojo.utils.locale('default', 'login'),
+        special : "button-big-red",
+        click: function() {
+            Mojo.utils.showWait();
+    		Mojo.track.onEvent('02_022');	//[02][022][登陆页][账户登陆页][登陆按钮]
+    		//保存登录方式为普通登录
+			Mojo.app.saveStorage('login_method', 'normal');
+			Mojo.app.automode.setCurrentUser($("#UserLoginForm_username").val());
+		    $('#mojo-default-login').submit();
+        }
+    }).element()
+    	.addClass("login-button")
+    	.appendTo($("#login-buttons"));
+
+	var platform = Mojo.app.getPlatform();
+
+	//忘记密码
+  //   new Mojo.ui.Button(undefined, {
+  //       text : Mojo.utils.locale("common", 'forgetpwd'),
+  //       click: function() {
+  //       	if (platform == 'facebook') {
+  //       		new Mojo.com.FindpwdInputDialog({type : 2}).open();
+  //       	} else {
+		//     	new Mojo.com.FindpwdDialog().open();
+  //       	}
+  //       }
+  //   }).element()
+		// .addClass("back-button")
+		// .appendTo($("#login-buttons"));
+
+
+	new Mojo.ui.Button(undefined, {
+	    text : "下一个",
+	    click: function() {
+	    	var user = Mojo.app.automode.getNextUser();
+			$("#UserLoginForm_username").val(user.name);
+			$("#UserLoginForm_password").val(user.pass);
+			Mojo.app.automode.setCurrentUser(user.name);
+			Mojo.track.onEvent('02_022');	//[02][022][登陆页][账户登陆页][登陆按钮]
+    		//保存登录方式为普通登录
+			Mojo.app.saveStorage('login_method', 'normal');
+		    $('#mojo-default-login').submit();
+	    }
+    }).element()
+		.addClass("back-button")
+		.appendTo($("#login-buttons"));
+
+	// var params = {};
+ //    params.fb_task_group_id = "1";
+ //    params.fuben_id = "7";
+ // 	Mojo.ajax('/fuben/fbTasks', params, function (result) {
+ //        $("<div/>").html(JSON.stringify(result.data)).appendTo($("#mojo-default-login"));
+ //    }, function () {})
+
+
+	if(Mojo.app.automode.isAuto()){
+		var user = Mojo.app.automode.getNextUser();
+		$("<div/>").html("<br/>当前为自动登录模式，<span id='splogins'>9</span>秒后自动登陆:" + user.name).appendTo($("#mojo-default-login"));
+		$("#UserLoginForm_username").val(user.name);
+		$("#UserLoginForm_password").val(user.pass);
+		var leftseds=8;
+		var sedin = setInterval(function(){
+			$("#splogins").html(leftseds);
+			leftseds = leftseds-1;
+			if(leftseds<=0){
+				clearInterval(sedin);
+			}
+		},1000);
+		setInterval(function(){
+			Mojo.app.automode.setCurrentUser(user.name);
+			Mojo.track.onEvent('02_022');	//[02][022][登陆页][账户登陆页][登陆按钮]
+    		//保存登录方式为普通登录
+			Mojo.app.saveStorage('login_method', 'normal');
+		    $('#mojo-default-login').submit();	
+		 	 // Mojo.ajax("/player/checkIn", {}, function (result) {
+     //            if (result.errorCode == 0) {
+     //                var data = result.data;
+     //                var type = data.award.type;
+     //                $("<div/>").html(JSON.stringify(data.award)).appendTo($("#mojo-default-login"));
+     //            } else {
+     //                $("<div/>").html("签到失败:["+result.errorCode+"]"+result.errorMsg).appendTo($("#mojo-default-login"));
+     //            }
+     //        }, function(){}, {});
+		}, 10000);
+	}
+});
+
+//-->
+</script>
+
+<div id="page-default-login">
+	<div class="login">
+		<div class="login-title"></div>
+		<div class="mojo-ui-button button-close"></div>
+		<div class="separate"></div>
+		<div id="server" class="mojo-com-server">
+			<div class="signal"></div>
+			<div class="name"></div>
+			<div class="flag"></div>
+		</div>
+		<form accept-charset="UTF-8" id="mojo-default-login" action="/mojo/ipad/default/login" method="post">			<div id="username-row" class="row username"><label for="UserLoginForm_username" class="required">账户名 <span class="required">*</span></label> <input name="UserLoginForm[username]" id="UserLoginForm_username" type="text" maxlength="10" value="Ningque"/>			</div>
+
+			<div id="password-row" class="row password"><label for="UserLoginForm_password" class="required">密码 <span class="required">*</span></label> <input name="UserLoginForm[password]" id="UserLoginForm_password" value="111222" type="password" />			</div>
+
+			<div id="login-buttons" class="buttons"></div>
+
+			<script type="text/javascript">
+			var nameerr = '';
+			var pwderr = '';
+			</script>
+		</form>	</div>
+</div>
+</body>
+</html>
