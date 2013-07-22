@@ -30,24 +30,7 @@
     };
     g.automode = g.automode || {};
     // 可选fn: "signin":签到; "force":内政; "collect":收宝; "zhufushi":祝福石兑换
-    g.automode.accounts = {
-		"common": {
-			"pass": "111222",
-			"fn":["force", "zhufushi"]
-		},
-		"users" : [
-			{"name":"将夜", "fn":["force", "collect", "zhufushi"]},
-			{"name":"天下枭雄" ,"fn":["force", "collect", "zhufushi"]},
-			{"name":"Ningque01", "fn":["force", "collect", "zhufushi"]}
-		]
-	};	
-	for (var i = 2; i < 25; i++) {
-		var user_a = {};
-		if(i<10) user_a.name = "Ningque0" + i;
-		else	user_a.name = "Ningque" + i;
-		if(i ==  new Date().getDate()) user_a.fn = ["force", "collect", "zhufushi"];
-		g.automode.accounts.users.push(user_a);
-	};
+
 	g.automode.getNextIndex = function(name){
 		for (var i = g.automode.accounts.users.length - 1; i >= 0; i--) {
 			if(g.automode.accounts.users[i].name === name){
