@@ -13967,7 +13967,7 @@ function trackClient(appkeys) {
                                                     serverRe = 1
                                                 }
                                             }, function () {})
-                                        } else if (empty > 3) {
+                                        } else if (empty > 2) {
                                             Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
                                                 if (result.errorCode == 0) {
                                                     Mojo.app.toast.show2("[内政]自动接收官员刷新", "20000");
@@ -14029,8 +14029,8 @@ function trackClient(appkeys) {
                                     }, function (result){
                                         if(result.errorCode==0){
                                             Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
-                                        }else if(result.errorCode==130062){
-                                            Mojo.app.toast.show2("[兑换]兑换祝福石失败：冷却中");
+                                        }else{
+                                            Mojo.app.toast.show2("[兑换]兑换祝福石失败："+result.errorMsg);
                                         }
                                     }, function(){});
                                 fn_index = fn_index+1;
