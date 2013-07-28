@@ -270,7 +270,7 @@ span{color:#a80e0e}.logintip{line-height:20px;margin:8px
 0}.choose-button{float:left}.neverremind{float:left;margin-left:5px;line-height:20px}.circle-buttons .bar .arrow-up{position:absolute;height:90px;width:45px;left:16px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/arrow-up.png) 0 0;background-size:45px 270px;top:10px}.circle-buttons .bar .arrow-down{position:absolute;width:45px;height:90px;right:16px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/arrow-down.png) 0 0;background-size:45px 270px;top:10px}.circle-buttons .bar  .mojo-ui-button-disabled{background-position:0px -180px}.circle-buttons
 .window{position:relative;height:140px;margin:0px
 60px 0px 70px}.circle-buttons
-.wrapper{width:1300px}.mojo-logininfo-dlg .choose-button{float:left}.mojo-logininfo-dlg
+.wrapper{width:1160px}.mojo-logininfo-dlg .choose-button{float:left}.mojo-logininfo-dlg
 .neverremind{float:left;line-height:50px}.home_award_dlg
 .awards{text-align:center;margin-top:20px}.home_award_dlg .awards .card-gift{position:relative;float:none;margin:0
 auto}.home_award_dlg .card-image-url{width:120px;height:120px;background-image:url("/mojo/resources/classic/ipad/image/entity/7/small/d12.png");background-size:100% 100%;background-repeat:no-repeat;border-radius:8px}.home_award_dlg .awards

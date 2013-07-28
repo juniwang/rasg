@@ -13340,8 +13340,144 @@ function trackClient(appkeys) {
                         self.load();
                     }
                 } else if('btn-entity-battle' === id){
-                    //todo
-                    Mojo.app.toast.show2("开发中......");
+                    var fuben_init = false;
+                    var fuben_refresh = [];
+                    var fubens=[];
+                    var cur_fuben_index=0;
+                    var cur_fb_task_group={};
+                    var is_boss_group=false;
+                    var fb_tasks=[];
+                    var autoflag = confirm("是否自动免费领奖?注：关底boss始终不领奖");
+                    var f_interval = setInterval(function(){
+                        if(!fuben_init){
+                            if(fuben_refresh.length==0){
+                                // query all fubens status
+                                Mojo.ajax('/fuben/fubens', {}, function (result){
+                                    if(result.errorCode==0){
+                                        Mojo.app.toast.show2("[副本]初始化副本信息");
+                                        fuben_init = true;
+                                        $.each(result.data,function(i,fb){
+                                            //unlock: 1=unlocked, 0=locked
+                                            //status: 0=init, 1=ing, 3=cold_down
+                                            if(fb.unlock==1){
+                                                if(fb.status==1){
+                                                    fubens.push(fb);
+                                                }else if(fb.status==0 || (fb.status==3 && fb.cold_down==0)){
+                                                    fuben_init = false;
+                                                    fuben_refresh.push(fb);
+                                                }
+                                            } 
+                                        });
+                                    }else{
+                                        Mojo.app.toast.show2("[副本]初始化失败:("+result.errorCode+")"+result.errorMsg);
+                                        clearInterval(f_interval);
+                                    }
+                                }, function(){});
+                            }else{
+                                //reset fuben
+                                Mojo.ajax('/fuben/fbTasks', {fuben_id:fuben_refresh[0].id,fuben_refresh:1}, function (result) {
+                                    if(result.errorCode == 0){
+                                        Mojo.app.toast.show2("[副本]["+fuben_refresh[0].name +"]重置成功");
+                                    }
+                                    fuben_refresh.splice(0,1);
+                                    if(fuben_refresh.length==0) fuben_init = true;
+                                }, function () {}); 
+                            }                                    
+                        }else if(cur_fuben_index < fubens.length){
+                            //do fuben
+                            var cur_fuben = fubens[cur_fuben_index];
+                            var fuben_name = cur_fuben.name;
+                            if(fb_tasks.length==0){
+                                // query current task group and tasks.
+                                Mojo.ajax("/fuben/fbTasks", {"fuben_id":cur_fuben.id}, function (response) {
+                                    if(response.errorCode==0){
+                                        var fdata=response.data;
+                                        Mojo.app.toast.show2("[副本]["+fuben_name+"]:获取任务列表");
+                                        fb_tasks = fdata.fb_tasks;
+                                        // get current group
+                                        for(var gi in fdata.fb_task_groups){
+                                            if(fdata.fb_task_groups[gi].fb_task_group_id==fdata.cur_fb_task_group.fb_task_group_id){
+                                                cur_fb_task_group = fdata.fb_task_groups[gi];
+                                            }
+                                        }
+                                        //check if the boss group
+                                        is_boss_group=(cur_fb_task_group.order==fdata.fb_task_groups.length);
+                                    }else{
+                                        Mojo.app.toast.show2("[副本]["+fuben_name+"]:获取任务列表失败");
+                                        cur_fuben_index = cur_fuben_index+1;
+                                    }
+                                }, function(){});
+                            }else{
+                                var group_name=cur_fb_task_group.name;
+                                // find available task
+                                for(t_i=0;t_i<fb_tasks.length;t_i++){
+                                    if(fb_tasks[t_i].unlock==0)continue;
+                                    if((fb_tasks[t_i].status==1 && fb_tasks[t_i].cold_down==0) || fb_tasks[t_i].status==0){
+                                        break;
+                                    }
+                                }
+                                //if cound, do task
+                                if(t_i < fb_tasks.length){
+                                    Mojo.ajax("/fuben/do",{id: fb_tasks[t_i].id},function(result){
+                                        //Mojo.app.toast.show2("[debug]"+result.errorCode+":"+result.errorMsg);
+                                        if(result.errorCode == 160003){
+                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]失败:卡牌容量不足");
+                                            clearInterval(f_interval);
+                                        }else if(result.errorCode==0){
+                                            var bonus = result.data.award.bonus;
+                                            var bonus_msg="";
+                                            if(bonus && bonus.entities && bonus.entities.length>0){
+                                                bonus_msg = ",获得："+bonus.entities[0].name;
+                                            }
+                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
+                                            fb_tasks[t_i].status=result.data.fb_task.status;
+                                            fb_tasks[t_i].cold_down=result.data.fb_task.cold_down;
+                                            //if have award, get award and go to next group
+                                            if(result.data.fb_task.status==3){
+                                                //get award
+                                                if(!is_boss_group && autoflag){
+                                                    setTimeout(function(){
+                                                         Mojo.ajax("/fuben/openAward", {
+                                                            id: fb_tasks[t_i].id,
+                                                            award_id: 2,
+                                                            status: 0,
+                                                        }, function (result) {
+                                                            if(result.errorCode==0){
+                                                                Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+result.data.entity.name);
+                                                            }
+                                                        }, function () {});
+                                                    },2000);
+                                                }
+                                                //go to next group if any.
+                                                fb_tasks=[];
+                                                if(is_boss_group){
+                                                    cur_fuben_index=cur_fuben_index+1;
+                                                }
+                                            }else{
+                                                //check if mini-boss task can be unlocked.
+                                                var f_f=true;
+                                                $.each(fb_tasks,function(i,t){
+                                                    if(t.status!=2){
+                                                        f_f=false;
+                                                    }
+                                                });          
+                                                if(f_f){fb_tasks[4].status=1;}
+                                            }
+                                        }else{
+                                            cur_fuben_index=cur_fuben_index+1;
+                                        }
+                                    },function(){});
+                                }else{
+                                    //if not found, go to next fuben and reset tasks.
+                                    cur_fuben_index=cur_fuben_index+1;
+                                    fb_tasks=[];
+                                }
+                            }                                   
+                        }else{
+                            //all fuben finished.
+                            cur_fuben_index=0;
+                        }
+                    }, 4000);
                 }
             };
             var btns = [{
@@ -13637,10 +13773,6 @@ function trackClient(appkeys) {
             var btns = [{
                 id: 'btn-quick-logout',
                 text: '登出',
-                cl: 'task-set'
-            }, {
-                id: 'btn-reset-fuben',
-                text: '重置',
                 cl: 'task-set'
             }, {
                 id: 'btn-entity-browse',
