@@ -13822,21 +13822,24 @@ function trackClient(appkeys) {
                 var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
                 var robid = 0;
                 var compositestart = false;
+                var fuben_init = false;
+                var fuben_refresh = [];
+                var fubens=[];
+                var cur_fuben_index=0;
+                var cur_fb_task_group={};
+                var is_boss_group=false;
+                var fb_tasks=[];
                                 
                 var _auto_task = w.setInterval(function(){
                     if(fn_index >= user.fn.length){
-                        var user_count = Mojo.app.getStorage("auto-mode-user-count");
-                        if(user_count && user_count==1){
-                            fn_index = 0;
-                        }else{
-                             w.clearInterval(_auto_task);
-                            Mojo.app.toast.show2("本轮自动任务已全部完成,5秒后切换下一个账号",20000);
-                            setTimeout(function(){
-                                Mojo.app.redirect("/default/login");
-                            }, 5000);
-                        }
+                        w.clearInterval(_auto_task);
+                        Mojo.app.toast.show2("本轮自动任务已全部完成,5秒后切换下一个账号",20000);
+                        setTimeout(function(){
+                            Mojo.app.redirect("/default/login");
+                        }, 5000);
                     }else{
-                        var fn = user.fn[fn_index];
+                        var fn = user.fn[fn_index].split("@")[0];
+                        var fn_param = user.fn[fn_index].split("@")[1];
                         switch(fn){
                             case "signin":
                                 //auto SignIn
@@ -13859,7 +13862,7 @@ function trackClient(appkeys) {
                                 fn_index = fn_index + 1;
                                 break;
                             case "force":
-                                if(force_level == 1000){
+                                if(force_level==1000){
                                     Mojo.ajax('/force/playerTasks', {}, function (result) {
                                         Mojo.app.toast.show2("[内政]获取势力内政信息",20000);
                                         if(result.errorCode==0){
@@ -13867,7 +13870,7 @@ function trackClient(appkeys) {
                                             var tasks = result.data.task.tasks;
                                             for(var i in tasks){
                                                 var task =tasks[i];
-                                                if(parseInt(task.unlock_level) > parseInt(result.data.task.force_level) ) {
+                                                if(parseInt(task.unlock_level) > parseInt(result.data.task.force_level) || task.status==2) {
                                                     arrTaskCool[task.id - 1] = "-1";
                                                 }
                                             }
@@ -13949,7 +13952,7 @@ function trackClient(appkeys) {
                                     }
                                     if (sumtime == -9) {
                                         empty++;
-                                        if (empty == 2) {
+                                        if (empty == 1) {
                                             Mojo.ajax('/force/playerTasks', {}, function (result) {
                                                 if (result.errorCode == 0) {
                                                     Mojo.app.toast.show2("[内政]尝试接收系统刷新", "20000");
@@ -13957,7 +13960,7 @@ function trackClient(appkeys) {
                                                     var tasks = result.data.task.tasks;
                                                     for(var i in tasks){
                                                         var task = tasks[i];
-                                                        if(parseInt(task.unlock_level) > parseInt(result.data.task.force_level) ) {
+                                                        if(task.status==2 || parseInt(task.unlock_level) > parseInt(result.data.task.force_level) ) {
                                                             arrTaskCool[task.id - 1] = "-1";
                                                         } else {
                                                             arrTaskCool[task.id - 1] = 0;
@@ -13967,7 +13970,7 @@ function trackClient(appkeys) {
                                                     serverRe = 1
                                                 }
                                             }, function () {})
-                                        } else if (empty > 2) {
+                                        } else if (empty == 2) {
                                             Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
                                                 if (result.errorCode == 0) {
                                                     Mojo.app.toast.show2("[内政]自动接收官员刷新", "20000");
@@ -13979,7 +13982,6 @@ function trackClient(appkeys) {
                                                     fn_index = fn_index+1;
                                                 }
                                             });
-                                            empty = 0
                                         }
                                     } else {
                                         fn_index = fn_index+1;
@@ -14035,6 +14037,140 @@ function trackClient(appkeys) {
                                     }, function(){});
                                 fn_index = fn_index+1;
                                 break;
+                            case "fuben":
+                                if(!fuben_init){
+                                    if(fuben_refresh.length==0){
+                                        // query all fubens status
+                                        Mojo.ajax('/fuben/fubens', {}, function (result){
+                                            if(result.errorCode==0){
+                                                Mojo.app.toast.show2("[副本]初始化副本信息");
+                                                fuben_init = true;
+                                                $.each(result.data,function(i,fb){
+                                                    //unlock: 1=unlocked, 0=locked
+                                                    //status: 0=init, 1=ing, 3=cold_down
+                                                    if(fb.unlock==1){
+                                                        if(fb.status==1){
+                                                            fubens.push(fb);
+                                                        }else if(fb.status==0 || (fb.status==3 && fb.cold_down==0)){
+                                                            fuben_init = false;
+                                                            fuben_refresh.push(fb);
+                                                        }
+                                                    } 
+                                                });
+                                            }else{
+                                                Mojo.app.toast.show2("[副本]初始化失败:("+result.errorCode+")"+result.errorMsg);
+                                                fn_index = fn_index+1;
+                                            }
+                                        }, function(){});
+                                    }else{
+                                        //reset fuben
+                                        Mojo.ajax('/fuben/fbTasks', {fuben_id:fuben_refresh[0].id,fuben_refresh:1}, function (result) {
+                                            if(result.errorCode == 0){
+                                                Mojo.app.toast.show2("[副本]["+fuben_refresh[0].name +"]重置成功");
+                                            }
+                                            fuben_refresh.splice(0,1);
+                                            if(fuben_refresh.length==0) fuben_init = true;
+                                        }, function () {}); 
+                                    }                                    
+                                }else if(cur_fuben_index < fubens.length){
+                                    //do fuben
+                                    var cur_fuben = fubens[cur_fuben_index];
+                                    var fuben_name = cur_fuben.name;
+                                    if(fb_tasks.length==0){
+                                        // query current task group and tasks.
+                                        Mojo.ajax("/fuben/fbTasks", {"fuben_id":cur_fuben.id}, function (response) {
+                                            if(response.errorCode==0){
+                                                var fdata=response.data;
+                                                Mojo.app.toast.show2("[副本]["+fuben_name+"]:获取任务列表");
+                                                fb_tasks = fdata.fb_tasks;
+                                                // get current group
+                                                for(var gi in fdata.fb_task_groups){
+                                                    if(fdata.fb_task_groups[gi].fb_task_group_id==fdata.cur_fb_task_group.fb_task_group_id){
+                                                        cur_fb_task_group = fdata.fb_task_groups[gi];
+                                                    }
+                                                }
+                                                //check if the boss group
+                                                is_boss_group=(cur_fb_task_group.order==fdata.fb_task_groups.length);
+                                            }else{
+                                                Mojo.app.toast.show2("[副本]["+fuben_name+"]:获取任务列表失败");
+                                                cur_fuben_index = cur_fuben_index+1;
+                                                if(cur_fuben_index>=fubens.length) fn_index=fn_index+1;
+                                            }
+                                        }, function(){});
+                                    }else{
+                                        var group_name=cur_fb_task_group.name;
+                                        // find available task
+                                        for(t_i=0;t_i<fb_tasks.length;t_i++){
+                                            if(fb_tasks[t_i].unlock==0)continue;
+                                            if((fb_tasks[t_i].status==1 && fb_tasks[t_i].cold_down==0) || fb_tasks[t_i].status==0){
+                                                break;
+                                            }
+                                        }
+                                        //if cound, do task
+                                        if(t_i < fb_tasks.length){
+                                            Mojo.ajax("/fuben/do",{id: fb_tasks[t_i].id},function(result){
+                                                //Mojo.app.toast.show2("[debug]"+result.errorCode+":"+result.errorMsg);
+                                                if(result.errorCode == 160003){
+                                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]失败:卡牌容量不足");
+                                                    fn_index = fn_index+1;
+                                                }else if(result.errorCode==0){
+                                                    var bonus = result.data.award.bonus;
+                                                    var bonus_msg="";
+                                                    if(bonus && bonus.entities && bonus.entities.length>0){
+                                                        bonus_msg = ",获得："+bonus.entities[0].name;
+                                                    }
+                                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
+                                                    fb_tasks[t_i].status=result.data.fb_task.status;
+                                                    fb_tasks[t_i].cold_down=result.data.fb_task.cold_down;
+                                                    //if have award, get award and go to next group
+                                                    if(result.data.fb_task.status==3){
+                                                        //get award
+                                                        if(!is_boss_group && fn_param!="noaward"){
+                                                            setTimeout(function(){
+                                                                 Mojo.ajax("/fuben/openAward", {
+                                                                    id: fb_tasks[t_i].id,
+                                                                    award_id: 2,
+                                                                    status: 0,
+                                                                }, function (result) {
+                                                                    if(result.errorCode==0){
+                                                                        Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+result.data.entity.name);
+                                                                    }
+                                                                }, function () {});
+                                                            },2000);
+                                                        }
+                                                        //go to next group if any.
+                                                        fb_tasks=[];
+                                                        if(is_boss_group){
+                                                            cur_fuben_index=cur_fuben_index+1;
+                                                            if(cur_fuben_index>=fubens.length) fn_index=fn_index+1;
+                                                        }
+                                                    }else{
+                                                        //check if mini-boss task can be unlocked.
+                                                        var f_f=true;
+                                                        $.each(fb_tasks,function(i,t){
+                                                            if(t.status!=2){
+                                                                f_f=false;
+                                                            }
+                                                        });          
+                                                        if(f_f){fb_tasks[4].status=1;}
+                                                    }
+                                                }else{
+                                                    cur_fuben_index=cur_fuben_index+1;
+                                                    if(cur_fuben_index>=fubens.length) fn_index=fn_index+1;
+                                                }
+                                            },function(){});
+                                        }else{
+                                            //if not found, go to next fuben and reset tasks.
+                                            cur_fuben_index=cur_fuben_index+1;
+                                            fb_tasks=[];
+                                            if(cur_fuben_index>=fubens.length) fn_index=fn_index+1;
+                                        }
+                                    }                                   
+                                }else{
+                                    //all fuben finished.
+                                    fn_index = fn_index+1;
+                                }
+                                break; 
                             default:
                                 Mojo.app.toast.show2("未知的自动任务:"+fn);
                                 fn_index = fn_index+1;
