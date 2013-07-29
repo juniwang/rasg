@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style"
+	content="black-translucent" />
+<link rel="stylesheet" type="text/css" href="/mojo/min/serve/g/pageNdbundleCss/lm/1374836747?v=0.1" />
+<script type="text/javascript" src="/mojo/min/serve/g/pageNdbundleJs/lm/1374836746?v=0.1"></script>
+</head>
+<body>
+    <div id="fb-root"></div>
+	<script type="text/javascript">
+Mojo.app.clientVersion = "1.3";
+<!--
+Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.app.data.socialPlatform = "weibo";Mojo.app.data.userLanguage = "zh_cn";<!--
+$(function() {
+	//Init toast
+	Mojo.app.toast.show('', 10, true);
+	$("#page-default-register > .register > .register-title")
+		.html(Mojo.utils.locale('default', 'set_nickname'));
+		//.html(Mojo.utils.locale('default', 'register_title'));
+
+//	$("#user-introduce").html(Mojo.utils.locale('default', 'register_user_introduce'));
+
+//	$("#mobile-introduce").html(Mojo.utils.locale('default', 'register_mobile_introduce'));
+
+	$('#page-default-register').find('.register-introduce')
+		.html(Mojo.utils.locale('default', 'login_nickname_tip'));
+
+	var flag = false;	//【进入】按钮只能点击一次
+	new Mojo.ui.Button(undefined, {
+		//text : Mojo.utils.locale('default', 'bind'),
+		text : Mojo.utils.locale('default', 'enter'),
+        special : "button-big-red",
+		click: function() {
+			if (flag == false) {
+				flag = true;
+				$("#nameErrMsg").html("");
+				Mojo.track.onEvent('02_031');	//[02][031][登陆页][账户注册][确定按钮]
+				//$('#mojo-default-register').submit();
+				var params = {};
+				params["NdBundleForm[username]"] = $('#NdBundleForm_username')[0].value;
+				params["ajax"] = "validate-form";
+				//params["getAccessToken"] = true;
+				var a = '';
+				if((window.location+'').indexOf('?')!=-1){
+					a = (window.location+'').substr((window.location+'').indexOf('?'));
+				}
+				Mojo.ajax('/validate/NdBundle'+a, 
+				    params, function(result) {
+					if (result.errorCode == 0) {
+						Mojo.app.redirect(result.data);
+					} else {
+						flag = false;
+						if(result.errorMsg.NdBundleForm_username != undefined){
+							$("#nameErrMsg").html(result.errorMsg.NdBundleForm_username);
+						}						
+					}
+				}, function() {
+					
+				},{showWait : true});
+			}
+		}
+	}).element()
+		.addClass("bind-button")
+		.appendTo($("#register-buttons"));
+
+	$("#page-default-register > .register > .button-close").click(function() {
+		Mojo.utils.showWait();
+		var loginMethod = Mojo.app.getStorage('login_method');
+		if("sina" == loginMethod){
+        	Mojo.app.redirect('/newplayer/sinaAuth?state=login');
+		}else{
+			Mojo.app.redirect('/default/index');//修改为返回登录选择页面
+		}
+	});
+
+	Mojo.track.onEvent('02_030');	//[02][030][登陆页][账户注册][浏览]
+
+});
+//-->
+</script>
+
+<div id="page-default-register">
+	<div class="register">
+		<div class="register-title"></div>
+		<div class="mojo-ui-button button-close"></div>
+		<form accept-charset="UTF-8" id="mojo-default-register" action="/mojo/ipad/default/ndbundle?__track_event_object__=02_011" method="post">		<div class="row">
+			<div class="register-introduce"></div>
+			<input name="NdBundleForm[username]" id="NdBundleForm_username" type="text" maxlength="10" />			</div>
+			<div id="nameErrMsg" class="errorMessage"></div>
+			</form>
+		<div id="register-buttons" class="buttons"></div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+var script = document.createElement("script");
+script.type = "text/javascript";
+script.src = "/mojo/dyn/nocache/GetDefaultJs?"+Math.random();
+document.body.appendChild(script);
+</script>
+</html>
