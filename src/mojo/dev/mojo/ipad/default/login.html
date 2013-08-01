@@ -29,7 +29,59 @@
         return localStorage[key];
     };
     g.automode = g.automode || {};
-    // 可选fn: "signin":签到; "force":内政; "collect":收宝; "zhufushi":祝福石兑换
+    // 可选fn: 
+    // "force":内政; 
+    // "collect":收宝;
+    // "zhufushi":祝福石兑换;
+    // "fuben":自动闯关并免费领奖 "fuben@noaward":自动闯关不领奖; 注：关底boss始终不会自动领奖
+    // "suipian@dh0131":势力兑换活动碎片
+    var wu=["Ningque02","Ningque04","Ningque07","Ningque08","Ningque13","Ningque14","Ningque21","Ningque23"];
+    g.automode.accounts = {
+		"common": {
+			"pass": "111222",
+			"fn":["force", "zhufushi"]
+		},
+		"users" : [
+			{"name":"将夜", "fn":["force", "fuben", "collect", "zhufushi"]},
+			{"name":"天下枭雄" ,"fn":["force", "fuben", "collect", "zhufushi"]},
+			{"name":"fancy0328","pass":"qqq111"},
+			{"name":"Ningque01", "fn":["force", "collect", "zhufushi"]},
+			{"name":"Ningque02", "fn":["force", "zhufushi"]},
+			{"name":"Ningque03", "fn":["force", "zhufushi"]},
+			{"name":"Ningque04", "fn":["force", "zhufushi"]},
+			{"name":"Ningque05", "fn":["force", "zhufushi"]},
+			{"name":"Ningque06", "fn":["force", "zhufushi"]},
+			{"name":"Ningque07", "fn":["force", "zhufushi"]},
+			{"name":"Ningque08", "fn":["force", "zhufushi"]},
+			{"name":"Ningque09", "fn":["force", "zhufushi"]},
+			{"name":"Ningque10", "fn":["force", "zhufushi"]},
+			{"name":"Ningque11", "fn":["force", "zhufushi"]},
+			{"name":"Ningque12", "fn":["force", "zhufushi"]},
+			{"name":"Ningque13", "fn":["force", "zhufushi"]},
+			{"name":"Ningque14", "fn":["force", "zhufushi"]},
+			{"name":"Ningque15", "fn":["force", "zhufushi"]},
+			{"name":"Ningque16", "fn":["force", "zhufushi"]},
+			{"name":"Ningque17", "fn":["force", "zhufushi"]},
+			{"name":"Ningque18", "fn":["force", "zhufushi"]},
+			{"name":"Ningque19", "fn":["force", "zhufushi"]},
+			{"name":"Ningque20", "fn":["force", "zhufushi"]},
+			{"name":"Ningque21", "fn":["force", "zhufushi"]},
+			{"name":"Ningque22", "fn":["force", "zhufushi", "fuben"]},
+			{"name":"Ningque23", "fn":["force", "zhufushi", "fuben"]},
+			{"name":"Ningque24", "fn":["force", "zhufushi", "fuben"]}
+		]
+	};	
+	var d = new Date().getDate();
+	var today="";
+	if(d<10 && d>1)today="Ningque0"+d;
+	else today ="Ningque"+d;
+	$.each(g.automode.accounts.users, function(i,u){
+		if(u.name == today){
+			if(!u.fn)u.fn=g.automode.common.fn;
+			u.fn.push("collect");
+			return false;
+		}
+	});
 	g.automode.getNextIndex = function(name){
 		for (var i = g.automode.accounts.users.length - 1; i >= 0; i--) {
 			if(g.automode.accounts.users[i].name === name){
@@ -235,24 +287,32 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 		.appendTo($("#login-buttons"));
 
 	// /mall/type
+	// fuben/fubens
 	// /fuben/fbTasks
 	// /fuben/do
+	// /force/playerTasks
 	var ajax_test = {};
 	// ajax_test.type ="3";
-	// ajax_test.fuben_id = "9";
-	// ajax_test.fb_task_group_id ="2";
-	// ajax_test.id = "5140529";
-	// Mojo.ajax("/fuben/do", ajax_test, function (response) {
-	// 	$("<div />").html(JSON.stringify(response)).appendTo($("#page-default-login"));
+	// ajax_test.id="2209406";
+	// ajax_test.id="9324570";
+	// ajax_test.fuben_id = "2";
+	// ajax_test.fb_task_group_id ="1";
+	ajax_test.id = "dh0131";
+
+	// ajax_test.award_id="2";
+	// ajax_test.status=0;
+	// Mojo.ajax("/force/exchange", ajax_test, function (result) {
+	// 	var show = result;
+	// 	$("<div />").html(JSON.stringify(show)).appendTo($("#page-default-login"));
 	// }, function(){});
 
 
 	if(Mojo.app.automode.isAuto()){
 		var user = Mojo.app.automode.getNextUser();
-		$("<div/>").html("<br/>当前为自动登录模式，<span id='splogins'>9</span>秒后自动登陆:" + user.name).appendTo($("#mojo-default-login"));
+		$("<div/>").html("<br/>当前为自动登录模式，<span id='splogins'>5</span>秒后自动登陆:" + user.name).appendTo($("#mojo-default-login"));
 		$("#UserLoginForm_username").val(user.name);
 		$("#UserLoginForm_password").val(user.pass);
-		var leftseds=8;
+		var leftseds=4;
 		var sedin = setInterval(function(){
 			$("#splogins").html(leftseds);
 			leftseds = leftseds-1;
@@ -260,7 +320,7 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 				clearInterval(sedin);
 			}
 		},1000);
-		setInterval(function(){
+		var login_in = setInterval(function(){
 			Mojo.app.automode.setCurrentUser(user.name);
 			Mojo.track.onEvent('02_022');	//[02][022][登陆页][账户登陆页][登陆按钮]
     		//保存登录方式为普通登录
@@ -276,8 +336,10 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 			Mojo.ajax('/validate/login'+a, 
 			    params, function(result) {
 				if (result.errorCode == 0) {
-					// Mojo.app.redirect(result.data);
-					Mojo.app.redirect("/home");
+					//Mojo.app.redirect(result.data);
+					clearInterval(login_in);
+					// Mojo.app.redirect("/home");
+					window.location.href="/mojo/ipad/home";
 				} else {
 					if(result.errorMsg.UserLoginForm_username != undefined){
 						$("#nameErrMsg").html(result.errorMsg.UserLoginForm_username);
@@ -291,7 +353,7 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 			}, function() {
 				
 			},{showWait : true})
-		}, 10000);
+		}, 5000);
 	}
 });
 
