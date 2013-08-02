@@ -1,0 +1,782 @@
+.mojo-ui-button{position:relative;height:80px;width:230px;text-align:center;font-size:33px;font-weight:bold;line-height:80px;color:#fff;display:block;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-big.png) no-repeat;text-shadow:1px 1px 2px #542b01, -1px 1px 2px #542b01, 1px -1px 2px #542b01, -1px -1px 2px #542b01;background-size:100% 100%}.mojo-ui-button
+.flag{position:absolute;top:-2px;left:-2px;width:35px;height:35px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-hot.png) no-repeat;background-size:100% 100%;color:yellow;font-size:11px;line-height:25px;text-indent:-8px}.button-big-red{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-big-red.png) no-repeat;background-size:100% 100%}.mojo-ui-button-down{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-big-down.png) no-repeat;background-size:100% 100%}.button-big-red-down{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-big-red-down.png) no-repeat;background-size:100% 100%}.mojo-ui-button-disabled{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-big-disabled.png) no-repeat;background-size:100% 100%}.button-small-blue{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-small.png) no-repeat;background-size:100% 100%;width:119px;height:50px}.button-small-red{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-small-red.png) no-repeat;background-size:100% 100%;width:119px;height:50px}.button-small-blue-down{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-small-down.png) no-repeat;background-size:100% 100%}.button-small-red-down{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/button-small-down.png) no-repeat;background-size:100% 100%}.go-button{height:65px;width:80px;float:right;position:absolute;bottom:10px;right:10px;font-size:25px;line-height:100px;text-align:center;background-size:100% 100%;-webkit-box-shadow:1px 1px 1px rgba(0, 0, 0, 0.3), -1px 1px 1px
+rgba(0, 0, 0, 0.3), 1px -1px 1px rgba(0, 0, 0, 0.3), -1px -1px 1px
+rgba(0,0,0,0.3);border-radius:8px}.go-close-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-close-btn.png") no-repeat;background-size:100% 100%}.go-close-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-close-btn-down.png") no-repeat;background-size:100% 100%}.go-attack-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-attack-btn.png") no-repeat;background-size:100% 100%}.go-attack-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-attack-btn-down.png") no-repeat;background-size:100% 100%}.go-buy-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-buy-btn.png") no-repeat;background-size:100% 100%}.go-buy-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-buy-btn-down.png") no-repeat;background-size:100% 100%}.go-friend-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-friend-btn.png") no-repeat;background-size:100% 100%}.go-friend-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-friend-btn-down.png") no-repeat;background-size:100% 100%}.go-message-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-message-btn.png") no-repeat;background-size:100% 100%}.go-message-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-message-btn-down.png") no-repeat;background-size:100% 100%}.go-message-btn-disabled{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-message-btn-disabled.png") no-repeat;background-size:100% 100%}.go-strengthen-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-strengthen-btn.png") no-repeat;background-size:100% 100%}.go-strengthen-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-strengthen-btn-down.png") no-repeat;background-size:100% 100%}.go-communicate-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-communicate-btn.png") no-repeat;background-size:100% 100%}.go-communicate-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-communicate-btn-down.png") no-repeat;background-size:100% 100%}.go-exchange-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-exchange-btn.png") no-repeat;background-size:100% 100%}.go-exchange-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-exchange-btn-down.png") no-repeat;background-size:100% 100%}.go-exchange-btn-disabled{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-exchange-btn-disabled.png")	no-repeat;background-size:100% 100%}.go-view-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-view-btn.png") no-repeat;background-size:100% 100%}.go-view-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-view-btn-down.png") no-repeat;background-size:100% 100%}.go-instead-btn{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-instead-btn.png") no-repeat;background-size:100% 100%}.go-instead-btn-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-instead-btn-down.png") no-repeat;background-size:100% 100%}.go-instead-btn-disabled{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-instead-btn-disabled.png") no-repeat;background-size:100% 100%}.button-close{width:50px;height:50px;position:absolute;top:-9px;right:-14px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/3-close.png") no-repeat;background-size:100% 100%}.button-close-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/3-close-down.png") no-repeat;background-size:100% 100%}#btn-map-back,#back-btn{width:90px;height:60px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/back.png) no-repeat;background-size:100% 100%;top:15px;right:15px;position:absolute;z-index:2}#btn-map-back.mojo-ui-button-down,#back-btn.mojo-ui-button-down{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/back-down.png) no-repeat;background-size:100% 100%}.add_btn, #confirm-button, #selector, .force-back-btn, .mojo-page .payment-button, .com-page-cardmng .back-btn{float:left;width:120px;height:55px;line-height:55px;display:block;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/task-list.png") no-repeat;font-size:25px;border-radius:8px;background-size:100% 100%;border:1px
+solid #725C19;box-shadow:1px 1px 1px black}.add_btn.mojo-ui-button-down, #confirm-button.mojo-ui-button-down, #selector.mojo-ui-button-down, .force-back-btn.mojo-ui-button-down,
+.mojo-page .payment-button-down, .com-page-cardmng .back-btn.mojo-ui-button-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/task-list-down.png") no-repeat;background-size:100% 100%}.add_btn, #back-btn, .force-back-btn, .mojo-page .payment-button{position:absolute;top:190px;right:8px}#confirm-button{position:absolute;top:10px;right:8px}#selector{position:absolute;top:10px;right:140px}.count{background-color:#F00;color:#FFF;height:32px;line-height:32px;position:absolute;right:0px;top:0px;text-align:center;min-width:24px;width:auto;padding:0
+4px;z-index:1000;border-radius:32px;border:3px
+#fff solid;box-shadow:0px 1px 2px #000;-webkit-box-shadow:0px 1px 2px #000;-moz-box-shadow:0px 1px 2px #000;font-weight:bold}.goods-advertising{position:absolute;top:90px;left:0px;color:#F2EEC3;text-align:center;width:80px;height:65px;text-indent:-5px;font-weight:bold}.new-goods-flag{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/new-goods-flag.png) no-repeat;background-size:100% 100%;line-height:80px}.allyfriend
+.icon{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/allyfriend.png);background-size:100% 100%}.hot-goods-flag{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/hot-goods-flag.png) no-repeat;background-size:100% 100%;line-height:65px}.discount-goods-flag{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/discount-goods-flag.png) no-repeat;background-size:100% 100%;line-height:65px;text-indent:0}.mojo-ui-label{width:auto;height:35px;line-height:35px}.mojo-ui-label
+.text{float:left;width:auto}.mojo-ui-label .icon, .right .icon, .mojo-ui-progress .icon, .mojo-ui-listpanel .icon, .mojo-com-goods-price .icon,
+.payment-rm-price .icon, .price .vm,.price-icon{float:left;width:35px;height:35px;margin-right:3px}.xp .icon, .winxp .icon, .losexp
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/icon/xp.png") no-repeat;background-size:100% 100%}.rm .icon, .icon.rm, .goods-rm-price, .payment-rm-price
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/icon/rm.png") no-repeat;background-size:100% 100%}.vm .icon, .goods-vm-price, .winvm .icon, .losevm .icon, .price
+.vm{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/icon/vm.png") no-repeat;background-size:100% 100%}.grain .icon,.goods-grain-price{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/grain.png) no-repeat;background-size:100% 100%}.fgrain
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/fgrain.png) no-repeat;background-size:100% 100%}.ep
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/icon/ep.png") no-repeat;background-size:100% 100%}.sp .icon, .attack_base
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/icon/sp.png") no-repeat;background-size:100% 100%}.attack .icon, .corps-attack
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/attack.png) no-repeat;background-size:100% 100%}.bse
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/bse.png) no-repeat;background-size:100% 100%}.corps-defence
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/defence.png) no-repeat;background-size:100% 100%}.owner
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/force-host.png) no-repeat;background-size:100% 100%}.vice
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/force-vice.png) no-repeat;background-size:100% 100%}.challenge
+.icon{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/challenge.png);background-size:100% 100%}.level
+.icon{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/lv.png);background-size:100% 100%}.agrain
+.icon{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/agrain.png);background-size:100% 100%}.taxrate
+.icon{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/taxrate.png);background-size:100% 100%}.precount
+.icon{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/precount.png);background-size:100% 100%}.member
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/force-member.png) no-repeat;background-size:100% 100%}.is_new
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/is_new.png) no-repeat;background-size:100% 100%;height:60px;position:absolute;right:-7px;top:-10px;width:80px}.defence_base
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/defence-base.png) no-repeat;background-size:100% 100%}.payment-money-price
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/money.png) no-repeat;background-size:100% 100%}.clv
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/clv.png) no-repeat;background-size:100% 100%}.cxp
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/icon/cxp.png) no-repeat;background-size:100% 100%}.opp_icon{width:25px;height:25px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/icon/opp_icon.png") no-repeat;background-size:100% 100%}.xp_add
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -234px;background-size:481px}.vm_add
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -162px;background-size:481px}.ep_add
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -198px;background-size:481px}.sp_add
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -144px;background-size:481px}.row .progress .mojo-ui-progress
+.icon{display:none}.radio{height:40px;width:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/radio.png) no-repeat;background-size:100% 100%}.radio-selected-class{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/radio-selected.png) no-repeat;background-size:100% 100%}.combo{height:40px;width:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/combo.png) no-repeat;background-size:100% 100%}.combo-selected-class{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/combo-selected.png) no-repeat;background-size:100% 100%}.combo-disabled-class{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/combo-disabled.png) no-repeat;background-size:100% 100%}.mojo-ui-radio-item{float:left;width:95px}.mojo-com-entity-element .choose-button{float:right;margin-right:10px;margin-top:30px;width:60px;height:60px}.mojo-com-entity-element .info
+.status{margin-left:-150px;margin-top:-40px}.has-equip-class,.has-battle-class{width:60px;height:60px;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/has_equip.png);background-repeat:no-repeat;background-size:100% 100%}.has-battle-class{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/has_battle.png)}.mojo-ui-tabs{width:100%;margin-top:10px}.mojo-ui-tabs .box-outter{}.mojo-ui-tabs
+.nav{height:63px;width:auto;margin:0
+8px}.mojo-ui-tabs .nav
+ul{float:left;padding:0px;height:62px;display:inline;margin:0px;list-style-type:none}.mojo-ui-tabs .nav ul
+li{position:relative;float:left;border-radius:8px 8px 0px 0px;border-style:solid;border-width:2px 2px 0px 2px;border-color:#542b01;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/tab.png) no-repeat;background-size:100% 100%;height:55px;text-align:center;margin-top:7px;font-weight:bold;margin-right:2px;padding:0
+10px;font-size:27px;line-height:55px;letter-spacing:2px}.mojo-ui-tabs .nav ul li
+.flag{position:absolute;top:-6px;left:-4px;width:50px;height:50px;font-size:15px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-hot.png) no-repeat;background-size:100% 100%;color:yellow;line-height:35px;text-indent:-8px;text-shadow:none}.mojo-ui-tabs .nav ul .mojo-ui-tabs-selected{position:relative;float:left;background:-webkit-gradient(linear, 0 0, 0 100%, from(#c48d2c),
+color-stop(70%, #f1e1ae), to(#f1e1ae) );background:-moz-linear-gradient(#c48d2c, #f1e1ae);border-radius:8px 8px 0px 0px;position:relative;height:60px;text-align:center;border-width:2px;border-bottom-color:#F1E1AE;color:#542b01;font-size:35px;line-height:60px;margin-top:1px;font-weight:bolder;-webkit-box-shadow:none;text-shadow:2px 0 0 #d0b588, -2px 0px 0px #d0b588, 0 2px 0 #d0b588, 0 -2px 0 #d0b588;z-index:1000}.box-outter{margin:0;border-radius:8px;border:2px
+solid #542b01;background:#F1E1AE;overflow:hidden;width:764px;height:670px;padding-bottom:3px}.mojo-ui-tabs
+.panel{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/intensify-bg.png");background-size:100% 100%}.mojo-ui-progress{float:left;height:30px;width:180px;font-size:22px;text-align:center;background-color:#630;border-radius:20px;color:#F2EEC3}.mojo-ui-progress .bar
+span{width:180px;line-height:30px;display:block}.mojo-ui-progress
+.bar{border-radius:20px;background:-webkit-gradient(linear, 0 0, 0 100%, from(#FF6600), color-stop(40%, #ffa468), color-stop(60%, #ffa468), to(#FF6600) );background:-moz-linear-gradient(top, #FF6600, #ffa468 40%, #ffa468 60%, #F60 100%);height:100%}.yellow-bar
+.bar{background:-moz-linear-gradient(center top , #D3A900, #FFCE0B 40%, #FFD83C 60%, #D3A900 100%) repeat scroll 0 0 transparent;background:-webkit-gradient(linear, 0 0, 0 100%, from(#D3A900), color-stop(40%, #FFCE0B), color-stop(60%, #FFD83C), to(#D3A900) )}.green-bar
+.bar{background:-moz-linear-gradient(center top , #7DC921, #A4D144 40%, #B4EA6A 60%, #7DC921 100%) repeat scroll 0 0 transparent;background:-webkit-gradient(linear, 0 0, 0 100%, from(#7DC921), color-stop(40%, #A4D144), color-stop(60%, #B4EA6A), to(#7DC921) )}.ep
+.bar{border-radius:10px;background:-webkit-gradient(linear, 0 0, 0 100%, from(#e55828), color-stop(40%, #df7f5f), color-stop(60%, #df7f5f), to(#e55828) );background:-moz-linear-gradient(top, #FF6600, #ffa468 40%, #ffa468 60%, #F60 100%);float:left;height:100%}.mojo-ui-listpanel{width:100%;text-align:center}.mojo-ui-listpanel
+.header{overflow:auto}.mojo-ui-listpanel .list .waiting, .mojo-ui-page-selector-panel .panel .waiting, .mojo-ui-pagepanel .panel .waiting, .mojo-utils-shadow .pp-chrysanthemum{margin:auto;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/waiting.gif) center no-repeat;background-size:100% 100%;width:25px;height:25px}.mojo-ui-listpanel .list .empty, .mojo-ui-listpanel .list
+.more{width:auto;margin:3px
+3px 0 3px;background:#D1AF61;border-radius:6px;border:1px
+solid #714D1C;color:#542B01;padding:8px;overflow:hidden}.mojo-ui-listpanel .list
+.more{display:none;text-shadow:none;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/more.png) no-repeat #D1AF61;background-size:100% 100%;clear:both}.mojo-ui-dialog{position:absolute;border:#ce8d30 2px solid;border-radius:8px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/background-opacity.png);width:600px;padding-bottom:110px}.mojo-ui-dialog .word-break{word-break:break-all}.mojo-ui-dialog
+.title{height:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/tab.png) repeat;background-size:100% 100%;border-radius:6px 6px 0 0;line-height:40px;font-weight:bold;font-size:25px;text-align:center}.mojo-ui-dialog
+.content{color:#542b01}.mojo-ui-dialog .content
+.authcode{text-align:center;margin:20px
+0 0 10px}.mojo-ui-dialog .content .authcode img,.mojo-ui-dialog .content .authcode
+span{display:inlin-block;vertical-align:middle;margin:0
+5px}.mojo-ui-dialog .content .mojo-com-entity-large{margin-top:5px}.mojo-ui-dialog .content
+.tip{clear:both;font-weight:bold;padding:15px
+15px 0 15px;text-align:center;line-height:30px}.mojo-ui-dialog .content
+.paragraph{clear:both;padding:15px
+15px 0 15px;line-height:30px}.mojo-ui-dialog
+.skills{margin-top:15px;float:left}.mojo-ui-dialog .content .skills
+.paragraph{line-height:25px;padding:0
+15px;float:left;font-size:18px}.mojo-ui-dialog .content .frag-count{clear:both;line-height:30px;padding:15px}.mojo-ui-dialog .content
+.reward{clear:both;height:50px;text-align:center}.mojo-ui-dialog .content .reward
+.gained{font-weight:bold}.mojo-ui-dialog .content .reward .gained
+.icon{width:0}.mojo-ui-dialog .content .reward .mojo-ui-label{display:inline-block;padding:10px
+10px 0 10px}.mojo-ui-dialog .content .reward
+.gained{padding-right:0}.mojo-ui-dialog .words-tip{float:right;text-align:right;font-size:20px}.mojo-ui-dialog .content
+form{text-align:center}.mojo-ui-dialog .content
+textarea{width:97%;padding:8px;resize:none;border:none;outline:none;color:#F2EEC3;box-shadow:1px 1px 3px black inset;opacity:0.5;border-radius:8px;background-color:#542b01;font-size:20px;height:140px;display:inline-block;line-height:30px}.mojo-ui-dialog
+.footer{width:100%;text-align:center;position:absolute;bottom:15px}.mojo-ui-dialog .footer .mojo-ui-button{display:inline-block;background-size:100% 100%;margin:0
+15px;width:200px;height:70px;line-height:70px;font-size:30px}.pad-dialog1{width:400px}.pad-dialog1 .footer .mojo-ui-button{width:155px;height:60px;line-height:60px;font-size:23px;margin:0
+5px}.mojo-ui-dialog-overlay{background:#aaa 50% 50% repeat-x;opacity: .3;filter:Alpha(Opacity = 30);position:absolute;left:0px;top:0px}.mojo-ui-scroll .wrapper
+.scroller{width:100%}.mojo-ui-listpanel{height:100%}.mojo-ui-listpanel
+.window{width:100%;position:fixed;overflow:hidden}.mojo-ui-listpanel .header .mojo-ui-scroll
+.wrapper{margin:0px
+}.mojo-ui-scroll
+.wrapper{clear:both;margin:0px
+auto auto;position:absolute}.mojo-ui-overlay{background:#000;position:absolute;left:0px;top:0px}.mojo-ui-page-selector-panel
+.selector{clear:both;color:#542B01;font-size:25px;height:60px;line-height:60px;position:absolute;text-align:center;width:320px;position:absolute;top:380px}.mojo-ui-page-selector-panel .selector .mojo-ui-button{background-size:auto}.image{float:left;width:120px;height:120px;background:#542b01;border-radius:20px}.image-disabled-class{background:#834E18}.image-disabled-class
+img{opacity:0.2}.image
+img{width:120px;height:120px;border-radius:20px}.image .card-border{position:absolute;top:0;left:0;width:116px;height:116px;border:2px
+solid #f2c42c;border-radius:20px}.image .card-slot{width:116px;height:116px;border:2px
+solid #f2c42c;border-top:2px solid #fdf7b9;border-radius:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/slot-people.png) no-repeat;background-size:100% 100%}.image
+.selected{border:6px
+solid #F2C42C;border-top:6px solid #FDF7B9;width:108px;height:108px;opacity:1}.image
+.locked{opacity:0.3;width:116px;height:116px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/lock.png) no-repeat;background-size:100% 100%}.mojo-utils-shadow{position:absolute;background-color:black;z-index:9998;left:0px;top:0px;opacity:0.5}.mojo-utils-shadow .pp-chrysanthemum{position:absolute;z-index:9999;background-position:center center}.common-tips{width:100%;height:30px;background-color:rgba(84, 43, 1, 0.5);line-height:30px;margin:5px
+0 2px 0;text-align:center}.tips
+.icon{display:none}.tips
+.text{float:none}span.official{color:#7030a0}hr{border-width:1px;border-style:solid none none;margin:0px
+0px 8px;height:1px;border-color:#926d31;clear:both}input{background-color:#542B01;box-shadow:1px 1px 1px 1px black inset;border-radius:6px;color:#F2EEC3;padding:0
+4px}.search-area{line-height:50px;font-weight:bold;background:#eaf8fc;background-image:-moz-linear-gradient(#572e03, #94622f);background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0, #572e03),color-stop(1, #94622f) );border-radius:8px;border:1px
+#715129 solid;height:50px;position:relative;margin:5px}.search-area .search-input{position:absolute;top:4px;left:4px;right:80px;height:42px;background-image:-moz-linear-gradient(#e2e1e0, #fff);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#e2e1e0), to(#fff) );border-radius:5px;box-shadow:1px 1px 2px #000 inset;-webkit-box-shadow:1px 1px 2px #000 inset}.search-area .search-input
+input{outline:none;background:none;border:none;color:#542b01;width:100%;height:42px;line-height:42px;padding-left:5px;font-size:20px;box-shadow:none}.search-area .mojo-ui-button{float:right;width:70px;height:42px;border-radius:5px;text-align:center;background-image:none;background:-moz-linear-gradient(#ffb05f, #b86b1c);background:-webkit-gradient(linear, 0 0, 0 100%, from(#ffb05f), to(#b86b1c) );margin:4px;font-size:30px;line-height:42px}.search-area .mojo-ui-button-down{background:-moz-linear-gradient(#b86b1c, #ffb05f);background:-webkit-gradient(linear, 0 0, 0 100%, from(#b86b1c), to(#ffb05f) )}.redfont{color:#a80e0e}.highlight{color:#F2EEC3;font-weight:bold}span.official{color:#7030a0}.page-tips{background-color:rgba(84,43,1,0.5);height:24px;line-height:24px;margin-top:3px;text-align:center;width:100%}.rarity{width:110px;height:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/star.png) no-repeat;background-size:110px 20px}.info
+.rarity{float:left;margin:6px
+0 6px 55px;line-height:20px;text-indent:-55px}.mojo-com-sharepanel{width:100%;background:rgba(0,0,0,.8);background-size:100% 100%}.mojo-com-sharepanel
+.footer{position:absolute;bottom:40px;left:50%;margin-left:-100px}.mojo-com-sharepanel
+.content{text-align:center;padding:40px
+0}.mojo-com-sharepanel .sharepanel-element{position:relative;width:480px;height:60px;line-height:60px;display:inline-block;margin-top:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/sharepanel.png) no-repeat;background-size:100% 100%;color:#FFF;text-shadow:1px 1px 1px #542b01, -1px 1px 1px #542b01, 1px -1px 1px #542b01, -1px -1px 1px #542b01;font-weight:bold;font-size:36px}.mojo-com-sharepanel .sharepanel-weibo{position:absolute;left:60px;width:60px;height:60px;top:-2px;float:left;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/weibo-logo-64x64.png) no-repeat;background-size:100% auto}.sharepanel-element .sharepanel-weibo-name{text-align:left;margin-left:160px;letter-spacing:8px}.mojo-com-weibowithimagepublishdlg
+.border{clear:both}#mojo-com-weibowithimagepublishdlg .content
+textarea{padding-right:130px;width:430px}#mojo-com-weibowithimagepublishdlg .weibo-publish-img-div{width:140px;position:absolute;right:15px;top:110px}#mojo-com-weibowithimagepublishdlg .weibo-publish-img-div
+img{width:140px}.mojo-com-sharepanel .mojo-ui-button{width:480px;height:60px;line-height:60px;display:inline-block;margin-top:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/share-close.png) no-repeat;background-size:100% 100%;letter-spacing:20px;font-size:36px}body{margin:0;padding:0;background-color:#b89963;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/background.png);-webkit-user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:rgba(0,0,0,0);font-size:20px;font-family:serif;width:768px;height:934px;color:#f2eec3;position:absolute}.clear{clear:both}.box-inner{margin:3px
+3px 0 3px;background:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.3)	), color-stop(.03, rgba(209, 175, 97, 1) ) );background:-moz-linear-gradient(rgba(255, 255, 255, 0.3),	rgba(209, 175, 97, 1) 3% );border-radius:8px;border:1px
+solid #714D1C;color:#542B01;padding:15px;overflow:hidden;position:relative}.box-inner
+.name{float:left;font-weight:bold}.box-inner
+.level{float:left;width:90px}.box-inner
+.attack{float:left;width:100%;clear:both;line-height:40px}.box-inner
+.defence{float:left;clear:both;opacity:0.9}.toast{padding:8px;background-color:#000;opacity:0.8;border-radius:8px;border:2px
+solid #d7d1be;white-space:nowrap}.mojo-com-broadcast{height:55px;width:768px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/broadcast.png);background-size:100% 100%}.mojo-com-broadcast
+.wrapper{width:650px;height:30px;float:left;line-height:30px;position:relative;overflow:hidden;margin:11px
+0 0 85px}.mojo-com-broadcast .wrapper
+.item{position:absolute;width:100%;font-size:20px;font-weight:bold;white-space:pre-wrap;white-space:-moz-pre-wrap}.mojo-com-broadcast .wrapper .item
+.highlight{color:red}#com-profile-base-dialog{width:400px;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/profile-bg.png);height:634px;padding-bottom:0;background-position:0 40px }#com-profile-base-dialog
+.footer{bottom:45px}#com-profile-base-dialog .footer .mojo-ui-button{width:150px;height:60px;font-size:23px;line-height:60px;margin:0
+5px}.mojo-com-profile-base{position:relative;padding:0
+10px;line-height:15px;position:relative;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/baseprofile.png) no-repeat;background-size:100% 100%;width:748px;height:127px}.mojo-com-profile-base
+.left{float:left;width:300px;margin-top:15px;position:relative}.mojo-com-profile-base .left
+.name{font-weight:bold;width:250px;height:40px;text-align:center;margin:0
+0 8px 70px;color:#542b01;line-height:40px;font-size:25px}.mojo-com-profile-base .left
+.level{font-weight:bold;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/level.png") no-repeat;width:100px;height:100px;top:-12px;text-align:center;line-height:100px;font-size:30px;color:#fff;position:absolute;background-size:100%;z-index:200}.mojo-com-profile-base .left
+.xp{margin-left:50px}.mojo-com-profile-base .left .mojo-ui-progress{width:250px}.mojo-com-profile-base .left .mojo-ui-progress .bar
+span{width:250px;margin-left:20px}.mojo-com-profile-base .left .xp-border{width:280px;height:35px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/xp-border.png) no-repeat;background-size:100% 100%;position:absolute;top:46px;left:39px}.mojo-com-profile-base .right .ep-border,.mojo-com-profile-base .right .sp-border{width:200px;height:35px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border.png) no-repeat;background-size:100% 100%}.mojo-com-profile-base .right .ep-border{position:absolute}.mojo-com-profile-base .right .sp-border{position:absolute;top:61px}.mojo-com-profile-base
+.center{top:18px;right:260px;width:auto;position:absolute;line-height:13px;color:#542B01;min-width:130px;font-size:25px}.mojo-com-profile-base .center
+.rm{position:relative}.mojo-com-profile-base .center .rm
+.icon{position:absolute;top:-2px}.mojo-com-profile-base .center
+.vm{position:relative;margin-top:8px}.mojo-com-profile-base .center .vm
+.icon{position:absolute;top:-3px;margin-left:0px}.mojo-com-profile-base .center
+span{margin-left:40px;line-height:30px}.mojo-com-profile-base
+.right{float:right;width:205px;margin-top:15px}.mojo-com-profile-base .right
+.ep{position:relative}.mojo-com-profile-base .right .ep
+.icon{position:absolute;top:0;left:-10px;z-index:1000}.mojo-com-profile-base .left .mojo-ui-progress
+.icon{display:none}.mojo-com-profile-base .right .mojo-ui-progress{margin:2px
+0 10px 5px}.mojo-com-profile-base .right
+.sp{margin-top:6px;position:relative}.mojo-com-profile-base .right .sp
+.icon{position:absolute;top:-3px;left:-10px;z-index:1000}#com-profile-base-dialog
+.paragraph{font-weight:bold;clear:both;padding:0
+50px 50px 50px}#com-profile-base-dialog .paragraph .mojo-ui-label{height:25px;line-height:25px;margin-top:8px;background-color:rgba(84, 42, 1, 0.1);border-radius:8px}#com-profile-base-dialog .paragraph
+span{font-size:15px;display:block}#com-profile-base-dialog .paragraph .ep,#com-profile-base-dialog .paragraph
+.sp{border-radius:8px 8px 0 0}#com-profile-base-dialog .paragraph .time-for-ep,#com-profile-base-dialog .paragraph .time-for-sp{font-weight:normal;border-radius:0 0 8px 8px;background-color:rgba(84, 42, 1, 0.1);padding:3px
+0px 8px 30px;font-size:13px;line-height:20px}#com-profile-base-dialog .paragraph
+.icon{width:20px;height:20px;margin:3px
+5px 0 10px}#com-profile-base-dialog .paragraph .level
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/lv.png) no-repeat;background-size:100% 100%}#com-profile-base-dialog .paragraph .xp
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/xp.png) no-repeat;background-size:100% 100%}#com-profile-base-dialog .paragraph .rm
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/rm.png) no-repeat;background-size:100% 100%}#com-profile-base-dialog .paragraph .vm
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/vm.png) no-repeat;background-size:100% 100%}#com-profile-base-dialog .paragraph .ep
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/ep.png) no-repeat;background-size:100% 100%}#com-profile-base-dialog .paragraph .sp
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/sp.png) no-repeat;background-size:100% 100%}.mojo-com-forcemsgdlg .content .paragraph
+span{color:#7030A0}#com-profile-base-dialog
+.window{height:490px;margin-top:40px;position:relative}.mojo-com-message{height:auto;position:relative}.mojo-com-message
+.left{float:left;width:auto;text-align:left;line-height:30px}.mojo-com-message .left
+.content{font-weight:bold;word-break:break-all}.mojo-com-message .left
+.time{font-size:18px;margin:15px
+0 20px}.mojo-com-message .left .content
+span{color:#7030A0}.msg-overlay{background:-webkit-gradient(linear,0 0,0 100%,from(rgba(154,150,145,0.3)),color-stop(.03,rgba(84,43,1,0.3)));background:-moz-linear-gradient(rgba(154,150,145,0.3) ,rgba(84,43,1,0.3) 3%);background-color:rgba(84,43,1,0.1)}.mojo-com-msgdlg .content
+.detail{padding:25px;background-color:rgba(84, 43, 1, 0.2);border-radius:20px;overflow:auto}.mojo-com-msgdlg .content
+.card{float:right;border-radius:8px;width:100px;height:100px;border:2px
+solid #F2C42C;background-color:#542b01}.mojo-com-msgdlg .content .card
+img{width:100px;height:100px}.mojo-com-msgdlg .content .card
+.main_j{width:100%;text-align:center}.mojo-com-msgdlg .content
+.detailmsg{clear:both;margin-top:40px;text-align:center;float:left;width:100%;font-weight:bold}.mojo-com-msgdlg .content
+.sumary{float:left}.mojo-com-msgdlg .content .mojo-ui-label{font-size:16px;height:35px;line-height:35px}.mojo-com-msgdlg .content .mojo-ui-label
+.icon{width:30px;height:30px;margin-top:2px}.mojo-com-msgdlg  .content .level
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/lv.png) no-repeat;background-size:100% 100%}.mojo-com-msgdlg  .content .attack_corps
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/attack.png) no-repeat;background-size:100% 100%}.mojo-com-msgdlg .content
+span{color:#7030A0;font-weight:bold}.mojo-com-forcebase{position:absolute;bottom:0;top:184px;width:768px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/force-bg.jpg) no-repeat;background-size:100% 100%}.mojo-com-force-profile .grain
+.icon{margin-top:-2px}.mojo-com-force-profile .grain
+.text{color:#542b01;font-size:25px}.mojo-com-force-profile .right
+.sp{margin-top:14px}.mojo-com-force-profile .right .sp-border{top:62px}.mojo-com-forcebase
+.intro{width:100%;padding:10px
+0;margin-top:10px;background-color:rgba(0, 0, 0, 0.5);border:solid yellow;border-width:1px 0;text-align:center;color:#fff}.mojo-com-forcebase .intro
+.fname{width:450px;height:45px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/fname-bg.png) no-repeat;background-size:100% 100%;margin:0
+auto 10px;font-weight:bold;line-height:45px}.mojo-com-forcebase .intro .mojo-ui-label{font-weight:bold;width:70%;height:40px;line-height:40px;margin:auto;clear:both}.mojo-com-forcebase .intro .member, .mojo-com-forcebase .intro
+.fgrain{width:35%;margin:auto;display:inline-block}.mojo-com-forcebase .owner
+.icon{margin-top:-4px}.mojo-com-forcebase
+.notice{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/force-notice-bg.png) no-repeat;background-size:100% 100%;width:632px;height:220px;font-weight:bold;color:#542b01;position:relative;top:10px;margin:auto}.mojo-com-forcebase .notice .n-header{width:100%;height:50px;text-align:center;line-height:60px;font-size:25px}.mojo-com-forcebase .notice .n-header
+span{float:left;color:#bd2a2d;margin:0
+8px}.mojo-com-forcebase .notice .n-header
+marquee{float:left;width:65%}.mojo-com-forcebase
+.chat{position:absolute;width:60px;height:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/search-btn.png) no-repeat;background-size:50px 45px;font-size:19px;text-align:right;right:25px;top:12px;line-height:50px;color:#F8EECB}.mojo-com-relation .member-count{background-color:rgba(84, 43, 1, 0.5);margin-top:-3px;text-align:center;width:100%}.mojo-com-relationinputdlg .shareitem
+.label{display:inline-block;vertical-align:middle}.mojo-com-relationinputdlg .shareitem
+.input{width:150px;display:inline-block;vertical-align:middle;text-align:left}.mojo-com-relationinputdlg .shareitem .input
+input{line-height:27px;width:50%}.mojo-com-relationinputdlg
+input{width:50px;text-align:center;margin:0
+3px;border-radius:4px;border:1px
+solid #542b01;font-size:20px;font-weight:bold;box-shadow:1px 0 3px rgba(0,0,0,0.3) inset;color:#542b01;background-color:#fff}.mojo-com-forcebase .notice .n-header-disable{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/pen-disable.png) 380px 18px no-repeat;background-size:25px 25px}.mojo-com-forcebase .notice .n-content{position:absolute;top:70px;right:25px;bottom:25px;left:25px;word-wrap:break-word;overflow:hidden;font-weight:normal;font-size:18px;line-height:30px}.mojo-com-forcebase .notice .n-content
+.list{height:120px}.mojo-com-forcebase .notice .n-content
+.chatmsg{word-break:break-all}.button-area{position:absolute;bottom:0;left:0;right:0;top:475px}.button-area .everyday-do{width:648px;height:252px;position:absolute;top:50%;left:50%;margin:-126px 0 0 -324px}.everyday-do .mojo-ui-button{font-weight:bold;width:200px;height:110px;float:left;line-height:110px;font-size:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/forcebase-button.png) no-repeat;background-size:100% 100%;margin:8px}.everyday-do .mojo-ui-button-down{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/forcebase-button-down.png) no-repeat;background-size:100% 100%}.mojo-com-forceupdatedlg .mojo-ui-label{line-height:25px}.mojo-com-forceupdatedlg .mojo-ui-label span
+span{color:#cc3513}.mojo-ui-listpanel{height:100%}.mojo-ui-listpanel
+.header{overflow:auto}.mojo-ui-listpanel
+.footer{overflow:auto;min-height:3px}.mojo-com-forceupdatedlg{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/profile-bg.png") no-repeat;background-size:100% 93%;background-position:0 35px;height:400px;padding-bottom:0;width:400px}.mojo-com-forceupdatedlg .content .paragraph
+.tip{margin:10px
+0 15px}.mojo-com-forceupdatedlg
+.footer{bottom:35px}.mojo-com-forceupdatedlg .footer .mojo-ui-button{font-size:23px;height:60px;line-height:60px;margin:0
+5px;width:150px}.mojo-ui-dialog .content .paragraph .tips .icon,.mojo-ui-dialog .content .paragraph .cd
+.icon{display:none}.mojo-ui-dialog .content .paragraph .tips .text,.mojo-ui-dialog .content .paragraph .cd
+.text{margin:10px
+0;width:100%;text-align:center}.mojo-ui-dialog .content .paragraph
+.mem{text-align:center;width:100%;font-weight:bold}.mojo-ui-dialog .content .paragraph .mem
+.tit{display:inline-block;width:90px;text-align:right;margin:0
+5px}.mojo-ui-dialog .content .paragraph  .mem
+.val{display:inline-block;width:40px;text-align:left;margin:0
+5px}.rebel-tip-dialog .words-subhead{margin-left:15px}.rebel-tip-dialog  .words-tip{margin-right:15px}.mojo-ui-dialog .content
+textarea{height:240px}.mojo-ui-dialog .content .border  form #message-content{width:auto}#relation-masterviewslave
+.battleStatus{height:46px;width:40px}.mojo-com-msgdlg .content
+.paragraph{word-wrap:break-word;word-break:normal}.mojo-ui-dialog .content .alert-message{color:#B22222;font-size:18px;text-align:center}.special-event-letter{height:300px;width:470px}.special-event-list{height:340px}.special-event-list .content .paragraph,.special-event-letter  .content
+.paragraph{padding:0
+15px 0 15px}#event_message
+.window{position:fixed;height:280px;width:600px}.mojo-com-force-filter .typeFilter .entityType, .mojo-com-force-filter .orderFilter
+.entityOrder{border-radius:6px 6px 0 0;background-color:#542b01;height:30px;color:#F2EEC3;line-height:30px;margin-bottom:8px}.mojo-com-force-filter .typeFilter, .mojo-com-force-filter
+.orderFilter{float:left;width:180px;height:285px;text-align:center;font-weight:bold;color:#542B01;margin:8px
+0 0 25px;background-color:#D1AF61;border-radius:8px;border:1px
+#8F6336 solid}.mojo-com-force-filter
+.orderFilter{margin-left:20px
+width: 110px;height:285px}.mojo-com-force-filter
+.rarityFilter{float:left;width:90px;text-align:center;height:313px;margin:8px
+0 0 5px;font-weight:bold;color:#542B01;background-color:#D1AF61;border-radius:8px;border:1px
+#8f6336 solid}.mojo-com-force-filter
+.cancelButton{float:right;margin:4px
+8px 8px 4px}.mojo-com-force-filter
+.filterElement{text-align:left;line-height:45px;height:45px;position:relative;letter-spacing:-1px;text-indent:55px;margin:5px
+0}.mojo-com-force-filter
+.filterDisabled{disabled:true}.mojo-com-force-filter .combo, .mojo-com-force-filter.combo-disabled-class, .mojo-com-force-filter .combo-selected-class,
+.mojo-com-force-filter .radio, .mojo-com-force-filter .radio-selected-class{position:absolute;top:0;left:8px;margin:0}.mojo-com-force-filter{width:440px}.mojo-com-forceprofiledlg
+.window{height:490px;position:relative}.refresh-time{width:100%;height:30px;background-color:rgba(84, 43, 1, 0.5);line-height:30px;margin:5px
+0 2px 0;text-align:center}.refresh-time
+.icon{width:0}.refresh-time
+.text{float:none}.list{position:relative}.mojo-com-forceinternallist .mojo-ui-scroll{height:283px}.mojo-com-forceinternallist
+.list{width:100%}.mojo-com-forceinternalelement{width:auto;height:auto;overflow:hidden;margin:3px;border:#db941c 2px solid;border-radius:8px;box-shadow:1px 1px 3px #000;-moz-box-shadow:1px 1px 3px #000;background-color:#e2c98e;color:#542b01;position:relative}.mojo-com-forceinternalelement
+.row{line-height:20px;margin:15px
+8px;padding:0;text-align:center}.mojo-com-forceinternalelement
+.title{width:auto;height:35px;color:#f2eec3;border-radius:6px 6px 0 0;line-height:35px;font-weight:bold;padding:0
+8px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/tab.png) repeat-x #630}.mojo-com-forceinternalelement .title
+.left{float:left;height:20px;text-align:left}.mojo-com-forceinternalelement .title
+.center{display:none}.mojo-com-forceinternalelement .title
+.right{float:right;text-align:right;height:20px}.mojo-com-forceinternalelement
+.description{padding:8px
+0;text-align:left;width:auto}.mojo-com-forceinternalelement .row
+.requirement{float:left;width:30%;height:60px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/task-separate-bg.png) center no-repeat}.mojo-com-forceinternalelement .row .mojo-ui-label{margin:10px
+auto;height:35px;line-height:35px;display:inline-block}.mojo-com-forceinternalelement .row .requirement .ep
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/ep.png) no-repeat;background-size:20px 20px}.mojo-com-forceinternalelement  .row .reward
+.group{height:20px;text-align:center;display:block;margin:auto}.mojo-com-forceinternalelement  .row .reward .group
+.xp{display:inline-block;margin:0
+5px;width:auto}.mojo-com-forceinternalelement  .row .reward .group
+.vm{display:inline-block;margin:0
+5px;width:auto}.mojo-com-forceinternalelement  .row
+.reward{float:left;width:40%;height:60px;text-align:center;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/task-separate-bg.png) center no-repeat}.mojo-com-forceinternalelement .reward .xp
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/xp.png) no-repeat;background-size:20px 20px}.mojo-com-forceinternalelement .reward .vm
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/vm.png) no-repeat;background-size:20px 20px}.mojo-com-forceinternalelement .reward .grain
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/grain.png) no-repeat;background-size:20px 20px}.mojo-com-forceinternalelement .row .reward .group
+.bonus{font-size:13px;width:120px}.mojo-com-forceinternalelement .row
+.progress{float:right;width:30%;height:60px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/task-separate-bg.png) center no-repeat}.mojo-com-forceinternalelement .row .progress .mojo-ui-progress{float:none;margin:10px
+auto;color:#F2EEC3}.mojo-com-forceinternalelement .row
+.slot{float:left;margin:20px
+15px 15px 15px;width:190px;height:148px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/slot.png") no-repeat;background-size:100% 100%}.mojo-com-forceinternalelement .row .slot .mojo-ui-image{}.mojo-com-forceinternalelement .row .slot .mojo-ui-image
+img{margin-top:10px;border-radius:8px;width:52px;height:52px}.mojo-com-forceinternalelement .row
+.action{}.mojo-com-forceinternalelement .row .mojo-ui-button{float:right;background-size:100% 100%;margin:58px
+20px 0 0}.mojo-com-forceinternalelement .row
+.cd{position:absolute;right:30px;height:15px;bottom:130px;text-align:center;font-size:16px;width:230px}.mojo-com-forceinternalelement .row .cd
+.icon{width:0;height:0}.mojo-com-forceinternalelement .row .cd
+.text{float:none}.demand .icon,.bonus
+.icon{display:none}.mojo-com-forceinternalelement .row
+.defence{text-align:left}.mojo-com-forceinternalelement .row
+.skills{text-align:left;margin-bottom:10px}.mojo-com-forceinternalelement .row .skills
+span{font-size:12px}.mojo-com-forceinternalelement .row .slot .mojo-com-slot-container .mojo-com-slot{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/force/slot_bonus_normal.png") repeat-y;background-size:140px 480px;background-position:0px -12px;position:relative;top:13px;left:20px;width:140px;height:110px}.mojo-com-tipsdlg .info1
+span{color:red}.mojo-com-tipsdlg
+.info2{width:100%;margin-top:15px;text-align:center;height:20px}.mojo-com-tipsdlg .info2
+div{height:35px;line-height:35px;font-weight:bold}.mojo-com-tipsdlg .info2>div{display:inline-block;vertical-align:middle}.mojo-com-tipsdlg
+.info3{line-height:35px;margin-top:20px;text-align:center;width:100%;font-size:16px;text-align:center}.force-refresh-succdlg
+.paragraph{text-align:center}.force-refresh-succdlg
+.award{display:inline-block}.mojo-com-slot-container{width:90px;height:60px;margin:8px
+0 0 5px}.mojo-com-slot{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/slot_bonus_normal.png") repeat-y;background-size:140px 480px;background-position:0px -5px;position:relative;top:13px;left:20px;width:140px;height:110px}.mojo-com-slot-motion{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/com/slot/slot_bonus_blur.png") repeat-y}.member-count{width:100%;height:30px;background-color:rgba(84, 43, 1, 0.5);line-height:30px;margin:5px
+0 2px 0;text-align:center}.member-count
+.icon{width:0}.member-count
+.text{float:none}.member-count .text
+span{text-align:center}.mojo-com-forcememberelement{position:relative;clear:left;text-align:left;line-height:35px}.mojo-com-forcememberelement .force-member-name{font-weight:bold;float:left}.mojo-com-forcememberelement .hidden-txt{float:right;position:absolute;top:120px;right:20px}.mojo-com-forcememberelement .force-member-level{float:left;margin-right:15px;font-weight:normal}.mojo-com-forcememberelement .force-member-offer,.mojo-com-forcememberelement .force-member-login{float:left;color:#984807;font-weight:bold;margin:0
+0 10px}.mojo-com-forcememberelement .force-member-login{float:right;text-align:right}.mojo-com-forcememberelement  .force-member-attack{clear:both}.warClass .force-member-name{font-weight:bold;float:left;width:100%}.warClass .force-member-level{width:100%}.warClass .force-member-defence{clear:both}.mojo-com-forcememberdetaildlg{padding-bottom:20px}.mojo-com-forcememberdetaildlg .content
+.name{width:auto;text-align:center;font-weight:bold;margin:20px}.mojo-com-forcememberdetaildlg .content .actions .mojo-ui-button{margin:5px
+auto}.mojo-com-forcememberdetaildlg
+.footer{position:relative}.general-list-bg{width:100%;height:72px;background-color:#000;opacity:0.2;margin-top:10px}.general-list-bg-border{width:100%;height:132px;border:#d9cb0c solid;border-width:1px 0;position:relative;background-color:rgba(0, 0, 0, 0.3);margin-top:5px}.mojo-page .mojo-ui-pagepanel{background:none;border:none;margin:0;padding:0;width:320px}.mojo-page .mojo-ui-pagepanel .all-small-card-border .bar .arrow-up,.mojo-page .mojo-ui-pagepanel .all-small-card-border .bar .arrow-down{top:-12px}.general-list-bg-border
+.scroller{height:126px}.general-list-bg-border .arrow-left{font-size:40px;color:#d9cb0c;width:20px;height:20px;line-height:20px;text-shadow:1px 1px 1px #fff;position:absolute;top:20px;left:10px}.general-list-bg-border .arrow-right{font-size:40px;color:#d9cb0c;width:20px;height:20px;line-height:20px;text-shadow:1px 1px 1px #fff;position:absolute;top:20px;right:10px}.general-list-bg-border .arrow-disabled{color:#c5c5c5}.general-list-bg-border .all-small-card-border
+.list{margin-top:3px}.general-list-bg-border .all-small-card-border
+.image{margin:0
+5px;position:relative}.general-list-bg-border .all-small-card-border .image .img-class{opacity:1}.general-list-bg-border .all-small-card-border .image
+img{width:120px;height:120px;opacity:0.5}.general-list-bg-border .all-small-card-border .image .card-border{position:absolute;top:0;left:0;width:118px;height:118px;border:1px
+solid #f2c42c;border-radius:20px}.general-list-bg-border .all-small-card-border .image .card-slot{position:absolute;top:0;left:0;width:118px;height:118px;border-color:#f2c42c;border-top:#fdf7b9 4px solid;border-width:1px;border-style:solid;border-radius:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/slot-people.png) no-repeat;background-size:100% 100%}.general-list-bg-border .all-small-card-border .image
+.selected{border-color:#F2C42C;border-top:#FDF7B9 4px solid;border-width:6px;border-style:solid;width:108px;height:108px;position:absolute}.general-list-bg-border .all-small-card-border .image
+.locked{opacity:0.3;width:120px;height:120px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/lock.png) no-repeat;background-size:100% 100%}.mojo-com-forcememberadjustdlg{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/profile-bg.png") no-repeat;background-size:100% 95%;background-position:0 35px;height:510px;padding-bottom:0;width:400px}.mojo-com-forcememberadjustdlg .content
+.paragraph{text-align:center}.mojo-com-forcememberadjustdlg .content
+.header{margin:15px
+0 10px;font-weight:bold}.mojo-com-forcememberadjustdlg .content
+.officials{margin:auto;width:250px;background-color:rgba(84, 43, 1, 0.1);border-radius:8px;border:1px
+solid rgba(84, 43, 1, 0.2);padding:10px
+20px}.mojo-com-forcememberadjustdlg .content .officials .sub-official{height:30px;line-height:30px;margin:10px
+0;font-size:18px;border-bottom:1px solid rgba(84, 43, 1, 0.2)}.mojo-com-forcememberadjustdlg .content .officials
+.name{float:left}.mojo-com-forcememberadjustdlg .content .officials .official-count{float:left}.mojo-com-forcememberadjustdlg .content .officials .sub-official
+.radio{float:right;margin:-4px 0 0;width:30px;height:30px}.mojo-com-forcememberadjustdlg
+.footer{bottom:40px}.mojo-com-forcememberadjustdlg .footer .mojo-ui-button{width:150px;height:60px;margin:0
+5px;line-height:60px;font-size:23px}.mojo-com-forcemember
+.order_btn{position:absolute;right:136px;top:190px;width:120px;height:55px;line-height:55px;display:block;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/task-list.png") no-repeat;font-size:25px;border-radius:8px;background-size:100% 100%;border:1px
+solid #725C19;box-shadow:1px 1px 1px black}.mojo-com-forcemember .order_btn.mojo-ui-button-down{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/task-list-down.png") no-repeat;background-size:100% 100%}.mojo-com-forcememberdetaildlg .footer .mojo-ui-button{display:block;margin:15px
+auto}.mojo-com-force-filter .entityType, .mojo-com-force-filter
+.entityOrder{border-radius:6px 6px 0 0;background-color:#542b01;height:30px;color:#F2EEC3;line-height:30px;margin-bottom:18px}.mojo-com-force-filter .typeFilter, .mojo-com-force-filter
+.orderFilter{float:left;width:180px;height:300px;text-align:center;font-weight:bold;color:#542B01;margin:8px
+0 0 25px;background-color:#D1AF61;border-radius:8px;border:1px
+#8F6336 solid}.mojo-com-force-filter
+.orderFilter{margin-left:20px}.mojo-com-force-filter
+.rarityFilter{float:left;width:90px;text-align:center;height:313px;margin:8px
+0 0 5px;font-weight:bold;color:#542B01;background-color:#D1AF61;border-radius:8px;border:1px
+#8f6336 solid}.mojo-com-force-filter
+.cancelButton{float:right;margin:4px
+8px 8px 4px}.mojo-com-force-filter
+.filterElement{text-align:left;line-height:45px;height:45px;position:relative;letter-spacing:-1px;text-indent:60px;margin:5px
+0 0 18px}.mojo-com-force-filter
+.filterDisabled{disabled:true}.mojo-com-force-filter .combo, .mojo-com-force-filter.combo-disabled-class, .mojo-com-force-filter .combo-selected-class,
+.mojo-com-force-filter .radio, .mojo-com-force-filter .radio-selected-class{position:absolute;top:0;left:8px;margin:0}#tip-dialog
+.buttons{text-align:center}#tip-dialog .buttons
+.confirm{display:inline-block}.mojo-com-forceexchangelist{height:100%}.mojo-com-forceexchangelist .mojo-ui-listpanel{height:100%}.personal-grain-bar{float:left;margin:5px
+0 3px;width:100%;text-align:center;height:20px;line-height:20px;font-size:14px;color:#F2EEC3;background-color:rgba(84, 43, 1, 0.5)}.mojo-com-forceexchangelist .goods-detail
+.cd{height:35px;color:#542B01;line-height:35px;clear:left}.mojo-com-forceexchangelist .goods-detail .cd
+.text{text-align:left}.mojo-com-forceexchangelist  .goods-detail .cd
+.icon{width:0px;margin:0px}.mojo-com-forceexchangelist  .goods-detail  .text-red{color:#A80E0E}.mojo-com-friendformationdlg{padding-bottom:0px;min-height:730px}.mojo-com-friendformationdlg .general-list-bg-border{margin-top:0}.mojo-com-friendformationdlg .all-small-card-border .bar .arrow-up,
+.mojo-com-friendformationdlg .all-small-card-border .bar .arrow-down{top:-10px}.mojo-com-friendformationdlg  .mojo-ui-page-selector-panel
+.selector{top:330px}.mojo-com-friendformationdlg .mojo-com-package-general{color:#F2EEC3;height:260px;position:relative;text-align:center}.mojo-com-friendformationdlg .mojo-com-package-general
+.card{}.mojo-ui-dialog .content .card .mojo-com-entity-large--row--picture{margin:20px
+0 0 40px}.mojo-com-friendformationdlg .mojo-com-package-general .card .mojo-com-entity-large{margin:0}.mojo-com-friendformationdlg .mojo-com-entity-large .row
+img{left:0}.mojo-com-friendformationdlg .mojo-com-package
+.entities{width:90px;position:relative;z-index:200;float:right;height:480px;margin:20px
+40px 0 0}.mojo-com-friendformationdlg .mojo-com-package-entity{width:90px;height:120px;text-align:center}.mojo-com-friendformationdlg
+.content{color:#F2EEC3}.mojo-com-friendformationdlg .mojo-ui-page-selector-panel{height:360px}.selector
+.next{margin-right:0px}.mojo-com-friendformationdlg .mojo-com-entity-small{width:90px;height:90px}.mojo-com-friendformationdlg .mojo-com-entity-small
+img{width:90px;height:90px}.mojo-com-friendformationdlg .all-small-card-border
+.window{margin:0px
+60px 0px 60px;position:relative;height:130px}.all-small-card-border
+.bar{position:relative;top:-105px;left:0}.all-small-card-border .bar .mojo-ui-button{background:none;border:none;box-shadow:none;-webkit-box-shadow:none;font-size:40px;color:#fbe28a;text-shadow:1px 2px 2px #000}.all-small-card-border .bar .mojo-ui-button-disabled{color:gray}.all-small-card-border .bar .arrow-up{position:absolute;height:90px;width:45px;left:16px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/arrow-up.png) 0 0;background-size:45px 270px;top:0}.all-small-card-border .bar .mojo-ui-button{}.all-small-card-border .bar .arrow-down{position:absolute;width:45px;height:90px;right:15px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/arrow-down.png) 0 0;background-size:45px 270px;top:0}.all-small-card-border .bar .mojo-ui-button-down{background-position:0px -90px}.all-small-card-border .bar .mojo-ui-button-disabled{background-position:0px -180px}.mojo-com-battledetaildlg
+.content{padding-bottom:10px;color:#F2EEC3;padding:3px;position:relative}.center_line{width:1px;height:550px;position:absolute;left:300px;top:73px;background-color:#CCC}.fb_center_line{width:1px;height:575px;position:absolute;left:300px;top:73px;background-color:#CCC}.top-left{float:left;width:50%}.top-right{float:right;border-radius:8px 8px 0 0;width:50%}.top-left
+.player_name{font-weight:bold;line-height:30px;width:100%;border-radius:8px 8px 0 0;background-color:#720B06;text-align:center;height:30px;color:#F2EEC3}.top-left .player_level,.top-left .player_sum,.top-left .player_base,.top-left
+.player_team_add{float:left;font-size:16px;clear:left;line-height:25px;background-color:#F2EEC3;color:#720B06;height:25px;padding-left:10px;width:100%}.top-right
+div{float:right;clear:right}.top-right
+.player_name{font-weight:bold;line-height:30px;width:100%;border-radius:8px 8px 0 0;background-color:#0F4568;text-align:center;height:30px;color:#F2EEC3}.top-right .player_level,.top-right .player_sum,.top-right .player_base,.top-right
+.player_team_add{float:right;font-size:16px;clear:right;line-height:25px;background-color:#F2EEC3;color:#0F4568;height:25px;text-align:right;padding-right:10px;width:100%}.army{float:left;clear:left;background-color:#F2EEC3;width:100%;padding:16px
+0 10px 0;border-radius:0 0 8px 8px;position:relative;height:450px}.army
+.center_line{width:1px;height:100%;position:absolute;left:147px;top:-16px;background-color:#CCC}.army
+.con_left{float:left;width:50%}.army .con_left
+.player_attacker{margin:0
+0 10px 10px;font-size:16px;height:120px;color:#720B06;position:relative}.army .con_left .player_attacker .small-card{float:left;width:120px;height:120px;border-radius:20px;background-color:#542b01}.army .con_left .player_attacker .small-card
+img{width:120px;height:120px;border-radius:20px}.army .con_left .player_attacker .attacker-restraint{position:absolute;bottom:55px;left:125px;width:150px}.army .con_left .player_attacker .attacker-restraint .mojo-ui-label{float:left;height:30px;margin-right:5px}.army .restraint
+.icon{width:20px;height:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/green-star.png) no-repeat;background-size:100% 100%;float:left;margin:5px
+0 0 0}.army .restraint
+.text{font-size:14px;color:#299524}.army .resist
+.icon{width:20px;height:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/yellow-star.png) no-repeat;background-size:100% 100%;float:left;margin:5px
+0 0 0}.army .resist
+.text{font-size:14px;color:#DB8400}.army .be-restraint
+.icon{width:20px;height:20px;margin:5px
+0 0 0;background-size:100% 100%;float:left;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/gray-star.png) no-repeat;background-size:100% 100%}.army .be-restraint
+.text{font-size:14px;color:#808080}.army .weapon_hit
+.icon{width:20px;height:20px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/green-square.png) no-repeat;background-size:100% 100%;float:left;margin:5px
+0 0 0}.army .weapon_hit
+.text{font-size:14px;color:#299524}.army .con_left .player_attacker
+.attacker_name{bottom:30px;left:125px;width:150px;position:absolute}.army .con_left .player_attacker
+.attacker_attack{bottom:5px;left:125px;position:absolute}.army
+.con_right{float:right;width:50%}.army .con_right
+.opponent_defender{margin:0
+10px 10px 0;font-size:16px;height:120px;color:#0F4568;position:relative}.army .con_right .opponent_defender .defender-restraint{position:absolute;bottom:55px;right:125px;width:150px}.army .con_right .opponent_defender .defender-restraint .mojo-ui-label{float:right;margin-left:5px;height:30px}.army .armor_protect
+.icon{float:left;height:20px;width:20px;margin:5px
+0 0 0;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/green-square.png) no-repeat;background-size:100% 100%}.army .armor_protect
+.text{font-size:14px;color:#299524}.army .con_right .opponent_defender .small-card{float:right;width:120px;height:120px;border-radius:20px;background-color:#542b01}.army .con_right .opponent_defender .small-card
+img{width:120px;height:120px;border-radius:20px}.army .con_right .opponent_defender .small-card
+image{width:120px;height:120px;border-radius:20px}.army .con_right .opponent_defender
+.defender_name{bottom:30px;right:125px;text-align:right;position:absolute}.army .con_right .opponent_defender
+.defender_defence{position:absolute;bottom:5px;right:125px}.mojo-com-battledetaildlg{padding-bottom:3px}.mojo-com-battledetaildlg .content
+.scroller{width:100%}.army .rebirth-4{color:#1a4ccd}.army .rebirth-5{color:#63225b}.army .rebirth-6{color:#bd2a2d}.mojo-com-battledetaildlg
+.footer{float:left;position:relative;height:90px;width:100%;bottom:0}.mojo-com-battledetaildlg .footer .mojo-ui-button{margin:10px}.mojo-com-battledetaildlg
+.window{position:relative;height:100%}.army-statistics{position:relative;height:66px}.army-statistics .mojo-ui-label{float:left;height:30px;width:120px;margin-left:8px}.mojo-com-package-general{height:358px}.mojo-com-package-general
+.card{width:400px;height:480px}.mojo-com-package-general .card-default{width:400px;height:480px;border-radius:20px;margin:20px
+0 0 40px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/card-default.png") no-repeat scroll  #D1AF61;float:left;background-size:100% 100%}.mojo-com-package-general .card-default
+.text{font-size:80px;font-weight:bolder;opacity:0.7;margin:auto;padding-top:130px;text-align:center;width:240px}.mojo-com-package-entity{width:60px;height:60px;text-align:center}.mojo-com-package-entity
+.card{width:90px;height:90px}.mojo-com-package-entity
+.name{font-size:19px;color:#542b01;text-align:center;line-height:20px;width:100px;height:20px}.mojo-com-package-entity .rebirth-4{color:#203f8f}.mojo-com-package-entity .rebirth-5{color:#63225b}.mojo-com-package-entity .rebirth-6{color:#bd2a2d}.mojo-com-package-entity .no-entity{width:90px;height:90px;background-color:#542b01;border-radius:10px}.mojo-com-package-entity .no-entity-sword{background-position:0 -570px}.mojo-com-package-entity .no-entity-shield{}.mojo-com-package-entity .no-entity-mounts{background-position:0 -870px}.mojo-com-package-entity .no-entity-treasure{background-position:0 -970px}.mojo-com-package-entity .no-entity
+.text{clear:both;font-size:35px;font-weight:bolder;opacity:0.7;width:90px;text-align:center;line-height:45px;height:90px}.mojo-com-forcewar .forcewar-start-title{color:#542B01;font-weight:bold;margin:90px
+auto 20px;width:50%}.mojo-com-forcewar .forcewar-start-content{color:#542B01;font-weight:normal;width:50%;margin:0
+auto}.mojo-com-forcewar #forcewar-battle-start{font-size:28px;margin:40px
+auto}.mojo-com-forcewar .mojo-ui-listpanel{height:665px}#forcewar-opponent-listpanel.non-rmb-player .mojo-com-forcewarelement .forcewar-element-position{float:left;line-height:40px}#forcewar-opponent-listpanel.non-rmb-player .mojo-com-forcewarelement .non-rmb-player-overall{float:left;line-height:40px}#forcewar-opponent-listpanel.non-rmb-player .mojo-com-forcewarelement .non-rmb-player-individual{float:right;margin-right:130px;line-height:40px}.non-rmb-assist-attack-green{color:rgb(31,150,36)}.non-rmb-assist-attack-red{color:#CA0202}#forcewar-opponent-listpanel.non-rmb-player .force-back-btn{width:100px;height:45px;line-height:45px;top:5px;right:20px}#forcewar-opponent-listpanel.non-rmb-player .has-captured-tag{top:80px}.mojo-com-forcewar .mojo-com-forcewarelement .forcewar-element-position{font-weight:bold;margin-right:10px}.mojo-com-forcewar .mojo-com-forcewarelement .forcewar-element-position
+.text{font-weight:bold}.mojo-com-forcewar .mojo-com-forcewarelement
+.line{height:1px;border-top:1px solid #926D31}.mojo-com-forcewar .mojo-com-forcewarelement .forcewar-element-general,
+.mojo-com-forcewar .mojo-com-forcewarelement .forcewar-element-defence{line-height:35px;height:35px}#forcewar-opponent-listpanel.non-rmb-player .mojo-com-forcewarelement .forcewar-element-general,
+#forcewar-opponent-listpanel.non-rmb-player .mojo-com-forcewarelement .forcewar-element-defence{line-height:25px;height:25px}.mojo-com-forcewar .forcewar-notice{width:100%;height:30px;background-color:rgba(84,43,1,0.5);line-height:30px;margin:5px
+0  2px 0;text-align:center}.mojo-com-forcewar .forcewar-element-label
+.icon{width:auto;height:auto;margin-right:8px;white-space:nowrap}.mojo-com-forcemember .choose-button{position:absolute;top:0px;right:0px;margin-right:10px;margin-top:15px}.mojo-com-forcemember
+.radio{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/radio.png) no-repeat;width:40px;height:40px;background-size:40px 40px;position:absolute;top:50%;margin:-20px 0 0 0;right:10px}.mojo-com-forcemember .radio-selected-class{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/radio-selected.png) no-repeat;background-size:40px 40px}.mojo-com-forcemember
+.selectedClass{background:-webkit-gradient(linear,0 0,0 100%,from(rgba(255, 255, 255, 0.3)),color-stop(.03,#A97222));background:-moz-linear-gradient(rgba(255, 255, 255, 0.3), #A97222 3%)}.mojo-com-commondialog
+.fgrain{width:100px;margin:6px
+auto 6px auto}#forcewar-tabs .forcewar-element-enemy-gain-text{width:200px;text-align:left}#forcewar-tabs
+.enemy{position:absolute;margin:-32px 180px;width:100px}#forcewar-tabs .enemy-btn{bottom:20px}.adjust-time{color:#542B01;padding-bottom:10px;border-bottom:1px solid #666}.adjust-time-label{margin-right:240px;line-height:86px}#adjust-time-btn{position:absolute;right:10px;top:291px}.adjust-time
+span{color:#A80E0E}.mojo-com-forcerestdlg
+.shareitem{overflow:hidden;text-align:center}.mojo-com-forcerestdlg .shareitem .fromlabel, .mojo-com-forcerestdlg .shareitem .label,#adjust-end-time{display:inline-block;vertical-align:middle}.mojo-com-forcerestdlg .shareitem .input
+input{line-height:23px;vertical-align:middle;float:none}.mojo-com-forcerestdlg
+input{float:left;width:50px;text-align:center;margin:0
+3px;border-radius:4px;border:1px
+solid #542b01;font-size:14px;font-weight:bold;box-shadow:1px 0 3px rgba(0,0,0,0.3) inset;color:#542b01;background-color:#fff}.com-crazyforce-march-panel
+.march{color:#542B01;line-height:17px;font-weight:normal;width:300px}.march-content{color:#542B01;font-weight:normal;margin:0
+10px}.march-time{color:#542B01;font-weight:normal;margin:10px
+auto auto 30px;font-size:24px}#com-crazyforce-march-panel .march-time
+.text{margin-left:90px}#com-crazyforce-march-panel
+.text{float:none;text-align:left;margin-left:100px}#march-retreat-btn{margin:280px
+auto 0 auto}.box-outter .mojo-ui-listpanel-child .in-force-rest{font-weight:bold;position:absolute;top:102px;right:18px}.rebel-start-dialog{width:420px}#com-crazyforce-march-panel .header
+.text{margin:0;text-align:center;float:none}.mojo-com-goods{position:relative;padding:15px
+15px 25px 15px}.mojo-com-goods
+.image{margin-right:8px;float:left}.mojo-com-goods .goods-detail{margin:5px
+0 0;width:80%;text-align:left;float:left}.goods-detail .goods-name{font-size:25px;font-weight:bold;line-height:20px}.goods-detail .goods-description{margin:10px
+0 0 0}.goods-detail .goods-price{float:left;clear:both;margin:5px
+0 0;width:150px;height:20px;line-height:20px;color:#542B01}.goods-price
+.icon{width:20px;height:20px;float:left;margin-right:3px}.goods-price .goods-vm-price{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/vm.png) no-repeat;background-size:20px 20px}.goods-price .goods-rm-price{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/rm.png) no-repeat;background-size:20px 20px}.goods-price
+.before{float:left;margin-right:5px;opacity:0.6;text-decoration:line-through;font-size:20px;line-height:20px;color:#542B01}.goods-price
+.now{float:left}.goods-detail-btn-panel .goods-buy-btn{float:left}.goods-detail-btn-panel .goods-back-btn{float:right}.detail-panel .goods-price{height:20px;margin-left:8px}.goods-price .price-title{float:left;font-weight:bolder;color:#542B01}.equip{margin:auto}.goods-detail .level-info{color:#542B01;height:20px;margin:8px
+0 0;width:100%}.goods-detail .level-info .level-title{float:left;font-weight:bold}.mojo-com-goods-price{height:35px;color:#542b01;margin-top:5px;line-height:45px;clear:left}.price-tip{float:left;clear:left;margin:12px
+0 0 15px}.mojo-com-goods-price
+.none{width:0;height:0}.mojo-com-goods-price
+.before{float:left;margin:1px
+5px 0 0;opacity:0.6;text-decoration:line-through;font-size:20px}.mojo-com-goods-price
+.now{float:left}.mojo-com-goods-price .price-title{float:left;font-weight:bold}.mojo-com-needbuydialog .content
+.paragraph{margin-bottom:5px;line-height:30px;font-size:18px}.mojo-com-needbuydialog
+.goods{float:left;padding:15px;line-height:28px}.mojo-com-needbuydialog .goods>div{float:left}.mojo-com-needbuydialog .goods
+.card{width:120px;height:120px;position:relative;background-color:#542b01;border-radius:8px;margin-right:8px}.mojo-com-needbuydialog .goods .card
+img{border-radius:8px;width:120px;height:120px}.mojo-com-needbuydialog .goods
+.name{font-weight:bold;line-height:20px;width:400px}.mojo-com-needbuydialog .goods
+.desc{width:430px;margin-top:8px}.mojo-com-needbuydialog .goods .mojo-com-goods-price{margin:10px
+0 0;clear:none}.mojo-com-needbuydialog .goods .mojo-com-goods-price>div{vertical-align:middle;line-height:35px}.mojo-com-needbuydialog
+.tip{position:absolute;bottom:0;width:100%;text-align:center;line-heigth:35px;font-size:13px;color:#942b02;height:35px}.mojo-com-entity-large--row--picture{float:left;width:400px;height:480px;position:relative;border-radius:20px;box-shadow:1px 0px 2px rgba(0, 0, 0, 0.5);-webkit-box-shadow:2px 2px 4px rgba(0, 0, 0, 0.5);background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 0}.mojo-ui-dialog .content .mojo-com-entity-large--row--picture{margin:10px
+0 0 15px}.mojo-com-entity-large--row--description{float:right;width:120px;height:436px;color:#542b01;-webkit-text-align:justify;text-justify:distribute;border:2px
+solid rgba(231, 161, 36, 0.5);border-radius:8px;color:#F2EEC3;padding:20px;line-height:30px;opacity:0.6;background-color:#542b01;margin:10px
+10px 0 0;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/description.png);background-size:100% 100%;font-size:18px}.mojo-com-entity-large--row--picture--name{position:absolute;text-align:center;width:300px;color:black;font-weight:bold;height:55px;line-height:55px;margin-left:100px;font-size:32px;text-shadow:1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff,
+-1px -1px 2px #fff}.skill-border{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/skill-border.png) no-repeat;background-size:100% 100%;width:400px;float:left;height:480px;margin:10px
+0 0 10px}.skill-border
+img{margin:170px
+0 0 100px;width:200px;height:200px;background-size:100% 100%}.skill-border .skill-name{position:absolute;text-align:center;width:400px;color:#552D09;font-weight:bold;height:70px;top:140px;font-size:40px;line-height:70px}.mojo-com-entity-large--row--picture--border{position:absolute;width:400px;height:480px;margin:0}.mojo-com-entity-large--row--picture--type{width:90px;height:130px;position:absolute;left:10px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements2.png) no-repeat;background-size:802px;top:-2px}.type-2{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-attrct.png) no-repeat;background-size:100% 100%}.type-3{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-defence.png) no-repeat;background-size:100% 100%}.type-4{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-hourse.png) no-repeat;background-size:100% 100%}.type-5{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-canjuan.png) no-repeat;background-size:100% 100%}.type-6{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-canjuan.png) no-repeat;background-size:100% 100%}.type-7{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-huandan.png) no-repeat;background-size:100% 100%}.type-8{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-egg.png) no-repeat;background-size:100% 100%}.type-gp-1{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-wei.png) no-repeat;background-size:100% 100%}.type-gp-2{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-shu.png) no-repeat;background-size:100% 100%}.type-gp-3{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-wu.png) no-repeat;background-size:100% 100%}.type-gp-4{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-qun.png) no-repeat;background-size:100% 100%}.type-gp-5{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jin.png) no-repeat;background-size:100% 100%}.type-gp-6{width:90px;height:130px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-han.png) no-repeat;background-size:100% 100%;position:absolute;top:-10px}.border-rarity-1{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border-rarity-u-1.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.border-rarity-2{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border-rarity-u-2.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.border-rarity-3{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border-rarity-u-3.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.border-rarity-4{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border-rarity-u-4.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.border-rarity-5{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border-rarity-u-5.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.border-rarity-other{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border-rarity-other.png) no-repeat;background-size:100% 100%}.bg-level-1{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/bg-level-1.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.bg-level-2{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/bg-level-2.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.bg-level-3{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/bg-level-3.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.bg-level-4{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/bg-level-4.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.bg-level-5{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/bg-level-5.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.bg-level-other{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/bg-level-other.png) no-repeat;background-size:100% 100%;width:400px;height:480px}.mojo-com-entity-large .row .picture
+.rarity{width:10px;height:200px;position:absolute;left:0px;top:20px}.mojo-com-entity-large .row .picture .star-rarity-1{}.mojo-com-entity-large .row .picture .star-rarity-2{}.mojo-com-entity-large .row .picture .star-rarity-3{}.mojo-com-entity-large .row .picture .star-rarity-4{}.mojo-com-entity-large .row .picture .star-rarity-5{}.mojo-com-entity-large--row--picture--attributes{position:absolute;width:100%;height:55px;bottom:0;color:#F7F5C2}.mojo-com-entity-large--row--picture--attributes--level{width:50px;height:50px;position:absolute;left:5px;text-align:center;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -421px;background-size:802px;line-height:50px;font-weight:bold;top:0px}.mojo-com-entity-large--row--picture--attributes--mojo-ui-progress{height:10px;width:360px;position:absolute;left:30px;top:2px}.mojo-com-entity-large .row .picture .attributes .mojo-ui-progress
+.bar{height:10px}.mojo-com-entity-large .row .picture .attributes .mojo-ui-progress .bar
+span{width:160px}.mojo-com-entity-large--row--picture--attributes--mojo-ui-label{position:absolute;width:100px;height:15px;font-size:12px;line-height:15px}.attributes
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat;background-size:802px;width:9px;height:12px}.attributes .mojo-ui-progress
+.icon{width:0;height:0}.mojo-com-entity-large .row .picture .attributes .mojo-ui-label
+.text{background-color:rgba(0, 0, 0, 0.5);border-radius:10px;float:left;padding:0
+4px;text-align:left;font-size:15px;line-height:30px;height:30px}.mojo-com-entity-large--row--picture--attributes--effects{left:55px;top:18px;position:relative;height:40px;width:345px;text-align:center}.effect-attack{margin-left:3px;position:static;height:28px;width:auto;float:left}.effects .effect-attack
+.icon{width:20px;height:28px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png") no-repeat 0 0;background-size:802px}.effect-defence{position:static;height:28px;width:auto;margin-left:10px;float:left}.effects .effect-defence
+.icon{width:28px;height:28px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png") no-repeat 0 -120px;background-size:801px;margin:2px
+0 0 0}.effect-defence-min-percent{position:static;height:20px;width:auto;margin-left:10px}.effects .effect-defence-min-percent
+.icon{width:50px;height:28px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png") no-repeat 0 -180px;background-size:802px;margin:2px
+0 0 0}.effect-vm,.effect-xp,.effect-ep,.effect-sp{margin-left:10px;position:static;height:20px;width:auto}.effects .effect-vm
+.icon{width:44px;height:26px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -270px;margin-top:2px;background-size:802px}.effects .effect-xp
+.icon{width:50px;height:28px;margin-top:2px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -392px;background-size:802px}.effects .effect-ep
+.icon{width:40px;height:28px;margin-top:2px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -330px;background-size:802px}.effects .effect-sp
+.icon{width:40px;height:30px;margin-top:2px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/card-elements.png) no-repeat 0 -240px;background-size:802px}.effect-attack-max-percent,.effect-defence-max-percent,.effect-attack-min-percent,.effect-max-defence-percent,.effect-max-attack-percent{position:static;height:20px;margin-left:10px;width:auto}.attributes .effect-attack-max-percent
+.icon{width:44px;height:28px;background-position:0 -32px;margin-top:2px}.attributes .effect-defence-max-percent
+.icon{width:52px;height:28px;background-position:0 -150px}.attributes .effect-attack-min-percent
+.icon{background-position:0 -60px;width:40px;height:28px}.attributes .effect-max-defence-percent
+.icon{width:44px;height:28px;background-position:0 -210px;margin-top:2px}.attributes .effect-max-attack-percent
+.icon{width:36px;height:28px;background-position:0 -90px}.mojo-com-entity-large .skills .skill-enable{color:#880800}.mojo-com-entity-large .row .picture .minis-flag{position:absolute;width:172px;height:230px;left:115px;top:150px}.mojo-com-entity-large .row .picture .minis-flag-type-2{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-attrct.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-3{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-defence.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-4{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-hourse.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-1{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-wei.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-2{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-shu.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-3{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-wu.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-4{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-qun.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-5{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jin.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-6{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-han.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-10{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jie.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-11{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-nv.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-12{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jiang.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-13{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-shenqi.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large .row .picture .minis-flag-type-gp-15{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-god.png) no-repeat;background-size:100% 100%}.mojo-com-entity-large--row--img{position:absolute;width:400px;height:480px;border-radius:14px}.mojo-com-entity-large .row .picture .rebirth-4{color:#203f8f}.mojo-com-entity-large .row .picture .rebirth-5{color:#63225b}.mojo-com-entity-large .row .picture .rebirth-6{color:#bd2a2d}.mojo-com-entity-small{color:#432101;background-color:#542b01;border-radius:8px;float:left;position:relative;height:120px;width:120px}.mojo-com-entity-small
+img{border-radius:20px;height:120px;width:120px}.mojo-com-entity-small .minis-flag{position:absolute;left:33px;top:25px;height:80px;width:55px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/minis-small-flag.png") no-repeat;background-size:416px 52px}.mojo-com-entity-small .minis-flag-type-2{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-attrct.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-3{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-defence.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-4{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-hourse.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-1{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-wei.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-2{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-shu.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-3{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-wu.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-4{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-qun.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-5{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jin.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-6{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-han.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-10{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jie.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-11{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-nv.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-12{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-jiang.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-13{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-shenqi.png) no-repeat;background-size:100% 100%}.mojo-com-entity-small .minis-flag-type-gp-15{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/flag-god.png) no-repeat;background-size:100% 100%}.has-captured{height:47px;background-image:-moz-linear-gradient(top, #FEFEC9, #FEE57F 60%);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #FEFEC9), color-stop(0.6, #FEE57F) );background-image:-moz-linear-gradient(top, #FEFEC9, #FEE57F 60%)}.has-captured .mojo-ui-button-disabled{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-attack-btn-down.png) no-repeat}.forcewar-battlepanel .box-inner{min-height:110px}.has-captured-tag{border:solid 4px #CD0000;border-radius:8px 8px 8px 8px;position:absolute;top:50px;right:30px;width:100px;height:50px;color:#CD0000;font-size:25px;font-weight:bolder;line-height:50px;-moz-transform:rotate(-30deg);-webkit-transform:rotate(-30deg);-o-transform:rotate(-30deg);-ms-transform:rotate(-30deg);transform:rotate(-30deg)}.mojo-com-forcesearch .mojo-com-forcelist{min-height:300px}.mojo-com-forcewarpreviewdlg .content
+.name{line-height:35px;height:35px;color:#542B01;margin:20px
+0;text-align:center}.mojo-com-forcewarpreviewdlg .content .player,
+.mojo-com-forcewarpreviewdlg .content
+.opp{display:inline-block}.mojo-com-forcewarpreviewdlg
+.player_icon{display:inline-block;width:25px;height:25px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/player_icon.png") no-repeat;background-size:100% 100%;vertical-align:middle}.mojo-com-forcewarpreviewdlg .player_name,
+.mojo-com-forcewarpreviewdlg
+.opp_name{display:inline;vertical-align:middle}.mojo-com-forcewarpreviewdlg
+.vs{display:inline-block;margin:0
+20px;color:#cb1800;font-weight:bold;text-shadow:1px 1px 1px #fff, -1px 1px 1px #fff, 1px -1px 1px #fff,
+-1px -1px 1px #fff;font-size:30px;vertical-align:middle}.mojo-com-forcewarpreviewdlg
+.opp_icon{display:inline-block;vertical-align:middle}.mojo-com-forcewarpreviewdlg .content .ifwin,
+.mojo-com-forcewarpreviewdlg .content
+.iflose{margin:15px
+auto;border-radius:5px;width:450px;background-color:#c1a568;text-align:center}.mojo-com-forcewarpreviewdlg .content .ifwin
+.win{height:30px;background-color:#542b01;border-radius:5px 5px 0 0;opacity:0.5;text-align:center;color:#fff;font-weight:bold;line-height:30px}.mojo-com-forcewarpreviewdlg .content .iflose
+.lose{height:30px;background-color:#542b01;border-radius:5px 5px 0 0;opacity:0.5;text-align:center;color:#fff;font-weight:bold;line-height:30px}.mojo-com-forcewarpreviewdlg .content
+.rate{clear:left;line-height:20px;padding-bottom:15px;margin-bottom:15px;font-size:13px}.mojo-com-forcewarpreviewdlg .win-content,
+.mojo-com-forcewarpreviewdlg .lose-content{text-align:center;width:100%;padding:15px
+0}.mojo-com-forcewarpreviewdlg .content .force-grain,
+.mojo-com-forcewarpreviewdlg .content
+.fgrain{display:inline-block;line-height:35px;width:auto;vertical-align:middle}.mojo-com-forcewarpreviewdlg .content
+.tips{height:30px;line-height:30px;margin:0
+auto;width:420px}.mojo-com-forcewarpreviewdlg .capture-offer{margin-top:5px}.mojo-com-forcewarpreviewdlg .grain , .mojo-com-forcewarpreviewdlg
+.contribute{display:inline-block}.mojo-com-commondialog .grain ,.mojo-com-commondialog
+.contribute{display:inline-block}.mojo-com-forcewarpreviewdlg .content
+.paragraph{padding:8px
+70px}.mojo-com-forceelement{position:relative;clear:left;text-align:left;line-height:25px}.mojo-com-forceelement
+.level{font-weight:bold;margin-right:15px;width:auto}.mojo-com-forceelement
+.rank{float:right;text-align:right;font-weight:bold}.mojo-com-forceelement
+.owner{clear:left;border-top:1px solid #926D31;line-height:40px;height:35px}.mojo-com-forceelement
+.member{line-height:35px}.mojo-com-forceelement
+.forcetype{float:left;margin-right:10px}.mojo-com-forceelement .text-red{color:#a80e0e}.mojo-com-forcelist{height:100%}.mojo-com-forcelist
+.header{overflow:auto}.mojo-com-forcelist
+.footer{min-height:3px}#tabs-forcelist
+.panel{height:800px}.mojo-com-forceinfodlg{background-color:#E1C88C;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/dlg-bg.jpg) 0 40px no-repeat;background-size:100% 95%}.mojo-com-forceinfodlg .content
+.paragraph{padding:15px
+30px 0}.mojo-com-forceinfodlg .paragraph
+.name{width:100%;font-size:30px;text-align:center;height:40px;line-height:40px;font-weight:bold;margin-top:30px}.mojo-com-forceinfodlg .paragraph .level,
+.mojo-com-forceinfodlg .paragraph .owner,
+.mojo-com-forceinfodlg .paragraph
+.member{width:150px;height:120px;text-align:center;float:left;margin:15px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/force/forceinfodlg-bg.png") center center  no-repeat;background-size:100% 100%;font-weight:bold}.mojo-com-forceinfodlg .paragraph
+.h{margin-top:40px;font-size:25px}.mojo-com-forceinfodlg .paragraph
+.v{font-size:18px;font-weight:normal}.mojo-com-forceinfodlg .paragraph
+.board{clear:both;margin:10px
+auto 25px;width:540px;min-height:170px;border-radius:21px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/forceinfodlg-board.png) center no-repeat;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/board-bottom.png),url(/mojo/resources/classic/ipad/0.2.0/css/image/force/board-center.png);background-position:bottom center, center center;background-size:540px 55px,540px 114px;background-repeat:no-repeat,repeat}.mojo-com-forceinfodlg .paragraph .board
+.h{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/force/board-title.png) no-repeat;background-size:100% 100%;text-align:center;font-weight:bold;line-height:55px;font-size:23px;margin-top:0;height:55px}.mojo-com-forceinfodlg .paragraph .board
+.v{word-break:break-all;margin:5px
+auto;width:485px}.mojo-com-forceinfodlg
+.footer{bottom:45px}.mojo-com-forceranking .force-back-btn{top:65px}.special-dlg .mojo-ui-listpanel
+.window{height:490px}.special-dlg{height:550px}.special-dlg .mojo-com-forceelement{margin:0
+10px}.special-dlg
+.paragraph{text-align:left}.mojo-com-profile-force{position:relative;padding:0
+4px;line-height:15px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/baseprofile.png) no-repeat;background-size:320px 55px;width:312px;height:55px}.mojo-com-profile-force
+.left{float:left;width:auto;height:45px;margin-top:5px}.mojo-com-profile-force .left
+.name{float:left;font-weight:bold;height:45px;line-height:45px;color:#542b01;font-size:14px}.mojo-com-profile-force .left
+.level{float:left;font-weight:bold;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/force/force-level.png") no-repeat;width:45px;height:45px;text-align:center;line-height:45px;font-size:16px;color:#fff;background-size:100% 100%}.mojo-com-profile-force .right .sp-border{width:90px;height:18px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/border.png) no-repeat;background-size:100%}.mojo-com-profile-force .right .sp-border{position:absolute;top:4px}.mojo-com-profile-force
+.center{color:#542B01;font-size:14px;float:left;text-align:center;height:54px}.mojo-com-profile-force .center
+.grain{width:auto;height:20px;margin-top:17px;display:inline-block}.mojo-com-profile-force .center .grain
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/force/grain.png") no-repeat;top:12px;background-size:100%}.mojo-com-profile-force
+.right{float:right;width:90px;margin-top:15px;position:relative}.mojo-com-profile-force .right .mojo-ui-progress{margin:2px
+0 0 5px}.mojo-com-profile-force .right
+.sp{margin-top:6px;position:relative}.mojo-com-profile-force .right .sp
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/force/battle-book.png") no-repeat;position:absolute;top:-12px;left:-10px;width:23px;height:30px;z-index:1000;background-size:100% 100%}#com-profile-force-dialog
+.paragraph{font-weight:bold;clear:both;padding:0
+8px 0 8px}#com-profile-force-dialog .paragraph .mojo-ui-label{height:20px;margin-top:8px;background-color:rgba(84, 42, 1, 0.1);border-radius:8px}#com-profile-force-dialog .paragraph
+span{font-size:12px;display:block}#com-profile-force-dialog .paragraph .time-for-ep{padding:3px
+0px 8px 30px;font-weight:normal;line-height:16px;border-radius:0 0 8px 8px;background-color:rgba(84, 42, 1, 0.1);font-size:11px}#com-profile-force-dialog .paragraph .time-for-sp{padding:3px
+0px 8px 30px;font-weight:normal;line-height:16px;border-radius:0 0 8px 8px;background-color:rgba(84, 42, 1, 0.1);font-size:11px}#com-profile-force-dialog .paragraph
+.icon{margin-left:10px;width:15px;height:15px;margin-top:2px}#com-profile-force-dialog .paragraph .level
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/lv.png) no-repeat;background-size:100% 100%}#com-profile-force-dialog .paragraph .xp
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/xp.png) no-repeat;background-size:100% 100%}#com-profile-force-dialog .paragraph .rm
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/rm.png) no-repeat;background-size:100% 100%}#com-profile-force-dialog .paragraph .vm
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/vm.png) no-repeat;background-size:100% 100%}#com-profile-force-dialog .paragraph .ep
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/ep.png) no-repeat;background-size:100% 100%}#com-profile-force-dialog .paragraph .sp
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/sp.png) no-repeat;background-size:100% 100%}#com-profile-force-dialog .paragraph .ep,#com-profile-force-dialog .paragraph
+.sp{border-radius:8px 8px 0 0}.mojo-com-forceprofiledlg
+.footer{bottom:45px}.mojo-com-forceprofiledlg .footer .mojo-ui-button{font-size:23px;height:60px;line-height:60px;margin:0
+5px;width:150px}.mojo-com-forceprofiledlg{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/profile-bg.png") no-repeat;background-size:100% 95%;background-position:0 40px;height:664px;padding-bottom:0;width:400px}.mojo-com-forceprofiledlg
+.footer{bottom:45px}.mojo-com-forceprofiledlg
+.icon{display:none}.mojo-com-forceprofiledlg .content
+.paragraph{padding:43px
+50px 0 50px;font-size:14px}.mojo-com-forceprofiledlg .content .paragraph
+.chanllenge{font-size:13px;line-height:22px;letter-spacing:1px;background-color:rgba(84, 42, 1, 0.1);border-radius:8px 8px 8px 8px;padding-left:2em;margin-top:2px}.mojo-com-forceprofiledlg .content .paragraph
+.grain{margin-top:10px;font-weight:bold;text-indent:2em}.mojo-com-forceprofiledlg .mojo-ui-label{line-height:28px;font-weight:bold;height:28px;width:100%;background-color:rgba(84, 42, 1, 0.1);border-radius:8px 8px 8px 8px;margin-top:6px;text-indent:2em}.mojo-com-forcegrainsharedlg{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/profile-bg.png) 0 40px no-repeat;background-size:100% 400px;width:400px}.tip-dialog
+.content{text-align:center}.mojo-com-forcegrainsharedlg{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/profile-bg.png") no-repeat;background-size:100% 93%;background-position:0 35px;height:440px;padding-bottom:0;width:400px}.mojo-com-forcegrainsharedlg
+input{width:50px;text-align:center;margin:0
+3px;border-radius:4px;border:1px
+solid #542b01;font-size:14px;font-weight:bold;box-shadow:1px 0 3px rgba(0, 0, 0, 0.3) inset;color:#542b01;background-color:#fff}.mojo-com-forcegrainsharedlg
+.lastgrain{text-align:center;width:100%;font-weight:bold;margin:5px
+0 8px}.mojo-com-forcegrainsharedlg
+.shareitem{width:90%;clear:both;height:35px;margin:auto}.mojo-com-forcegrainsharedlg .shareitem
+.label{text-align:right;width:30%;float:left;margin-right:2%}.mojo-com-forcegrainsharedlg .shareitem
+.input{float:left;width:65%}.mojo-com-forcegrainsharedlg
+.footer{bottom:35px}.mojo-com-forcegrainsharedlg .footer .mojo-ui-button{font-size:23px;height:60px;line-height:60px;margin:0
+5px;width:150px}.mojo-com-forcegrainsharedlg .content .paragraph
+.lake{color:red}.mojo-com-forcelevelupdlg{width:600px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/levelupdlg.png) no-repeat;background-size:100% 100%;border:0;padding:0;height:700px}.mojo-com-forcelevelupdlg
+.content{width:100%;height:380px;margin-top:170px;float:left;display:table;overflow:hidden}.mojo-com-forcelevelupdlg .content
+.paragraph{line-height:30px;padding:0
+90px;font-size:25px;display:table-cell}.mojo-com-forcelevelupdlg .mojo-ui-label{background-color:rgba(84,43,1,.1);height:30px;font-size:20px;line-height:30px;border-radius:8px;margin-top:12px;width:100%:}.mojo-com-forcelevelupdlg .content .paragraph
+.info{text-align:center;font-weight:bold;margin-bottom:20px}.mojo-com-forcelevelupdlg .content .paragraph
+.level{font-size:15px;font-weight:bold;background:none}.mojo-com-forcelevelupdlg
+.footer{bottom:64px}.mojo-com-forcelevelupdlg  .footer .mojo-ui-button{width:200px;height:70px;font-size:30px;line-height:70px;margin:0
+15px}.mojo-com-forcelevelupdlg .mojo-ui-label .text span
+span{color:red}.mojo-com-forcelevelupdlg .content .paragraph
+.icon{float:left;width:15px;height:15px;margin-top:3px}.mojo-com-forcelevelupdlg .content .paragraph .base_attack
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/attack-base.png) no-repeat;background-size:100% 100%}.mojo-com-forcelevelupdlg .content .paragraph
+.icon{margin-left:10px}.mojo-com-forcelevelupdlg .content .paragraph .base_defence
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/defence-base.png) no-repeat;background-size:100% 100%}.mojo-com-forcelevelupdlg .content .paragraph .max_energy
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/ep.png) no-repeat;background-size:100% 100%}.mojo-com-forcelevelupdlg .content .paragraph .max_stamina
+.icon{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/sp.png) no-repeat;background-size:100% 100%}.mojo-com-forcelevelupdlg .bonus .mojo-ui-label{margin-top:0;line-height:19px}.mojo-com-forcelevelupdlg .content .vm,
+.mojo-com-forcelevelupdlg .content
+.rm{float:left;width:auto;background:none}.mojo-com-forcelevelupdlg .content .vm
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/vm.png") no-repeat;background-size:100% 100%;margin-left:25px;margin-top:2px}.mojo-com-forcelevelupdlg .content .rm
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/rm.png") no-repeat;background-size:100% 100%;margin-left:25px;margin-top:2px}.mojo-com-weibopublishdlg{background:url(/mojo/resources/classic/ipad/0.2.0/css/image/background.png) repeat;color:#F2EEC3}.mojo-com-weibopublishdlg
+.header{margin:8px
+0 8px 3px;height:40px;line-height:40px;font-size:18px;font-weight:bolder;margin-left:3px;background-color:#542B01;border-radius:0 8px 8px 0;width:90px;text-indent:8px}.mojo-com-weibopublishdlg
+.bonus{float:left;margin:20px
+0 5px 25px}.mojo-com-weibopublishdlg .words-tip{float:right;margin:20px
+25px 5px 0}.mojo-com-weibopublishdlg
+.border{text-align:center;width:100%}.mojo-com-weibopublishdlg .border
+textarea{height:180px}.mojo-com-relation{}.com-relation-panel{height:100%}.com-relation-master-panel{height:100%}.com-relation-slave-panel{height:100%}.com-relation-alliance-panel{height:100%}.com-relation-free-panel{height:100%}.mojo-com-relation .back-btn{position:absolute;top:23px;right:5px}.mojo-com-relation .force-back-btn{position:absolute;top:65px;right:5px}.mojo-com-relation .order_btn,.mojo-com-relation .back-btn{position:absolute;right:5px;top:65px;width:120px;height:55px;line-height:55px;display:block;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/task-list.png) no-repeat;font-size:25px;border-radius:8px;background-size:100% 100%;border:1px
+solid #725C19;box-shadow:1px 1px 1px black}.mojo-com-relation
+.order_btn{right:140px}.mojo-com-relation .box-outter{height:799px}.mojo-com-relationmenuelement
+.gettax{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/gettax.png)}.mojo-com-relationmenuelement
+.settax{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/settax.png)}.mojo-com-relationmenuelement
+.food{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/food.png)}.mojo-com-relationmenuelement
+.dismissal{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/dismissal.png)}.mojo-com-relationmenuelement
+.allocate{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/allocate.png)}.mojo-com-relationmenuelement
+.donate{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/donate.png)}.mojo-com-relationmenuelement
+.viewslave{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/viewslave.png)}.mojo-com-relationmenuelement
+.askquit{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/askquit.png)}.mojo-com-relationmenuelement
+.rebel{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/rebel.png)}.mojo-com-relationmenuelement
+.free{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/free.png)}.mojo-com-relationmenuelement
+.uniterebel{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/uniterebel.png)}.mojo-com-relationmenuelement
+.alliance_sever{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/alliance_sever.png)}.mojo-com-relationmenuelement
+.surrender{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/surrender.png)}.mojo-com-relationmenuelement
+.battle{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/battle.png)}.mojo-com-relationmenuelement
+.alliance{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/alliance.png)}.mojo-com-relationmenuelement
+.icon{float:left;height:120px;width:120px;position:relative;background-size:100% 100%}.mojo-com-relationmenuelement .icon
+.help{width:35px;height:35px;position:absolute;right:0;top:-5px;background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/askquit-icon.png");background-repeat:no-repeat;background-size:100% 100%}.mojo-com-relationmenuelement .battle-status-icon{background-color:#542B01;border-radius:8px;height:52px;width:80px;float:right;position:absolute;top:2px;right:8px;line-height:45px;background-size:100% 100%;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-exchange-btn.png)}.relaion-tip-dialog
+.cartoon{height:570px;width:570px;margin:0
+auto;background-size:100% 100%}.relaion-tip-dialog .alliance-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/alliance-cartoon.png")}.relaion-tip-dialog .askquit-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/askquit-cartoon.png")}.relaion-tip-dialog .battle-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/battle-cartoon.png")}.relaion-tip-dialog .donate-cartoon2{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/donate-cartoon2.png")}.relaion-tip-dialog .enroll-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/enroll-cartoon.png")}.relaion-tip-dialog .food-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/food-cartoon.png")}.relaion-tip-dialog .rebel-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/rebel-cartoon.png")}.relaion-tip-dialog .surrender-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/surrender-cartoon.png")}.relaion-tip-dialog .uniterebel-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/uniterebel-cartoon.png")}.relaion-tip-dialog .viewslave-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/viewslave-cartoon.png")}.relaion-tip-dialog .free-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/free-cartoon.png")}.relaion-tip-dialog .alliance-sever-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/alliance-sever-cartoon.png")}.relaion-tip-dialog .viewslave-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/viewslave-cartoon.png")}.relaion-tip-dialog .allocate-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/allocate-cartoon.png")}.relaion-tip-dialog .dismissal-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/dismissal-cartoon.png")}.relaion-tip-dialog .donate-cartoon1{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/donate-cartoon1.png")}.relaion-tip-dialog .settax-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/settax-cartoon.png")}.relaion-tip-dialog .gettax-cartoon{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/gettax-cartoon.png")}.battleStatus{height:64px;width:60px;position:absolute;top:-10px;right:-8px;background-size:100% 100%;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/battlestatus.png)}#forcewar-tabs .nav li
+.battleStatus{height:35px;width:30px;top:-7px;right:-7px}.status-detail{text-align:left;width:-webkit-calc(100% -   160px)}.mojo-com-relationmenuelement .mojo-ui-button{position:absolute;top:50%;margin-top:-30px;right:8px;width:150px;height:60px;line-height:60px;font-size:30px}.mojo-com-relation .mojo-ui-send-button{position:absolute;left:80px;margin-top:20px}.mojo-com-relation .mojo-ui-add-button{position:absolute;right:80px;margin-top:20px}.mojo-com-relationmenuelement
+.statusbutton{top:50%;margin-top:-30px}.mojo-com-relationmenuelement .go-into-btn{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/go-button/go-exchange-btn.png)}.relation-box-inner{background:-webkit-gradient(linear, 0 0, 0 100%, from(#fef5aa), to(#fde05e) );border:2px
+solid #bf7a15;border-radius:6px;color:#542B01;line-height:35px;margin:3px
+3px 0;overflow:hidden;padding:25px
+15px;position:relative}.relation-no-box-inner{color:#542B01;line-height:20px;margin:30px
+75px 0;overflow:hidden;padding:14px
+0;position:relative;border-bottom:2px solid #f1c84b;box-shadow:0 2px 0 #fff}.relation-no-box-inner:last-child{border:none;box-shadow:none}.mojo-com-relationmenuelement
+hr{-moz-border-bottom-colors:none;-moz-border-image:none;-moz-border-left-colors:none;-moz-border-right-colors:none;-moz-border-top-colors:none;border-color:#926D31 -moz-use-text-color -moz-use-text-color;border-right:medium none;border-style:solid none none;border-width:1px medium medium;clear:both;height:1px;margin:10px
+0 -8px}.mojo-com-relationmenuelement .mojo-ui-label{float:left;margin-left:15px;line-height:25px;font-weight:bold}.mojo-com-relationmenuelement .goods-detail .goods-description{float:left;clear:both;line-height:30px}.description{float:left;line-height:30px;margin-left:10px}.mojo-com-relationmenuelement .goods-detail .goods-name, .props .info
+.name{float:left;font-weight:bold;line-height:30px;width:auto;color:#723018}.mojo-com-relationmenuelement .goods-detail .goods-dynamicinfo{float:left;margin-left:15px;font-weight:bold;line-height:30px}.mojo-com-relationmenuelement .goods-detail
+.cd{}.mojo-com-relationmenuelement .goods-detail .text-red
+.text{color:#a80e0e}.mojo-com-relationmenuelement .goods-detail .cd
+.icon{width:0;height:0}.mojo-com-relation .unite-select-desp
+.icon{display:none}.unite-select-desp{height:80px;color:#542B01;font-weight:normal;margin:30px
+70px;text-align:center}.selectedClass{background:-webkit-gradient(linear, 0 0, 0 100%, from(rgba(255, 255, 255, 0.3)
+), color-stop(.03, #a97222) )}.goods-detail{margin-left:130px;width:324px;overflow:hidden;text-align:left}.battle-status-text{position:absolute;top:50%;margin-top:-25px;right:30px;width:60px;height:65px;background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/battlestatus.png);background-size:100% 100%}.mojo-com-entity-preview
+.header{overflow:hidden}.rebel-slave-count{background-color:rgba(84, 43, 1, 0.5);height:24px;line-height:24px;margin-top:3px;text-align:center;width:100%}.rebel-slave-count
+.icon{display:none}.page-tips{overflow:hidden}.rebel-start-dialog .content
+.tip{text-align:left}.mojo-com-relation .cd
+.text{margin:0}#forcewar-opponent-listpanel .box-inner{background-size:100% 100%;background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/list-bg.png");border:none;padding-left:15px;color:#723018;font-weight:bold}#forcewar-opponent-listpanel .box-inner
+.line{border-top:1px solid #FDD535;border-bottom:1px solid #fff;width:85%;height:0;margin:5px
+0;overflow:hidden}#forcewar-opponent-listpanel.non-rmb-player .box-inner
+.line{width:99%}#forcewar-opponent-listpanel .go-attack-btn{bottom:20px;right:20px}.mojo-ui-listpanel .list
+.retreat{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/list-left-top.png"),url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/list-left-bottom.png"),url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/list-righttop.png"),url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/list-right-bottom.png"),url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/list-center.png");background-size:3% 50%,3.2% 50%,3% 50%, 3% 50%,95% 100%;background-position:left top,left bottom, right top, right bottom, center;background-repeat:no-repeat,no-repeat,no-repeat,no-repeat,no-repeat;border:none;color:#723018;font-weight:bold}.com-relation-free-panel .free-relation-notice-content{color:#542B01;font-weight:normal;text-align:left}.mojo-com-relation
+.text{float:none;margin:0
+70px;line-height:28px}.election-hignlight{font-weight:bold}.com-relation-free-panel #free-relation-notice-btn{margin:390px
+auto 0 auto}.free-invite-alliance .unite-select-desp{height:auto;text-align:left;margin:40px
+0 20px}.mojo-com-commondialog .cost-grain{padding:3px
+15px;margin-top:15px}.mojo-com-commondialog
+.tips{margin:15px
+0;padding:0
+15px}.mojo-com-commondialog .cost-challenge{padding:15px
+15px}.rebel-tip-dialog .cost-grain .icon, .rebel-tip-dialog .cost-challenge
+.icon{margin:-8px 5px 0 3px}.mojo-com-commondialog
+.fgrain{display:inline-block;width:auto;margin:0;vertical-align:middle}.mojo-com-commondialog .cg-content, .mojo-com-commondialog .cc-content, .mojo-com-commondialog
+.challenge{display:inline-block;vertical-align:middle}.progress-box{height:120px;margin:14px
+0;background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/box-left.png"),url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/box-right.png");background-repeat:no-repeat;background-size:70px 100%;background-position:2% top,98% top;text-align:center}.progress-box .left,.progress-box
+.right{position:relative;width:240px;height:100%;display:inline-block;vertical-align:middle}.progress-box .left .own-force{color:#F00}.progress-box .right .enemy-force{color:#909}.progress-box .left .left-time{position:relative;top:60px;color:#F00 }.progress-box .right .right-time{position:relative;top:60px;color:#909}.progress-box .left .mojo-ui-progress{width:240px;height:32px;border-radius:10px 0 0 10px;border:1px
+solid #CCA03C;border-right:none;position:absolute;right:0;top:50px}.progress-box .attack-time, .progress-box  .defence-time{position:absolute;width:100%;line-height:32px;font-weight:bold}.progress-box .left .ownforce-tip{color:#CA0202;position:absolute;text-align:left;width:460px;font-weight:bold}.progress-box .left .mojo-ui-progress
+.icon{position:absolute}.progress-box .right .mojo-ui-progress
+.icon{position:absolute}.progress-box .right .mojo-ui-progress{width:240px;height:32px;border-radius:0 10px 10px 0;border:1px
+solid #CCA03C;border-left:none;position:absolute;left:0;top:50px}.progress-box .left .mojo-ui-progress
+.bar{background:-webkit-gradient(linear, left top, left bottom, from(#D5572E), color-stop(0.3, #DE7D5D), to(#CC3300));height:32px;border-radius:10px 0 0 10px;float:right}.progress-box .right .mojo-ui-progress
+.bar{background:-webkit-gradient(linear, left top, left bottom, from(#9B4C9B), color-stop(0.3, #AF71AF), to(#822082));height:32px;border-radius:0 10px 10px 0;float:left}.progress-box .left .mojo-ui-progress .bar span,.progress-box .right .mojo-ui-progress .bar
+span{width:100%;line-height:32px;position:absolute;left:0}.progress-box .left .countdown-border,.progress-box .right .countdown-border{width:60px;height:80px;background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/progress-me.png");background-size:100% auto;background-repeat:no-repeat;position:absolute}.progress-box .left .countdown-border{left:-60px;top:44px;background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/progress-me.png")}.progress-box .right .countdown-border{top:44px;right:-60px;background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/relation/progress-foe.png")}#forcewar-opponent-listpanel .button-big-red, #forcewar-opponent-listpanel .footer-btn{display:inline-block;margin:20px
+50px}.mojo-com-explanationdialog
+.picture{background-image:url(/mojo/resources/classic/ipad/0.2.0/css/image/relation/help-info.png);background-repeat:no-repeat;background-size:100% auto;width:600px;height:100px;margin:40px
+auto 0 auto}.mojo-com-relationinputdlg{text-align:center}.mojo-com-commondialog .mojo-ui-dialog .content
+.tip{text-align:left}.mojo-com-relationinputdlg
+.lastgrain{line-height:20px;margin:20px
+0 3px 40px}.mojo-com-relationinputdlg .lastgrain span ,.mojo-com-relationinputdlg .lastration
+span{float:left;line-height:24px}.mojo-com-relationinputdlg .lastgrain  .icon,.mojo-com-relationinputdlg .lastration
+.icon{margin:-8px 5px 0 3px}.mojo-com-relationinputdlg
+.lastration{line-height:20px;margin:15px
+0 15px 40px}.mojo-com-relationinputdlg
+.shareitem{margin-left:40px;overflow:hidden}.mojo-com-relationinputdlg  .donate-ration-notice{margin-left:10px;margin-top:40px}.mojo-com-relationinputdlg .shareitem .input
+input{line-height:27px;width:160px}.mojo-com-relationinputdlg .shareitem
+.input{width:200px;display:inline-block;vertical-align:middle;text-align:left}.box-inner .accumulated-grain{clear:left;border-top:1px solid #926D31;padding-top:10px}#relation-slaveviewslave .element-title{overflow:hidden}#relation-slaveviewslave .accumulated-grain-content,#relation-slaveviewslave .available-grain-content{float:left;line-height:28px}.accumulated-grain.mojo-com-relation .text,.available-grain.mojo-com-relation
+.text{float:left;margin:0}#relation-slaveviewslave .available-grain,#relation-slaveviewslave
+.rate{clear:both}.accumulated-grain .mojo-ui-label,.available-grain .mojo-ui-label{line-height:25px}.available-grain .fgrain .icon,.accumulated-grain .fgrain
+.icon{margin-top:-5px}.enemymember-count{background-color:rgba(84, 43, 1, 0.5);float:left;height:20px;width:100%;margin-top:3px;text-align:center;line-height:20px}.enemymember-count
+.icon{width:0}.enemymember-count
+.text{float:none}.enemymember-count .text
+span{text-align:center;font-size:13px}.mojo-com-forceenemymemberelement{position:relative;clear:left;text-align:left;line-height:25px}.mojo-com-forceenemymemberelement .force-enemymember-name{font-weight:bold;float:left}.mojo-com-forceenemymemberelement .force-enemymember-level{float:left;width:60px;font-weight:normal}.mojo-com-forceenemymemberelement .force-enemymember-offer,
+.mojo-com-forceenemymemberelement .force-enemymember-login{float:left;color:#984807;font-weight:bold;margin:-5px 0 5px}.mojo-com-forceenemymemberelement .force-enemymember-login{float:right;text-align:right}.mojo-com-forceenemymemberelement  .force-enemymember-attack{clear:both;margin-top:15px}.warClass .force-enemymember-name{font-weight:bold;float:left;width:100%}.warClass .force-enemymember-level{width:100%}.warClass .force-enemymember-defence{clear:both}.mojo-com-forceenemymemberdetaildlg{padding-bottom:20px}.mojo-com-forceenemymemberdetaildlg .content
+.name{width:auto;text-align:center;font-weight:bold;margin:20px}.mojo-com-forceenemymemberdetaildlg .content .actions .mojo-ui-button{margin:5px
+auto;background-size:140px 50px}#tabs-enemymember .go-attack-btn.mojo-ui-button{position:absolute;width:60px;height:47px;margin:-50px 225px;border-radius:8px}.mojo-com-forceenemymember{padding-bottom:20px}.mojo-com-forceenemymember .mojo-com-forcememberlist{min-height:600px}.mojo-com-forceenemymember .mojo-com-forcememberlist
+.window{top:190px !important}.mojo-com-battlepreviewdlg .content
+.name{line-height:40px;height:40px;color:#542B01;margin:20px
+0;text-align:center}.mojo-com-battlepreviewdlg .content .player, .mojo-com-battlepreviewdlg .content
+.opp{display:inline-block;vertical-align:middle}.mojo-com-battlepreviewdlg
+.player_icon{display:inline-block;width:25px;height:25px;background:url("/mojo/resources/classic/ipad/0.2.0/css/image/player_icon.png") no-repeat 0 0;background-size:100% 100%;vertical-align:middle}.mojo-com-battlepreviewdlg .player_name, .mojo-com-battlepreviewdlg
+.opp_name{display:inline;vertical-align:middle}.mojo-com-battlepreviewdlg
+.opp_icon{display:inline-block;vertical-align:middle}.mojo-com-battlepreviewdlg
+.vs{display:inline-block;margin:0
+20px;color:#cb1800;font-weight:bold;text-shadow:1px 1px 1px #fff, -1px 1px 1px #fff, 1px -1px 1px #fff, -1px -1px 1px #fff;font-size:30px;vertical-align:middle}.mojo-com-battlepreviewdlg .content
+.ifwin{margin:5px
+auto;border-radius:5px;width:450px;background-color:#c1a568;text-align:center}.mojo-com-battlepreviewdlg .content .ifwin
+.win{height:30px;background-color:#542b01;border-radius:5px 5px 0 0;opacity:0.5;text-align:center;color:#fff;font-weight:bold;line-height:30px}.mojo-com-battlepreviewdlg .content
+.iflose{margin:15px
+auto;border-radius:5px;width:450px;background-color:#c1a568;text-align:center}.mojo-com-battlepreviewdlg .content .iflose
+.lose{height:30px;background-color:#542b01;border-radius:5px 5px 0 0;opacity:0.5;text-align:center;color:#fff;font-weight:bold;line-height:30px}.mojo-com-battlepreviewdlg .content .winxp, .mojo-com-battlepreviewdlg .content
+.losexp{display:inline-block;margin:15px}.mojo-com-battlepreviewdlg .content .winvm, .mojo-com-battlepreviewdlg .content
+.losevm{display:inline-block;margin:15px
+5px}.mojo-com-battlepreviewdlg .content
+.rate{clear:left;line-height:40px;padding-bottom:25px;margin-bottom:15px}.mojo-com-battlepreviewdlg .content
+.tips{width:420px;margin:0
+auto;height:30px;line-height:30px;border-radius:2px}.mojo-com-battleresultdlg .detail
+.card{width:200px;height:240px;float:left;margin:8px}.mojo-com-battleresultdlg .detail
+.description{float:right;width:74px;height:228px;margin:12px
+4px 10px 0;color:#542b01;text-align:justify;text-justify:distribute;background-color:#542b01;border-radius:8px;color:#F2EEC3;padding:3px;font-size:14px;line-height:22px;opacity:0.6}.mojo-com-battleresultdlg
+.result{width:auto;text-align:center;padding:30px
+0 10px 0;line-height:25px;font-size:20px;height:25px;color:#cb1800;font-weight:bold;text-shadow:0 0 1px #fff}.mojo-com-battleresultdlg
+.message{width:auto;text-align:center;margin-bottom:20px;line-height:25px;font-size:20px;height:25px;color:#542B01}.mojo-com-battleresultdlg
+.capture{margin:auto;text-align:center;margin-bottom:20px;font-size:20px;color:#542B01;width:160px;height:20px}.mojo-com-battleresultdlg .capture
+.winentity{width:33.3%;height:52px;text-align:center;line-height:22px;float:left}.mojo-com-battleresultdlg .capture
+.winxp{text-align:center;height:20px;width:80px;line-height:20px;margin:auto;float:left}.mojo-com-battleresultdlg .capture .winxp
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/xp.png") no-repeat;background-size:20px 20px}.mojo-com-battleresultdlg .capture
+.winvm{text-align:center;height:20px;width:80px;line-height:20px;margin:auto;float:left}.mojo-com-battleresultdlg .capture .winvm
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/vm.png") no-repeat;background-size:20px 20px}.mojo-com-battleresultdlg .capture
+.losexp{text-align:center;height:20px;width:80px;line-height:20px;margin:auto}.mojo-com-battleresultdlg .capture .losexp
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/xp.png") no-repeat;background-size:20px 20px}.mojo-com-battleresultdlg .capture
+.losevm{text-align:center;height:20px;width:80px;line-height:20px;margin:auto}.mojo-com-battleresultdlg .capture .losevm
+.icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/vm.png") no-repeat;background-size:20px 20px}.mojo-com-spdlg{padding-bottom:160px}.mojo-com-spdlg
+.footer{bottom:70px}.mojo-com-spdlg
+.tip{position:absolute;width:100%;bottom:20px;color:#942B02;text-align:center}.mojo-com-spdlg
+.goods{position:relative;line-height:30px;height:120px;margin:10px}.mojo-com-spdlg .goods
+div{float:left}.mojo-com-spdlg .goods
+.card{width:120px;height:120px;position:relative;background-color:#542b01;border-radius:20px}.mojo-com-spdlg .goods .card
+img{border-radius:20px;width:120px;height:120px}.mojo-com-spdlg .goods
+.name{font-weight:bold;position:absolute;left:125px;bottom:40px}.mojo-com-spdlg .goods
+.desc{position:absolute;bottom:10px;left:125px}.mojo-com-spdlg .goods
+.price{clear:both;line-height:35px;margin-top:10px}.mojo-com-spdlg .goods .price .price-title{font-weight:bold}.mojo-com-spdlg .goods .price .price-icon{background:url("/mojo/resources/classic/ipad/0.2.0/css/image/rm.png") no-repeat;width:35px;height:35px;margin-right:3px;background-size:100% 100%}#page-mall{width:100%}.scroller{width:100%}#page-mall .mojo-ui-tabs .panel .mojo-ui-listpanel{min-height:668px}#page-mall .mojo-ui-tabs .panel .tavern-listpanel{min-height:275px}#payment-dialog{padding-bottom:10px}#payment-listpanel{float:left;height:630px}.tavern-time{float:left;margin:5px
+0 3px;width:100%;text-align:center;height:30px;line-height:30px;color:#F2EEC3;background-color:rgba(84,43,1,0.5)}#page-props{width:100%}#page-props .mojo-ui-tabs .panel .mojo-ui-listpanel .mojo-ui-scroll{height:690px}.mojo-ui-listpanel{}.scroller{width:100%}.props
+.card{float:left;width:120px;height:120px;position:relative;border-radius:20px;background-color:#542b01}.props .card
+img{border-radius:20px;width:120px;height:120px}.props
+.info{position:absolute;text-align:left;width:auto;top:30px;left:153px;width:auto}.info
+.name{font-size:25px;font-weight:bold;line-height:20px;width:100%}.info
+.description{margin:5px
+0;width:100%;float:left}.props-button-panel
+.btn{float:left;margin:8px}.props-button-panel .buy-props{float:left;margin-left:9px}.go-back{float:right}.go-payment{float:left;margin:8px}.back-btn{float:right}.detail-panel .goods-price{height:20px;margin-left:8px}.goods-price .price-title{float:left;font-weight:bolder;color:#542B01}.buttons{width:100%;margin-top:25px;float:left}.buttons .goods-price{float:left;margin:8px}.buttons .buy-props{display:inline-block;margin:0
+80px 0 0;float:right}.buttons .use-props{display:inline-block;margin:0
+20px}#page-props .mojo-com-goods-price{margin:3px
+0 20px;line-height:35px}.mojo-com-goodsbatchbuydlg .content .paragraph
+.lastgrain{margin-left:40px;margin-top:15px}.mojo-com-goodsbatchbuydlg  .content .paragraph .lastgrain .vm,.content .paragraph .lastration
+.vm{display:inline-block;line-height:55px}.mojo-com-goodsbatchbuydlg  .content .paragraph .lastgrain .vm .icon,.content .paragraph .lastration .vm
+.icon{margin-top:8px}.mojo-com-goodsbatchbuydlg  .content .paragraph
+.lastration{margin-left:40px}.mojo-com-goodsbatchbuydlg  .batch-buy-num-tip{margin-left:40px;display:inline-block}.mojo-com-goodsbatchbuydlg  .content .paragraph
+.shareitem{display:inline-block}.mojo-com-goodsbatchbuydlg  .content .paragraph .shareitem .input
+input{height:40px;font-size:16px;width:50%}.mojo-com-goods .has-buy{border:solid 4px #CD0000;border-radius:8px 8px 8px 8px;position:absolute;right:10px;width:80px;height:30px;color:#CD0000;font-size:25px;font-weight:bolder;line-height:30px;-moz-transform:rotate(-30deg);-webkit-transform:rotate(-30deg);-o-transform:rotate(-30deg);-ms-transform:rotate(-30deg);transform:rotate(-30deg);bottom:25px}.mojo-com-payment-element{position:relative;overflow:visible;height:105px}#payment-dialog .payment-award{background-image:-moz-linear-gradient(top, #FEFEC9, #FEE57F 60%);background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, #FEFEC9),
+color-stop(0.6, #FEE57F) );background-image:-moz-linear-gradient(top, #FEFEC9, #FEE57F 60%);min-height:100px;padding:25px
+10px 5px 25px}.vip-recharge{height:150px}.payment-award
+.name{float:left;height:30px;width:100%;text-align:left;margin:-10px 0 0 10px;font-size:25px}.payment-award
+.description{float:left;margin:10px
+0 0 10px}.vip-recharge
+.description{height:auto;width:280px;line-height:normal;text-align:left}.show-all-vip-recharge{position:absolute;height:30px;line-height:30px;right:18px;bottom:20px;font-size:20px;width:160px;background:none;color:#00c;text-shadow:none;text-decoration:underline}.payment-award .payment-btn{width:170px;height:65px;position:absolute;right:15px;top:42px;line-height:65px}.mojo-com-payment-element
+.prepaid{float:left;margin:15px
+0 0 10px;height:35px;line-height:35px}.mojo-com-payment-element .advertising-prepaid{float:left;clear:left}#payment-dialog .payment-advertising,#payment-dialog .payment-advertising{float:left;margin:5px
+0 3px;width:100%;text-align:center;height:30px;line-height:30px;color:#F2EEC3;background-color:rgba(84, 43, 1, 0.5)}.mojo-com-payment-element .advertising-prepaid .payment-rm-new-price
+.icon{width:0;height:0}.mojo-com-payment-element .advertising-prepaid .payment-rm-new-price
+.text{width:70px;height:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/payment-rm-new-price.png) no-repeat;background-size:70px 40px;text-align:center;line-height:40px;font-weigt:bold;color:#fff;margin-left:5px;text-shadow:1px 1px 1px red, -1px 1px 1px red, 1px -1px 1px red, -1px
+-1px 1px red}.prepaid .mojo-ui-label{float:left}.advertising-prepaid .mojo-ui-label{float:left;color:#542B01;width:auto}.payment-before-price
+.text{text-decoration:line-through;line-height:20px}.payment-rm-new-price{margin-left:0px}.payment-money-new-price{margin-left:70px}.box-inner{padding:25px
+0 25px 25px}.mojo-com-payment-element .advertising-prepaid .payment-money-new-price{margin-left:0}.mojo-com-payment-element .advertising-prepaid .payment-money-new-price
+.text{width:70px;height:40px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/payment-money-new-price.png) no-repeat;background-size:70px 40px;text-align:center;line-height:40px;font-weigt:bold;color:#fff;margin-left:48px;text-shadow:1px 1px 1px #542b01, -1px 1px 1px #542b01, 1px -1px 1px
+#542b01, -1px -1px 1px #542b01}.prepaid
+.need{float:left;font-size:30px;font-weight:bolder;text-align:center;text-shadow:0 0 3px #FFF;width:30px;margin:0
+5px}.mojo-com-payment-element .payment-btn{text-align:center;clear:right;float:right;background-size:100% 100%}.mojo-com-payment-element .mojo-ui-button-disabled{background-image:url("/mojo/resources/classic/ipad/0.2.0/css/image/button-big-disabled.png");background-repeat:no-repeat;background-size:100% 100%}.mojo-com-payment-element .payment-discount{position:absolute;top:-10px;left:-5px;width:33px;height:40px;font-size:10px;line-height:40px;text-indent:-6px;line-height:45px;color:white;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/payment-discount.png) no-repeat;background-size:33px 40px}.normal{height:50px}.normal .mojo-ui-button{position:absolute;top:18px;right:15px;width:170px;height:65px;line-height:65px}.first .mojo-ui-button,.discount .mojo-ui-button,.first_discount .mojo-ui-button{position:absolute;top:23px;right:5px}.first_discount .advertising-prepaid .payment-money-new-price
+.text{margin-left:-25px}.prepaid .rm
+.text{font-size:20px;color:#e9d15f}.prepaid .rm
+.icon{width:45px;height:45px;margin-top:-15px;margin-left:10px}.prepaid
+.need{margin-left:5px;color:#463522}.panel .recharge-tip{margin-top:10px;text-align:center;font-weight:bold}.content
+.panel{text-align:center}.content .panel
+.prepaid{margin:10px
+20px;padding:20px
+0;background-size:100% 100%;background-repeat:no-repeat}.content .panel .prepaid .rm
+.icon{margin-left:-5px}.content .panel .prepaid .rm,.content .panel .prepaid .need,.content .panel .prepaid .payment-money-price{display:inline-block;vertical-align:middle;float:none}.content .panel
+.input{margin-bottom:10px}.content .panel .input-tip{display:inline-block;width:115px;text-align:right;font-weight:bold;font-size:12px}#recharge-dialog
+.content{padding:20px
+20px 5px 20px}#recharge-dialog .content .recharge-info{margin-top:10px}.panel
+.tip{color:#b00}#recharge-to-friend-dialog
+input{height:26px;line-height:26px}#recharge-to-friend-dialog
+.rm{float:none}#recharge-to-friend-dialog
+.need{float:none}.mojo-com-viprechargelistdialog .mojo-ui-listpanel{height:660px;width:100%}.mojo-com-viprechargelistdialog .recharge-name{font-size:25px;font-weight:bold;line-height:42px;text-indent:26px;margin:10px
+0 0 100px;text-align:left;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/vip-recharge-line.png) no-repeat;background-size:100% auto;background-position:left bottom}.mojo-com-viprechargelistdialog .recharge-description{font-size:20px;margin:10px
+0 0 125px;text-align:left}.mojo-com-viprechargelistdialog
+.price{margin:20px
+0 0 135px;text-align:left}.mojo-com-viprechargelistdialog .vip-recharge-tip{padding:15px;font-size:20px;background:none;border:none;text-align:left}.price-title{float:left;font-weight:bold;color:#542B01;font-size:25px}.mojo-com-viprechargelistdialog .vip-recharge-element{padding:6px
+25px 10px 25px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/vip-recharge-bg.png) no-repeat;background-size:100% 100%}.mojo-com-viprechargelistdialog .vip-recharge-element
+.image{width:120px;height:120px;background:none;position:absolute;top:50%;margin-top:-60px}.mojo-com-viprechargelistdialog .vip-recharge-element .image
+img{width:120px;height:120px;border-radius:0}.mojo-com-viprechargelistdialog
+.price{width:260px;margin-top:10px;background:url(/mojo/resources/classic/ipad/0.2.0/css/image/price-title-bg.png) no-repeat;background-size:100% 100%;margin-left:132px}.mojo-com-viprechargelistdialog .vip-recharge-element .price-title{margin-left:-10px;line-height:35px}.mojo-com-viprechargelistdialog .vip-recharge-element
+.icon{}.mojo-com-viprechargelistdialog .vip-recharge-element
+.text{}
