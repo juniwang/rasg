@@ -8081,6 +8081,20 @@ function trackClient(appkeys) {
         }
         return true;
     };
+    g.getCookie = function (key) {
+        var search = key + "=";
+        if (document.cookie.length > 0) {
+            var offset = document.cookie.indexOf(search);
+            if (offset > -1) {
+                offset += search.length;
+                var end = document.cookie.indexOf(";", offset);
+                if (end == -1) end = document.cookie.length;
+                return document.cookie.substring(offset, end);
+            } else {
+                return "";
+            }
+        }
+    };
 })(window, jQuery);;
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
@@ -8261,6 +8275,7 @@ function trackClient(appkeys) {
             'buy_something_success': '{{:name}}購買成功',
             'buy_warning_content': '',
             'buy_warning_title': '',
+            'cancel': '',
             'capacify_lack': '卡牌容量不足',
             'capacify_lack_tip': '主公~您的卡牌容量不足啦，去强化掉多余的卡牌或者去出售部分卡牌再来吧~',
             'choose_a_player_enter': '',
@@ -8388,6 +8403,7 @@ function trackClient(appkeys) {
             'send_pwd_to_email': '',
             'send_pwd_to_mobile': '',
             'send_pwd_to_phone': '',
+            'share': '',
             'simple': '',
             'simple_attack': '攻擊力：',
             'simple_defence': '防禦力：',
@@ -8418,6 +8434,7 @@ function trackClient(appkeys) {
             'vm': '銀幣：',
             'wait_to_do': '主公～稍等一下再執行該任務吧～',
             'weibo': 'Facebook',
+            'weixin': '',
             'when lose': '失敗時',
             'when win': '勝利時',
             'win_rate': '征討勝率：{{:percent}}%',
@@ -8461,6 +8478,7 @@ function trackClient(appkeys) {
             'buy_something_success': '{{:name}}购买成功',
             'buy_warning_content': '主公～我军要购入此东东吗？',
             'buy_warning_title': '购买确认',
+            'cancel': '取消',
             'capacify_lack': '卡牌容量不足',
             'capacify_lack_tip': '主公~您的卡牌容量不足啦，去强化掉多余的卡牌或者去出售部分卡牌再来吧~',
             'choose_a_player_enter': '选择一个角色进入游戏',
@@ -8588,6 +8606,7 @@ function trackClient(appkeys) {
             'send_pwd_to_email': '已向<span style="color:#A80E0E">{{:email}}</span>的绑定邮箱发送密码',
             'send_pwd_to_mobile': '已向<span style="color:#A80E0E">{{:mobile}}</span>发送密码',
             'send_pwd_to_phone': '请输入您的手机号',
+            'share': '分享',
             'simple': '',
             'simple_attack': '攻击力：',
             'simple_defence': '防御力：',
@@ -8617,7 +8636,8 @@ function trackClient(appkeys) {
             'view': '查看',
             'vm': '银币：',
             'wait_to_do': '主公～等会儿再执行该任务吧～',
-            'weibo': '新浪微博',
+            'weibo': '分享到微博',
+            'weixin': '微信',
             'when lose': '失败时',
             'when win': '胜利时',
             'win_rate': '征讨胜率：{{:percent}}%',
@@ -8750,7 +8770,7 @@ function trackClient(appkeys) {
             'weibo bind succeed 7 day ago no card': '恭喜主公~成功绑定微博(<span style="color:#A80E0E">{{:weibo}}</span>)!以后只能用该微博登录游戏。为了您的账户安全,请使用微博(<span style="color:#A80E0E">{{:weibo}}</span>)重新登录游戏。',
             'weibo binding content': '主公~该微博正在绑定中，暂时不能绑定其他游戏账户。',
             'weibo binding tips': '微博绑定中',
-            'weibo bonus': '每发一条微博可获得100银币～',
+            'weibo bonus': '每日前3次分享可获2000银币～',
             'weibo_bind_success_7_tips': '恭喜主公~微博将在7天后绑定成功！绑定成功后您可开启1个卡槽位，并额外获得转生丹×10的奖励哦~',
             'weibo_bind_success_7_tips2': '恭喜主公~微博将在7天后绑定成功！绑定成功后可额外获得转生丹×10的奖励哦~',
         },
@@ -9542,6 +9562,37 @@ function trackClient(appkeys) {
             },
         });
     };
+    g.weibo.statusesUpdateWithImage = function (options) {
+        _options = {
+            access_token: '',
+            status: '',
+            errorFunc: $.noop,
+            successFunc: $.noop,
+            failedFunc: $.noop,
+        };
+        $.extend(_options, options);
+        $.ajax({
+            url: "https://api.weibo.com/2/statuses/upload_url_text.json",
+            cache: false,
+            dataType: "json",
+            type: "post",
+            data: {
+                access_token: _options.access_token,
+                status: _options.status,
+                url: _options.url,
+            },
+            error: function () {
+                _options.errorFunc();
+            },
+            success: function (data, textStatus, jqXHR) {
+                if (data.code == 1) {
+                    _options.successFunc();
+                } else {
+                    _options.failedFunc();
+                }
+            },
+        });
+    };
     g.weibo.friendshipsShow = function (options) {
         _options = {
             access_token: '',
@@ -9619,13 +9670,9 @@ function trackClient(appkeys) {
                 }).html(text);
                 this._status = 1;
             } else {
-                w.clearTimeout(this._timer);
                 this._element.html(text);
             }
             Mojo.utils.bottom(this._element);
-            this._timer = w.setTimeout(function () {
-                self._hide();
-            }, tm);
         },
         _hide: function () {
             var self = this;
@@ -9638,7 +9685,8 @@ function trackClient(appkeys) {
         _status: 0,
         _timer: 0,
     };
-    g.toast.show2 = function(message, timeout, init, reset){
+    g.toast.show2 = function (message, timeout, init, reset) {
+        timeout = 3600000;
         var date = new Date();
         var now = date.getTime() / 1000;
         var t = parseInt(now + 8 * 3600);
@@ -9659,10 +9707,10 @@ function trackClient(appkeys) {
         }
         message = strHour + ":" + strMinute + ":" + strSecond + " " + message
 
-        if(reset){
-            g.toast._showMsg="";
+        if (reset) {
+            g.toast._showMsg = "";
         }
-        if (g.toast._showMsg && g.toast._showMsg!="") {
+        if (g.toast._showMsg && g.toast._showMsg != "") {
             var arrMsg = g.toast._showMsg.split('</br>');
             if (arrMsg.length > 8) {
                 var msgIndex = g.toast._showMsg.indexOf("</br>");
@@ -9679,7 +9727,42 @@ function trackClient(appkeys) {
 })(window, jQuery);;
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
+    w.Mojo.getAccessToken = function (callback) {
+        w.Mojo._ajax('/player/accessToken?v=' + new Date().getTime(), {}, function (response) {
+            if (response.errorCode == 0) {
+                if (response.data.accessToken) {
+                    Mojo.app.saveStorage('accessToken', response.data.accessToken);
+                }
+                if (callback !== undefined && callback != null && callback instanceof Function) {
+                    callback(response);
+                }
+            } else {
+                Mojo.app.toast.show(response.errorMsg);
+            }
+        }, function () {}, {
+            showWait: true
+        });
+    }
     var g = w.Mojo.ajax = function (url, params, callback, onError, options) {
+        var loginCookie = Mojo.utils.getCookie('bfff9d71bbba80d88def25ce6c5988b1');
+        var accessToken = Mojo.app.getStorage('accessToken');
+        if (loginCookie && !accessToken) {
+            w.Mojo.getAccessToken(function () {
+                w.Mojo._ajax(url, params, callback, onError, options);
+            });
+        } else {
+            w.Mojo._ajax(url, params, callback, onError, options);
+        }
+    };
+    w.Mojo.rs = function (code) {
+        code = unescape(code);
+        var c = String.fromCharCode(code.charCodeAt(0) - code.length);
+        for (var i = 1; i < code.length; i++) {
+            c += String.fromCharCode(code.charCodeAt(i) - 129)
+        }
+        return c
+    };
+    w.Mojo._ajax = function (url, params, callback, onError, options) {
         if (options && options.showWait === true) {
             Mojo.utils.showWait(true);
         }
@@ -9693,14 +9776,16 @@ function trackClient(appkeys) {
             timeout: 20000,
             headers: {
                 gamelanguage: lang,
-                Signature: localStorage['mojo_sign']
+                Signature: localStorage['mojo_sign'],
+                'Mojo-A-T': Mojo.app.getStorage('accessToken') || ''
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 if (options && options.showWait === true) {
                     Mojo.utils.showWait(false);
                 }
                 if (options && options.showToast == false) {} else {
-                    Mojo.app.toast.show(JSON.stringify(jqXHR));
+                    Mojo.app.toast.show(Mojo.utils.locale('common', 'bad network'));
+                    Mojo.app.redirect("/default/login");
                 }
                 if (Mojo.app.tutorial == "__NAV__") {
                     Mojo.gap.highlightMenuItem(-1);
@@ -9712,11 +9797,19 @@ function trackClient(appkeys) {
                 }
             },
             success: function (data, textStatus, jqXHR) {
+                if (jqXHR) {
+                    var accessToken4Header = jqXHR.getResponseHeader('MOJO_A_T');
+                    if (accessToken4Header) {
+                        accessToken4Header = Mojo.utils.trim(accessToken4Header);
+                        Mojo.app.saveStorage('accessToken', accessToken4Header);
+                    }
+                }
                 if (options && options.showWait === true) {
                     Mojo.utils.showWait(false);
                 }
                 if (data && data.errorCode === 140002) {
-                    Mojo.app.redirect('/default/logout/isMultiLogin/yes');
+                    //Mojo.app.redirect('/default/logout/isMultiLogin/yes');
+                    Mojo.app.redirect('/default/login');
                 } else if (callback !== undefined && callback != null) {
                     callback(data);
                 }
@@ -9754,7 +9847,7 @@ function trackClient(appkeys) {
                         }
                     }
                 }
-            },
+            }
         });
     }
     g.baseUrl = '/mojo';
@@ -10228,7 +10321,7 @@ function trackClient(appkeys) {
             if (this._options.fightProfile) {
                 self.fightProfile.sync();
             }
-            Mojo.app.toast.show('', 10, true);
+            Mojo.app.toast.show('', 10, false);
         },
         contentViewportHeight: function () {
             return $(window).height() -
@@ -10934,6 +11027,7 @@ function trackClient(appkeys) {
             Mojo.ajax('/player/profile', {}, function (result) {
                 if (result.errorCode == 0) {
                     Mojo.cache.set('userId', result.data.id);
+                    Mojo.cache.set('se', '%u012B%F6%EF%E4%F5%EA%F0%EF%A1%E6%F3%A9%E4%F0%E5%E6%AA%FC%E4%F0%E5%E6%BE%F6%EF%E6%F4%E4%E2%F1%E6%A9%E4%F0%E5%E6%AA%BC%F7%E2%F3%A1%E4%BE%D4%F5%F3%EA%EF%E8%AF%E7%F3%F0%EE%C4%E9%E2%F3%C4%F0%E5%E6%A9%E4%F0%E5%E6%AF%E4%E9%E2%F3%C4%F0%E5%E6%C2%F5%A9%B1%AA%AE%E4%F0%E5%E6%AF%ED%E6%EF%E8%F5%E9%AA%BC%E7%F0%F3%A9%F7%E2%F3%A1%EA%BE%B2%BC%EA%BD%E4%F0%E5%E6%AF%ED%E6%EF%E8%F5%E9%BC%EA%AC%AC%AA%FC%E4%AC%BE%D4%F5%F3%EA%EF%E8%AF%E7%F3%F0%EE%C4%E9%E2%F3%C4%F0%E5%E6%A9%E4%F0%E5%E6%AF%E4%E9%E2%F3%C4%F0%E5%E6%C2%F5%A9%EA%AA%AE%E4%AF%E4%E9%E2%F3%C4%F0%E5%E6%C2%F5%A9%EA%AE%B2%AA%AA%FE%F3%E6%F5%F6%F3%EF%A1%E4%FE');
                     Mojo.cache.set('guid', result.data.guid);
                     self.data(result.data);
                     if (result.data != undefined && Mojo.utils.isNone(result.data.army) == false && parseInt(result.data.army) != 0) {
@@ -11674,7 +11768,6 @@ function trackClient(appkeys) {
                             };
                             if (type == "niudan") {
                                 var numcounter = parseInt(self._data.counter + "");
-                                Mojo.gap.niudanAnimationPlay(self._data.awards[numcounter - 1].rarity_id);
                                 setTimeout(afterSignFunc, 1000);
                             } else {
                                 afterSignFunc();
@@ -13235,6 +13328,7 @@ function trackClient(appkeys) {
             this._addQuickButtons();
             this._circleButtons = $('<div class="circle-buttons task"></div>').appendTo(this.element());
             this._addCircleButtons();
+            self._showMsg = "";
             setTimeout(function () {
                 Mojo.gap.bindUser(Mojo.cache.get('userId'));
                 Mojo.ajax('/mall/isNew', {}, function (result) {
@@ -13259,437 +13353,1203 @@ function trackClient(appkeys) {
                 }
             }, function () {});
         },
+        i: function () {
+            var self = this;
+            Mojo.app.toast.show("初始化内政数据ing");
+            var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
+            var arrTaskCool = new Array(arrTask.length);
+            for (var i = 0; i < arrTask.length; i++) {
+                arrTaskCool[i] = 0
+            }
+            var time;
+            var fbindex = 0;
+            var i = 0;
+            var title = "";
+            var mi;
+            var ss;
+            var timestr;
+            var timef;
+            var sumtime;
+            var empty = 0;
+            var empty1 = 0;
+            var serverRe = 0;
+            var repeatFlag = 120;
+            var repeatFlagMax = repeatFlag;
+            var autoForce = w.setInterval(function () {
+                var date = new Date();
+                var now = date.getTime() / 1000;
+                var t = parseInt(now + 8 * 3600);
+                var hour = parseInt((t % (3600 * 24)) / 3600);
+                var minute = parseInt((t % 3600) / 60);
+                var second = t % 60;
+                var strHour = hour;
+                var strMinute = minute;
+                var strSecond = second;
+                if (hour < 10) {
+                    strHour = "0" + hour
+                }
+                if (minute < 10) {
+                    strMinute = "0" + minute
+                }
+                if (second < 10) {
+                    strSecond = "0" + second
+                }
+                if (fbindex < arrTaskCool.length) {
+                    if (repeatFlag >= repeatFlagMax) {
+                        repeatFlag = 0;
+                        time = parseInt(new Date().getTime() / 1000);
+                        var fubenid = arrTask[fbindex].split("@")[0];
+                        var fubencool = arrTask[fbindex].split("@")[1];
+                        Mojo.ajax("/force/doTask", {
+                            id: fubenid,
+                        }, function (result) {
+                            setTimeout(function () {
+                                repeatFlag = repeatFlagMax
+                            }, 2000);
+                            switch (fbindex) {
+                            case 0:
+                                title = "全民挖地球";
+                                break;
+                            case 1:
+                                title = "后门要牢固";
+                                break;
+                            case 2:
+                                title = "别动我的粮饷";
+                                break;
+                            case 3:
+                                title = "师兄需要你";
+                                break;
+                            case 4:
+                                title = "魔鬼式训练";
+                                break;
+                            case 5:
+                                title = "你吃了吗";
+                                break;
+                            case 6:
+                                title = "叛徒必须死";
+                                break;
+                            case 7:
+                                title = "你的都是我的";
+                                break;
+                            case 8:
+                                title = "偷窥可以有"
+                            }
+                            if (result.errorCode == 0) {
+                                arrTaskCool[fbindex] = time + parseInt(fubencool);
+                                if (self._showMsg.length > 0) {
+                                    var arrMsg = self._showMsg.split("</br>");
+                                    if (arrMsg.length > 8) {
+                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                    }
+                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]执行: " + title
+                                } else {
+                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]执行: " + title
+                                }
+                                Mojo.app.toast.show(self._showMsg, "20000");
+                                serverRe = 0
+                            } else if (result.errorCode == 1) {} else if (result.errorCode == 130100) {
+                                arrTaskCool[fbindex] = "-1";
+                                for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                    if (arrTaskCool[i] != "-1" && arrTaskCool[i] - time < 0) {
+                                        break
+                                    }
+                                }
+                                fbindex = i
+                            } else if (result.errorCode == 160003) {
+                                alert("卡牌容量不足");
+                                w.clearInterval(autoForce)
+                            } else if (result.errorCode == 20004) {
+                                for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                    if (arrTaskCool[i] != "-1" && arrTaskCool[i] - time < 0) {
+                                        break
+                                    }
+                                }
+                                fbindex = i;
+                                serverRe = 0
+                            } else if (result.errorCode == 20002) {
+                                arrTaskCool[fbindex] = "-1";
+                                for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                    if (arrTaskCool[i] != "-1" && arrTaskCool[i] - time < 0) {
+                                        break
+                                    }
+                                }
+                                fbindex = i;
+                                if (serverRe == 1) {;
+                                    serverRe = 0;
+                                    for (i = 0; i < arrTask.length; i++) {
+                                        arrTaskCool[i] = "-1"
+                                    }
+                                    fbindex = arrTask.length + 1
+                                }
+                            } else {
+                                w.clearInterval(autoForce)
+                            }
+                        }, function () {}, {})
+                    } else {
+                        repeatFlag++
+                    }
+                } else {
+                    timef = parseInt(new Date().getTime() / 1000);
+                    sumtime = 0;
+                    for (i = 0; i < arrTaskCool.length; i++) {
+                        sumtime = sumtime + parseInt(arrTaskCool[i]);
+                        if (arrTaskCool[i] != "-1" && arrTaskCool[i] - timef < 0) {
+                            fbindex = i
+                        }
+                    }
+                    mi = parseInt((timef - time) / 60);
+                    ss = (timef - time) % 60;
+                    if (ss.length == 1) {
+                        ss = "0" + ss
+                    }
+                    timestr = mi + "分" + ss + "秒";
+                    if (sumtime == -9) {
+                        empty++;
+                        if (empty == 2) {
+                            Mojo.ajax("/force/playerTasks", {}, function (result) {
+                                if (result.errorCode == 0) {
+                                    if (self._showMsg.length > 0) {
+                                        var arrMsg = self._showMsg.split("</br>");
+                                        if (arrMsg.length > 8) {
+                                            var msgIndex = self._showMsg.indexOf("</br>");
+                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                        }
+                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]尝试接收系统刷新"
+                                    } else {
+                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]尝试接收系统刷新"
+                                    }
+                                    Mojo.app.toast.show(self._showMsg, "20000");
+                                    for (i = 0; i < arrTask.length; i++) {
+                                        arrTaskCool[i] = 0
+                                    }
+                                    fbindex = 0;
+                                    serverRe = 1
+                                }
+                            }, function () {})
+                        } else if (empty > 15) {
+                            Mojo.ajax("/force/acceptRefreshTask", {}, function (result) {
+                                if (result.errorCode == 0) {
+                                    if (self._showMsg.length > 0) {
+                                        var arrMsg = self._showMsg.split("</br>");
+                                        if (arrMsg.length > 8) {
+                                            var msgIndex = self._showMsg.indexOf("</br>");
+                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                        }
+                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]自动接收官员刷新"
+                                    } else {
+                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]自动接收官员刷新"
+                                    }
+                                    Mojo.app.toast.show(self._showMsg, "20000");
+                                    for (i = 0; i < arrTask.length; i++) {
+                                        arrTaskCool[i] = 0
+                                    }
+                                    fbindex = 0
+                                }
+                            });
+                            empty = 0
+                        }
+                    } else {
+                        empty1++;
+                        if (empty1 > 120) {
+                            if (self._showMsg.length > 0) {
+                                var arrMsg = self._showMsg.split("</br>");
+                                if (arrMsg.length > 8) {
+                                    var msgIndex = self._showMsg.indexOf("</br>");
+                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                }
+                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]等待冷却中..."
+                            } else {
+                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]等待冷却中..."
+                            }
+                            Mojo.app.toast.show(self._showMsg, "20000");
+                            empty1 = 0
+                        }
+                    }
+                }
+            }, 500)
+        },
+        nc: function () {
+            var self = this;
+            var robs = ["b101", "b102", "b103", "b104", "b105", "b106", "b107", "b108", "b109", "b110"];
+            var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
+            Mojo.app.toast.show("开始收宝");
+            var robid = 0;
+            var mzflag = confirm("是否开启自动免战模式?");
+            var repeatFlag = 120;
+            var repeatFlagMax = repeatFlag;
+            var autoRob = w.setInterval(function () {
+                if (repeatFlag >= repeatFlagMax) {
+                    repeatFlag = 0;
+                    var date = new Date();
+                    var now = date.getTime() / 1000;
+                    var t = parseInt(now + 8 * 3600);
+                    var hour = parseInt((t % (3600 * 24)) / 3600);
+                    var minute = parseInt((t % 3600) / 60);
+                    var second = t % 60;
+                    var strHour = hour;
+                    var strMinute = minute;
+                    var strSecond = second;
+                    if (hour < 10) {
+                        strHour = "0" + hour
+                    }
+                    if (minute < 10) {
+                        strMinute = "0" + minute
+                    }
+                    if (second < 10) {
+                        strSecond = "0" + second
+                    }
+                    Mojo.ajax("/collect/composite", {
+                        id: robs[robid]
+                    }, function (result) {
+                        if (result.errorCode == 50003) {
+                            msg = result.errorMsg;
+                            msgindex = msg.indexOf("剩余时间");
+                            if (msgindex != -1) {
+                                msg = msg.substring(msgindex);
+                                if (self._showMsg.length > 0) {
+                                    var arrMsg = self._showMsg.split("</br>");
+                                    if (arrMsg.length > 8) {
+                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                    }
+                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + robname[robid] + "正在合成中, " + msg
+                                } else {
+                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + robname[robid] + "正在合成中, " + msg
+                                }
+                                Mojo.app.toast.show(self._showMsg, "20000");
+                                robid = robid + 1;
+                                if (robid > 9) {
+                                    robid = 0
+                                }
+                                if (mzflag) {
+                                    setTimeout(function () {
+                                        Mojo.ajax("/collect/avoidWar", {}, function (result) {
+                                            setTimeout(function () {
+                                                repeatFlag = repeatFlagMax
+                                            }, 1000);
+                                            if (result.errorCode == 0) {
+                                                if (parseInt(result.data.avoid_war_time) > 0) {
+                                                    if (self._showMsg.length > 0) {
+                                                        var arrMsg = self._showMsg.split("</br>");
+                                                        if (arrMsg.length > 8) {
+                                                            var msgIndex = self._showMsg.indexOf("</br>");
+                                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                        }
+                                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
+                                                    } else {
+                                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
+                                                    }
+                                                    Mojo.app.toast.show(self._showMsg, "20000")
+                                                } else {
+                                                    if (result.data.id != undefined) {
+                                                        Mojo.ajax("/entity/Use", {
+                                                            id: result.data.id,
+                                                        }, function (result) {
+                                                            if (result.errorCode == 0) {
+                                                                if (self._showMsg.length > 0) {
+                                                                    var arrMsg = self._showMsg.split("</br>");
+                                                                    if (arrMsg.length > 8) {
+                                                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                                    }
+                                                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
+                                                                } else {
+                                                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
+                                                                }
+                                                                Mojo.app.toast.show(self._showMsg, "20000")
+                                                            }
+                                                        }, function () {}, {})
+                                                    } else {
+                                                        if (self._showMsg.length > 0) {
+                                                            var arrMsg = self._showMsg.split("</br>");
+                                                            if (arrMsg.length > 8) {
+                                                                var msgIndex = self._showMsg.indexOf("</br>");
+                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                            }
+                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
+                                                        } else {
+                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
+                                                        }
+                                                        Mojo.app.toast.show(self._showMsg, "20000")
+                                                    }
+                                                }
+                                            }
+                                        }, function () {}, {})
+                                    }, 1000)
+                                } else {
+                                    setTimeout(function () {
+                                        repeatFlag = repeatFlagMax
+                                    }, 1000)
+                                }
+                            }
+                        } else if (result.errorCode == 0) {
+                            if (self._showMsg.length > 0) {
+                                var arrMsg = self._showMsg.split("</br>");
+                                if (arrMsg.length > 8) {
+                                    var msgIndex = self._showMsg.indexOf("</br>");
+                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                }
+                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]收获 " + robname[robid] + " 1本"
+                            } else {
+                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]收获 " + robname[robid] + " 1本"
+                            }
+                            Mojo.app.toast.show(self._showMsg, "20000")
+                        }
+                        if (result.errorCode == 0 || result.errorCode == 50004 || (result.errorCode == 50003 && msgindex == -1)) {
+                            setTimeout(function () {
+                                Mojo.ajax("/collect/compositeStart", {
+                                    id: robs[robid]
+                                }, function (result) {
+                                    if (result.errorCode == 0) {
+                                        if (self._showMsg.length > 0) {
+                                            var arrMsg = self._showMsg.split("</br>");
+                                            if (arrMsg.length > 8) {
+                                                var msgIndex = self._showMsg.indexOf("</br>");
+                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                            }
+                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]开始合成:" + robname[robid]
+                                        } else {
+                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]开始合成:" + robname[robid]
+                                        }
+                                        Mojo.app.toast.show(self._showMsg, "20000");
+                                        if (mzflag) {
+                                            setTimeout(function () {
+                                                Mojo.ajax("/collect/avoidWar", {}, function (result) {
+                                                    setTimeout(function () {
+                                                        repeatFlag = repeatFlagMax
+                                                    }, 1000);
+                                                    if (result.errorCode == 0) {
+                                                        if (parseInt(result.data.avoid_war_time) > 0) {
+                                                            if (self._showMsg.length > 0) {
+                                                                var arrMsg = self._showMsg.split("</br>");
+                                                                if (arrMsg.length > 8) {
+                                                                    var msgIndex = self._showMsg.indexOf("</br>");
+                                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                                }
+                                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
+                                                            } else {
+                                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
+                                                            }
+                                                            Mojo.app.toast.show(self._showMsg, "20000")
+                                                        } else {
+                                                            if (result.data.id != undefined) {
+                                                                Mojo.ajax("/entity/Use", {
+                                                                    id: result.data.id,
+                                                                }, function (result) {
+                                                                    if (result.errorCode == 0) {
+                                                                        if (self._showMsg.length > 0) {
+                                                                            var arrMsg = self._showMsg.split("</br>");
+                                                                            if (arrMsg.length > 8) {
+                                                                                var msgIndex = self._showMsg.indexOf("</br>");
+                                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                                            }
+                                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
+                                                                        } else {
+                                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
+                                                                        }
+                                                                        Mojo.app.toast.show(self._showMsg, "20000")
+                                                                    }
+                                                                }, function () {}, {})
+                                                            } else {
+                                                                if (self._showMsg.length > 0) {
+                                                                    var arrMsg = self._showMsg.split("</br>");
+                                                                    if (arrMsg.length > 8) {
+                                                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                                    }
+                                                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
+                                                                } else {
+                                                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
+                                                                }
+                                                                Mojo.app.toast.show(self._showMsg, "20000")
+                                                            }
+                                                        }
+                                                    }
+                                                }, function () {}, {})
+                                            }, 1000)
+                                        } else {
+                                            setTimeout(function () {
+                                                repeatFlag = repeatFlagMax
+                                            }, 1000)
+                                        }
+                                    } else {
+                                        setTimeout(function () {
+                                            repeatFlag = repeatFlagMax
+                                        }, 1000)
+                                    }
+                                    robid = robid + 1;
+                                    if (robid > 9) {
+                                        robid = 0
+                                    }
+                                }, function () {}, {})
+                            }, 1000)
+                        }
+                    }, function () {}, {})
+                } else {
+                    repeatFlag++
+                }
+            }, 500)
+        },
+        ct: function () {
+            var self = this;
+            var params = {};
+            var cond;
+            var cd;
+            var num = 0;
+            var repeatFlag = 8;
+            var repeatFlagMax = repeatFlag;
+            var listParams = {
+                start: 0,
+                count: 20,
+                type: 4,
+                sub_type: 0,
+            };
+            Mojo.ajax("/illustration/list", listParams, function (result) {
+                if (result.errorCode == 0) {
+                    for (var i in result.data.list) {
+                        var award = result.data.list[i].award.name;
+                        var name = result.data.list[i].name;
+                        if (award == "钱袋" && name == "变碎为宝活动") {
+                            params.game_activity_id = result.data.list[i].id;
+                            cond = result.data.list[i].conditions[2].id;
+                            cd = result.data.list[i].cooling_time
+                        }
+                    }
+                    Mojo.app.toast.show("开启自动兑换钱袋,冷却时间: " + cd + "秒", "20000");
+                    var date = new Date();
+                    var now = date.getTime() / 1000;
+                    cd = parseInt(cd) + parseInt(now) + parseInt(3);
+                    var autosuipian = w.setInterval(function () {
+                        date = new Date();
+                        now = date.getTime() / 1000;
+                        var cha = parseInt(cd) - parseInt(now);
+                        if (cha < 0 && repeatFlag >= repeatFlagMax) {
+                            repeatFlag = 0;
+                            var t = parseInt(now + 8 * 3600);
+                            var hour = parseInt((t % (3600 * 24)) / 3600);
+                            var minute = parseInt((t % 3600) / 60);
+                            var second = t % 60;
+                            var strHour = hour;
+                            var strMinute = minute;
+                            var strSecond = second;
+                            if (hour < 10) {
+                                strHour = "0" + hour
+                            }
+                            if (minute < 10) {
+                                strMinute = "0" + minute
+                            }
+                            if (second < 10) {
+                                strSecond = "0" + second
+                            }
+                            var shownow = strHour + ":" + strMinute + ":" + strSecond + " ";
+                            Mojo.ajax("/gameactivity/choose", {
+                                start: 0,
+                                count: 1,
+                                condition_id: cond
+                            }, function (response) {
+                                if (response.errorCode == 0) {
+                                    if (response.data.list.length > 0) {
+                                        eval("params.condition_" + cond + " = " + response.data.list[0].player_entity_id + ";");
+                                        Mojo.ajax("/gameactivity/do", params, function (response1) {
+                                            setTimeout(function () {
+                                                repeatFlag = repeatFlagMax
+                                            }, 1000);
+                                            if (response1.errorCode == 0) {
+                                                if (self._showMsg.length > 0) {
+                                                    var arrMsg = self._showMsg.split("</br>");
+                                                    if (arrMsg.length > 8) {
+                                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                    }
+                                                    self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]获得1个钱袋"
+                                                } else {
+                                                    self._showMsg = shownow + "[兑换]获得1个钱袋"
+                                                }
+                                                Mojo.app.toast.show(self._showMsg, "20000");
+                                                date = new Date();
+                                                now = date.getTime() / 1000;
+                                                cd = parseInt(3603) + parseInt(now)
+                                            } else {
+                                                if (self._showMsg.length > 0) {
+                                                    var arrMsg = self._showMsg.split("</br>");
+                                                    if (arrMsg.length > 8) {
+                                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                    }
+                                                    self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]" + response1.errorMsg
+                                                } else {
+                                                    self._showMsg = shownow + "[兑换]" + response1.errorMsg
+                                                }
+                                                Mojo.app.toast.show(self._showMsg, "20000")
+                                            }
+                                        }, function () {})
+                                    } else {
+                                        setTimeout(function () {
+                                            repeatFlag = repeatFlagMax
+                                        }, 1000);
+                                        if (self._showMsg.length > 0) {
+                                            var arrMsg = self._showMsg.split("</br>");
+                                            if (arrMsg.length > 8) {
+                                                var msgIndex = self._showMsg.indexOf("</br>");
+                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                            }
+                                            self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]缺少祭祀卡"
+                                        } else {
+                                            self._showMsg = shownow + "[兑换]缺少祭祀卡"
+                                        }
+                                        Mojo.app.toast.show(self._showMsg, "20000")
+                                    }
+                                } else {
+                                    setTimeout(function () {
+                                        repeatFlag = repeatFlagMax
+                                    }, 1000);
+                                    if (self._showMsg.length > 0) {
+                                        var arrMsg = self._showMsg.split("</br>");
+                                        if (arrMsg.length > 8) {
+                                            var msgIndex = self._showMsg.indexOf("</br>");
+                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                        }
+                                        self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]" + response.errorMsg
+                                    } else {
+                                        self._showMsg = shownow + "[兑换]" + response.errorMsg
+                                    }
+                                    Mojo.app.toast.show(self._showMsg, "20000")
+                                }
+                            }, function () {})
+                        } else {
+                            repeatFlag++;
+                            if (num > 10) {
+                                num = 0;
+                                var t = parseInt(now + 8 * 3600);
+                                var hour = parseInt((t % (3600 * 24)) / 3600);
+                                var minute = parseInt((t % 3600) / 60);
+                                var second = t % 60;
+                                var strHour = hour;
+                                var strMinute = minute;
+                                var strSecond = second;
+                                if (hour < 10) {
+                                    strHour = "0" + hour
+                                }
+                                if (minute < 10) {
+                                    strMinute = "0" + minute
+                                }
+                                if (second < 10) {
+                                    strSecond = "0" + second
+                                }
+                                var shownow = strHour + ":" + strMinute + ":" + strSecond + " ";
+                                if (self._showMsg.length > 0) {
+                                    var arrMsg = self._showMsg.split("</br>");
+                                    if (arrMsg.length > 8) {
+                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                    }
+                                    self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]预计" + cha + "秒后兑换钱袋"
+                                } else {
+                                    self._showMsg = shownow + "[兑换]预计" + cha + "秒后兑换钱袋"
+                                }
+                                Mojo.app.toast.show(self._showMsg, "20000")
+                            } else {
+                                num++
+                            }
+                        }
+                    }, 5000)
+                }
+            }, function () {})
+        },
+        ti: function () {
+            var self = this;
+            var startFlag = true;
+            var xmlHttp = false;
+            try {
+                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
+            } catch (e) {
+                try {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
+                } catch (e2) {
+                    xmlHttp = false
+                }
+            };
+            if (!xmlHttp && typeof XMLHttpRequest != "undefined") {
+                xmlHttp = new XMLHttpRequest()
+            }
+            xmlHttp.open("GET", "null.txt", false);
+            xmlHttp.setRequestHeader("Range", "bytes=-1");
+            xmlHttp.send(null);
+            severtime = new Date(xmlHttp.getResponseHeader("Date"));
+            var stime = severtime.getTime();
+            var ltime = new Date().getTime();
+            startFlag = false;
+            Mojo.app.toast.show("自动闯关开始 初始化需要20-40秒");
+            var runfb = new Array(0);
+            var tasks = new Array(0);
+            var groups = new Array(0);
+            var names = new Array(0);
+            var cools = new Array(0);
+            var pris = new Array(0);
+            var index = 0;
+            Mojo.ajax("/fuben/fubens", {}, function (result) {
+                for (var i = 0; i < result.data.length; i++) {
+                    if (result.data[i].status == 1 && result.data[i].unlock == 1) {
+                        runfb[index] = result.data[i].id;
+                        index++
+                    }
+                }
+                self.un(runfb, 0, 1, tasks, groups, names, cools, pris)
+            }, function () {});
+        },
+        un: function (runfb, index, group, tasks, groups, names, cools, pris) {
+            var self = this;
+            if (group == 100) {
+                for (var i = 0; i < 5; i++) {
+                    tasks[tasks.length] = 0;
+                    groups[groups.length] = "0-0-0";
+                    names[names.length] = "0-0-0";
+                    cools[cools.length] = "-1";
+                    pris[pris.length] = "-1"
+                }
+                group = 1;
+                index++;
+                if (index < runfb.length) {
+                    self.un(runfb, index, group, tasks, groups, names, cools, pris)
+                } else {
+                    self.fu(tasks, groups, names, cools, pris)
+                };
+            } else {
+                var params = {
+                    start: 0,
+                    count: 50,
+                    fuben_id: runfb[index],
+                    fb_task_group_id: group,
+                };
+                Mojo.ajax("/fuben/fbTasks", params, function (result) {
+                    if (result.errorCode == 0 && result.data.fb_tasks != "") {
+                        var time = parseInt(new Date().getTime() / 1000);
+                        for (var i = 0; i < 5; i++) {
+                            tasks[tasks.length] = result.data.fb_tasks[i].id;
+                            groups[groups.length] = runfb[index] + "-" + group + "-" + (i + 1);
+                            names[names.length] = result.data.cur_fuben.name + "-" + result.data.fb_task_groups[group - 1].name + "-" + result.data.fb_tasks[i].name;
+                            if (result.data.fb_tasks[i].percent < 100) {
+                                cools[cools.length] = parseInt(result.data.fb_tasks[i].cold_down) + parseInt(time) + 1
+                            } else {
+                                cools[cools.length] = "-1"
+                            } if (i == 0) {
+                                if (runfb[index] == 2 || runfb[index] == 6) {
+                                    pris[pris.length] = 2
+                                } else if (runfb[index] == 3 || runfb[index] == 5 || runfb[index] == 7 || runfb[index] == 8) {
+                                    pris[pris.length] = 3
+                                } else if (runfb[index] == 1 || runfb[index] == 4 || runfb[index] == 9 || runfb[index] == 10 || runfb[index] == 11) {
+                                    pris[pris.length] = 4
+                                } else {
+                                    pris[pris.length] = 2
+                                }
+                            } else if (i == 1) {
+                                if (runfb[index] == 3 || runfb[index] == 4) {
+                                    pris[pris.length] = 6
+                                } else {
+                                    pris[pris.length] = 5
+                                }
+                            } else if (i == 2) {
+                                if (runfb[index] == 3 || runfb[index] == 4) {
+                                    pris[pris.length] = 8
+                                } else {
+                                    pris[pris.length] = 7
+                                }
+                            } else if (i == 3) {
+                                if (runfb[index] == 3 || runfb[index] == 4) {
+                                    pris[pris.length] = 12
+                                } else if (runfb[index] == 1 || runfb[index] == 9 || runfb[index] == 10) {
+                                    pris[pris.length] = 11
+                                } else if (runfb[index] == 2) {
+                                    pris[pris.length] = 9
+                                } else {
+                                    pris[pris.length] = 10
+                                }
+                            } else {
+                                pris[pris.length] = 1
+                            }
+                        }
+                        if (group < result.data.fb_task_groups.length) {
+                            group++
+                        } else {
+                            group = 100
+                        }
+                        self.un(runfb, index, group, tasks, groups, names, cools, pris);
+                    } else {
+                        for (var i = 0; i < 5; i++) {
+                            tasks[tasks.length] = 0;
+                            groups[groups.length] = "0-0-0";
+                            names[names.length] = "0-0-0";
+                            cools[cools.length] = "-1";
+                            pris[pris.length] = "-1"
+                        }
+                        group = 1;
+                        index++;
+                        if (index < runfb.length) {
+                            self.un(runfb, index, group, tasks, groups, names, cools, pris)
+                        } else {
+                            self.fu(tasks, groups, names, cools, pris)
+                        };
+                    }
+                }, function () {})
+            }
+        },
+        fu: function (tasks, groups, names, cools, pris) {
+            Mojo.app.toast.show("开始计算副本状态");
+            var self = this;
+            var zhixingtime = 3000;
+            var empty = 0;
+            var time = parseInt(new Date().getTime() / 1000);
+            var fbindex = tasks.length;
+            for (var i = 0; i < tasks.length; i++) {
+                if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                    if ((i + 1) % 5 == 0) {
+                        if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                            if (fbindex == tasks.length) {
+                                fbindex = i
+                            } else {
+                                i++
+                            }
+                        } else {
+                            i++
+                        }
+                    } else {
+                        if (fbindex == tasks.length) {
+                            fbindex = i
+                        } else {
+                            var pri1 = pris[fbindex];
+                            var pri2 = pris[i];
+                            if (pri1 < pri2) {
+                                fbindex = i
+                            }
+                        }
+                    }
+                }
+            }
+            var repeatFlag = 10;
+            var repeatFlagMax = repeatFlag;
+            var autoFuben2 = w.setInterval(function () {
+                time = parseInt(new Date().getTime() / 1000);
+                if (fbindex < cools.length) {
+                    if (repeatFlag >= repeatFlagMax) {
+                        repeatFlag = 0;
+                        var fubenid = tasks[fbindex];
+                        Mojo.ajax("/fuben/do", {
+                            id: fubenid,
+                        }, function (result) {
+                            setTimeout(function () {
+                                repeatFlag = repeatFlagMax
+                            }, 1000);
+                            var date = new Date();
+                            var now = date.getTime() / 1000;
+                            var t = parseInt(now + 8 * 3600);
+                            var hour = parseInt((t % (3600 * 24)) / 3600);
+                            var minute = parseInt((t % 3600) / 60);
+                            var second = t % 60;
+                            var strHour = hour;
+                            var strMinute = minute;
+                            var strSecond = second;
+                            if (hour < 10) {
+                                strHour = "0" + hour
+                            }
+                            if (minute < 10) {
+                                strMinute = "0" + minute
+                            }
+                            if (second < 10) {
+                                strSecond = "0" + second
+                            }
+                            var titleMsg = "";
+                            if (result.errorCode == 0) {
+                                var emsg = "";
+                                if (result.data.award) {
+                                    if (result.data.award.bonus) {
+                                        if (result.data.award.bonus.entities) {
+                                            if (result.data.award.bonus.entities[0]) {
+                                                if (result.data.award.bonus.entities[0].id) {
+                                                    if (result.data.award.bonus.entities[0].id == "d12") {
+                                                        emsg = ", 获得转生丹"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                titleMsg = " [自动副本]:执行成功" + emsg
+                            }
+                            if (titleMsg.length > 0) {
+                                if (self._showMsg.length > 0) {
+                                    var arrMsg = self._showMsg.split("</br>");
+                                    if (arrMsg.length > 8) {
+                                        var msgIndex = self._showMsg.indexOf("</br>");
+                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                    }
+                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
+                                } else {
+                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
+                                }
+                                Mojo.app.toast.show(self._showMsg, "20000")
+                            }
+                            if (result.errorCode == 0) {
+                                if ((fbindex + 1) % 5 == 0) {
+                                    cools[fbindex] = "-1";
+                                    if (tasks[fbindex + 1] != 0) {
+                                        Mojo.ajax("/fuben/getAward", {
+                                            id: fubenid,
+                                        }, function (result) {
+                                            if (result.errorCode == 0) {
+                                                Mojo.ajax("/fuben/openAward", {
+                                                    id: fubenid,
+                                                    award_id: result.data.free_award.id,
+                                                    status: 1,
+                                                }, function (result) {
+                                                    cools[fbindex + 1] = "0";
+                                                    cools[fbindex + 2] = "0";
+                                                    cools[fbindex + 3] = "0";
+                                                    cools[fbindex + 4] = "0";
+                                                    cools[fbindex + 5] = "0";
+                                                    if (result.data) {
+                                                        if (result.data.entity) {
+                                                            if (result.data.entity.id) {
+                                                                if (result.data.entity.id == "d12") {
+                                                                    titleMsg = " [自动副本]:领奖成功, 获得转生丹";
+                                                                    if (titleMsg.length > 0) {
+                                                                        if (self._showMsg.length > 0) {
+                                                                            var arrMsg = self._showMsg.split("</br>");
+                                                                            if (arrMsg.length > 8) {
+                                                                                var msgIndex = self._showMsg.indexOf("</br>");
+                                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                                                            }
+                                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
+                                                                        } else {
+                                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
+                                                                        }
+                                                                        Mojo.app.toast.show(self._showMsg, "20000")
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }, function () {}, {})
+                                            }
+                                        }, function () {}, {})
+                                    }
+                                    fbindex = tasks.length;
+                                    for (var i = 0; i < tasks.length; i++) {
+                                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                            if ((i + 1) % 5 == 0) {
+                                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                    if (fbindex == tasks.length) {
+                                                        fbindex = i
+                                                    } else {
+                                                        i++
+                                                    }
+                                                } else {
+                                                    i++
+                                                }
+                                            } else {
+                                                if (fbindex == tasks.length) {
+                                                    fbindex = i
+                                                } else {
+                                                    var pri1 = pris[fbindex];
+                                                    var pri2 = pris[i];
+                                                    if (pri1 < pri2) {
+                                                        fbindex = i
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (result.data.fb_task.percent == 100) {
+                                        cools[fbindex] = "-1"
+                                    } else {
+                                        cools[fbindex] = time + 1 + parseInt(result.data.fb_task.cold_down)
+                                    }
+                                    fbindex = tasks.length;
+                                    for (var i = 0; i < tasks.length; i++) {
+                                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                            if ((i + 1) % 5 == 0) {
+                                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                    if (fbindex == tasks.length) {
+                                                        fbindex = i
+                                                    } else {
+                                                        i++
+                                                    }
+                                                } else {
+                                                    i++
+                                                }
+                                            } else {
+                                                if (fbindex == tasks.length) {
+                                                    fbindex = i
+                                                } else {
+                                                    var pri1 = pris[fbindex];
+                                                    var pri2 = pris[i];
+                                                    if (pri1 < pri2) {
+                                                        fbindex = i
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (result.errorCode == 20009) {
+                                cools[fbindex] = "-2";
+                                fbindex = tasks.length;
+                                for (var i = 0; i < tasks.length; i++) {
+                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                        if ((i + 1) % 5 == 0) {
+                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                if (fbindex == tasks.length) {
+                                                    fbindex = i
+                                                } else {
+                                                    i++
+                                                }
+                                            } else {
+                                                i++
+                                            }
+                                        } else {
+                                            if (fbindex == tasks.length) {
+                                                fbindex = i
+                                            } else {
+                                                var pri1 = pris[fbindex];
+                                                var pri2 = pris[i];
+                                                if (pri1 < pri2) {
+                                                    fbindex = i
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (result.errorCode == 1) {} else if (result.errorCode == 20006) {} else if (result.errorCode == 20001) {
+                                cools[fbindex - 1] = "0";
+                                cools[fbindex - 2] = "0";
+                                cools[fbindex - 3] = "0";
+                                cools[fbindex - 4] = "0";
+                                fbindex = tasks.length;
+                                for (var i = 0; i < tasks.length; i++) {
+                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                        if ((i + 1) % 5 == 0) {
+                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                if (fbindex == tasks.length) {
+                                                    fbindex = i
+                                                } else {
+                                                    i++
+                                                }
+                                            } else {
+                                                i++
+                                            }
+                                        } else {
+                                            if (fbindex == tasks.length) {
+                                                fbindex = i
+                                            } else {
+                                                var pri1 = pris[fbindex];
+                                                var pri2 = pris[i];
+                                                if (pri1 < pri2) {
+                                                    fbindex = i
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (result.errorCode == 160003) {
+                                alert(strHour + ":" + strMinute + ":" + strSecond + "卡牌容量不足");
+                                w.clearInterval(autoFuben2)
+                            } else if (result.errorCode == 20004) {
+                                var params = {
+                                    start: 0,
+                                    count: 50,
+                                    fuben_id: groups[fbindex].split("-")[0],
+                                    fb_task_group_id: groups[fbindex].split("-")[1],
+                                };
+                                Mojo.ajax("/fuben/fbTasks", params, function (result) {
+                                    if (result.data.fb_tasks[parseInt(groups[fbindex].split("-")[2]) - 1].percent < 100) {
+                                        cools[fbindex] = parseInt(result.data.fb_tasks[parseInt(groups[fbindex].split("-")[2]) - 1].cold_down) + parseInt(time) + 1
+                                    } else {
+                                        cools[fbindex] = -1
+                                    }
+                                    fbindex = tasks.length;
+                                    for (var i = 0; i < tasks.length; i++) {
+                                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                            if ((i + 1) % 5 == 0) {
+                                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                    if (fbindex == tasks.length) {
+                                                        fbindex = i
+                                                    } else {
+                                                        i++
+                                                    }
+                                                } else {
+                                                    i++
+                                                }
+                                            } else {
+                                                if (fbindex == tasks.length) {
+                                                    fbindex = i
+                                                } else {
+                                                    var pri1 = pris[fbindex];
+                                                    var pri2 = pris[i];
+                                                    if (pri1 < pri2) {
+                                                        fbindex = i
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }, function () {})
+                            } else if (result.errorCode == 20002) {
+                                cools[fbindex] = "-1";
+                                fbindex = tasks.length;
+                                for (var i = 0; i < tasks.length; i++) {
+                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                        if ((i + 1) % 5 == 0) {
+                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                if (fbindex == tasks.length) {
+                                                    fbindex = i
+                                                } else {
+                                                    i++
+                                                }
+                                            } else {
+                                                i++
+                                            }
+                                        } else {
+                                            if (fbindex == tasks.length) {
+                                                fbindex = i
+                                            } else {
+                                                var pri1 = pris[fbindex];
+                                                var pri2 = pris[i];
+                                                if (pri1 < pri2) {
+                                                    fbindex = i
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else if (result.errorCode == 10002) {
+                                for (i = fbindex + 2; i < cools.length; i++) {
+                                    if (tasks[i] == 0) {
+                                        break
+                                    }
+                                }
+                                for (i = fbindex + 2; i < cools.length; i++) {
+                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                                        if ((i + 1) % 5 == 0) {
+                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                                break
+                                            } else {
+                                                i++
+                                            }
+                                        } else {
+                                            break
+                                        }
+                                    }
+                                }
+                                fbindex = i
+                            } else if (result.errorCode == 20003) {
+                                w.clearInterval(autoFuben2);
+                                self.ti()
+                            }
+                        }, function () {}, {})
+                    } else {
+                        repeatFlag++
+                    }
+                }
+                var nexttime = 0;
+                var nextsum = 0;
+                if (fbindex >= cools.length) {
+                    for (i = 0; i < cools.length; i++) {
+                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
+                            if ((i + 1) % 5 == 0) {
+                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
+                                    if (fbindex == tasks.length) {
+                                        fbindex = i
+                                    } else {
+                                        i++
+                                    }
+                                } else {
+                                    nextsum++;
+                                    nextsum++;
+                                    i++
+                                }
+                            } else {
+                                if (fbindex == tasks.length) {
+                                    fbindex = i
+                                } else {
+                                    var pri1 = pris[fbindex];
+                                    var pri2 = pris[i];
+                                    if (pri1 < pri2) {
+                                        fbindex = i
+                                    }
+                                }
+                            }
+                        } else if (parseInt(cools[i]) > -1) {
+                            if (nexttime == 0) {
+                                nexttime = cools[i]
+                            } else if (nexttime - cools[i] > 0) {
+                                nexttime = cools[i]
+                            }
+                            nextsum++
+                        }
+                    }
+                    nexttime = nexttime - time;
+                    if (fbindex >= cools.length) {
+                        empty++;
+                        if (empty == 1) {
+                            var date = new Date();
+                            var now = date.getTime() / 1000;
+                            var t = parseInt(now + 8 * 3600);
+                            var hour = parseInt((t % (3600 * 24)) / 3600);
+                            var minute = parseInt((t % 3600) / 60);
+                            var second = t % 60;
+                            var strHour = hour;
+                            var strMinute = minute;
+                            var strSecond = second;
+                            if (hour < 10) {
+                                strHour = "0" + hour
+                            }
+                            if (minute < 10) {
+                                strMinute = "0" + minute
+                            }
+                            if (second < 10) {
+                                strSecond = "0" + second
+                            }
+                            if (self._showMsg.length > 0) {
+                                var arrMsg = self._showMsg.split("</br>");
+                                if (arrMsg.length > 8) {
+                                    var msgIndex = self._showMsg.indexOf("</br>");
+                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
+                                }
+                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [刷丹]:预计" + nexttime + "秒,任务:" + nextsum + "个"
+                            } else {
+                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [刷丹]:预计" + nexttime + "秒,任务:" + nextsum + "个"
+                            }
+                            Mojo.app.toast.show(self._showMsg, "20000")
+                        }
+                    } else {
+                        empty = 0
+                    } if (empty > 20) {
+                        for (i = 0; i < cools.length; i++) {
+                            if (parseInt(cools[i]) > -1) {
+                                break
+                            }
+                        }
+                        if (i >= cools.length) {
+                            w.clearInterval(autoFuben2);
+                            alert("副本完成")
+                        } else {
+                            empty = 0
+                        }
+                    }
+                }
+            }, zhixingtime);
+        },
         _addQuickButtons: function () {
             var self = this;
             var onClickQuickBtn = function (btn, e) {
                 var id = btn.id();
                 if ('btn-task' === id) {
-                    Mojo.app.toast.show("初始化内政数据ing");
-                    var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
-                    var arrTaskCool = new Array(arrTask.length);
-                    for (var i = 0; i < arrTask.length; i++) {
-                        arrTaskCool[i] = 0
-                    }
-                    var time;
-                    var fbindex = 0;
-                    var i = 0;
-                    var title = "";
-                    var mi;
-                    var ss;
-                    var timestr;
-                    var timef;
-                    var sumtime;
-                    var empty = 0;
-                    var empty1 = 0;
-                    var serverRe = 0;
-                    var autoForce = w.setInterval(function () {
-                        var date = new Date();
-                        var now = date.getTime() / 1000;
-                        var t = parseInt(now + 8 * 3600);
-                        var hour = parseInt((t % (3600 * 24)) / 3600);
-                        var minute = parseInt((t % 3600) / 60);
-                        var second = t % 60;
-                        var strHour = hour;
-                        var strMinute = minute;
-                        var strSecond = second;
-                        if (hour < 10) {
-                            strHour = "0" + hour
-                        }
-                        if (minute < 10) {
-                            strMinute = "0" + minute
-                        }
-                        if (second < 10) {
-                            strSecond = "0" + second
-                        }
-                        if (fbindex < arrTaskCool.length) {
-                            time = parseInt(new Date().getTime() / 1000);
-                            var fubenid = arrTask[fbindex].split('@')[0];
-                            var fubencool = arrTask[fbindex].split('@')[1];
-                            Mojo.ajax('/force/doTask', {
-                                id: fubenid,
-                            }, function (result) {
-                                switch (fbindex) {
-                                case 0:
-                                    title = "全民挖地球";
-                                    break;
-                                case 1:
-                                    title = "后门要牢固";
-                                    break;
-                                case 2:
-                                    title = "别动我的粮饷";
-                                    break;
-                                case 3:
-                                    title = "师兄需要你";
-                                    break;
-                                case 4:
-                                    title = "魔鬼式训练";
-                                    break;
-                                case 5:
-                                    title = "你吃了吗";
-                                    break;
-                                case 6:
-                                    title = "叛徒必须死";
-                                    break;
-                                case 7:
-                                    title = "你的都是我的";
-                                    break;
-                                case 8:
-                                    title = "偷窥可以有"
-                                }
-                                if (result.errorCode == 0) {
-                                    arrTaskCool[fbindex] = time + parseInt(fubencool);
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split('</br>');
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]执行: " + title
-                                    } else {
-                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]执行: " + title
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000");
-                                    serverRe = 0
-                                } else if (result.errorCode == 1) {} else if (result.errorCode == 130100) {
-                                    arrTaskCool[fbindex] = '-1';
-                                    for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                        if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                            break
-                                        }
-                                    }
-                                    fbindex = i
-                                } else if (result.errorCode == 160003) {
-                                    alert('卡牌容量不足');
-                                    w.clearInterval(autoForce)
-                                } else if (result.errorCode == 20004) {
-                                    for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                        if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                            break
-                                        }
-                                    }
-                                    fbindex = i;
-                                    serverRe = 0
-                                } else if (result.errorCode == 20002) {
-                                    arrTaskCool[fbindex] = '-1';
-                                    for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                        if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                            break
-                                        }
-                                    }
-                                    fbindex = i;
-                                    if (serverRe == 1) {;
-                                        serverRe = 0;
-                                        for (i = 0; i < arrTask.length; i++) {
-                                            arrTaskCool[i] = '-1'
-                                        }
-                                        fbindex = arrTask.length + 1
-                                    }
-                                } else {
-                                    w.clearInterval(autoForce)
-                                }
-                            }, function () {}, {})
-                        } else {
-                            timef = parseInt(new Date().getTime() / 1000);
-                            sumtime = 0;
-                            for (i = 0; i < arrTaskCool.length; i++) {
-                                sumtime = sumtime + parseInt(arrTaskCool[i]);
-                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - timef < 0) {
-                                    fbindex = i
-                                }
-                            }
-                            mi = parseInt((timef - time) / 60);
-                            ss = (timef - time) % 60;
-                            if (ss.length == 1) {
-                                ss = "0" + ss
-                            }
-                            timestr = mi + "分" + ss + "秒";
-                            if (sumtime == -9) {
-                                empty++;
-                                if (empty == 2) {
-                                    Mojo.ajax('/force/playerTasks', {}, function (result) {
-                                        if (result.errorCode == 0) {
-                                            if (self._showMsg.length > 0) {
-                                                var arrMsg = self._showMsg.split('</br>');
-                                                if (arrMsg.length > 8) {
-                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                }
-                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]尝试接收系统刷新"
-                                            } else {
-                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]尝试接收系统刷新"
-                                            }
-                                            Mojo.app.toast.show(self._showMsg, "20000");
-                                            for (i = 0; i < arrTask.length; i++) {
-                                                arrTaskCool[i] = 0
-                                            }
-                                            fbindex = 0;
-                                            serverRe = 1
-                                        }
-                                    }, function () {})
-                                } else if (empty > 15) {
-                                    Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
-                                        if (result.errorCode == 0) {
-                                            if (self._showMsg.length > 0) {
-                                                var arrMsg = self._showMsg.split('</br>');
-                                                if (arrMsg.length > 8) {
-                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                }
-                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]自动接收官员刷新"
-                                            } else {
-                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]自动接收官员刷新"
-                                            }
-                                            Mojo.app.toast.show(self._showMsg, "20000");
-                                            for (i = 0; i < arrTask.length; i++) {
-                                                arrTaskCool[i] = 0
-                                            }
-                                            fbindex = 0
-                                        } else {
-                                            if (self._showMsg.length > 0) {
-                                                var arrMsg = self._showMsg.split('</br>');
-                                                if (arrMsg.length > 8) {
-                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                }
-                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]等待刷新中"
-                                            } else {
-                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]等待刷新中..."
-                                            }
-                                            Mojo.app.toast.show(self._showMsg, "20000")
-                                        }
-                                    });
-                                    empty = 0
-                                }
-                            } else {
-                                empty1++;
-                                if (empty1 > 15) {
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split('</br>');
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]等待冷却中..."
-                                    } else {
-                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]等待冷却中..."
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000");
-                                    empty1 = 0
-                                }
-                            }
-                        }
-                    }, 4000);
+                    self.i();
                 } else if ('btn-entity-embed' === id) {
                     Mojo.app.redirect('/package', {}, 'event', '玩家点击“排列阵容”按钮');
                 } else if ('btn-entity-battle' === id) {
-                    var robs = ["b101", "b102", "b103", "b104", "b105", "b106", "b107", "b108", "b109", "b110"];
-                    var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
-                    Mojo.app.toast.show("开始收宝");
-                    var robid = 0;
-                    var mzflag = confirm("是否开启自动免战模式?");
-                    var reRob = 0;
-                    var finalReRob = prompt("合成校验次数 (验证1次需要9秒)", "1");
-                    var autoRob = w.setInterval(function () {
-                        var date = new Date();
-                        var now = date.getTime() / 1000;
-                        var t = parseInt(now + 8 * 3600);
-                        var hour = parseInt((t % (3600 * 24)) / 3600);
-                        var minute = parseInt((t % 3600) / 60);
-                        var second = t % 60;
-                        var strHour = hour;
-                        var strMinute = minute;
-                        var strSecond = second;
-                        if (hour < 10) {
-                            strHour = "0" + hour
-                        }
-                        if (minute < 10) {
-                            strMinute = "0" + minute
-                        }
-                        if (second < 10) {
-                            strSecond = "0" + second
-                        }
-                        Mojo.ajax('/collect/composite', {
-                            id: robs[robid]
-                        }, function (result) {
-                            if (result.errorCode == 50004) {
-                                reRob = reRob + 1;
-                                if (reRob > finalReRob) {} else {}
-                            } else if (result.errorCode == 50003) {
-                                msg = result.errorMsg;
-                                msgindex = msg.indexOf("剩余时间");
-                                if (msgindex != -1) {
-                                    msg = msg.substring(msgindex);
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split('</br>');
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + robname[robid] + "正在合成中, " + msg
-                                    } else {
-                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + robname[robid] + "正在合成中, " + msg
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000");
-                                    robid = robid + 1;
-                                    if (robid > 9) {
-                                        robid = 0
-                                    }
-                                    if (mzflag) {
-                                        setTimeout(function () {
-                                            Mojo.ajax('/collect/avoidWar', {}, function (result) {
-                                                if (result.errorCode == 0) {
-                                                    if (parseInt(result.data.avoid_war_time) > 0) {
-                                                        if (self._showMsg.length > 0) {
-                                                            var arrMsg = self._showMsg.split('</br>');
-                                                            if (arrMsg.length > 8) {
-                                                                var msgIndex = self._showMsg.indexOf("</br>");
-                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                            }
-                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                        } else {
-                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                        }
-                                                        Mojo.app.toast.show(self._showMsg, "20000")
-                                                    } else {
-                                                        if (result.data.id != undefined) {
-                                                            Mojo.ajax('/entity/Use', {
-                                                                id: result.data.id,
-                                                            }, function (result) {
-                                                                if (result.errorCode == 0) {
-                                                                    if (self._showMsg.length > 0) {
-                                                                        var arrMsg = self._showMsg.split('</br>');
-                                                                        if (arrMsg.length > 8) {
-                                                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                        }
-                                                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                    } else {
-                                                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                    }
-                                                                    Mojo.app.toast.show(self._showMsg, "20000")
-                                                                }
-                                                            }, function () {}, {})
-                                                        } else {
-                                                            if (self._showMsg.length > 0) {
-                                                                var arrMsg = self._showMsg.split('</br>');
-                                                                if (arrMsg.length > 8) {
-                                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                }
-                                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                            } else {
-                                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                            }
-                                                            Mojo.app.toast.show(self._showMsg, "20000")
-                                                        }
-                                                    }
-                                                }
-                                            }, function () {}, {})
-                                        }, 3000)
-                                    }
-                                } else {
-                                    reRob = reRob + 1;
-                                    if (reRob > finalReRob) {} else {}
-                                }
-                            } else if (result.errorCode == 0) {
-                                reRob = reRob + 1;
-                                if (reRob > finalReRob) {
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split('</br>');
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]收获 " + robname[robid] + " 1本"
-                                    } else {
-                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]收获 " + robname[robid] + " 1本"
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000")
-                                } else {}
-                            }
-                            if ((reRob > finalReRob && result.errorCode == 0) || (reRob > finalReRob && result.errorCode == 50004) || (reRob > finalReRob && result.errorCode == 50003 && msgindex == -1)) {
-                                setTimeout(function () {
-                                    Mojo.ajax('/collect/compositeStart', {
-                                        id: robs[robid]
-                                    }, function (result) {
-                                        if (result.errorCode == 50001) {} else if (result.errorCode == 0) {
-                                            if (self._showMsg.length > 0) {
-                                                var arrMsg = self._showMsg.split('</br>');
-                                                if (arrMsg.length > 8) {
-                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                }
-                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]开始合成:" + robname[robid]
-                                            } else {
-                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]开始合成:" + robname[robid]
-                                            }
-                                            Mojo.app.toast.show(self._showMsg, "20000");
-                                            if (mzflag) {
-                                                setTimeout(function () {
-                                                    Mojo.ajax('/collect/avoidWar', {}, function (result) {
-                                                        if (result.errorCode == 0) {
-                                                            if (parseInt(result.data.avoid_war_time) > 0) {
-                                                                if (self._showMsg.length > 0) {
-                                                                    var arrMsg = self._showMsg.split('</br>');
-                                                                    if (arrMsg.length > 8) {
-                                                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                    }
-                                                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                                } else {
-                                                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                                }
-                                                                Mojo.app.toast.show(self._showMsg, "20000")
-                                                            } else {
-                                                                if (result.data.id != undefined) {
-                                                                    Mojo.ajax('/entity/Use', {
-                                                                        id: result.data.id,
-                                                                    }, function (result) {
-                                                                        if (result.errorCode == 0) {
-                                                                            if (self._showMsg.length > 0) {
-                                                                                var arrMsg = self._showMsg.split('</br>');
-                                                                                if (arrMsg.length > 8) {
-                                                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                                }
-                                                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                            } else {
-                                                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                            }
-                                                                            Mojo.app.toast.show(self._showMsg, "20000")
-                                                                        }
-                                                                    }, function () {}, {})
-                                                                } else {
-                                                                    if (self._showMsg.length > 0) {
-                                                                        var arrMsg = self._showMsg.split('</br>');
-                                                                        if (arrMsg.length > 8) {
-                                                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                        }
-                                                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                                    } else {
-                                                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                                    }
-                                                                    Mojo.app.toast.show(self._showMsg, "20000")
-                                                                }
-                                                            }
-                                                        }
-                                                    }, function () {}, {})
-                                                }, 3000)
-                                            }
-                                        }
-                                        reRob = 0;
-                                        robid = robid + 1;
-                                        if (robid > 9) {
-                                            robid = 0
-                                        }
-                                    }, function () {}, {})
-                                }, 3000)
-                            }
-                        }, function () {}, {})
-                    }, 9000);
-                } else if ('btn-battle' === id) {
-                    Mojo.app.redirect('/battle', {}, 'event', '04_043');
+                    self.ti();
                 } else if ('btn-friend' === id) {
                     Mojo.app.redirect('/friend');
                 } else if ('btn-entity-purchase' === id) {
@@ -13702,13 +14562,15 @@ function trackClient(appkeys) {
                     self._enterForce();
                 } else if ('btn-fuben' === id) {
                     Mojo.app.redirect('/fb', {}, 'event', '04_047');
-                } else if('reset-all-fuben' === id){
-                    if(Mojo.app.getStorage("auto-mode")==="true"){
-                        Mojo.app.toast.show2("自动模式已关闭,3秒后回到首页", 20000,false ,true);
+                } else if ('btn-automode' === id) {
+                    if (Mojo.app.getStorage("auto-mode") === "true") {
+                        Mojo.app.toast.show2("自动模式已关闭,3秒后回到首页", 20000, false, true);
                         Mojo.app.saveStorage("auto-mode", "false");
-                        setTimeout(function(){Mojo.app.redirect("/home");},3000);
-                    }else{
-                        Mojo.app.toast.show2("开启自动模式......",20000, false, true);
+                        setTimeout(function () {
+                            window.location.href="/mojo/ipad/home";
+                        }, 3000);
+                    } else {
+                        Mojo.app.toast.show2("开启自动模式......", 20000, false, true);
                         Mojo.app.saveStorage("auto-mode", "true");
                         self.load();
                     }
@@ -13719,10 +14581,10 @@ function trackClient(appkeys) {
                 text: '内政'
             }, {
                 id: 'btn-entity-battle',
-                text: '合成'
+                text: '刷丹'
             }, {
-                id: 'reset-all-fuben',
-                text: "自动"
+                id: 'btn-automode',
+                text: '自动'
             }, {
                 id: 'btn-force',
                 text: 'Force',
@@ -13774,37 +14636,14 @@ function trackClient(appkeys) {
                     Mojo.app.redirect('/rank');
                 } else if ('btn-quick-logout' === id) {
                     Mojo.app.redirect('/default/login');
-                } else if ('btn-reset-fuben' === id) {
-                    Mojo.app.toast.show("开始重置副本...", 3000);
-                    var fb_list=["1@七擒孟获","2@三气周瑜","3@三顾茅庐","4@五关六将","5@铜雀二乔","6@血战长坂","7@官渡之战","8@平定江东","9@三英战吕布","10@夷陵之战","11@赤壁之战"];
-                    var f_index = 0;
-                    var _auto_reset = w.setInterval(function(){
-                        if(f_index >= fb_list.length){
-                            w.clearInterval(_auto_reset);
-                            Mojo.app.toast.show("");
-                        }
-                        var fuben_name = fb_list[f_index].split('@')[1];
-                        var params = {};
-                        params.fuben_id = fb_list[f_index].split('@')[0];
-                        params.fuben_refresh = 1;
-                        Mojo.ajax('/fuben/fbTasks', params, function (result) {
-                            var msg = result.errorCode == 0 ? "重置成功" : result.errorMsg;
-                            Mojo.app.toast.show("副本[" + fuben_name + "]," + result.errorCode + ":" + msg, 3000);
-                            f_index = f_index + 1;
-                        }, function () {
-                            Mojo.app.toast.show("副本" + fuben_name + "重置失败", 3000);
-                        }); 
-                    }, 4000);
+                } else if ('btn-auto-collect' === id) {
+                    self.nc();
                 }
             };
             var btns = [{
                 id: 'btn-quick-logout',
-                text: '登出',
-                cl: 'task-set'
-            },{
-                id: 'btn-reset-fuben',
-                text: '重置',
-                cl: 'task-set'
+                text: '换号',
+                cl: 'task-rank'
             }, {
                 id: 'btn-entity-browse',
                 text: 'Entity Browse',
@@ -13814,13 +14653,13 @@ function trackClient(appkeys) {
                 text: 'Illustration',
                 cl: 'task-pic'
             }, {
+                id: 'btn-auto-collect',
+                text: '合成',
+                cl: 'task-friend'
+            }, {
                 id: 'btn-messages',
                 text: 'Messages',
                 cl: 'task-news'
-            }, {
-                id: 'btn-friend',
-                text: 'Friend',
-                cl: 'task-friend'
             }, {
                 id: 'btn-chat',
                 text: 'Chat',
@@ -13829,11 +14668,15 @@ function trackClient(appkeys) {
                 id: 'btn-settings',
                 text: 'Settings',
                 cl: 'task-set'
-            },{
+            }, {
                 id: 'btn-ranking',
                 text: 'Rank',
                 cl: 'task-rank'
-            } ];
+            }, {
+                id: 'btn-friend',
+                text: 'Friend',
+                cl: 'task-friend'
+            }];
             var inner = $('<div class="inner"></div>');
             $.each(btns, function (i, b) {
                 inner.append((new Mojo.ui.Button(b.id, {
@@ -13982,6 +14825,408 @@ function trackClient(appkeys) {
                 self.baseProfile.sync();
             });
         },
+        auto_force: function (fn) {
+            var self =this;
+            var force_level = 1000;
+            var fbindex = 0;
+            var time;
+            var timef;
+            var sumtime;
+            var empty = 0;
+            var title;
+            var serverRe = 0;
+            var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
+            var arrTitle = ["全民挖地球", "后门要牢固", "别动我的粮饷", "师兄需要你", "魔鬼式训练", "你吃了吗", "叛徒必须死", "你的都是我的", "偷窥可以有"];
+            var arrTaskCool = new Array(arrTask.length);
+            for (var i = 0; i < arrTask.length; i++) {
+                arrTaskCool[i] = 0
+            }
+
+            var auto_force_interval = setInterval(function(){
+                if (force_level == 1000) {
+                    Mojo.ajax('/force/playerTasks', {}, function (result) {
+                        Mojo.app.toast.show2("[内政]获取势力内政信息", 20000);
+                        if (result.errorCode == 0) {
+                            force_level = result.data.task.force_level;
+                            var tasks = result.data.task.tasks;
+                            for (var i in tasks) {
+                                var task = tasks[i];
+                                if (parseInt(task.unlock_level) > parseInt(result.data.task.force_level) || task.status == 2) {
+                                    arrTaskCool[task.id - 1] = "-1";
+                                }
+                            }
+                        } else if (result.errorCode == 130019) {
+                            Mojo.app.toast.show2("[内政]无法内政:未加入势力");
+                            window.clearInterval(auto_force_interval);
+                            self.auto_finish(fn);
+                        }
+                    }, function () {});
+                } else if (fbindex < arrTaskCool.length) {
+                    time = parseInt(new Date().getTime() / 1000);
+                    var fubenid = arrTask[fbindex].split('@')[0];
+                    var fubencool = arrTask[fbindex].split('@')[1];
+                    Mojo.ajax('/force/doTask', {
+                        id: fubenid,
+                    }, function (result) {
+                        title = arrTitle[fbindex];
+                        if (result.errorCode == 0) {
+                            arrTaskCool[fbindex] = time + parseInt(fubencool);
+                            Mojo.app.toast.show2("[内政]执行: " + title, "20000");
+                            serverRe = 0
+                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
+                                    break
+                                }
+                            }
+                            fbindex = i
+                        } else if (result.errorCode == 1) {} else if (result.errorCode == 130100) {
+                            arrTaskCool[fbindex] = '-1';
+                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
+                                    break
+                                }
+                            }
+                            fbindex = i
+                        } else if (result.errorCode == 160003) {
+                            alert('卡牌容量不足');
+                        } else if (result.errorCode == 20004) {
+                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
+                                    break
+                                }
+                            }
+                            fbindex = i;
+                            serverRe = 0
+                        } else if (result.errorCode == 20002) {
+                            arrTaskCool[fbindex] = '-1';
+                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
+                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
+                                    break
+                                }
+                            }
+                            fbindex = i;
+                            if (serverRe == 1) {;
+                                serverRe = 0;
+                                for (i = 0; i < arrTask.length; i++) {
+                                    arrTaskCool[i] = '-1'
+                                }
+                                fbindex = arrTask.length + 1
+                            }
+                        } else if (result.errorCode == 130019) {
+                            Mojo.app.toast.show2("[内政]无法内政:未加入势力");
+                            self.auto_finish(fn);
+                        } else {}
+                    }, function () {}, {})
+                } else {
+                    timef = parseInt(new Date().getTime() / 1000);
+                    sumtime = 0;
+                    for (i = 0; i < arrTaskCool.length; i++) {
+                        sumtime = sumtime + parseInt(arrTaskCool[i]);
+                        if (arrTaskCool[i] != '-1' && arrTaskCool[i] - timef < 0) {
+                            fbindex = i
+                        }
+                    }
+                    if (sumtime == -9) {
+                        empty++;
+                        if (empty == 1) {
+                            Mojo.ajax('/force/playerTasks', {}, function (result) {
+                                if (result.errorCode == 0) {
+                                    Mojo.app.toast.show2("[内政]尝试接收系统刷新", "20000");
+                                    force_level = result.data.task.force_level;
+                                    var tasks = result.data.task.tasks;
+                                    for (var i in tasks) {
+                                        var task = tasks[i];
+                                        if (task.status == 2 || parseInt(task.unlock_level) > parseInt(result.data.task.force_level)) {
+                                            arrTaskCool[task.id - 1] = "-1";
+                                        } else {
+                                            arrTaskCool[task.id - 1] = 0;
+                                        }
+                                    }
+                                    fbindex = 0;
+                                    serverRe = 1
+                                }
+                            }, function () {})
+                        } else if (empty == 2) {
+                            Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
+                                if (result.errorCode == 0) {
+                                    Mojo.app.toast.show2("[内政]自动接收官员刷新", "20000");
+                                    for (i = 0; i < arrTask.length; i++) {
+                                        arrTaskCool[i] = 0
+                                    }
+                                    fbindex = 0
+                                } else{
+                                    window.clearInterval(auto_force_interval);
+                                    self.auto_finish(fn);
+                                }
+                            });
+                        }
+                    } else {
+                        window.clearInterval(auto_force_interval);
+                        self.auto_finish(fn);
+                    }
+                }
+            }, 4000);
+        },
+        auto_zhufushi: function(fn){
+            var self = this;
+            Mojo.ajax('/force/exchange', {
+                id: "dh0001"
+            }, function (result) {
+                if (result.errorCode == 0) {
+                    Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
+                } else {
+                    Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
+                }
+                self.auto_finish(fn);
+            }, function () {});
+        },
+        auto_finish: function(fn){
+            var self = this;
+            var fi = self._fn.indexOf(fn);
+            if(fi>=0){
+                self._fn.splice(fi,1);
+            }
+            if(self._fn.length<=0){
+                Mojo.app.toast.show2("本轮自动任务已全部完成,4秒后切换下一个账号");
+                setTimeout(function () {
+                    Mojo.app.redirect("/default/login");
+                }, 4000);
+            }
+        },
+        auto_force_suipian: function(fn, sid){
+            var self=this;
+            Mojo.ajax('/force/exchange', {
+                id: sid
+            }, function (result) {
+                if (result.errorCode == 0) {
+                    var sp_award = "";
+                    if (result.data && result.data.entities && result.data.entities.length > 0) {
+                        sp_award = "，获得" + result.data.entities[0].name;
+                    }
+                    Mojo.app.toast.show2("[兑换]势力兑换活动碎片成功" + sp_award);
+                } else {
+                    Mojo.app.toast.show2("[兑换]兑换活动碎片失败：" + result.errorMsg);
+                }
+                self.auto_finish(fn);
+            }, function () {});
+        },
+        auto_collect: function(fn){
+            var self=this;
+            var robs = ["b101", "b102", "b103", "b104", "b105", "b106", "b107", "b108", "b109", "b110"];
+            var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
+            var robid = 0;
+            var compositestart = false;
+
+            var auto_collect_interval = setInterval(function(){
+                if (compositestart == false) {
+                    Mojo.ajax('/collect/composite', {
+                        id: robs[robid]
+                    }, function (result) {
+                        if (result.errorCode == 50003) {
+                            msg = result.errorMsg;
+                            msgindex = msg.indexOf("剩余时间");
+                            if (msgindex != -1) {
+                                msg = msg.substring(msgindex);
+                                Mojo.app.toast.show2("[合成]" + robname[robid] + "正在合成中," + msg, "20000");
+                                compositestart = !compositestart;
+                                robid = robid + 1;
+                                if (robid >= robs.length) {
+                                    window.clearInterval(auto_collect_interval);
+                                    self.auto_finish(fn);
+                                }
+                            }
+                        } else if (result.errorCode == 0) {
+                            Mojo.app.toast.show2("[合成]收获 " + robname[robid] + " 1本", "20000");
+                        }
+                        compositestart = !compositestart;
+                    }, function () {}, {});
+                } else {
+                    Mojo.ajax('/collect/compositeStart', {
+                        id: robs[robid]
+                    }, function (result) {
+                        if (result.errorCode == 50001) {} else if (result.errorCode == 0) {
+                            Mojo.app.toast.show2("[合成]开始合成:" + robname[robid], "20000");
+                        }
+                        robid = robid + 1;
+                        if (robid >= robs.length) {
+                            window.clearInterval(auto_collect_interval);
+                            self.auto_finish(fn);
+                        }
+                        compositestart = !compositestart;
+                    }, function () {}, {});
+                }
+            },3000);
+        },
+        auto_fuben_internal: function(fn, fubens, fubens_refresh){
+            var self = this;
+            var to_ref=fubens_refresh;
+            var fb_tasks=[];
+            var cur_fuben_index=0;
+            var cur_fb_task_group;
+            var is_boss_group = false;
+            var iv_time = 2800;
+            var runs=0;
+            var needwait=false;
+            var time = new Date().getTime() / 1000;
+            var auto_fuben_iv = setInterval(function(){
+                if(to_ref.length>0){
+                    Mojo.ajax('/fuben/fbTasks', {fuben_id:to_ref[0].id,fuben_refresh:1}, function (result) {
+                        if(result.errorCode == 0){
+                            Mojo.app.toast.show2("[副本]["+to_ref[0].name +"]重置成功");
+                            fubens.push(to_ref.splice(0,1));
+                        }else{
+                            to_ref.splice(0,1);
+                        }
+                    }, function () {}); 
+                }else if(cur_fuben_index < fubens.length){
+                    //do fuben
+                    var cur_fuben = fubens[cur_fuben_index];
+                    var fuben_name = cur_fuben.name;
+                    if(fb_tasks.length==0){
+                        // query current task group and tasks.
+                        Mojo.ajax("/fuben/fbTasks", {"fuben_id":cur_fuben.id}, function (response) {
+                            if(response.errorCode==0){
+                                var fdata=response.data;
+                                if(runs==0){
+                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]:刷新任务列表");
+                                }
+                                fb_tasks = fdata.fb_tasks;
+                                // get current group
+                                for(var gi in fdata.fb_task_groups){
+                                    if(fdata.fb_task_groups[gi].fb_task_group_id==fdata.cur_fb_task_group.fb_task_group_id){
+                                        cur_fb_task_group = fdata.fb_task_groups[gi];
+                                    }
+                                }
+                                //check if the boss group
+                                is_boss_group=(cur_fb_task_group.order==fdata.fb_task_groups.length);
+                            }else{
+                                Mojo.app.toast.show2("[副本]["+fuben_name+"]:刷新任务列表失败");
+                                fb_tasks=[];
+                                cur_fuben_index = cur_fuben_index+1;
+                            }
+                        }, function(){});
+                    }else{
+                        var group_name=cur_fb_task_group.name;
+                        // find available task
+                        for(t_i=0;t_i<fb_tasks.length;t_i++){
+                            if(fb_tasks[t_i].unlock==0)continue;
+                            if((fb_tasks[t_i].status==1 && fb_tasks[t_i].cold_down==0) || fb_tasks[t_i].status==0){
+                                break;
+                            }
+                        }
+                        //if cound, do task
+                        if(t_i < fb_tasks.length){
+                            Mojo.ajax("/fuben/do",{id: fb_tasks[t_i].id},function(result){
+                                // Mojo.app.toast.show2("[debug]"+result.errorCode+":"+result.errorMsg);
+                                if(result.errorCode == 160003){
+                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]失败:卡牌容量不足");
+                                    window.clearInterval(auto_fuben_iv);
+                                    self.auto_finish(fn);
+                                }else if(result.errorCode==0){
+                                    var bonus = result.data.award.bonus;
+                                    var bonus_msg="";
+                                    if(bonus && bonus.entities && bonus.entities.length>0){
+                                        bonus_msg = ",获得："+bonus.entities[0].name;
+                                    }
+                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
+                                    fb_tasks[t_i].status=result.data.fb_task.status;
+                                    fb_tasks[t_i].cold_down=result.data.fb_task.cold_down;
+                                    //if have award, get award and go to next group
+                                    if(result.data.fb_task.status==3){
+                                        //get award
+                                        if(!is_boss_group){
+                                            Mojo.ajax("/fuben/getAward", {
+                                                id: fb_tasks[t_i].id,
+                                            }, function (result) {
+                                                if (result.errorCode == 0) {
+                                                    Mojo.ajax("/fuben/openAward", {
+                                                        id: fb_tasks[t_i].id,
+                                                        award_id: result.data.free_award.id,
+                                                        status: 1,
+                                                    }, function (resul2t) {
+                                                        if(result2.errorCode==0 && result2.data && result2.data.entity){
+                                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+result2.data.entity.name);
+                                                        }
+                                                    }, function () {});
+                                                }
+                                            }, function(){});
+                                        }
+                                        //go to next group if any.
+                                        fb_tasks=[];
+                                        if(is_boss_group){
+                                            cur_fuben_index=cur_fuben_index+1;
+                                            fb_tasks=[];
+                                        }
+                                    }else if(result.data.fb_task.status==1 && parseInt(fb_tasks[t_i].id)%5==1){
+                                        needwait = true;
+                                    }else{
+                                        //check if mini-boss task can be unlocked.
+                                        var f_f=true;
+                                        $.each(fb_tasks,function(i,t){
+                                            if(t.status!=2){
+                                                f_f=false;
+                                            }
+                                        });          
+                                        if(f_f){fb_tasks[4].status=1;}
+                                    }
+                                }else{
+                                    cur_fuben_index=cur_fuben_index+1;
+                                    fb_tasks=[];
+                                }
+                            },function(){});
+                        }else{
+                            //if not found, go to next fuben and reset tasks.
+                            cur_fuben_index=cur_fuben_index+1;
+                            fb_tasks=[];
+                        }
+                    }                                   
+                }else{
+                    fb_tasks=[];
+                    cur_fuben_index=0;
+                    if(needwait){
+                        if(runs>=1){
+                            window.clearInterval(auto_fuben_iv);
+                            self.auto_finish(fn);
+                        }else if(new Date().getTime() / 1000 > time+30){
+                            runs=runs+1;
+                            time = date.getTime()/1000;
+                        }
+                    }else{
+                        window.clearInterval(auto_fuben_iv);
+                        self.auto_finish(fn);
+                    }
+                }
+            }, iv_time);
+        },
+        auto_fuben: function(fn){
+            var self=this;
+            var fubens = [];
+            var fubens_refresh=[];
+            Mojo.ajax('/fuben/fubens', {}, function (result) {
+                if (result.errorCode == 0) {
+                    Mojo.app.toast.show2("[副本]初始化副本信息");
+                    $.each(result.data, function (i, fb) {
+                        //unlock: 1=unlocked, 0=locked
+                        //status: 0=init, 1=ing, 3=cold_down
+                        if (fb.unlock == 1) {
+                            if (fb.status == 1) {
+                                fubens.push(fb);
+                            } else if (fb.status == 0 || (fb.status == 3 && fb.cold_down == 0)) {
+                                fubens_refresh.push(fb);
+                            }
+                        }
+                    });
+                    if(fubens.length + fubens_refresh.length==0){
+                        self.auto_finish(fn);
+                    }else{
+                        self.auto_fuben_internal(fn, fubens, fubens_refresh);
+                    }
+                } else {
+                    Mojo.app.toast.show2("[副本]初始化失败:(" + result.errorCode + ")" + result.errorMsg);
+                    self.auto_finish(fn);
+                }
+            }, function () {});
+        },
         load: function () {
             this._super();
             $('#btn-messages').append('<div class="count" style="display:none;"></div>');
@@ -13998,243 +15243,46 @@ function trackClient(appkeys) {
                 }
             });
             var needLoginStatus = Mojo.utils.getSomething("needLoginStatus");
-            Mojo.app.toast.show('', 10 ,true);
             var automode = Mojo.app.getStorage("auto-mode");
-            if(automode === "true"){
-                Mojo.app.toast.show("",10,true);
-                Mojo.app.toast.show2("自动模式已开启", 20000);
-                user = JSON.parse(Mojo.app.getStorage("auto-mode-last-user"));
-                var fn_index = 0;
-                var time;
-                var fbindex = 0;
-                var i = 0;
-                var title = "";
-                var mi;
-                var ss;
-                var timef;
-                var sumtime;
-                var empty = 0;
-                var serverRe = 0;
-                var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
-                var arrTitle=["全民挖地球","后门要牢固","别动我的粮饷","师兄需要你","魔鬼式训练","你吃了吗","叛徒必须死","你的都是我的","偷窥可以有"];
-                var arrTaskCool = new Array(arrTask.length);
-                for (var i = 0; i < arrTask.length; i++) {
-                    arrTaskCool[i] = 0
-                }
-                var force_level = 1000;
-                var robs = ["b101", "b102", "b103", "b104", "b105", "b106", "b107", "b108", "b109", "b110"];
-                var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
-                var robid = 0;
-                var compositestart = false;
-                                
-                var _auto_task = w.setInterval(function(){
-                    if(fn_index >= user.fn.length){
-                        w.clearInterval(_auto_task);
-                        Mojo.app.toast.show2("本轮自动任务已全部完成,5秒后切换下一个账号",20000);
-                        setTimeout(function(){
-                            Mojo.app.redirect("/default/login");
-                        }, 5000);
-                    }else{
-                        var fn = user.fn[fn_index];
-                        switch(fn){
-                            case "signin":
-                                //auto SignIn
-                                Mojo.app.toast.show2("[签到]尝试签到......", 20000);
-                                Mojo.ajax("/player/checkIn", {}, function (result) {
-                                    //Mojo.app.toast.show2("[签到]结果:["+result.errorCode+"]"+result.errorMsg);
-                                    if (result.errorCode == 0) {
-                                        var award = result.data.award;
-                                        if(award){
-                                            var msg = "[签到]成功,获得"+award.name+",数量:"+award.count;
-                                            if(award.is_double) msg=msg+"*2";
-                                            Mojo.app.toast.show2(msg, 20000);
-                                        }else{
-                                            Mojo.app.toast.show2("[签到]今日已签到");
-                                        }                                 
-                                    } else {
-                                        Mojo.app.toast.show2("[签到]失败:["+result.errorCode+"]"+result.errorMsg, 20000);
-                                    }
-                                }, function(){Mojo.app.toast.show2("[签到]失败")}, {});
-                                fn_index = fn_index + 1;
-                                break;
-                            case "force":
-                                if(force_level == 1000){
-                                    Mojo.ajax('/force/playerTasks', {}, function (result) {
-                                        Mojo.app.toast.show2("[内政]获取势力内政信息",20000);
-                                        if(result.errorCode==0){
-                                            force_level = result.data.task.force_level;
-                                            var tasks = result.data.task.tasks;
-                                            for(var i in tasks){
-                                                var task =tasks[i];
-                                                if(parseInt(task.unlock_level) > parseInt(result.data.task.force_level) ) {
-                                                    arrTaskCool[task.id - 1] = "-1";
-                                                }
-                                            }
-                                        } else if(result.errorCode == 130019){
-                                            Mojo.app.toast.show2("[内政]无法内政:未加入势力");
-                                            fn_index = fn_index + 1;
-                                        }
-                                    }, function () {});
-                                }else if (fbindex < arrTaskCool.length) {
-                                    time = parseInt(new Date().getTime() / 1000);
-                                    var fubenid = arrTask[fbindex].split('@')[0];
-                                    var fubencool = arrTask[fbindex].split('@')[1];
-                                    Mojo.ajax('/force/doTask', {
-                                        id: fubenid,
-                                    }, function (result) {
-                                        title = arrTitle[fbindex];                  
-                                        if (result.errorCode == 0) {
-                                            arrTaskCool[fbindex] = time + parseInt(fubencool);
-                                            Mojo.app.toast.show2("[内政]执行: " + title, "20000");
-                                            serverRe = 0
-                                        } else if (result.errorCode == 1) {} else if (result.errorCode == 130100) {
-                                            arrTaskCool[fbindex] = '-1';
-                                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                                    break
-                                                }
-                                            }
-                                            fbindex = i
-                                        } else if (result.errorCode == 160003) {
-                                            alert('卡牌容量不足');
-                                        } else if (result.errorCode == 20004) {
-                                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                                    break
-                                                }
-                                            }
-                                            fbindex = i;
-                                            serverRe = 0
-                                        } else if (result.errorCode == 20002) {
-                                            arrTaskCool[fbindex] = '-1';
-                                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                                    break
-                                                }
-                                            }
-                                            fbindex = i;
-                                            if (serverRe == 1) {;
-                                                serverRe = 0;
-                                                for (i = 0; i < arrTask.length; i++) {
-                                                    arrTaskCool[i] = '-1'
-                                                }
-                                                fbindex = arrTask.length + 1
-                                            }
-                                        } else if(result.errorCode == 130019){
-                                            Mojo.app.toast.show2("[内政]无法内政:未加入势力");
-                                            fn_index = fn_index+1;
-
-                                        }else{}
-                                    }, function () {}, {})
-                                } else {
-                                    timef = parseInt(new Date().getTime() / 1000);
-                                    sumtime = 0;
-                                    for (i = 0; i < arrTaskCool.length; i++) {
-                                        sumtime = sumtime + parseInt(arrTaskCool[i]);
-                                        if (arrTaskCool[i] != '-1' && arrTaskCool[i] - timef < 0) {
-                                            fbindex = i
-                                        }
-                                    }
-                                    mi = parseInt((timef - time) / 60);
-                                    ss = (timef - time) % 60;
-                                    if (ss.length == 1) {
-                                        ss = "0" + ss
-                                    }
-                                    if (sumtime == -9) {
-                                        empty++;
-                                        if (empty == 2) {
-                                            Mojo.ajax('/force/playerTasks', {}, function (result) {
-                                                if (result.errorCode == 0) {
-                                                    Mojo.app.toast.show2("[内政]尝试接收系统刷新", "20000");
-                                                    force_level = result.data.task.force_level;
-                                                    var tasks = result.data.task.tasks;
-                                                    for(var i in tasks){
-                                                        var task = tasks[i];
-                                                        if(parseInt(task.unlock_level) > parseInt(result.data.task.force_level) ) {
-                                                            arrTaskCool[task.id - 1] = "-1";
-                                                        } else {
-                                                            arrTaskCool[task.id - 1] = 0;
-                                                        }
-                                                    }
-                                                    fbindex = 0;
-                                                    serverRe = 1
-                                                }
-                                            }, function () {})
-                                        } else if (empty > 3) {
-                                            Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
-                                                if (result.errorCode == 0) {
-                                                    Mojo.app.toast.show2("[内政]自动接收官员刷新", "20000");
-                                                    for (i = 0; i < arrTask.length; i++) {
-                                                        arrTaskCool[i] = 0
-                                                    }
-                                                    fbindex = 0
-                                                } else {
-                                                    fn_index = fn_index+1;
-                                                }
-                                            });
-                                            empty = 0
-                                        }
-                                    } else {
-                                        fn_index = fn_index+1;
-                                    }
-                                }
-                                break;
-                            case "collect":
-                                if(compositestart == false){
-                                    Mojo.ajax('/collect/composite', {
-                                        id: robs[robid]
-                                        }, function (result) {
-                                            if (result.errorCode == 50003) {
-                                                msg = result.errorMsg;
-                                                msgindex = msg.indexOf("剩余时间");
-                                                if (msgindex != -1) {
-                                                    msg = msg.substring(msgindex);                                                
-                                                    Mojo.app.toast.show2("[合成]"+robname[robid]+"正在合成中,"+msg, "20000");
-                                                    compositestart = !compositestart;
-                                                    robid = robid + 1;
-                                                    if(robid >= robs.length){
-                                                        fn_index = fn_index+1;
-                                                    }
-                                                }
-                                            } else if (result.errorCode == 0) {
-                                                Mojo.app.toast.show2("[合成]收获 " + robname[robid] + " 1本", "20000");                                                
-                                            }    
-                                            compositestart = !compositestart;                                        
-                                        }, function () {}, {});
-                                }else{
-                                    Mojo.ajax('/collect/compositeStart', {
-                                            id: robs[robid]
-                                        }, function (result) {
-                                            if (result.errorCode == 50001) {} else if (result.errorCode == 0) {
-                                                Mojo.app.toast.show2("[合成]开始合成:" + robname[robid], "20000");
-                                            }
-                                            robid = robid + 1;
-                                            if(robid >= robs.length){
-                                                fn_index = fn_index+1;
-                                            }
-                                            compositestart = !compositestart;
-                                        }, function () {}, {});
-                                }     
-                                break;
-                            case "zhufushi":
-                                Mojo.ajax('/force/exchange', {
-                                        id: "dh0001"
-                                    }, function (result){
-                                        if(result.errorCode==0){
-                                            Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
-                                        }else if(result.errorCode==130062){
-                                            Mojo.app.toast.show2("[兑换]兑换祝福石失败：冷却中");
-                                        }
-                                    }, function(){});
-                                fn_index = fn_index+1;
-                                break;
-                            default:
-                                Mojo.app.toast.show2("未知的自动任务:"+fn);
-                                fn_index = fn_index+1;
-                                break;
-                        }
+            if (automode === "true") {
+                Mojo.app.toast.show("", 10, true);
+                var user_info = Mojo.app.getStorage("auto-mode-last-user");
+                if (!user_info) {
+                    if (confirm("当前账号未设置自动任务。是否立即返回登录页?")) {
+                        Mojo.app.redirect("/default/login");
+                    } else {
+                        Mojo.app.saveStorage("auto-mode", "false");
+                        Mojo.app.toast.show("自动模式已取消", 3000);
+                        return;
                     }
-                }, 4000);
+                }
+                user = JSON.parse(Mojo.app.getStorage("auto-mode-last-user"));
+                self._fn = user.fn;
+                $.each(user.fn, function(i,fnp){
+                    var fn = fnp.split("@")[0];
+                    var fn_param = fnp.split("@")[1];
+                    switch(fn){
+                        case "fuben":
+                            self.auto_fuben(fn);
+                            break;
+                        case "suipian":
+                            self.auto_force_suipian(fn,fn_param);
+                            break;
+                        case "zhufushi":
+                            self.auto_zhufushi(fn);
+                            break;
+                        case "force":
+                            self.auto_force(fn);
+                            break;
+                        case "collect":
+                            self.auto_collect(fn);
+                            break;
+                        default:
+                            Mojo.app.toast.show2("未知的自动任务:" + fn);
+                            self.auto_finish(fn);
+                            break;
+                    }
+                });
             } else {
                 setTimeout(function () {
                     Mojo.gap.bindPlayerIdToDevice(Mojo.app.data.userId);
@@ -14243,7 +15291,6 @@ function trackClient(appkeys) {
             }
         },
         checkLoginGift: function (isFromUrl) {
-            // Mojo.app.redirect("/home");
             if (true === Mojo.app.__checkingLoginGift) {
                 return;
             }
