@@ -15258,6 +15258,12 @@ function trackClient(appkeys) {
                 }
                 user = JSON.parse(Mojo.app.getStorage("auto-mode-last-user"));
                 self._fn = user.fn;
+                setTimeout(function(){
+                    Mojo.app.toast.show2("执行超时，3秒后切换下一个账号");
+                    setTimeout(function(){
+                        Mojo.app.redirect("/default/login");
+                    },3000);
+                },200000);
                 $.each(user.fn, function(i,fnp){
                     var fn = fnp.split("@")[0];
                     var fn_param = fnp.split("@")[1];
