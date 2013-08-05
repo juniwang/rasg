@@ -15129,23 +15129,22 @@ function trackClient(appkeys) {
                                         bonus_msg = ",获得："+bonus.entities[0].name;
                                     }
                                     Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
-                                    fb_tasks[t_i].status=result.data.fb_task.status;
-                                    fb_tasks[t_i].cold_down=result.data.fb_task.cold_down;
+                                    fb_tasks[t_i]=result.data.fb_task;
                                     //if have award, get award and go to next group
                                     if(result.data.fb_task.status==3){
                                         //get award
                                         if(!is_boss_group){
                                             Mojo.ajax("/fuben/getAward", {
                                                 id: fb_tasks[t_i].id,
-                                            }, function (result) {
-                                                if (result.errorCode == 0) {
+                                            }, function (garesult) {
+                                                if (garesult.errorCode == 0) {
                                                     Mojo.ajax("/fuben/openAward", {
                                                         id: fb_tasks[t_i].id,
-                                                        award_id: result.data.free_award.id,
+                                                        award_id: garesult.data.free_award.id,
                                                         status: 1,
-                                                    }, function (resul2t) {
-                                                        if(result2.errorCode==0 && result2.data && result2.data.entity){
-                                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+result2.data.entity.name);
+                                                    }, function (oaresult) {
+                                                        if(oaresult.errorCode==0 && oaresult.data && oaresult.data.entity){
+                                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+oaresult.data.entity.name);
                                                         }
                                                     }, function () {});
                                                 }
@@ -15165,6 +15164,7 @@ function trackClient(appkeys) {
                                         $.each(fb_tasks,function(i,t){
                                             if(t.status!=2){
                                                 f_f=false;
+                                                if(i==4)f_f=true;
                                             }
                                         });          
                                         if(f_f){fb_tasks[4].status=1;}
@@ -15258,12 +15258,6 @@ function trackClient(appkeys) {
                 }
                 user = JSON.parse(Mojo.app.getStorage("auto-mode-last-user"));
                 self._fn = user.fn;
-                setTimeout(function(){
-                    Mojo.app.toast.show2("执行超时，3秒后切换下一个账号");
-                    setTimeout(function(){
-                        Mojo.app.redirect("/default/login");
-                    },3000);
-                },200000);
                 $.each(user.fn, function(i,fnp){
                     var fn = fnp.split("@")[0];
                     var fn_param = fnp.split("@")[1];
