@@ -15227,6 +15227,47 @@ function trackClient(appkeys) {
                 }
             }, function () {});
         },
+        auto_biansuiweibao: function(fn){
+            var self = this;
+            var listParams={
+                start: 0,
+                count: 20,
+                type: 4,
+                sub_type: 0,
+            };
+            Mojo.ajax("/illustration/list", listParams, function (result) {
+                if(result.errorCode==0){
+                    var finished = true;
+                    for (var i in result.data.list) {
+                        var awardname = result.data.list[i].award.name;
+                        var name = result.data.list[i].name;
+                        if ((awardname == "祝福石" || awardname=="转生丹") && name == "变碎为宝活动") {
+                            var params={};
+                            params.game_activity_id = result.data.list[i].id;
+                            var cd = result.data.list[i].cooling_time;
+                            if(parseInt(cd) == 0){
+                                finished = false;
+                                Mojo.ajax("/gameactivity/do", params, function (response1) {
+                                    if(response1.errorCode==0){
+                                        if(response1.data && response1.data.entity){
+                                            Mojo.app.toast.show2("[兑换]变废为宝，获得"+response1.data.entity.name);
+                                        }
+                                    }else{
+                                        Mojo.app.toast.show2("[兑换]变废为宝失败："+response1.errorMsg);
+                                    }
+                                    self.auto_finish(fn);
+                                }, function(){});
+                            }
+                        }
+                    }
+                    if(finished){
+                        self.auto_finish(fn);
+                    }
+                }else{
+                    self.auto_finish(fn);
+                }
+            }, function(){});
+        },
         load: function () {
             this._super();
             $('#btn-messages').append('<div class="count" style="display:none;"></div>');
@@ -15276,6 +15317,9 @@ function trackClient(appkeys) {
                             break;
                         case "collect":
                             self.auto_collect(fn);
+                            break;
+                        case "biansuiweibao":
+                            self.auto_biansuiweibao(fn);
                             break;
                         default:
                             Mojo.app.toast.show2("未知的自动任务:" + fn);
