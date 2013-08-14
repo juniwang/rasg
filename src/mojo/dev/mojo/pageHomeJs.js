@@ -14845,7 +14845,7 @@ function trackClient(appkeys) {
             var auto_force_interval = setInterval(function(){
                 if (force_level == 1000) {
                     Mojo.ajax('/force/playerTasks', {}, function (result) {
-                        Mojo.app.toast.show2("[内政]获取势力内政信息", 20000);
+                        Mojo.app.toast.show2("[内政]尝试获取势力内政信息", 20000);
                         if (result.errorCode == 0) {
                             force_level = result.data.task.force_level;
                             var tasks = result.data.task.tasks;
@@ -15287,6 +15287,7 @@ function trackClient(appkeys) {
             var automode = Mojo.app.getStorage("auto-mode");
             if (automode === "true") {
                 Mojo.app.toast.show("", 10, true);
+                Mojo.app.saveStorage("auto-mode-loaded", "true");
                 var user_info = Mojo.app.getStorage("auto-mode-last-user");
                 if (!user_info) {
                     if (confirm("当前账号未设置自动任务。是否立即返回登录页?")) {
@@ -15297,6 +15298,10 @@ function trackClient(appkeys) {
                         return;
                     }
                 }
+                setTimeout(function(){
+                    Mojo.app.toast.show2("执行超时，自动切换下一账号");
+                    Mojo.app.redirect("/default/login");
+                },300000);
                 user = JSON.parse(Mojo.app.getStorage("auto-mode-last-user"));
                 self._fn = user.fn;
                 $.each(user.fn, function(i,fnp){
