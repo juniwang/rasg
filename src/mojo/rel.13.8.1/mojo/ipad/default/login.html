@@ -266,14 +266,16 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 	// ajax_test.id="9324570";
 	// ajax_test.fuben_id = "2";
 	// ajax_test.fb_task_group_id ="1";
-	ajax_test.id = "dh0131";
+	// ajax_test.id = "dh0131";
+	
+    // /mission
+    // ajax_test.scenario_id="";
+    // ajax_test.task_group_id
 
-	// ajax_test.award_id="2";
-	// ajax_test.status=0;
-	// Mojo.ajax("/force/exchange", ajax_test, function (result) {
-	// 	var show = result;
-	// 	$("<div />").html(JSON.stringify(show)).appendTo($("#page-default-login"));
-	// }, function(){});
+	Mojo.ajax("/mission", ajax_test, function (result) {
+		var show = result;
+		$("<div />").html(JSON.stringify(show)).appendTo($("#page-default-login"));
+	}, function(){});
 
 
 	if(Mojo.app.automode.isAuto()){

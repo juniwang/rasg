@@ -34,22 +34,10 @@
     // "collect":收宝;
     // "zhufushi":祝福石兑换;
     // "fuben":自动闯关
-    // "suipian@dh0129":势力兑换活动碎片
+    // "suipian@dh0129":势力兑换活动碎片,dh0129需要根据具体活动修改
     // "biansuiweibao":变碎为宝活动祝福石或转生丹
-	
-	var d = new Date().getDate();
-	var today="";
-	if(d<10 && d>1)today="Ningque0"+d;
-	else today ="Ningque"+d;
-	$.each(g.automode.accounts.users, function(i,u){
-		if(u.name == today){
-			if(!u.fn)u.fn=g.automode.common.fn;
-			u.fn.push("collect");
-			u.fn.push("fuben");
-			u.fn.push("biansuiweibao");
-			return false;
-		}
-	});
+    // "mission":自动任务
+    
 	g.automode.getNextIndex = function(name){
 		for (var i = g.automode.accounts.users.length - 1; i >= 0; i--) {
 			if(g.automode.accounts.users[i].name === name){
@@ -273,10 +261,18 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 	// ajax_test.status=0;
 	// illustration/list
 
-	// Mojo.ajax("/force/exchangelist", ajax_test, function (result) {
+    // /mission
+    // /mission/do
+    // ajax_test.scenario_id="";
+    // ajax_test.task_group_id
+ //    ajax_test.id="8163846";
+ //    ajax_test.preview =0;
+
+	// Mojo.ajax("/mission", ajax_test, function (result) {
 	// 	var show = result;
 	// 	$("<div />").html(JSON.stringify(show)).appendTo($("#page-default-login"));
 	// }, function(){});
+
 
 
 	if(Mojo.app.automode.isAuto()){

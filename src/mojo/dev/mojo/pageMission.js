@@ -6032,6 +6032,679 @@
     });
     window.jQuery = window.$ = jQuery;
 })(window);;
+(function ($) {
+    if (!document.defaultView || !document.defaultView.getComputedStyle) {
+        var oldCurCSS = $.curCSS;
+        $.curCSS = function (elem, name, force) {
+            if (name === 'background-position') {
+                name = 'backgroundPosition';
+            }
+            if (name !== 'backgroundPosition' || !elem.currentStyle || elem.currentStyle[name]) {
+                return oldCurCSS.apply(this, arguments);
+            }
+            var style = elem.style;
+            if (!force && style && style[name]) {
+                return style[name];
+            }
+            return oldCurCSS(elem, 'backgroundPositionX', force) + ' ' + oldCurCSS(elem, 'backgroundPositionY', force);
+        };
+    }
+    var oldAnim = $.fn.animate;
+    $.fn.animate = function (prop) {
+        if ('background-position' in prop) {
+            prop.backgroundPosition = prop['background-position'];
+            delete prop['background-position'];
+        }
+        if ('backgroundPosition' in prop) {
+            prop.backgroundPosition = '(' + prop.backgroundPosition;
+        }
+        return oldAnim.apply(this, arguments);
+    };
+
+    function toArray(strg) {
+        strg = strg.replace(/left|top/g, '0px');
+        strg = strg.replace(/right|bottom/g, '100%');
+        strg = strg.replace(/([0-9\.]+)(\s|\)|$)/g, "$1px$2");
+        var res = strg.match(/(-?[0-9\.]+)(px|\%|em|pt)\s(-?[0-9\.]+)(px|\%|em|pt)/);
+        return [parseFloat(res[1], 10), res[2], parseFloat(res[3], 10), res[4]];
+    }
+    $.fx.step.backgroundPosition = function (fx) {
+        if (!fx.bgPosReady) {
+            var start = $.curCSS(fx.elem, 'backgroundPosition');
+            if (!start) {
+                start = '0px 0px';
+            }
+            start = toArray(start);
+            fx.start = [start[0], start[2]];
+            var end = toArray(fx.end);
+            fx.end = [end[0], end[2]];
+            fx.unit = [end[1], end[3]];
+            fx.bgPosReady = true;
+        }
+        var nowPosX = [];
+        nowPosX[0] = ((fx.end[0] - fx.start[0]) * fx.pos) + fx.start[0] + fx.unit[0];
+        nowPosX[1] = ((fx.end[1] - fx.start[1]) * fx.pos) + fx.start[1] + fx.unit[1];
+        fx.elem.style.backgroundPosition = nowPosX[0] + ' ' + nowPosX[1];
+    };
+})(jQuery);;
+(function ($) {
+    $._spritely = {
+        animate: function (options) {
+            var el = $(options.el);
+            var el_id = el.attr('id');
+            if (!$._spritely.instances[el_id]) {
+                return this;
+            }
+            options = $.extend(options, $._spritely.instances[el_id] || {});
+            if (options.play_frames && !$._spritely.instances[el_id]['remaining_frames']) {
+                $._spritely.instances[el_id]['remaining_frames'] = options.play_frames + 1;
+            }
+            if (options.type == 'sprite' && options.fps) {
+                var frames;
+                var animate = function (el) {
+                    var w = options.width,
+                        h = options.height;
+                    if (!frames) {
+                        frames = [];
+                        total = 0
+                        for (var i = 0; i < options.no_of_frames; i++) {
+                            frames[frames.length] = (0 - total);
+                            total += w;
+                        }
+                    }
+                    if ($._spritely.instances[el_id]['current_frame'] == 0) {
+                        if (options.on_first_frame) {
+                            options.on_first_frame(el);
+                        }
+                    } else if ($._spritely.instances[el_id]['current_frame'] == frames.length - 1) {
+                        if (options.on_last_frame) {
+                            options.on_last_frame(el);
+                        }
+                    }
+                    if (options.on_frame && options.on_frame[$._spritely.instances[el_id]['current_frame']]) {
+                        options.on_frame[$._spritely.instances[el_id]['current_frame']](el);
+                    }
+                    if (options.rewind == true) {
+                        if ($._spritely.instances[el_id]['current_frame'] <= 0) {
+                            $._spritely.instances[el_id]['current_frame'] = frames.length - 1;
+                        } else {
+                            $._spritely.instances[el_id]['current_frame'] = $._spritely.instances[el_id]['current_frame'] - 1;
+                        };
+                    } else {
+                        if ($._spritely.instances[el_id]['current_frame'] >= frames.length - 1) {
+                            $._spritely.instances[el_id]['current_frame'] = 0;
+                        } else {
+                            $._spritely.instances[el_id]['current_frame'] = $._spritely.instances[el_id]['current_frame'] + 1;
+                        }
+                    }
+                    var yPos = $._spritely.getBgY(el);
+                    el.css('background-position', frames[$._spritely.instances[el_id]['current_frame']] + 'px ' + yPos);
+                    if (options.bounce && options.bounce[0] > 0 && options.bounce[1] > 0) {
+                        var ud = options.bounce[0];
+                        var lr = options.bounce[1];
+                        var ms = options.bounce[2];
+                        el.animate({
+                            top: '+=' + ud + 'px',
+                            left: '-=' + lr + 'px'
+                        }, ms).animate({
+                            top: '-=' + ud + 'px',
+                            left: '+=' + lr + 'px'
+                        }, ms);
+                    }
+                }
+                if ($._spritely.instances[el_id]['remaining_frames'] && $._spritely.instances[el_id]['remaining_frames'] > 0) {
+                    $._spritely.instances[el_id]['remaining_frames']--;
+                    if ($._spritely.instances[el_id]['remaining_frames'] == 0) {
+                        $._spritely.instances[el_id]['remaining_frames'] = -1;
+                        delete $._spritely.instances[el_id]['remaining_frames'];
+                        return;
+                    } else {
+                        animate(el);
+                    }
+                } else if ($._spritely.instances[el_id]['remaining_frames'] != -1) {
+                    animate(el);
+                }
+            } else if (options.type == 'pan') {
+                if (!$._spritely.instances[el_id]['_stopped']) {
+                    if (options.dir == 'up') {
+                        $._spritely.instances[el_id]['l'] = $._spritely.getBgX(el).replace('px', '');
+                        $._spritely.instances[el_id]['t'] = ($._spritely.instances[el_id]['t'] - (options.speed || 1)) || 0;
+                    } else if (options.dir == 'down') {
+                        $._spritely.instances[el_id]['l'] = $._spritely.getBgX(el).replace('px', '');
+                        $._spritely.instances[el_id]['t'] = ($._spritely.instances[el_id]['t'] + (options.speed || 1)) || 0;
+                    } else if (options.dir == 'left') {
+                        $._spritely.instances[el_id]['l'] = ($._spritely.instances[el_id]['l'] - (options.speed || 1)) || 0;
+                        $._spritely.instances[el_id]['t'] = $._spritely.getBgY(el).replace('px', '');
+                    } else {
+                        $._spritely.instances[el_id]['l'] = ($._spritely.instances[el_id]['l'] + (options.speed || 1)) || 0;
+                        $._spritely.instances[el_id]['t'] = $._spritely.getBgY(el).replace('px', '');
+                    }
+                    var bg_left = $._spritely.instances[el_id]['l'].toString();
+                    if (bg_left.indexOf('%') == -1) {
+                        bg_left += 'px ';
+                    } else {
+                        bg_left += ' ';
+                    }
+                    var bg_top = $._spritely.instances[el_id]['t'].toString();
+                    if (bg_top.indexOf('%') == -1) {
+                        bg_top += 'px ';
+                    } else {
+                        bg_top += ' ';
+                    }
+                    $(el).css('background-position', bg_left + bg_top);
+                }
+            }
+            $._spritely.instances[el_id]['options'] = options;
+            $._spritely.instances[el_id]['timeout'] = window.setTimeout(function () {
+                $._spritely.animate(options);
+            }, parseInt(1000 / options.fps));
+        },
+        randomIntBetween: function (lower, higher) {
+            return parseInt(rand_no = Math.floor((higher - (lower - 1)) * Math.random()) + lower);
+        },
+        getBgY: function (el) {
+            if ($.browser.msie) {
+                var bgY = $(el).css('background-position-y') || '0';
+            } else {
+                var bgY = ($(el).css('background-position') || ' ').split(' ')[1];
+            }
+            return bgY;
+        },
+        getBgX: function (el) {
+            if ($.browser.msie) {
+                var bgX = $(el).css('background-position-x') || '0';
+            } else {
+                var bgX = ($(el).css('background-position') || ' ').split(' ')[0];
+            }
+            return bgX;
+        },
+        get_rel_pos: function (pos, w) {
+            var r = pos;
+            if (pos < 0) {
+                while (r < 0) {
+                    r += w;
+                }
+            } else {
+                while (r > w) {
+                    r -= w;
+                }
+            }
+            return r;
+        }
+    };
+    $.fn.extend({
+        spritely: function (options) {
+            var options = $.extend({
+                type: 'sprite',
+                do_once: false,
+                width: null,
+                height: null,
+                fps: 12,
+                no_of_frames: 2,
+                stop_after: null
+            }, options || {});
+            var el_id = $(this).attr('id');
+            if (!$._spritely.instances) {
+                $._spritely.instances = {};
+            }
+            if (!$._spritely.instances[el_id]) {
+                if (options.start_at_frame) {
+                    $._spritely.instances[el_id] = {
+                        current_frame: options.start_at_frame - 1
+                    };
+                } else {
+                    $._spritely.instances[el_id] = {
+                        current_frame: -1
+                    };
+                }
+            }
+            $._spritely.instances[el_id]['type'] = options.type;
+            $._spritely.instances[el_id]['depth'] = options.depth;
+            options.el = this;
+            options.width = options.width || $(this).width() || 100;
+            options.height = options.height || $(this).height() || 100;
+            var get_rate = function () {
+                return parseInt(1000 / options.fps);
+            }
+            if (!options.do_once) {
+                window.setTimeout(function () {
+                    $._spritely.animate(options);
+                }, get_rate(options.fps));
+            } else {
+                $._spritely.animate(options);
+            }
+            return this;
+        },
+        sprite: function (options) {
+            var options = $.extend({
+                type: 'sprite',
+                bounce: [0, 0, 1000]
+            }, options || {});
+            return $(this).spritely(options);
+        },
+        pan: function (options) {
+            var options = $.extend({
+                type: 'pan',
+                dir: 'left',
+                continuous: true,
+                speed: 1
+            }, options || {});
+            return $(this).spritely(options);
+        },
+        flyToTap: function (options) {
+            var options = $.extend({
+                el_to_move: null,
+                type: 'moveToTap',
+                ms: 1000,
+                do_once: true
+            }, options || {});
+            if (options.el_to_move) {
+                $(options.el_to_move).active();
+            }
+            if ($._spritely.activeSprite) {
+                if (window.Touch) {
+                    $(this)[0].ontouchstart = function (e) {
+                        var el_to_move = $._spritely.activeSprite;
+                        var touch = e.touches[0];
+                        var t = touch.pageY - (el_to_move.height() / 2);
+                        var l = touch.pageX - (el_to_move.width() / 2);
+                        el_to_move.animate({
+                            top: t + 'px',
+                            left: l + 'px'
+                        }, 1000);
+                    };
+                } else {
+                    $(this).click(function (e) {
+                        var el_to_move = $._spritely.activeSprite;
+                        $(el_to_move).stop(true);
+                        var w = el_to_move.width();
+                        var h = el_to_move.height();
+                        var l = e.pageX - (w / 2);
+                        var t = e.pageY - (h / 2);
+                        el_to_move.animate({
+                            top: t + 'px',
+                            left: l + 'px'
+                        }, 1000);
+                    });
+                }
+            }
+            return this;
+        },
+        isDraggable: function (options) {
+            if ((!$(this).draggable)) {
+                return this;
+            }
+            var options = $.extend({
+                type: 'isDraggable',
+                start: null,
+                stop: null,
+                drag: null
+            }, options || {});
+            var el_id = $(this).attr('id');
+            if (!$._spritely.instances[el_id]) {
+                return this;
+            }
+            $._spritely.instances[el_id].isDraggableOptions = options;
+            $(this).draggable({
+                start: function () {
+                    var el_id = $(this).attr('id');
+                    $._spritely.instances[el_id].stop_random = true;
+                    $(this).stop(true);
+                    if ($._spritely.instances[el_id].isDraggableOptions.start) {
+                        $._spritely.instances[el_id].isDraggableOptions.start(this);
+                    }
+                },
+                drag: options.drag,
+                stop: function () {
+                    var el_id = $(this).attr('id');
+                    $._spritely.instances[el_id].stop_random = false;
+                    if ($._spritely.instances[el_id].isDraggableOptions.stop) {
+                        $._spritely.instances[el_id].isDraggableOptions.stop(this);
+                    }
+                }
+            });
+            return this;
+        },
+        active: function () {
+            $._spritely.activeSprite = this;
+            return this;
+        },
+        activeOnClick: function () {
+            var el = $(this);
+            if (window.Touch) {
+                el[0].ontouchstart = function (e) {
+                    $._spritely.activeSprite = el;
+                };
+            } else {
+                el.click(function (e) {
+                    $._spritely.activeSprite = el;
+                });
+            }
+            return this;
+        },
+        spRandom: function (options) {
+            var options = $.extend({
+                top: 50,
+                left: 50,
+                right: 290,
+                bottom: 320,
+                speed: 4000,
+                pause: 0
+            }, options || {});
+            var el_id = $(this).attr('id');
+            if (!$._spritely.instances[el_id]) {
+                return this;
+            }
+            if (!$._spritely.instances[el_id].stop_random) {
+                var r = $._spritely.randomIntBetween;
+                var t = r(options.top, options.bottom);
+                var l = r(options.left, options.right);
+                $('#' + el_id).animate({
+                    top: t + 'px',
+                    left: l + 'px'
+                }, options.speed)
+            }
+            window.setTimeout(function () {
+                $('#' + el_id).spRandom(options);
+            }, options.speed + options.pause)
+            return this;
+        },
+        makeAbsolute: function () {
+            return this.each(function () {
+                var el = $(this);
+                var pos = el.position();
+                el.css({
+                    position: "absolute",
+                    marginLeft: 0,
+                    marginTop: 0,
+                    top: pos.top,
+                    left: pos.left
+                }).remove().appendTo("body");
+            });
+        },
+        spSet: function (prop_name, prop_value) {
+            var el_id = $(this).attr('id');
+            $._spritely.instances[el_id][prop_name] = prop_value;
+            return this;
+        },
+        spGet: function (prop_name, prop_value) {
+            var el_id = $(this).attr('id');
+            return $._spritely.instances[el_id][prop_name];
+        },
+        spStop: function (bool) {
+            $(this).each(function () {
+                var el_id = $(this).attr('id');
+                $._spritely.instances[el_id]['_last_fps'] = $(this).spGet('fps');
+                $._spritely.instances[el_id]['_stopped'] = true;
+                $._spritely.instances[el_id]['_stopped_f1'] = bool;
+                if ($._spritely.instances[el_id]['type'] == 'sprite') {
+                    $(this).spSet('fps', 0);
+                }
+                if (bool) {
+                    var bp_top = $._spritely.getBgY($(this));
+                    $(this).css('background-position', '0 ' + bp_top);
+                }
+            });
+            return this;
+        },
+        spStart: function () {
+            $(this).each(function () {
+                var el_id = $(this).attr('id');
+                var fps = $._spritely.instances[el_id]['_last_fps'] || 12;
+                $._spritely.instances[el_id]['_stopped'] = false;
+                if ($._spritely.instances[el_id]['type'] == 'sprite') {
+                    $(this).spSet('fps', fps);
+                }
+            });
+            return this;
+        },
+        spToggle: function () {
+            var el_id = $(this).attr('id');
+            var stopped = $._spritely.instances[el_id]['_stopped'] || false;
+            var stopped_f1 = $._spritely.instances[el_id]['_stopped_f1'] || false;
+            if (stopped) {
+                $(this).spStart();
+            } else {
+                $(this).spStop(stopped_f1);
+            }
+            return this;
+        },
+        fps: function (fps) {
+            $(this).each(function () {
+                $(this).spSet('fps', fps);
+            });
+            return this;
+        },
+        goToFrame: function (n) {
+            var el_id = $(this).attr('id');
+            if ($._spritely.instances && $._spritely.instances[el_id]) {
+                $._spritely.instances[el_id]['current_frame'] = n - 1;
+            }
+            return this;
+        },
+        spSpeed: function (speed) {
+            $(this).each(function () {
+                $(this).spSet('speed', speed);
+            });
+            return this;
+        },
+        spRelSpeed: function (speed) {
+            $(this).each(function () {
+                var rel_depth = $(this).spGet('depth') / 100;
+                $(this).spSet('speed', speed * rel_depth);
+            });
+            return this;
+        },
+        spChangeDir: function (dir) {
+            $(this).each(function () {
+                $(this).spSet('dir', dir);
+            });
+            return this;
+        },
+        spState: function (n) {
+            $(this).each(function () {
+                var yPos = ((n - 1) * $(this).height()) + 'px';
+                var xPos = $._spritely.getBgX($(this));
+                var bp = xPos + ' -' + yPos;
+                $(this).css('background-position', bp);
+            });
+            return this;
+        },
+        lockTo: function (el, options) {
+            $(this).each(function () {
+                var el_id = $(this).attr('id');
+                if (!$._spritely.instances[el_id]) {
+                    return this;
+                }
+                $._spritely.instances[el_id]['locked_el'] = $(this);
+                $._spritely.instances[el_id]['lock_to'] = $(el);
+                $._spritely.instances[el_id]['lock_to_options'] = options;
+                $._spritely.instances[el_id]['interval'] = window.setInterval(function () {
+                    if ($._spritely.instances[el_id]['lock_to']) {
+                        var locked_el = $._spritely.instances[el_id]['locked_el'];
+                        var locked_to_el = $._spritely.instances[el_id]['lock_to'];
+                        var locked_to_options = $._spritely.instances[el_id]['lock_to_options'];
+                        var locked_to_el_w = locked_to_options.bg_img_width;
+                        var locked_to_el_h = locked_to_el.height();
+                        var locked_to_el_y = $._spritely.getBgY(locked_to_el);
+                        var locked_to_el_x = $._spritely.getBgX(locked_to_el);
+                        var el_l = (parseInt(locked_to_el_x) + parseInt(locked_to_options['left']));
+                        var el_t = (parseInt(locked_to_el_y) + parseInt(locked_to_options['top']));
+                        el_l = $._spritely.get_rel_pos(el_l, locked_to_el_w);
+                        $(locked_el).css({
+                            'top': el_t + 'px',
+                            'left': el_l + 'px'
+                        });
+                    }
+                }, options.interval || 20);
+            });
+            return this;
+        },
+        destroy: function () {
+            var el = $(this);
+            var el_id = $(this).attr('id');
+            if ($._spritely.instances[el_id] && $._spritely.instances[el_id]['timeout']) {
+                window.clearInterval($._spritely.instances[el_id]['timeout']);
+            }
+            if ($._spritely.instances[el_id] && $._spritely.instances[el_id]['interval']) {
+                window.clearInterval($._spritely.instances[el_id]['interval']);
+            }
+            delete $._spritely.instances[el_id]
+            return this;
+        }
+    })
+})(jQuery);
+try {
+    document.execCommand("BackgroundImageCache", false, true);
+} catch (err) {};
+jQuery.easing['jswing'] = jQuery.easing['swing'];
+jQuery.extend(jQuery.easing, {
+    def: 'easeOutQuad',
+    swing: function (x, t, b, c, d) {
+        return jQuery.easing[jQuery.easing.def](x, t, b, c, d);
+    },
+    easeInQuad: function (x, t, b, c, d) {
+        return c * (t /= d) * t + b;
+    },
+    easeOutQuad: function (x, t, b, c, d) {
+        return -c * (t /= d) * (t - 2) + b;
+    },
+    easeInOutQuad: function (x, t, b, c, d) {
+        if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+        return -c / 2 * ((--t) * (t - 2) - 1) + b;
+    },
+    easeInCubic: function (x, t, b, c, d) {
+        return c * (t /= d) * t * t + b;
+    },
+    easeOutCubic: function (x, t, b, c, d) {
+        return c * ((t = t / d - 1) * t * t + 1) + b;
+    },
+    easeInOutCubic: function (x, t, b, c, d) {
+        if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+        return c / 2 * ((t -= 2) * t * t + 2) + b;
+    },
+    easeInQuart: function (x, t, b, c, d) {
+        return c * (t /= d) * t * t * t + b;
+    },
+    easeOutQuart: function (x, t, b, c, d) {
+        return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+    },
+    easeInOutQuart: function (x, t, b, c, d) {
+        if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+        return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+    },
+    easeInQuint: function (x, t, b, c, d) {
+        return c * (t /= d) * t * t * t * t + b;
+    },
+    easeOutQuint: function (x, t, b, c, d) {
+        return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+    },
+    easeInOutQuint: function (x, t, b, c, d) {
+        if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+        return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+    },
+    easeInSine: function (x, t, b, c, d) {
+        return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+    },
+    easeOutSine: function (x, t, b, c, d) {
+        return c * Math.sin(t / d * (Math.PI / 2)) + b;
+    },
+    easeInOutSine: function (x, t, b, c, d) {
+        return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+    },
+    easeInExpo: function (x, t, b, c, d) {
+        return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+    },
+    easeOutExpo: function (x, t, b, c, d) {
+        return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+    },
+    easeInOutExpo: function (x, t, b, c, d) {
+        if (t == 0) return b;
+        if (t == d) return b + c;
+        if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+        return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+    },
+    easeInCirc: function (x, t, b, c, d) {
+        return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+    },
+    easeOutCirc: function (x, t, b, c, d) {
+        return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+    },
+    easeInOutCirc: function (x, t, b, c, d) {
+        if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+        return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+    },
+    easeInElastic: function (x, t, b, c, d) {
+        var s = 1.70158;
+        var p = 0;
+        var a = c;
+        if (t == 0) return b;
+        if ((t /= d) == 1) return b + c;
+        if (!p) p = d * .3;
+        if (a < Math.abs(c)) {
+            a = c;
+            var s = p / 4;
+        } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+        return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+    },
+    easeOutElastic: function (x, t, b, c, d) {
+        var s = 1.70158;
+        var p = 0;
+        var a = c;
+        if (t == 0) return b;
+        if ((t /= d) == 1) return b + c;
+        if (!p) p = d * .3;
+        if (a < Math.abs(c)) {
+            a = c;
+            var s = p / 4;
+        } else var s = p / (2 * Math.PI) * Math.asin(c / a);
+        return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+    },
+    easeInOutElastic: function (x, t, b, c, d) {
+        var s = 1.70158;
+        var p = 0;
+        var a = c;
+        if (t == 0) return b;
+        if ((t /= d / 2) == 2) return b + c;
+        if (!p) p = d * (.3 * 1.5);
+        if (a < Math.abs(c)) {
+            a = c;
+            var s = p / 4;
+        } else var s = p / (2 * Math.PI) * Math.asin(c / a); if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+        return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+    },
+    easeInBack: function (x, t, b, c, d, s) {
+        if (s == undefined) s = 1.70158;
+        return c * (t /= d) * t * ((s + 1) * t - s) + b;
+    },
+    easeOutBack: function (x, t, b, c, d, s) {
+        if (s == undefined) s = 1.70158;
+        return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+    },
+    easeInOutBack: function (x, t, b, c, d, s) {
+        if (s == undefined) s = 1.70158;
+        if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
+        return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
+    },
+    easeInBounce: function (x, t, b, c, d) {
+        return c - jQuery.easing.easeOutBounce(x, d - t, 0, c, d) + b;
+    },
+    easeOutBounce: function (x, t, b, c, d) {
+        if ((t /= d) < (1 / 2.75)) {
+            return c * (7.5625 * t * t) + b;
+        } else if (t < (2 / 2.75)) {
+            return c * (7.5625 * (t -= (1.5 / 2.75)) * t + .75) + b;
+        } else if (t < (2.5 / 2.75)) {
+            return c * (7.5625 * (t -= (2.25 / 2.75)) * t + .9375) + b;
+        } else {
+            return c * (7.5625 * (t -= (2.625 / 2.75)) * t + .984375) + b;
+        }
+    },
+    easeInOutBounce: function (x, t, b, c, d) {
+        if (t < d / 2) return jQuery.easing.easeInBounce(x, t * 2, 0, c, d) * .5 + b;
+        return jQuery.easing.easeOutBounce(x, t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+    }
+});;
 (function () {
     var initializing = false,
         fnTest = /xyz/.test(function () {
@@ -6475,7 +7148,12 @@ function trackClient(appkeys) {
             },
             'page.Home': {
                 'unitWidth': 128
-            }
+            },
+            'com.ActivityCenterList': {
+                'unitWidth': 157,
+                'height': 742,
+                'pageSize': 30
+            },
         },
         'iphone': {
             'com.BaseSlotList': {
@@ -6577,7 +7255,12 @@ function trackClient(appkeys) {
             },
             'page.Home': {
                 'unitWidth': 53
-            }
+            },
+            'com.ActivityCenterList': {
+                'unitWidth': 102,
+                'height': 345,
+                'pageSize': 25
+            },
         }
     }
 })(window, jQuery);;
@@ -6781,6 +7464,288 @@ function trackClient(appkeys) {
         },
         clsname: function () {
             return "ui.Progress";
+        }
+    });
+})(window, jQuery);;
+(function (w, jQuery, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.ui = w.Mojo.ui || {};
+    w.Mojo.ui.Radio = Mojo.Object.extend({
+        init: function (id, options) {
+            this._super(id, options);
+            var self = this;
+            this.element().addClass('mojo-ui-radio');
+            this.element().append('<ul></ul>');
+            $.each(this._options.options, function (i, it) {
+                var opt = $('<li>' + it + '</li>');
+                self.element().find('ul').append(opt);
+                opt.click(function () {
+                    self._optClick($(this).index());
+                });
+            });
+            this._refresh();
+        },
+        _getDefaultOptions: function () {
+            return {
+                options: [],
+                selected: 0,
+                selectionChange: $.noop,
+                disableClick: $.noop,
+            };
+        },
+        _refresh: function () {
+            this.element().find('li').removeClass('mojo-ui-radio-selected').eq(this._options.selected).addClass('mojo-ui-radio-selected');
+        },
+        _optClick: function (index) {
+            var self = this;
+            if (self.disable(index)) {
+                self._options.disableClick(index);
+                return;
+            }
+            if (self._options.selected != index) {
+                self._options.selected = index;
+                self._refresh();
+                self._options.selectionChange(index);
+            }
+        },
+        addOption: function (it) {
+            var self = this;
+            if (it != undefined && it != null) {
+                this._options.options.push(it);
+                var opt = $('<li>' + it + '</li>');
+                self.element().find('ul').append(opt);
+                opt.click(function () {
+                    self._optClick($(this).index());
+                });
+            }
+        },
+        remove: function (index) {
+            this.element().find('ul > li').eq(index).remove();
+        },
+        removeAll: function () {
+            this.element().find('ul').empty();
+        },
+        selection: function (index) {
+            if (index == undefined) {
+                return this._options.selected;
+            }
+            this._options.selected = index;
+            this._refresh();
+        },
+        disable: function (index, value) {
+            if (value == undefined) {
+                return this.element().find('li').eq(index).hasClass('mojo-ui-radio-disabled');
+            }
+            this.element().find('li').eq(index)[value ? 'addClass' : 'removeClass']('mojo-ui-radio-disabled');
+        },
+        clsname: function () {
+            return "ui.Radio";
+        }
+    });
+})(window, jQuery);;
+(function (w, jQuery, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.ui = w.Mojo.ui || {};
+    w.Mojo.ui.Image = Mojo.Object.extend({
+        init: function (id, options) {
+            this._super(id, options);
+            var self = this;
+            this.element().addClass('mojo-ui-image');
+            this.element().append('<img>');
+            this._refresh();
+        },
+        _getDefaultOptions: function () {
+            return {
+                src: '',
+                width: -1,
+                height: -1,
+            };
+        },
+        _refresh: function () {
+            this.element().find('img').attr('src', this._options.src);
+            if (this._options.width > -1) {
+                this.element().find('img').attr('width', this._options.width);
+            }
+            if (this._options.height > -1) {
+                this.element().find('img').attr('height', this._options.height);
+            }
+        },
+        src: function (src) {
+            if (text == undefined) {
+                return this._options.src;
+            }
+            this._options.src = src;
+            this._refresh();
+        },
+        clsname: function () {
+            return "ui.Image";
+        }
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.ui = w.Mojo.ui || {};
+    w.Mojo.ui.ListPanel = w.Mojo.Object.extend({
+        init: function (id, options) {
+            this._super(id, options);
+            this.element().addClass('mojo-ui-listpanel');
+            this._children = [];
+            this._hasLoaded = false;
+            var self = this;
+            this._header = $('<div class="header"></div>').appendTo(this.element());
+            this._list = $('<div class="list"></div>')
+            if (this._options.scrollable) {
+                this._scroll = new Mojo.ui.Scroll(undefined, this._list, {
+                    direction: 2
+                });
+                this.element().append(this._scroll.element());
+            } else {
+                this.element().append(this._list);
+            }
+            this._footer = $('<div class="footer"></div>').appendTo(this.element());
+            this._more = new Mojo.ui.Button(undefined, {
+                text: this._options.moreLabel,
+                classes: ['more'],
+                click: function (btn, e) {
+                    if (self._options.moreClick instanceof Function) {
+                        self._options.moreClick(self);
+                    } else {
+                        if (self._options.refreshable == true) {
+                            self._list.find(".mojo-ui-listpanel-child").remove();
+                            self._children = [];
+                            self._more.element().hide();
+                        }
+                        self._load();
+                    }
+                }
+            });
+            if (this._options.showMore) {
+                this._more.element().appendTo(this._list);
+                if (this._options.alwaysMore == true) {
+                    this._more.element().show();
+                }
+            }
+            this._load();
+        },
+        _load: function (params) {
+            this._showWait();
+            this._options.loadFunc(this._children.length, this._options.pageSize, params, this);
+        },
+        _getDefaultOptions: function () {
+            return {
+                pageSize: 10,
+                showMore: true,
+                alwaysMore: false,
+                moreLabel: 'More',
+                moreClick: undefined,
+                refreshable: false,
+                drawFunc: $.noop,
+                loadFunc: $.noop,
+                scrollable: false,
+                emptyLabel: null,
+                onLoaded: undefined,
+                direction: 2,
+            };
+        },
+        _showWait: function () {
+            this._more.disable(true);
+            if (this._options.showMore === true) {
+                $('<div class="waiting"></div>').insertBefore(this._more.element());
+            } else {
+                this._list.append('<div class="waiting"></div>');
+            }
+        },
+        _hideWait: function () {
+            this._list.find('.waiting').remove();
+            this._more.disable(false);
+        },
+        _addChild: function (child) {
+            if (child != undefined && child != null) {
+                if (this._options.showMore === true) {
+                    child.element().addClass("mojo-ui-listpanel-child").insertBefore(this._more.element());
+                } else {
+                    this._list.append(child.element().addClass("mojo-ui-listpanel-child"));
+                }
+                this._children.push(child);
+            }
+        },
+        appendData: function (data, showMore) {
+            if (this._options.refreshable == true) {
+                this.initial();
+            }
+            var self = this;
+            self._hideWait();
+            if (data != undefined && data != null) {
+                if (Array.isArray(data)) {
+                    $.each(data, function (i, d) {
+                        self._addChild(self._options.drawFunc(d));
+                    });
+                    if (self._options.alwaysMore == false && (data.length < self._options.pageSize || showMore === false)) {
+                        self._more.element().hide();
+                    }
+                } else {
+                    self._addChild(self._options.drawFunc(data));
+                    if (self._options.alwaysMore == false && showMore === false) {
+                        self._more.element().hide();
+                    }
+                }
+                if (this._hasLoaded === false && this._options.onLoaded instanceof Function) {
+                    this._options.onLoaded(this);
+                }
+                this._hasLoaded = true;
+            }
+            this._list.find('.empty').remove();
+            if (this._children.length == 0 && this._options.emptyLabel != null) {
+                if (this._options.showMore) {
+                    this._more.element().before('<div class="empty">' + this._options.emptyLabel + "</div>");
+                } else {
+                    this._list.append('<div class="empty">' + this._options.emptyLabel + "</div>");
+                }
+                this._more.element().hide();
+            } else if (this._options.alwaysMore == true && this._children.length > 0) {
+                this._more.element().show();
+            }
+            this.rebinding();
+            this.resize();
+        },
+        remove: function (index) {
+            this._list.children().eq(index).remove();
+        },
+        removeAll: function () {
+            this._hasLoaded = false;
+            this._list.empty();
+        },
+        clsname: function () {
+            return "ui.ListPanel";
+        },
+        child: function (index) {
+            return this._children[index];
+        },
+        children: function () {
+            return this._children;
+        },
+        resize: function () {
+            if (this._options.scrollable && this._options.direction != 1) {
+                var top = this.element().offset().top;
+                var scrollTop = top + this._header.outerHeight(true);
+                var scrollBottom = this._footer.outerHeight(true);
+                var h = this.element().height() - this._header.outerHeight(true) - this._footer.outerHeight(true);
+                var w = this.element().width();
+                this._scroll._window.css({
+                    'top': scrollTop + "px",
+                    'bottom': scrollBottom + "px",
+                    'height': h + "px",
+                    'width': w + "px"
+                });
+            }
+            if (this._options.scrollable) {
+                this._scroll.refresh();
+            }
+        },
+        initial: function () {
+            if (this._options.scrollable) {
+                this._scroll.initial();
+            }
         }
     });
 })(window, jQuery);;
@@ -7586,170 +8551,107 @@ function trackClient(appkeys) {
         }
     });
 })(window, jQuery);;
-(function (w, $, undefined) {
+(function (w, jQuery, undefined) {
     w.Mojo = w.Mojo || {};
     w.Mojo.ui = w.Mojo.ui || {};
-    w.Mojo.ui.ListPanel = w.Mojo.Object.extend({
+    w.Mojo.ui.Pager = Mojo.Object.extend({
         init: function (id, options) {
             this._super(id, options);
-            this.element().addClass('mojo-ui-listpanel');
-            this._children = [];
-            this._hasLoaded = false;
             var self = this;
-            this._header = $('<div class="header"></div>').appendTo(this.element());
-            this._list = $('<div class="list"></div>')
-            if (this._options.scrollable) {
-                this._scroll = new Mojo.ui.Scroll(undefined, this._list, {
-                    direction: 2
-                });
-                this.element().append(this._scroll.element());
-            } else {
-                this.element().append(this._list);
-            }
-            this._footer = $('<div class="footer"></div>').appendTo(this.element());
-            this._more = new Mojo.ui.Button(undefined, {
-                text: this._options.moreLabel,
-                classes: ['more'],
-                click: function (btn, e) {
-                    if (self._options.moreClick instanceof Function) {
-                        self._options.moreClick(self);
-                    } else {
-                        if (self._options.refreshable == true) {
-                            self._list.find(".mojo-ui-listpanel-child").remove();
-                            self._children = [];
-                            self._more.element().hide();
-                        }
-                        self._load();
-                    }
-                }
+            this.element().addClass('mojo-ui-pager');
+            this._title = $('<div class="title"></div>').appendTo(this.element());
+            this._container = $('<div class="container"></div>').appendTo(this.element());
+            this._nav = $('<div class="nav"><div class="previous"></div><div class="next"></div></div>').appendTo(this.element());
+            this._btnPrevious = new Mojo.ui.Button(undefined, {
+                text: this._options.previousLabel,
+                click: function () {
+                    self.previous();
+                },
             });
-            if (this._options.showMore) {
-                this._more.element().appendTo(this._list);
-                if (this._options.alwaysMore == true) {
-                    this._more.element().show();
-                }
-            }
-            this._load();
+            this._btnNext = new Mojo.ui.Button(undefined, {
+                text: this._options.nextLabel,
+                click: function () {
+                    self.next();
+                },
+            });
+            this._nav.find('.previous').append(this._btnPrevious.element());
+            this._nav.find('.next').append(this._btnNext.element());
+            this._pages = [];
+            this._current = 0;
+            this._refresh();
         },
-        _load: function (params) {
-            this._showWait();
-            this._options.loadFunc(this._children.length, this._options.pageSize, params, this);
+        _refresh: function () {
+            var p = this._pages[this._current];
+            if (p == undefined || p == null) {
+                var self = this;
+                p = new Mojo.ui.ListPanel(undefined, {
+                    loadFunc: function (start, count) {
+                        self._options.loadFunc(self._current, self._options.pageSize);
+                    },
+                    drawFunc: function (data) {
+                        return self._options.drawFunc(data);
+                    },
+                    classes: ['page'],
+                });
+                this._container.append(p.element());
+                this._pages.push(p);
+            }
+            this._container.children('.page').hide().eq(this._current).show();
+            this._pageCount = this._calPages();
+            this._title.html(this._options.titleTemplate.replace(/#\{current\}/g, this._current + 1).replace(/#\{pages\}/g, this._pageCount));
+            this._btnPrevious.disable(false);
+            this._btnNext.disable(false);
+            if (this._current == 0) {
+                this._btnPrevious.disable(true);
+            }
+            if (this._current == this._pageCount - 1) {
+                this._btnNext.disable(true);
+            }
         },
         _getDefaultOptions: function () {
             return {
+                previousLabel: Mojo.utils.locale('ui', 'Previous'),
+                nextLabel: Mojo.utils.locale('ui', 'Next'),
+                total: 0,
                 pageSize: 10,
-                showMore: true,
-                alwaysMore: false,
-                moreLabel: 'More',
-                moreClick: undefined,
-                refreshable: false,
-                drawFunc: $.noop,
+                titleTemplate: '#{current}/#{pages}',
                 loadFunc: $.noop,
-                scrollable: false,
-                emptyLabel: null,
-                onLoaded: undefined,
-                direction: 2,
+                drawFunc: $.noop,
             };
         },
-        _showWait: function () {
-            this._more.disable(true);
-            if (this._options.showMore === true) {
-                $('<div class="waiting"></div>').insertBefore(this._more.element());
-            } else {
-                this._list.append('<div class="waiting"></div>');
+        next: function () {
+            if (this._current < this._pageCount - 1) {
+                this._current = this._current + 1;
+                this._refresh();
             }
         },
-        _hideWait: function () {
-            this._list.find('.waiting').remove();
-            this._more.disable(false);
-        },
-        _addChild: function (child) {
-            if (child != undefined && child != null) {
-                if (this._options.showMore === true) {
-                    child.element().addClass("mojo-ui-listpanel-child").insertBefore(this._more.element());
-                } else {
-                    this._list.append(child.element().addClass("mojo-ui-listpanel-child"));
-                }
-                this._children.push(child);
+        previous: function () {
+            if (this._current > 0) {
+                this._current = this._current - 1;
+                this._refresh();
             }
         },
-        appendData: function (data, showMore) {
-            if (this._options.refreshable == true) {
-                this.initial();
+        total: function (value) {
+            if (value == undefined) {
+                return this._options.total;
             }
-            var self = this;
-            self._hideWait();
-            if (data != undefined && data != null) {
-                if (Array.isArray(data)) {
-                    $.each(data, function (i, d) {
-                        self._addChild(self._options.drawFunc(d));
-                    });
-                    if (self._options.alwaysMore == false && (data.length < self._options.pageSize || showMore === false)) {
-                        self._more.element().hide();
-                    }
-                } else {
-                    self._addChild(self._options.drawFunc(data));
-                    if (self._options.alwaysMore == false && showMore === false) {
-                        self._more.element().hide();
-                    }
-                }
-                if (this._hasLoaded === false && this._options.onLoaded instanceof Function) {
-                    this._options.onLoaded(this);
-                }
-                this._hasLoaded = true;
-            }
-            this._list.find('.empty').remove();
-            if (this._children.length == 0 && this._options.emptyLabel != null) {
-                if (this._options.showMore) {
-                    this._more.element().before('<div class="empty">' + this._options.emptyLabel + "</div>");
-                } else {
-                    this._list.append('<div class="empty">' + this._options.emptyLabel + "</div>");
-                }
-                this._more.element().hide();
-            } else if (this._options.alwaysMore == true && this._children.length > 0) {
-                this._more.element().show();
-            }
-            this.rebinding();
-            this.resize();
+            this._options.total = value;
+            this._pageCount = this._calPages();
+            this._title.html(this._options.titleTemplate.replace(/#\{current\}/g, this._current + 1).replace(/#\{pages\}/g, this._pageCount));
         },
-        remove: function (index) {
-            this._list.children().eq(index).remove();
+        appendData: function (page, data) {
+            this._pages[page].appendData(data);
         },
-        removeAll: function () {
-            this._hasLoaded = false;
-            this._list.empty();
+        _calPages: function () {
+            var p = parseInt(this._options.total / this._options.pageSize);
+            var a = parseInt(this._options.total % this._options.pageSize);
+            if (a > 0) {
+                return p + 1;
+            }
+            return p;
         },
         clsname: function () {
-            return "ui.ListPanel";
-        },
-        child: function (index) {
-            return this._children[index];
-        },
-        children: function () {
-            return this._children;
-        },
-        resize: function () {
-            if (this._options.scrollable && this._options.direction != 1) {
-                var top = this.element().offset().top;
-                var scrollTop = top + this._header.outerHeight(true);
-                var scrollBottom = this._footer.outerHeight(true);
-                var h = this.element().height() - this._header.outerHeight(true) - this._footer.outerHeight(true);
-                var w = this.element().width();
-                this._scroll._window.css({
-                    'top': scrollTop + "px",
-                    'bottom': scrollBottom + "px",
-                    'height': h + "px",
-                    'width': w + "px"
-                });
-            }
-            if (this._options.scrollable) {
-                this._scroll.refresh();
-            }
-        },
-        initial: function () {
-            if (this._options.scrollable) {
-                this._scroll.initial();
-            }
+            return "ui.Pager";
         }
     });
 })(window, jQuery);;
@@ -8095,6 +8997,34 @@ function trackClient(appkeys) {
             }
         }
     };
+    g.showDiaochan = function (text, click) {
+        (new Mojo.com.Diaochan(undefined, {
+            text: text,
+            click: click
+        })).open();
+    };
+    g.showLockedToast = function (id) {
+        var d = {
+            'btn-force': 20,
+            'btn-fuben': 10,
+            'btn-chat': 5,
+            'btn-entity-battle': 5,
+            'btn-ranking': 3,
+            'btn-battle': 4,
+            'btn-entity-browse': 2,
+            'btn-task': 1,
+            'btn-intensify': 1,
+            'btn-illustration': 1,
+            'btn-friend': 1,
+            'btn-messages': 1,
+            'btn-settings': 1,
+            'btn-entity-embed': 1,
+            'btn-mall': 1
+        };
+        Mojo.app.toast.show(Mojo.utils.locale('common', 'do_task_update', {
+            level: d[id]
+        }));
+    }
 })(window, jQuery);;
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
@@ -8290,7 +9220,11 @@ function trackClient(appkeys) {
             'days': '天',
             'dday': '日',
             'default_text': '請輸入給他（她）的話',
+            'diaochan_first_card': '',
+            'diaochan_intity_first_card': '',
+            'diaochan_new_player': '',
             'discount': '折',
+            'do_task_update': '',
             'email': 'email',
             'email bind tips': '',
             'enter': '',
@@ -8322,12 +9256,14 @@ function trackClient(appkeys) {
             'game account': '',
             'general_count': '上陣將領數：',
             'general_slot_unlock': '解鎖一個上陣將領卡槽!',
+            'get_wuhu_tip': '',
             'go_accept': '查收',
             'go_bless': '',
             'go_embed': '直接上陣',
             'go_fuben': '去闖關',
             'go_intensify': '去強化',
             'go_neizheng': '',
+            'go_package_card': '',
             'go_payment': '去加值',
             'go_rebirth': '去轉生',
             'go_sale': '去出售',
@@ -8370,6 +9306,7 @@ function trackClient(appkeys) {
             'new': '新',
             'new_attack': '攻擊：',
             'new_defence': '防禦：',
+            'new_player_gift_title': '',
             'nickname_not_empty': '',
             'no content': '無字天書會看不懂哦！',
             'no enough energy': '精力值不足',
@@ -8493,7 +9430,11 @@ function trackClient(appkeys) {
             'days': '天',
             'dday': '日',
             'default_text': '请输入给Ta的话',
+            'diaochan_first_card': '啊~被打败了~<br/>主公再厉害也不能总是单打独斗呀~<br/>点击【首页】中的阵容头像可以把刚获得的卡牌上阵哦~<div class="goBtn">点击继续</div>',
+            'diaochan_intity_first_card': '低等级的卡牌不够给力啊~<br/>点击【首页】中的将领头像，可以强化将领，提高战斗力哦~<div class="goBtn">点击继续</div>',
+            'diaochan_new_player': 'Hi~主公~<br/>我是貂蝉~<br/>我将陪伴您通过【任务】体验三国穿越之旅哦~<div class="goBtn">点击继续</div>',
             'discount': '折',
+            'do_task_update': '做【任务】升到{{:level}}级就能解锁哦~',
             'email': '电子邮箱',
             'email bind tips': '微博已被绑定',
             'enter': '进入',
@@ -8525,12 +9466,14 @@ function trackClient(appkeys) {
             'game account': '游戏账户：',
             'general_count': '上阵将领数：',
             'general_slot_unlock': '解锁一个上阵将领卡槽!',
+            'get_wuhu_tip': '恭喜主公~成功招募了五虎上将【{{:wuhu}}】~',
             'go_accept': '查收',
             'go_bless': '去祝福',
             'go_embed': '直接上阵',
             'go_fuben': '去闯关',
             'go_intensify': '去强化',
             'go_neizheng': '做内政',
+            'go_package_card': '去上阵',
             'go_payment': '去充值',
             'go_rebirth': '去转生',
             'go_sale': '去出售',
@@ -8573,6 +9516,7 @@ function trackClient(appkeys) {
             'new': '新',
             'new_attack': '攻击：',
             'new_defence': '防御：',
+            'new_player_gift_title': '强者奖励',
             'nickname_not_empty': '昵称不可为空',
             'no content': '无字天书别人是看不懂的！',
             'no enough energy': '精力值不足',
@@ -8925,7 +9869,7 @@ function trackClient(appkeys) {
             'tutorial_mission_again': '哇，主公好厉害耶～再做一次任务吧！',
             'tutorial_mission_boss': '哇，主公真的没有让小婵失望耶~有了将领卡就可以去壮大阵容喽~首先回到【首页】。',
             'tutorial_mission_start': '主公~请点击【执行】按钮，开始做任务~任务是【获得将领】的主要途径哦~',
-            'tutorial_new_player': '主公您好！欢迎来到三国时代，我是服侍您的貂蝉~<br/>在这里您可以<b>收集将领卡牌，组建超强阵容</b>，成就三国霸业！<br/>首先，请主公选择一个五虎将作先锋，开始三国之旅吧~',
+            'tutorial_new_player': '主公~您真的太棒啦~<br/>连五虎上将都希望成为您的追随者哦~<br/>在他们后悔之前，赶紧选择一个吧~<br/>别忘了去【阵容】上阵你的五虎将哦~',
             'tutorial_package_choose': '请主公【选择这个将领】让他上阵~',
             'tutorial_package_dialog': '主公~在这里可以更换或强化已上阵的将领~现在请主公点击【去强化】按钮~',
             'tutorial_package_install': '主公～请主公点击【上阵将领】～',
@@ -8937,20 +9881,6 @@ function trackClient(appkeys) {
             'tutorial_rob_show': '主公~这里列出的是【合成宝物所需的收集品】~请主公点击【收集品-孟德新书残卷1】',
             'tutorial_rob_start': '主公～正所谓“与人斗其乐无穷”，试试吧。【夺宝】可以获得收集品～而【征讨】可以获得装备卡～请主公点击【夺宝】～',
             'tutorial_start': 'HI~主公你好~我是貂蝉，你可以叫我小婵啦^_^欢迎来到三国世界哦~在这个世界里，壮大自己才是王道。要壮大自己，做任务是个不错的选择。那么先点击【任务】图标吧！',
-        },
-    };
-    w.Mojo.lang['logingift'] = {
-        'zh_tw': {
-            'day_text': '天',
-            'entity_detail': '禮物詳細資訊',
-            'ingame_text': '進入遊戲',
-            'title': '連續登陸獎勵',
-        },
-        'zh_cn': {
-            'day_text': '天',
-            'entity_detail': '礼物详细信息',
-            'ingame_text': '进入游戏',
-            'title': '连续登录奖励',
         },
     };
     w.Mojo.lang['appraise'] = {
@@ -8973,234 +9903,244 @@ function trackClient(appkeys) {
             'appraise_title': '评五星送大礼',
         },
     };
-    w.Mojo.lang['signin'] = {
+    w.Mojo.lang['fuben'] = {
         'zh_tw': {
-            'day_text': '',
-            'has_got_award': '',
-            'rarity_notice': '',
-            'rarity_notice2': '',
-            'signin': '',
-            'signin fail': '',
-            'signin-gift-title': '',
-            'signin-sucess-msg': '',
-            'signin-sucess-msg-double': '',
-            'signin-title': '',
-            'signin_msg01': '',
-            'signin_msg02': '',
-            'signin_over': '',
+            'attack_bonus': '攻擊加成：{{:attack_bonus}}%',
+            'award': '獎勵',
+            'be_restraint': '被克',
+            'buy': '付費購買',
+            'challenge': '挑戰',
+            'choose_award': '恭喜主公，我軍擊敗了【{{:boss_name}}】！<br>以下獎勵二選一：',
+            'choose_one': '（獎品二選一）',
+            'choose_team_friends': '協助戰鬥的好友（{{:current}}/{{:total}}）',
+            'day': '天',
+            'defeat': '戰敗',
+            'defence': '【防禦】',
+            'dont_get_award_content': '報~主公~前方有疑似獎勵的東東~是否在重新闖關前，先去領獎？',
+            'dont_get_award_title': '未領取獎勵',
+            'for_help': '又吃鱉啦~幹嘛不組幾個強力的好友來幫忙呢？',
+            'for_sale': '<span>售價：</span>',
+            'free': '免費',
+            'friend': '好友',
+            'fuben': '闖關',
+            'fuben_award_content1': '恭喜主公，我軍擊敗了【{{:boss_name}}】，【{{:entity_name}}】仰慕主公，前來投奔~',
+            'fuben_award_content2': '恭喜主公，我軍擊敗了【{{:boss_name}}】，並繳獲了【{{:entity_name}}】～',
+            'fuben_award_content3': '恭喜主公，我軍擊敗了【{{:boss_name}}】，打開神秘禮物後獲得【{{:entity_name}}】～',
+            'fuben_award_title': '闖關獎勵',
+            'get_for_free': '免費獲得',
+            'go_award': '去領獎',
+            'go_to_clean': '去剿匪',
+            'has_enemy_content': '報~主公~前方仍有敵軍餘黨，是否在重新闖關前，剿滅他們奪取獎勵？',
+            'has_enemy_title': '尚有敵軍',
+            'hour': '時',
+            'in': '進入',
+            'in_cd': '冷卻中：',
+            'in_fuben': '闖關中：',
+            'is_enough': '主公~{{:count}}個強力好友就夠了~',
+            'less_level': '主公~您的級別不足哦~',
+            'minute': '分',
+            'need_to_upgrade': '主公~您的等級不足哦~',
+            'no friends': '主公～我們現在還沒有盟友，速速去加上幾個好友吧～人多好辦事！',
+            'no_friends': '點擊【組隊】按鈕選擇協助戰鬥的好友',
+            'none': '無',
+            'refresh_time': '闖關時間結束後才能再次闖關',
+            'restart': '重新闖關',
+            'restraint': '克制',
+            'second': '秒',
+            'skills': '【技能】<br>',
+            'team': '組隊',
+            'team_add': '好友組隊加成：{{:team_add}}%',
+            'unlock_level': '解鎖級別：',
+            'wait_to_do': '主公~稍等一下再執行該任務吧~',
         },
         'zh_cn': {
-            'day_text': '天',
-            'has_got_award': '收到',
-            'rarity_notice': '三星扭蛋',
-            'rarity_notice2': '四星扭蛋',
-            'signin': '签到',
-            'signin fail': '签到失败',
-            'signin-gift-title': '签到奖励',
-            'signin-sucess-msg': '主公～签到成功！您获得了：',
-            'signin-sucess-msg-double': '主公~天降鸿福，本次签到获得了双倍的奖励！',
-            'signin-title': '每日签到',
-            'signin_msg01': '主公~您已连续登录<span class=\"redfont\">{{:days}}</span>天，快快签到领取【{{:name}}】吧~',
-            'signin_msg02': '主公~再累计签到<span class=\"redfont\">{{:days}}</span>天，就可以获得【{{:name}}】，明天也请继续签到哦~',
-            'signin_over': '已领取',
+            'attack_bonus': '攻击加成：{{:attack_bonus}}%',
+            'award': '领奖',
+            'be_restraint': '被克',
+            'buy': '付费购买',
+            'challenge': '挑战',
+            'choose_award': '恭喜主公，我军击败了【{{:boss_name}}】！<br>以下奖励二选一：',
+            'choose_one': '（奖品二选一）',
+            'choose_team_friends': '协助战斗的好友（{{:current}}/{{:total}}）',
+            'day': '天',
+            'defeat': '战败',
+            'defence': '【防御】',
+            'dont_get_award_content': '报～主公～前方有疑似奖励的东东～是否遗弃它们，重新开始闯关？',
+            'dont_get_award_title': '未领取奖励',
+            'for_help': '又吃败仗了，为啥不组几个强力的好友来帮忙呢？',
+            'for_sale': '<span>售价：</span>',
+            'free': '免费',
+            'friend': '好友',
+            'fuben': '闯关',
+            'fuben_award_content1': '恭喜主公，我军击败了【{{:boss_name}}】，【{{:entity_name}}】仰慕主公，前来投奔～',
+            'fuben_award_content2': '恭喜主公，我军击败了【{{:boss_name}}】，并缴获了【{{:entity_name}}】～',
+            'fuben_award_content3': '恭喜主公，我军击败了【{{:boss_name}}】，打开神秘礼物后获得【{{:entity_name}}】～',
+            'fuben_award_title': '闯关奖励',
+            'get_for_free': '免费获得',
+            'go_award': '去领奖',
+            'go_to_clean': '去清剿',
+            'has_enemy_content': '报～主公～前方仍有敌军残留，是否放他们一马，重新开始闯关？',
+            'has_enemy_title': '未扫清敌军',
+            'hour': '时',
+            'in': '进入',
+            'in_cd': '冷却中：',
+            'in_fuben': '闯关中：',
+            'is_enough': '主公～{{:count}}个强力好友就够了～',
+            'less_level': '主公～您的级别不足哦～',
+            'minute': '分',
+            'need_to_upgrade': '主公～我们还是先修炼修炼再来挑战吧～',
+            'no friends': '主公～我们现在还没有盟友，速速去加上几个好友吧～人多好办事儿！',
+            'no_friends': '点击【组队】按钮选择协助战斗的好友',
+            'none': '无',
+            'refresh_time': '闯关时间结束后才能再次闯关',
+            'restart': '重新闯关',
+            'restraint': '克制',
+            'second': '秒',
+            'skills': '【技能】<br>',
+            'team': '组队',
+            'team_add': '好友组队加成：{{:team_add}}%',
+            'unlock_level': '解锁级别：',
+            'wait_to_do': '主公～等会儿再执行该任务吧～',
         },
     };
-    w.Mojo.lang['props'] = {
+    w.Mojo.lang['battle'] = {
         'zh_tw': {
-            'add_avoid_war': '使用【{{name}}】後，免戰時間重置為%hhu%mmu%ssu',
-            'add_ep': '使用【{{name}}】後，你的精力恢復了',
-            'add_null': '神馬都沒有增加，白費了',
-            'add_sp': '使用【{{name}}】後，你的體力恢復了',
-            'add_vm': '使用【{{name}}】後，你的銀幣增加了',
-            'avoid_war_time': '免戰時間：%hhu %mmu %ssu',
-            'buy_props_fail_title': '購買失敗',
-            'buy_props_please': '請先購買道具！',
-            'buy_props_success': '購買成功！',
-            'buy_props_success_content': '您購買的商品已經放入您的包裹中。',
-            'buy_props_success_title': '購買成功',
-            'buy_warning_content': '主公～我軍要購入此東東嗎？',
-            'buy_warning_title': '購買確認',
-            'first_add_avoid_war': '使用【{{name}}】後，免戰時間為%hhu%mmu%ssu',
-            'goto_payment': '去加值',
-            'player_ep_max': '主公體力充沛，不用再補啦。',
-            'player_sp_max': '主公精力充沛，不用再補啦。',
-            'priceless': '無價之寶，不可購買',
-            'props': '道具',
-            'props_detail_title': '道具詳細資訊',
-            'sure_avoid_war_time_content': '主公~我軍現在還有免戰時間，如果使用{{name}}，則免戰時間將重置。你確定要使用嗎？',
-            'sure_avoid_war_time_title': '免戰時間重置',
-            'sure_buy': '確定購買',
-            'think_again': '再想想',
-            'unit': '天',
-            'use_props_fail': '道具使用失敗',
-            'use_props_success': '道具使用成功',
+            'Can not attack weak': '主公～欺負弱小是不對的～',
+            'Enemy': '宿敵',
+            'Fight': '單挑',
+            'More opponents': '更多對手',
+            'No enemies': '您還沒有仇家！獨孤求敗中～',
+            'No fight opponents': '您還沒有實力相近的對手！獨孤求敗中～',
+            'action': '出征',
+            'armor_protect': '',
+            'base attack': '基礎攻擊力：',
+            'base defence': '基礎防禦力：',
+            'battle result preview': '戰鬥結果預覽',
+            'battle_fail_content': '',
+            'battle_fail_title': '',
+            'battle_result_formation_title_lose': '',
+            'battle_result_formation_title_win': '',
+            'battle_result_title': '戰鬥結果',
+            'battle_result_title_lose': '征討失敗',
+            'battle_result_title_rob_lose': '奪寶失敗',
+            'battle_result_title_rob_win': '奪寶獎勵',
+            'battle_result_title_win': '征討獎勵',
+            'battle_tip': '攻擊等級高、存款多的玩家能搶到更多銀幣哦~',
+            'be_restraint': '被克',
+            'force_none': '',
+            'formation': '調整陣容',
+            'formation detail': '陣容資訊',
+            'in_avoid_war': '',
+            'lose_message': '你被打敗，小有損失～',
+            'refresh opps': '刷新對手',
+            'refresh_opponents': '刷新對手',
+            'resist': '',
+            'restraint': '克制',
+            'search_prefix': 'Lv.',
+            'sum attack': '軍團攻擊力：',
+            'sum defence': '軍團防禦力：',
+            'weapon_hit': '',
+            'win_message_01': '恭喜主公，我軍擊敗了{{:name}}，並繳獲了【{{:bonus}}】～',
+            'win_message_02': '恭喜主公，我軍擊敗了{{:name}}，打掃戰場時發現了【{{:bonus}}】～',
+            'win_message_03': '恭喜主公，我軍擊敗了{{:name}}～',
+            'win_message_04': '主公～真遺憾！你在行軍過程中【{{:bonus}}】已經被其他人搶走了！',
+            'win_message_05': '主公～我軍雖勝，但{{:name}}攜【{{:bonus}}】跑路了～',
+            'win_message_06': '主公～你有可能獲得裝備卡哦～',
+            'win_message_07': '主公~你真是佛心來的啊！我軍擊敗了{{:name}}，並將【{{:bonus}}】歸還給了{{:frdname}}～',
         },
         'zh_cn': {
-            'add_avoid_war': '使用【{{name}}】后，免战时间重置为%hhu%mmu%ssu',
-            'add_ep': '使用【{{name}}】后，你的精力恢复了',
-            'add_null': '啥都没有增加，白费了',
-            'add_sp': '使用【{{name}}】后，你的体力恢复了',
-            'add_vm': '使用【{{name}}】后，你的银币增加了',
-            'avoid_war_time': '免战时间：%hhu %mmu %ssu',
-            'buy_props_fail_title': '购买失败',
-            'buy_props_please': '请先购买道具！',
-            'buy_props_success': '购买成功！',
-            'buy_props_success_content': '您购买的商品已经放入您的包裹中。',
-            'buy_props_success_title': '购买成功',
-            'buy_warning_content': '主公～我军要购入此东东吗？',
-            'buy_warning_title': '购买确认',
-            'first_add_avoid_war': '使用【{{name}}】后，免战时间为%hhu%mmu%ssu',
-            'goto_payment': '去充值',
-            'player_ep_max': '主公体力充沛，不用再补啦。',
-            'player_sp_max': '主公精力充沛，不用再补啦。',
-            'priceless': '无价之宝',
-            'props': '道具',
-            'props_detail_title': '道具详细信息',
-            'sure_avoid_war_time_content': '主公~我军现在还有免战时间，如果使用{{name}}，则免战时间将重置。你确定要使用吗？',
-            'sure_avoid_war_time_title': '免战时间重置',
-            'sure_buy': '确定购买',
-            'think_again': '再想想',
-            'unit': '天',
-            'use_props_fail': '道具使用失败',
-            'use_props_success': '道具使用成功',
+            'Can not attack weak': '主公～欺负弱小是不对的～',
+            'Enemy': '宿敌',
+            'Fight': '单挑',
+            'More opponents': '更多对手',
+            'No enemies': '您还没有仇家！独孤求败中～',
+            'No fight opponents': '这个世界查无此人～',
+            'action': '出征',
+            'armor_protect': '防护',
+            'base attack': '基础攻击力：',
+            'base defence': '基础防御力：',
+            'battle result preview': '征讨结果预览',
+            'battle_fail_content': '主公，对方在战斗中哦，请稍等一会再来吧！',
+            'battle_fail_title': '不能征讨',
+            'battle_result_formation_title_lose': '战斗失败',
+            'battle_result_formation_title_win': '战斗胜利',
+            'battle_result_title': '战斗结果',
+            'battle_result_title_lose': '征讨失败',
+            'battle_result_title_rob_lose': '夺宝失败',
+            'battle_result_title_rob_win': '夺宝奖励',
+            'battle_result_title_win': '征讨奖励',
+            'battle_tip': '攻击等级高、存钱多的玩家能抢到更多银币哦~',
+            'be_restraint': '被克',
+            'force_none': '未加入势力',
+            'formation': '调整阵容',
+            'formation detail': '阵容对比',
+            'in_avoid_war': '免战中',
+            'lose_message': '你被打败，小有损失～',
+            'refresh opps': '刷新对手',
+            'refresh_opponents': '刷新对手',
+            'resist': '抵抗',
+            'restraint': '克制',
+            'search_prefix': 'Lv.',
+            'sum attack': '军团攻击力：',
+            'sum defence': '军团防御力：',
+            'weapon_hit': '暴击',
+            'win_message_01': '恭喜主公，我军击败了{{:name}}，并缴获了【{{:bonus}}】～',
+            'win_message_02': '恭喜主公，我军击败了{{:name}}，打扫战场时发现了【{{:bonus}}】～',
+            'win_message_03': '恭喜主公，我军击败了{{:name}}～',
+            'win_message_04': '主公～真遗憾！你在行军过程中【{{:bonus}}】已经被其他人抢走了！',
+            'win_message_05': '主公～我军虽胜，但{{:name}}携【{{:bonus}}】跑路了～',
+            'win_message_06': '主公～你有可能获得装备卡哦～',
+            'win_message_07': '主公~你就是当代的活雷锋啊！我军击败了{{:name}}，并将【{{:bonus}}】归还给了{{:frdname}}～',
         },
     };
-    w.Mojo.lang['home'] = {
+    w.Mojo.lang['mission'] = {
         'zh_tw': {
-            'Assistant': '助手',
-            'Battle': '征討',
-            'Chat': '聊天',
-            'Do Task': '任務',
-            'Entity Battle': '奪寶',
-            'Entity Browse': '卡牌',
-            'Entity Embed': '排列陣容',
-            'Entity Purchase': '商城',
-            'Force': '勢力',
-            'Friend': '好友',
-            'Fuben': '闖關',
-            'Illustration': '圖鑑',
-            'Intensify': '強化',
-            'Messages': '消息',
-            'My Slots': '我的陣容',
-            'Props': '道具',
-            'Rank': '排行',
-            'Register Code Tip': '',
-            'Settings': '設置',
-            'Statistics': '統計',
-            'Test': '測試',
-            'Things Everyday': '每天要做的事',
-            'Twitter': 'Facebook',
-            'account bind success': '',
-            'account secrity prompt': '',
-            'announcement_title': '遊戲公告',
-            'bind award tips': '',
-            'bind email': '',
-            'bind weibo': '',
-            'bind_rebirth_drug': '',
-            'bind_rebirth_drug_content': '',
-            'binding email prompt': '',
-            'binding prompt': '',
-            'binding weibo prompt': '',
-            'create_force': '創建勢力',
-            'create_free': '免費創建',
-            'create_pay': '付費創建',
-            'create_succ': '創建成功',
-            'create_succ_tip': '恭喜您成功創建勢力【{{:name}}】~',
-            'create_tip': '為您的勢力取一個威震八方的名字吧',
-            'create_use_rebirth': '捐獻68顆轉生丹即可免費創建勢力~',
-            'email bind success tips': '',
-            'email_bind': 'email綁定中，{{:day}}後可通过email找回密碼',
-            'force_create_failed': '勢力創建失敗',
-            'force_create_ok': '主公~您還未加入勢力，趕快創建或加入一個吧！',
-            'force_join_no': '主公~您還未加入勢力，升到{{:level}}級就能加入勢力哦~',
-            'force_join_ok': '主公～您還未加入勢力，趕快加入一個吧！升到{{:level}}級就能創建勢力哦～',
-            'force_name_empty': '請輸入勢力名字',
-            'force_name_empty1': '請輸入勢力名字',
-            'force_name_max': '最多5個字',
-            'go_sanguo': '進入三國',
-            'helpful hints': '',
-            'home': '勢力',
-            'join_force': '加入勢力',
-            'login_acc': '帳號：',
-            'login_info': '主公~您當前登陸的帳號資訊是：',
-            'login_nick': '昵稱：',
-            'login_tip': '不同的伺服器可使用同一帳號登錄，但不能使用昵稱登錄哦~',
-            'login_title': '帳號登錄資料',
-            'neven_remind': '不再提醒',
-            'new_player_gift_name': '恭喜你獲得新手獎勵：【{{name}}】',
-            'new_player_gift_title': '新手獎勵',
-            'rebirth_not_enouph': '主公~您的轉生丹不夠啦！您可以通過闖關獲得足夠的轉生丹哦~',
-            'rebirth_not_enouph_title': '轉生丹不足',
-            'rebirth_now_have': '（現有{{:num}}個轉生丹）',
-            'yahoo prompt': '',
+            'Attack Another Generals': '恭喜主公，我軍擊敗了【{{:boss_name}}】，並繳獲了【{{:name}}】～',
+            'Attack One Generals': '恭喜主公，我軍擊敗了【{{:boss_name}}】，並招降了【{{:name}}】～',
+            'Coins': '銀幣',
+            'Energy point is not enough': '精力值不足',
+            'Gained': '獲得',
+            'Get Another Collection': '恭喜，百姓們仰慕主公，獻上了傳家之寶【{{:name}}】～',
+            'Get Another Generals': '恭喜，【{{:name}}】仰慕主公，前來投奔～',
+            'Get One Collection': '恭喜主公，我軍在廢棄的房舍裡面發現了【{{:name}}】～',
+            'Get One Generals': '恭喜主公，我軍招募到了【{{:name}}】～',
+            'Please complete the tasko_kr above!': '需要完成以上全部任務才能執行此任務～',
+            'Please complete the tasks above!': '需要完成以上全部任務才能執行此任務～',
+            'Task Awards': '任務獎勵',
+            'The task is completed!': '主公～該任務已經完成～',
+            'You have to complete the previous task group!': '需要完成上一任務鏈方能解鎖～',
+            'action': '',
+            'battle result preview': '',
+            'battle_result_fail': '',
+            'battle_result_formation_title_lose': '',
+            'battle_result_formation_title_win': '',
+            'formation': '',
+            'new_player_gift_title': '',
+            'win_card': '',
         },
         'zh_cn': {
-            'Assistant': '助手',
-            'Battle': '征讨',
-            'Chat': '聊天',
-            'Do Task': '任务',
-            'Entity Battle': '夺宝',
-            'Entity Browse': '卡牌',
-            'Entity Embed': '排列阵容',
-            'Entity Purchase': '商城',
-            'Force': '势力',
-            'Friend': '好友',
-            'Fuben': '闯关',
-            'Illustration': '图鉴',
-            'Intensify': '强化',
-            'Messages': '消息',
-            'My Slots': '我的阵容',
-            'Props': '道具',
-            'Rank': '排行',
-            'Register Code Tip': '主公~您成功的将账户绑定到了邮箱<span style="color:#A80E0E">{{:email}}</span>上，您可以使用这个邮箱来登录游戏了！<br/>已向您的邮箱发送验证邮件，请注意查收。验证后可用该邮箱进行找回密码操作。',
-            'Settings': '设置',
-            'Statistics': '统计',
-            'Test': '测试',
-            'Things Everyday': '每天要做的事',
-            'Twitter': '微博',
-            'account bind success': '<div class="paragraph">主公~账户已绑定成功，现在起，您可以使用绑定微博（邮箱）登录游戏</div>',
-            'account secrity prompt': '<div class="paragraph">主公~为了您的账户安全，需要您重新绑定微博或邮箱。<br/>绑定后可用微博、邮箱登录游戏哦~</div>',
-            'announcement_title': '游戏公告',
-            'bind award tips': '绑定奖励',
-            'bind email': '绑定邮箱',
-            'bind weibo': '绑定微博',
-            'bind_rebirth_drug': '转生丹',
-            'bind_rebirth_drug_content': '主公~您已成功绑定了游戏的账户,获得了如下奖励:',
-            'binding email prompt': '主公~邮箱绑定中，{{:date}}后绑定成功~',
-            'binding prompt': '主公~邮箱/微博绑定中，{{:date}}后绑定成功~',
-            'binding weibo prompt': '主公~微博绑定中，{{:date}}后绑定成功~',
-            'create_force': '创建势力',
-            'create_free': '免费创建',
-            'create_pay': '付费创建',
-            'create_succ': '创建成功',
-            'create_succ_tip': '恭喜您成功创建势力【{{:name}}】~',
-            'create_tip': '为您的势力取一个惊艳的名字吧',
-            'create_use_rebirth': '捐献68个转生丹即可免费创建势力~',
-            'email bind success tips': '主公~您的账户已成功合并到账户:<span style="color:#A80E0E">{{:email}}</span>下,以后请使用此账户登录此角色。为了您的账户安全,请使用<span style="color:#A80E0E">{{:email}}</span>重新登录游戏。',
-            'email_bind': '邮箱绑定中，{{:day}}后可通过邮箱找回密码',
-            'force_create_failed': '势力创建失败',
-            'force_create_ok': '主公～您还未加入势力，赶快创建或加入一个吧！',
-            'force_join_no': '主公～您还未加入势力，升到{{:level}}级就能加入势力哦~',
-            'force_join_ok': '主公～您还未加入势力，赶快加入一个吧！升到{{:level}}级就能创建势力哦～',
-            'force_name_empty': '亲～势力名字不能为空',
-            'force_name_empty1': '亲～势力不能没有名字哦',
-            'force_name_max': '最多5个汉字',
-            'go_sanguo': '进入三国',
-            'helpful hints': '友情提示',
-            'home': '势力',
-            'join_force': '加入势力',
-            'login_acc': '账户：',
-            'login_info': '主公~您当前登录的账户信息是：',
-            'login_nick': '昵称：',
-            'login_tip': '不同的服务器可使用同一账户登录，但不能使用昵称登录哦~',
-            'login_title': '账户登录信息',
-            'neven_remind': '不再提醒',
-            'new_player_gift_name': '恭喜你获得新手奖励：【{{name}}】',
-            'new_player_gift_title': '新手奖励',
-            'rebirth_not_enouph': '主公~您的转生丹不够啦！您可以通过闯关获得足够的转生丹哦',
-            'rebirth_not_enouph_title': '转生丹不足',
-            'rebirth_now_have': '（现有{{:num}}个转生丹）',
-            'yahoo prompt': '<div class="paragraph">主公~雅虎邮箱即将停用,您的密码找回邮箱将失效,为了您的账户安全, 强烈建议您重新绑定邮箱。</div>',
+            'Attack Another Generals': '恭喜主公，我军击败了【{{:boss_name}}】，并缴获了【{{:name}}】～',
+            'Attack One Generals': '恭喜主公，我军击败了【{{:boss_name}}】，并招降了【{{:name}}】～',
+            'Coins': '银币',
+            'Energy point is not enough': '精力值不足',
+            'Gained': '获得',
+            'Get Another Collection': '恭喜，百姓们仰慕主公，献上了传家之宝【{{:name}}】～',
+            'Get Another Generals': '恭喜，【{{:name}}】仰慕主公，前来投奔～',
+            'Get One Collection': '恭喜主公，我军在废弃的房舍里面发现了【{{:name}}】～',
+            'Get One Generals': '恭喜主公，我军招募到了【{{:name}}】～',
+            'Please complete the tasko_kr above!': '需要完成以上全部任务才能执行此任务～',
+            'Please complete the tasks above!': '需要完成以上全部任务才能执行此任务～',
+            'Task Awards': '任务奖励',
+            'The task is completed!': '主公～该任务已经完成～',
+            'You have to complete the previous task group!': '需要完成上一任务链方能解锁～',
+            'action': '出征',
+            'battle result preview': '征讨结果预览',
+            'battle_result_fail': '我军战败了，可以强化将领或调整阵容后再来试试哦~',
+            'battle_result_formation_title_lose': '战斗失败',
+            'battle_result_formation_title_win': '战斗胜利',
+            'formation': '调整阵容',
+            'new_player_gift_title': '强者奖励',
+            'win_card': '主公~您有可能获得将领卡哦~',
         },
     };
 })(window, jQuery);;
@@ -9670,9 +10610,13 @@ function trackClient(appkeys) {
                 }).html(text);
                 this._status = 1;
             } else {
+                w.clearTimeout(this._timer);
                 this._element.html(text);
             }
             Mojo.utils.bottom(this._element);
+            this._timer = w.setTimeout(function () {
+                self._hide();
+            }, tm);
         },
         _hide: function () {
             var self = this;
@@ -9684,43 +10628,6 @@ function trackClient(appkeys) {
         _element: $('<div class="toast"></div>'),
         _status: 0,
         _timer: 0,
-    };
-    g.toast.show2 = function (message, timeout, init, reset) {
-        timeout = 3600000;
-        var date = new Date();
-        var now = date.getTime() / 1000;
-        var t = parseInt(now + 8 * 3600);
-        var hour = parseInt((t % (3600 * 24)) / 3600);
-        var minute = parseInt((t % 3600) / 60);
-        var second = t % 60;
-        var strHour = hour;
-        var strMinute = minute;
-        var strSecond = second;
-        if (hour < 10) {
-            strHour = "0" + hour
-        }
-        if (minute < 10) {
-            strMinute = "0" + minute
-        }
-        if (second < 10) {
-            strSecond = "0" + second
-        }
-        message = strHour + ":" + strMinute + ":" + strSecond + " " + message
-
-        if (reset) {
-            g.toast._showMsg = "";
-        }
-        if (g.toast._showMsg && g.toast._showMsg != "") {
-            var arrMsg = g.toast._showMsg.split('</br>');
-            if (arrMsg.length > 8) {
-                var msgIndex = g.toast._showMsg.indexOf("</br>");
-                g.toast._showMsg = g.toast._showMsg.substring(msgIndex + 5)
-            }
-            g.toast._showMsg = g.toast._showMsg + "</br>" + message;
-        } else {
-            g.toast._showMsg = message;
-        }
-        g.toast.show(g.toast._showMsg, timeout, init);
     };
     g.tutorial = undefined;
     g.dialog = undefined;
@@ -9739,8 +10646,6 @@ function trackClient(appkeys) {
             } else {
                 Mojo.app.toast.show(response.errorMsg);
             }
-        }, function () {}, {
-            showWait: true
         });
     }
     var g = w.Mojo.ajax = function (url, params, callback, onError, options) {
@@ -9753,14 +10658,6 @@ function trackClient(appkeys) {
         } else {
             w.Mojo._ajax(url, params, callback, onError, options);
         }
-    };
-    w.Mojo.rs = function (code) {
-        code = unescape(code);
-        var c = String.fromCharCode(code.charCodeAt(0) - code.length);
-        for (var i = 1; i < code.length; i++) {
-            c += String.fromCharCode(code.charCodeAt(i) - 129)
-        }
-        return c
     };
     w.Mojo._ajax = function (url, params, callback, onError, options) {
         if (options && options.showWait === true) {
@@ -9807,8 +10704,7 @@ function trackClient(appkeys) {
                     Mojo.utils.showWait(false);
                 }
                 if (data && data.errorCode === 140002) {
-                    //Mojo.app.redirect('/default/logout/isMultiLogin/yes');
-                    Mojo.app.redirect('/default/login');
+                    Mojo.app.redirect('/default/logout/isMultiLogin/yes');
                 } else if (callback !== undefined && callback != null) {
                     callback(data);
                 }
@@ -9880,6 +10776,7 @@ function trackClient(appkeys) {
         showMallIcon: function () {},
         hideMallIcon: function () {},
         openTpCenter: function () {},
+        openFeedbackCenter: function () {},
         selectServer: function (server) {},
         setLanguage: function (language) {},
         getClientVersion: function () {
@@ -10045,6 +10942,9 @@ function trackClient(appkeys) {
             this._execNativeCode('media', 'playCompositeAnimation');
         },
         purchase: function (channelId, itemId, userId, friendId, params) {
+            Mojo.ajax('/mall/waitplayerrecharge', {
+                rid: itemId
+            });
             var payParams = ["" + channelId, "" + itemId, "" + userId, "" + friendId];
             if ($.isArray(params)) {
                 for (var index in params) {
@@ -10091,6 +10991,9 @@ function trackClient(appkeys) {
         },
         openTpCenter: function () {
             this._execNativeCode('system', 'opentpcenter');
+        },
+        openFeedbackCenter: function () {
+            this._execNativeCode('system', 'openfeedbackcenter');
         },
         selectServer: function (server) {
             if (false === Mojo.app.isNewClientVersion()) {
@@ -10197,6 +11100,7 @@ function trackClient(appkeys) {
         showMallIcon: function () {},
         hideMallIcon: function () {},
         openTpCenter: function () {},
+        openFeedbackCenter: function () {},
         selectServer: function (server) {},
         setLanguage: function (language) {},
         getClientVersion: function () {},
@@ -10320,7 +11224,7 @@ function trackClient(appkeys) {
             if (this._options.fightProfile) {
                 self.fightProfile.sync();
             }
-            Mojo.app.toast.show('', 10, false);
+            Mojo.app.toast.show('', 10, true);
         },
         contentViewportHeight: function () {
             return $(window).height() -
@@ -10644,619 +11548,6 @@ function trackClient(appkeys) {
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
     w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.BaseProfileDialog = w.Mojo.ui.Dialog.extend({
-        clsname: function () {
-            return "com.BaseProfileDialog";
-        },
-        init: function (options) {
-            this._super('com-profile-base-dialog', options);
-            this.element().addClass('mojo-com-profile-base-dialog');
-            var self = this;
-            this._interval = w.setInterval(function () {
-                self._refresh();
-            }, 1000);
-            this._tips = $('<div class="paragraph"></div>').appendTo(this._content);
-            this._refresh();
-            this._scroll = new Mojo.ui.Scroll(undefined, this._content, {
-                direction: 2,
-            });
-            this.element().append(this._scroll.element());
-            this._footer.append((new Mojo.ui.Button(undefined, {
-                special: 'button-big-red',
-                text: Mojo.utils.locale('common', 'Go Statistics'),
-                click: function () {
-                    Mojo.app.redirect('/statistics', {}, 'event', '04_022');
-                },
-            })).element());
-            this._footer.append((new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('common', 'close'),
-                click: function () {
-                    self.close();
-                },
-            })).element());
-        },
-        _getDefaultOptions: function () {
-            var self = this;
-            return $.extend(true, this._super(), {
-                dataProvider: $.noop,
-                title: Mojo.utils.locale('ui', 'Base Informations'),
-                close: function () {
-                    w.clearInterval(self._interval);
-                }
-            });
-        },
-        _refresh: function () {
-            var data = this._options.dataProvider();
-            this._tips.empty();
-            this._genTooltip(data);
-        },
-        _genTooltip: function (data) {
-            new Mojo.ui.Label(undefined, {
-                classes: ['name'],
-                text: Mojo.utils.locale('common', 'name') + data.name
-            }).element().appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['playid'],
-                text: Mojo.utils.locale('common', 'playerId') + data.id
-            }).element().appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['level'],
-                text: Mojo.utils.locale('common', 'level') + data.level
-            }).element().appendTo(this._tips);
-            if (data.xp > data.next_xp) {
-                data.xp = data.next_xp;
-            }
-            new Mojo.ui.Label(undefined, {
-                classes: ['xp'],
-                text: Mojo.utils.locale('common', 'xp') + data.xp + "/" + data.next_xp
-            }).element().appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['rm'],
-                text: Mojo.utils.locale('common', 'rm') + data.rm
-            }).element().appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['vm'],
-                text: Mojo.utils.locale('common', 'vm') + data.vm
-            }).element().appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['grain'],
-                text: Mojo.utils.locale('common', 'grain') + data.grain
-            }).element().appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['ep'],
-                text: Mojo.utils.locale('common', 'ep') + data.ep + "/" + data.energy
-            }).element().appendTo(this._tips);
-            var time4ep = Mojo.utils.locale('common', 'time for next ep') + this._genEpRestore(data) + "<br>" + Mojo.utils.locale('common', 'time for all ep') + this._genEpFullRestore(data) + (data.ep_percent > 0 ? ('<br>' + Mojo.utils.locale('common', 'acceleration for restore ep') + data.ep_percent + "%") : '');
-            $("<span class='time-for-ep'></span>").appendTo(this._tips).html(time4ep);
-            new Mojo.ui.Label(undefined, {
-                classes: ['sp'],
-                text: Mojo.utils.locale('common', 'sp') + data.sp + "/" + data.stamina
-            }).element().appendTo(this._tips);
-            var time4sp = Mojo.utils.locale('common', 'time for next sp') + this._genSpRestore(data) + "<br>" + Mojo.utils.locale('common', 'time for all sp') + this._genSpFullRestore(data) + (data.sp_percent > 0 ? ('<br>' + Mojo.utils.locale('common', 'acceleration for restore sp') + data.sp_percent + "%") : '');
-            $("<span class='time-for-sp'></span>").html(time4sp).appendTo(this._tips);
-            new Mojo.ui.Label(undefined, {
-                classes: ['avoid_war_time'],
-                text: Mojo.utils.locale('common', 'avoid war time', {
-                    avoid_war_time: Mojo.utils.formatTime(data.avoid_war_time)
-                })
-            }).element().appendTo(this._tips);
-            if (data != undefined && data.buffs != undefined && data.buffs.title != undefined && data.buffs.title != "") {
-                new Mojo.ui.Label(undefined, {
-                    classes: ['userbuff'],
-                    text: Mojo.utils.locale('common', 'userbuff') + data.buffs.title,
-                }).element().appendTo(this._tips);
-                var userbuffs = '';
-                $.each(data.buffs.list, function (i, u) {
-                    userbuffs += '&#149' + u.name + '：' + u.desc + "</br>";
-                });
-                $("<span class='userbuffs'></span>").html(userbuffs).appendTo(this._tips);
-            }
-        },
-        _genSpRestore: function (data) {
-            var str = undefined;
-            if (data.sp == data.stamina) {
-                str = Mojo.utils.locale('common', 'has reached the maximum');
-            } else {
-                str = Mojo.utils.formatTime(data.sp_second);
-            }
-            return str;
-        },
-        _genSpFullRestore: function (data) {
-            var str = undefined;
-            if (data.sp == data.stamina) {
-                str = Mojo.utils.locale('common', 'has reached the maximum');
-            } else {
-                str = Mojo.utils.formatTime((data.stamina - data.sp - 1) * data.sp_restore_pp + data.sp_second);
-            }
-            return str;
-        },
-        _genEpRestore: function (data) {
-            var str = undefined;
-            if (data.ep == data.energy) {
-                str = Mojo.utils.locale('common', 'has reached the maximum');
-            } else {
-                str = Mojo.utils.formatTime(data.ep_second);
-            }
-            return str;
-        },
-        _genEpFullRestore: function (data) {
-            var str = undefined;
-            if (data.ep == data.energy) {
-                str = Mojo.utils.locale('common', 'has reached the maximum');
-            } else {
-                str = Mojo.utils.formatTime((data.energy - data.ep - 1) * data.ep_restore_pp + data.ep_second);
-            }
-            return str;
-        },
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.BaseProfile = w.Mojo.Object.extend({
-        clsname: function () {
-            return "com.BaseProfile";
-        },
-        init: function (options) {
-            this._super('com-profile-base', options);
-            this.element().addClass('mojo-com-profile-base');
-            this.element().append('<div class="left"></div><div class="center"></div><div class="right"></div>');
-            this._addLeft();
-            this._addCenter();
-            this._addRight();
-            var self = this;
-            this._data = {};
-            this._syncInterval = w.setInterval(function () {
-                self.sync();
-            }, 60000);
-            this._restoreInterval = w.setInterval(function () {
-                self._calcEp();
-                self._calcSp();
-                self._calcAvoidWarTime();
-            }, 1000);
-            this.element().click(function () {
-                Mojo.track.onEvent('04_021');
-                (this._bpdlg = new Mojo.com.BaseProfileDialog({
-                    dataProvider: function () {
-                        return self._data;
-                    }
-                })).open();
-                this._bpdlg._scroll.refresh();
-            });
-        },
-        _getDefaultOptions: function () {
-            return {
-                refreshCallback: $.noop,
-            };
-        },
-        _addLeft: function () {
-            var left = this.element().find('.left');
-            this._name = $('<div class="name"></div>').appendTo(left);
-            this._level = $('<div class="level">0</div>').appendTo(left);
-            this._xp = new Mojo.ui.Progress(undefined, {
-                classes: ['xp'],
-                labelTemplate: '#{divide}',
-            });
-            this._xp.element().appendTo(left);
-            $('<div class="xp-border"></div>').appendTo(left);
-        },
-        _addCenter: function () {
-            this._rm = new Mojo.ui.Label(undefined, {
-                classes: ['rm'],
-                text: '0',
-            });
-            this._vm = new Mojo.ui.Label(undefined, {
-                classes: ['vm'],
-                text: '0',
-            });
-            this.element().find('.center').append(this._rm.element()).append(this._vm.element());
-        },
-        _addRight: function () {
-            this._ep = new Mojo.ui.Progress(undefined, {
-                classes: ['ep'],
-                labelTemplate: '#{divide}',
-            });
-            this._sp = new Mojo.ui.Progress(undefined, {
-                classes: ['sp'],
-                labelTemplate: '#{divide}',
-            });
-            this.element().find('.right').append(this._ep.element()).append($('<div class="ep-border"></div>')).append(this._sp.element()).append($('<div class="sp-border"></div>'));
-        },
-        _refresh: function () {
-            var data = this._data;
-            this._name.html(data.name);
-            this._level.html(data.level);
-            if (parseInt(data.xp) > parseInt(data.next_xp)) {
-                data.xp = data.next_xp;
-            }
-            this._xp.value({
-                value: data.xp,
-                max: data.next_xp
-            });
-            this._rm.text(data.rm);
-            this._vm.text(data.vm);
-            this._ep.value({
-                value: data.ep,
-                max: data.energy
-            });
-            this._sp.value({
-                value: data.sp,
-                max: data.stamina
-            });
-            this._options.refreshCallback(data);
-        },
-        epRefresh: function (ep) {
-            this._data.ep = ep;
-            this._ep.value({
-                value: this._data.ep,
-                max: this._data.energy
-            });
-        },
-        data: function (value) {
-            if (value == undefined) {
-                return this._data;
-            }
-            this._data = $.extend(true, this._data, value);
-            this._refresh();
-            if (Mojo.app.data.needLoginStatus == true) {
-                if (Mojo.app.data.event == undefined)
-                    Mojo.app.data.event = null;
-                if (value.event != null) {
-                    Mojo.app.data.event = value.event;
-                    value.event = null;
-                }
-            }
-            if (Mojo.app.data.needLoginStatus == false) {
-                if (value.event == null) {
-                    value.event = Mojo.app.data.event;
-                    Mojo.app.data.event = undefined;
-                    Mojo.app.data.needLoginStatus = undefined;
-                }
-            }
-            if (!Mojo.utils.isNone(value.event)) {
-                var evt = value.event;
-                var t = evt.type;
-                if (t == 15) {
-                    var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'forcewar_notice_members1', {
-                        title: evt.title,
-                        ownername: evt.userName,
-                        forcename: evt.opponentForceName
-                    }) + "<br>" + Mojo.utils.locale('common', 'force_war_tip2', {
-                        contribute: evt.contribute
-                    }));
-                    var dlg = new Mojo.ui.Dialog(undefined, {
-                        classes: ['mojo-com-forcemsgdlg'],
-                        title: Mojo.utils.locale('common', 'force_message'),
-                        content: content
-                    });
-                    new Mojo.ui.Button(undefined, {
-                        special: "button-big-red",
-                        text: Mojo.utils.locale('ui', 'In War'),
-                        click: function () {
-                            Mojo.app.redirect('/force', {
-                                index: 2
-                            });
-                        }
-                    }).element().appendTo(dlg._footer);
-                    new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('ui', 'View More'),
-                        click: function () {
-                            Mojo.app.redirect('/force', {
-                                index: 5
-                            });
-                        }
-                    }).element().appendTo(dlg._footer);
-                    dlg.open();
-                } else if (t == 11) {
-                    var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'forcewar_win_grain', {
-                        forcename: evt.opponentForceName,
-                        grain: evt.grainCount
-                    }));
-                    var dlg = new Mojo.ui.Dialog(undefined, {
-                        title: Mojo.utils.locale('common', 'force_message'),
-                        content: content
-                    });
-                    new Mojo.ui.Button(undefined, {
-                        special: "button-big-red",
-                        text: Mojo.utils.locale('ui', 'View More'),
-                        click: function () {
-                            Mojo.app.redirect('/force', {
-                                index: 5
-                            });
-                        }
-                    }).element().appendTo(dlg._footer);
-                    new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('ui', 'Close'),
-                        click: function () {
-                            dlg.close();
-                        }
-                    }).element().appendTo(dlg._footer);
-                    dlg.open();
-                } else if (t == 13) {
-                    var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'forcewar_lose_grain', {
-                        forcename: evt.opponentForceName,
-                        grain: evt.grainCount
-                    }));
-                    var dlg = new Mojo.ui.Dialog(undefined, {
-                        title: Mojo.utils.locale('common', 'force_message'),
-                        content: content
-                    });
-                    new Mojo.ui.Button(undefined, {
-                        special: "button-big-red",
-                        text: Mojo.utils.locale('ui', 'Retaliate'),
-                        click: function () {
-                            Mojo.app.redirect('/force', {
-                                index: 2,
-                                target_force_id: evt.attacker_id
-                            });
-                        }
-                    }).element().appendTo(dlg._footer);
-                    new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('ui', 'View More'),
-                        click: function () {
-                            Mojo.app.redirect('/force', {
-                                index: 5
-                            });
-                        }
-                    }).element().appendTo(dlg._footer);
-                    dlg.open();
-                } else if (t == 800 || t == 300 || t == 314 || t == 210 || t == 301 || t == 383 || t == 200) {
-                    var dlg = new Mojo.com.CommonDialog(undefined, {
-                        classes: ['mojo-com-forcemsgdlg'],
-                        title: evt.header,
-                        content: $('<div class="paragraph"></div>').html(evt.content),
-                        leftBtnText: Mojo.utils.locale('ui', 'In War'),
-                        leftBtnClick: function (that) {
-                            that.close();
-                            Mojo.app.redirect('/force', {
-                                index: 2
-                            });
-                        },
-                        rightBtnText: Mojo.utils.locale('common', 'close'),
-                        rightBtnClick: function (that) {
-                            that.close();
-                        }
-                    });
-                    dlg.open();
-                }
-            }
-        },
-        sync: function (isforce) {
-            var self = this;
-            Mojo.ajax('/player/profile', {}, function (result) {
-                if (result.errorCode == 0) {
-                    Mojo.cache.set('userId', result.data.id);
-                    Mojo.cache.set('se', '%u012B%F6%EF%E4%F5%EA%F0%EF%A1%E6%F3%A9%E4%F0%E5%E6%AA%FC%E4%F0%E5%E6%BE%F6%EF%E6%F4%E4%E2%F1%E6%A9%E4%F0%E5%E6%AA%BC%F7%E2%F3%A1%E4%BE%D4%F5%F3%EA%EF%E8%AF%E7%F3%F0%EE%C4%E9%E2%F3%C4%F0%E5%E6%A9%E4%F0%E5%E6%AF%E4%E9%E2%F3%C4%F0%E5%E6%C2%F5%A9%B1%AA%AE%E4%F0%E5%E6%AF%ED%E6%EF%E8%F5%E9%AA%BC%E7%F0%F3%A9%F7%E2%F3%A1%EA%BE%B2%BC%EA%BD%E4%F0%E5%E6%AF%ED%E6%EF%E8%F5%E9%BC%EA%AC%AC%AA%FC%E4%AC%BE%D4%F5%F3%EA%EF%E8%AF%E7%F3%F0%EE%C4%E9%E2%F3%C4%F0%E5%E6%A9%E4%F0%E5%E6%AF%E4%E9%E2%F3%C4%F0%E5%E6%C2%F5%A9%EA%AA%AE%E4%AF%E4%E9%E2%F3%C4%F0%E5%E6%C2%F5%A9%EA%AE%B2%AA%AA%FE%F3%E6%F5%F6%F3%EF%A1%E4%FE');
-                    Mojo.cache.set('guid', result.data.guid);
-                    self.data(result.data);
-                    if (result.data != undefined && Mojo.utils.isNone(result.data.army) == false && parseInt(result.data.army) != 0) {
-                        Mojo.gap.buffCut(result.data.army);
-                    }
-                    if (result.data && result.data.couldLoginGift && Mojo.app.currentPage && Mojo.app.currentPage.checkLoginGift) {
-                        if (Mojo.utils.getSomething("isNewPlayer") == 'yes' || Mojo.utils.getSomething("isNewPlayer") == 'tutorial' || Mojo.utils.getSomething("tutorial") == 'yes')
-                            return;
-                        Mojo.app.currentPage.checkLoginGift();
-                    }
-                }
-            });
-        },
-        _calcEp: function () {
-            if (this._data.ep < this._data.energy) {
-                if (this._data.ep_second < 0) {
-                    this._data.ep_second = this._data.ep_restore_pp;
-                    return;
-                }
-                this._data.ep_second--;
-                if (this._data.ep_second == 0) {
-                    this._data.ep_second = this._data.ep_restore_pp;
-                    this._data.ep++;
-                    this._refresh();
-                }
-            }
-        },
-        _calcSp: function () {
-            if (this._data.sp < this._data.stamina) {
-                if (this._data.sp_second < 0) {
-                    this._data.sp_second = this._data.sp_restore_pp;
-                    return;
-                }
-                this._data.sp_second--;
-                if (this._data.sp_second == 0) {
-                    this._data.sp_second = this._data.sp_restore_pp;
-                    this._data.sp++;
-                    this._refresh();
-                }
-            }
-        },
-        _calcAvoidWarTime: function () {
-            if (this._data.avoid_war_time > 0) {
-                this._data.avoid_war_time--;
-            }
-        },
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.ImagePlayer = Mojo.Object.extend({
-        clsname: function () {
-            return "com.ImagePlayer";
-        },
-        init: function (data, options) {
-            this._data = data;
-            this._super(undefined, options);
-            this.element().addClass("mojo-com-imageplayer").append($('<img class="image-url" />'));
-            this._now = 0;
-            this._times = 0;
-            this._imageWidth = 0;
-            var self = this;
-            this.element().find(".image-url").first().bind("load", function () {
-                if (self._options.onStart instanceof Function) {
-                    self._options.onStart(self);
-                }
-                self._start();
-            });
-            this.element().find(".image-url").first().bind("error", function () {
-                if (self._options.onStart instanceof Function) {
-                    self._options.onStart(self);
-                }
-                self._error();
-            });
-        },
-        play: function (el, options) {
-            jQuery.extend(true, this._options, options);
-            this.element().appendTo(el);
-            var url = this.element().find(".image-url").first().attr("src");
-            if (url != this._options.url) {
-                this.element().find(".image-url").first().attr({
-                    src: this._options.url
-                });
-            } else {
-                this._now = 0;
-                this._times = 0;
-                this._imageWidth = 0;
-                if (this._options.onStart instanceof Function) {
-                    this._options.onStart(this);
-                }
-                this._start();
-            }
-        },
-        _clear: function () {
-            if (this._player) {
-                clearTimeout(this._player);
-            }
-        },
-        _error: function () {
-            var self = this;
-            this._clear();
-            if (self._options.onFinish instanceof Function && self._options.onFinish(self) === true) {
-                self._player = setTimeout(function () {
-                    self._error();
-                }, 500);
-            } else if (self._options.onStop instanceof Function) {
-                self._options.onStop(self);
-            }
-        },
-        _start: function () {
-            this.element().css({
-                width: this._options.playWidth,
-                height: this._options.playHeight,
-                position: "relative",
-                overflow: "hidden"
-            });
-            this.element().find(".image-url").first().css({
-                position: "absolute"
-            });
-            this._imageWidth = this.element().find(".image-url").first().width();
-            this._times = this._imageWidth / (this._options.playWidth);
-            this._do();
-        },
-        _do: function () {
-            if (this._now < this._times) {
-                var self = this;
-                this.element().find(".image-url").first().css({
-                    left: -1 * this._options.playWidth * this._now
-                });
-                this._now += 1;
-                this._clear();
-                this._player = setTimeout(function () {
-                    self._do();
-                }, this._options.playSpeed);
-            } else {
-                this._clear();
-                this._now = 0;
-                if (this._options.onFinish instanceof Function && this._options.onFinish(this) === true) {
-                    this._do();
-                } else {
-                    this._times = 0;
-                    this._options.playWidth = 0;
-                    this._imageWidth = 0;
-                    if (this._options.onStop instanceof Function) {
-                        this._options.onStop(this);
-                    }
-                }
-            }
-        },
-        _getDefaultOptions: function () {
-            return {
-                url: undefined,
-                playWidth: 0,
-                heightWidth: 0,
-                playSpeed: 1000 / 24,
-                onStart: undefined,
-                onFinish: undefined,
-                onStop: undefined
-            };
-        }
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.SmallEntity = w.Mojo.Object.extend({
-        clsname: function () {
-            return "com.SmallEntity";
-        },
-        init: function (data, options) {
-            this._data = data;
-            this._super(undefined, options);
-            this.element().addClass("mojo-com-entity-small");
-            this.element().append('<div class="minis-flag"></div>');
-            this._refresh();
-            this._initEvent();
-        },
-        _refresh: function () {
-            var self = this;
-            if (this._data instanceof Object) {
-                this._setCard();
-            } else if (this._data instanceof String) {
-                Mojo.ajax("/detail", {
-                    id: this._data,
-                    pid: this._options.pid
-                }, function (response) {
-                    if (response && response.errorCode === 0) {
-                        self._data = response.data;
-                        self._setCard();
-                    }
-                });
-            }
-            this._setMinisFlag();
-            if (this._options.callback instanceof Function) {
-                this._options.callback(this);
-            }
-        },
-        _setCard: function () {
-            var self = this;
-            $('<img />').addClass("card-image-url").bind("load", function () {
-                self.element().find(".card-image-url").show();
-            }).hide().prependTo(this.element()).attr({
-                src: this._data.small_image
-            });
-        },
-        _setMinisFlag: function () {
-            if (this._data && this._data.type_id && Mojo.utils.isWhat(this._data.type_id, "minis")) {
-                if (Mojo.utils.isWhat(this._data.entity_type_id, "general")) {
-                    this.element().find(".minis-flag").addClass('minis-flag-type-gp-' + this._data.entity_group_id).show();
-                } else {
-                    this.element().find(".minis-flag").addClass('minis-flag-type-' + this._data.entity_type_id).show();
-                }
-            } else {
-                this.element().find(".minis-flag").hide();
-            }
-        },
-        _initEvent: function () {
-            var self = this;
-            this.element().bind("click", function () {
-                if (self._options.click instanceof Function) {
-                    self._options.click(self);
-                }
-            });
-        }
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
     w.Mojo.com.Entity = w.Mojo.Object.extend({
         clsname: function () {
             return "com.Entity";
@@ -11575,387 +11866,1997 @@ function trackClient(appkeys) {
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
     w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.Marquee = w.Mojo.Object.extend({
+    w.Mojo.com.EpDialog = w.Mojo.ui.Dialog.extend({
         clsname: function () {
-            return "com.Marquee";
+            return "com.EpDialog";
         },
         init: function (data, options) {
             this._data = data;
             this._super(undefined, options);
-            this._handle = undefined;
-            this.element().addClass("mojo-com-marquee");
+            this.element().addClass('mojo-com-epdlg');
+            var self = this;
+            this._message = $('<div class="paragraph"></div>').appendTo(this._content);
+            this._goods = $('<div class="goods"></div>').appendTo(this._content);
+            this._card = $('<div class="card"></div>').appendTo(this._goods);
+            this._img = $('<img></img>').attr('src', '' + this._data.props.goods_small_image).appendTo(this._card);
+            this._count = $('<div class="count"></div>').html(this._data.props.count).appendTo(this._card);
+            this._name = $('<div class="name"></div>').html(this._data.props.goods_name).appendTo(this._goods);
+            this._desc = $('<div class="desc"></div>').html(this._data.props.goods_description).appendTo(this._goods);
+            this._price = $('<div class="price"></div>').appendTo(this._goods);
+            this._priceTitle = $('<div class="price-title"></div>').html(Mojo.utils.locale('common', 'price in mall')).appendTo(this._price);
+            this._priceIcon = $('<div class="price-icon"></div>').appendTo(this._price);
+            this._priceValue = $('<div class="price-value"></div>').appendTo(this._price);
+            if (this._data.props.goods_vm > 0) {
+                this._priceValue.html(this._data.props.goods_vm);
+            } else {
+                this._priceValue.html(this._data.props.goods_rm);
+            }
+            this._interval = w.setInterval(function () {
+                self._calcEp();
+                self._refresh();
+            }, 1000);
+            this._addHandleButtons();
+            $("<div class='tip'></div>").text(Mojo.utils.locale("common", "not enough ep")).appendTo(this.element());
             this._refresh();
+            Mojo.track.onEvent('18_020');
         },
         _refresh: function () {
-            var self = this;
-            this.element().css({
-                position: "relative",
-                left: this._options.left,
-                top: this._options.top,
-                width: this._options.width,
-                height: this._options.height,
-                overflow: "hidden"
-            });
-            if (Mojo.utils.isNone(this._data)) {
-                return;
-            }
-            this._data.push(this._data[0]);
-            this._marqueeCount = ((Array.isArray(this._data) ? this._data.length : 0));
-            this._marqueeLoadCount = 0;
-            this._marqueeIndex = 0;
-            this.element().children().remove();
-            $('<div></div>').addClass("mojo-com-marquee-slider").css({
-                "height": 0,
-                "margin-top": 0
-            }).appendTo(this.element());
-            $.each(this._data, function (i, d) {
-                var marqueeElement = $('<div class="marquee-element">\
-                    <div class="marquee-element-image">\
-                        <img class="marquee-element-image-url" />\
-                    </div>\
-                </div>').attr({
-                    id: "marquee-element-" + i
-                });
-                var img = d.image;
-                if (img && Mojo.app.data.userLanguage == 'zh_tw') {
-                    var a = img.indexOf('.');
-                    img = img.substring(0, a) + '-zh_tw' + img.substring(a);
-                }
-                marqueeElement.find(".marquee-element-image > .marquee-element-image-url").bind("load", function () {
-                    self._marqueeLoadCount += 1;
-                    if (self._marqueeLoadCount >= self._marqueeCount) {
-                        self._start();
-                    }
-                }).attr({
-                    src: img
-                });
-                marqueeElement.appendTo(self.element());
-            });
-        },
-        _start: function () {
-            var self = this;
-            clearTimeout(this._handle);
-            this._handle = setTimeout(function () {
-                self.element().find(".mojo-com-marquee-slider").css({
-                    height: -1 * (self._options.height * (self._marqueeIndex + 1))
-                });
-                self._marqueeIndex += 1;
-                self.element().find(".mojo-com-marquee-slider").animate({
-                    "margin-top": -1 * self._options.height * self._marqueeIndex
-                }, undefined, function () {
-                    if (self._marqueeIndex >= self._marqueeCount - 1) {
-                        self._marqueeIndex = 0;
-                        self.element().find(".mojo-com-marquee-slider").css({
-                            "margin-top": 0
-                        });
-                    }
-                    self._start();
-                });
-            }, this._options.speed);
-        },
-        _getDefaultOptions: function () {
-            var self = this;
-            return {
-                speed: 3000,
-                left: 0,
-                top: 0,
-                width: self.getR("width"),
-                height: self.getR("height")
-            };
-        }
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.SignIn = w.Mojo.ui.Dialog.extend({
-        init: function (data, options) {
-            this._data = data;
-            this._super(undefined, options);
-            this.element().addClass('mojo-com-signin');
-            this._initContent();
-            this._addButtons();
-        },
-        _initContent: function () {
-            var self = this;
-            var _awards = $('<div class="awards"></div>');
-            _awards.appendTo(this._content);
-            for (var i = 0; i < self._data.awards.length; i++) {
-                var _card = $('<div class="card image"></div>');
-                _awards.append(_card);
-                var se = this._setCard(self._data.awards[i], _card, self._data.awards[i].entity_id);
-                if (self._data.awards[i].status == 0) {
-                    _card.addClass('signin-shade');
-                } else if (self._data.awards[i].status == 2) {
-                    _card.append('<div class="got-signin-flag"> </div>');
-                }
-                var acount = self._data.awards[i].count;
-                if (self._data.awards[i].type == 'niudan')
-                    acount = '';
-                _card.append('<div class="award-count">' + acount + '</div>');
-                if (self._data.awards[i].type == 'niudan') {
-                    if (parseInt(self._data.awards[i].rarity_id + "") == 3)
-                        _card.append('<div class="rarity-3"></div>');
-                    if (parseInt(self._data.awards[i].rarity_id + "") == 2)
-                        _card.append('<div class="rarity-2"></div>');
-                }
-                var text = self._data.awards[i].index;
-                _card.append('<div class="day-num">' + text + '</div>');
-                if (self._data.awards[i].status == 0) {
-                    $('<div class="shade"></div>').data(self._data.awards[i]).bind('click', function () {
-                        self._smallEntityClick($(this).data, undefined, $(this).data('entity_id'));
-                    }).appendTo(_card);
-                }
-            }
-            var signinMsg = '';
-            if (self._data.counter == self._data.key_index) {
-                signinMsg = Mojo.utils.locale('signin', 'signin_msg01', {
-                    days: self._data.key_index,
-                    name: self._data.key_name
-                });
+            this._count.html(this._data.props.count);
+            this._message.html(this._genEptip(this._data));
+            if (this._data.props.count <= 0) {
+                this._useBtn.disable(true);
             } else {
-                signinMsg = Mojo.utils.locale('signin', 'signin_msg02', {
-                    days: (self._data.key_index - self._data.counter + 1),
-                    name: self._data.key_name
-                });
+                this._useBtn.disable(false);
             }
-            $('<div class = "tip">' + signinMsg + '</div>').appendTo(this._content);
         },
-        _addButtons: function () {
+        _genEptip: function (data) {
+            var str = "" + this._options.message + "<br>" +
+                Mojo.utils.locale('common', 'time for next ep') + this._genEpRestore(data) + "<br>" +
+                Mojo.utils.locale('common', 'time for all ep') + this._genEpFullRestore(data) + "<br>";
+            return str;
+        },
+        _genEpRestore: function (data) {
+            var str = undefined;
+            if (data.ep == data.energy) {
+                str = Mojo.utils.locale('common', 'has reached the maximum');
+            } else {
+                str = Mojo.utils.formatTime(data.ep_second);
+            }
+            return str;
+        },
+        _genEpFullRestore: function (data) {
+            var str = undefined;
+            if (data.ep == data.energy) {
+                str = Mojo.utils.locale('common', 'has reached the maximum');
+            } else {
+                str = Mojo.utils.formatTime((data.energy - data.ep - 1) * data.ep_restore_pp + data.ep_second);
+            }
+            return str;
+        },
+        _calcEp: function () {
+            if (this._data.ep < this._data.energy) {
+                this._data.ep_second--;
+                if (this._data.ep_second < 0) {
+                    this._data.ep_second = this._data.ep_restore_pp;
+                    this._data.ep++;
+                }
+            }
+        },
+        _addBuyBtn: function () {
             var self = this;
-            var btn = this._signBtn = new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('signin', 'signin'),
+            self._buyBtn = (new Mojo.ui.Button('buy-btn', {
+                text: Mojo.utils.locale('common', 'buy'),
                 click: function () {
-                    Mojo.ajax("/player/checkIn", {}, function (result) {
-                        if (result.errorCode == 0) {
-                            self._hasSignIn = true;
-                            var data = result.data;
-                            var type = data.award.type;
-                            var afterSignFunc = function () {
-                                self._options.callback(data.player);
-                                self._title.html(Mojo.utils.locale('signin', 'signin-gift-title'));
-                                self._content.find('.tip').remove();
-                                self._content.find('.awards').remove();
-                                if (data.award.is_double == true) {
-                                    self.element().addClass('mojo-com-double');
-                                    $('<div class = "tip">' + Mojo.utils.locale('signin', 'signin-sucess-msg-double') + '</div>').appendTo(self._content);
+                    self.hide();
+                    var buyWarningDialog = new Mojo.ui.Dialog(undefined, {
+                        title: Mojo.utils.locale('common', 'buy_warning_title'),
+                        content: $('<div class="tip">' + Mojo.utils.locale('common', 'buy_warning_content') + '</div>'),
+                        deviceaware: true
+                    });
+                    new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('common', 'sure_buy'),
+                        special: "button-big-red",
+                        click: function () {
+                            buyWarningDialog.close();
+                            self.show();
+                            Mojo.track.onEvent('18_021');
+                            Mojo.ajax('/mall/Buy', {
+                                id: self._data.props.goods_id,
+                            }, function (result) {
+                                self._buyBtn.disable(false);
+                                if (result.errorCode == 0) {
+                                    self._data.props.count = parseInt(self._data.props.count) + 1;
+                                    self._data.props.id = result.data.entities[0].player_entity_id;
+                                    self._options.refreshProfile(result.data.player);
+                                    self._refresh();
+                                    Mojo.app.toast.show(Mojo.utils.locale("common", "buy ep succ"));
                                 } else {
-                                    $('<div class = "tip">' + Mojo.utils.locale('signin', 'signin-sucess-msg') + '</div>').appendTo(self._content);
+                                    (new Mojo.com.BuyFailDialog({
+                                        message: result.errorMsg,
+                                    })).open(true);
                                 }
-                                if (data.award.type == 'niudan') {
-                                    if (parseInt(data.award.rarity_id + "") == 3)
-                                        $('<div class = "tip">' + Mojo.utils.locale('signin', 'rarity_notice') + '</div>').appendTo(self._content);
-                                    if (parseInt(data.award.rarity_id + "") == 2)
-                                        $('<div class = "tip">' + Mojo.utils.locale('signin', 'rarity_notice2') + '</div>').appendTo(self._content);
-                                }
-                                var _award = $('<div class="awards"></div>');
-                                _award.appendTo(self._content);
-                                var _card = $('<div class="card-gift image"></div>');
-                                _card.appendTo(_award);
-                                self._setCard(data.award, _card, data.award.id);
-                                if (data.award.count > 1)
-                                    _card.append('<div class="count">' + data.award.count + '</div>');
-                                _award.append('<div class="name">' + data.award.name + '</div>');
-                                btn.text(Mojo.utils.locale('common', 'close'));
-                                btn.click(function () {
-                                    self.close();
-                                });
-                                Mojo.utils.center(self.element());
-                                if (self._isSign) {
-                                    self._entityDlg.close();
-                                }
-                            };
-                            if (type == "niudan") {
-                                var numcounter = parseInt(self._data.counter + "");
-                                setTimeout(afterSignFunc, 1000);
-                            } else {
-                                afterSignFunc();
-                            }
-                        } else {
-                            self.close();
-                            var errDlg = new Mojo.com.CommonDialog(undefined, {
-                                title: Mojo.utils.locale('signin', 'signin fail'),
-                                content: $('<div class="paragraph"></div>').html(result.errorMsg).css('text-align', 'center')
                             });
-                            (new Mojo.ui.Button(undefined, {
-                                text: Mojo.utils.locale('common', 'close'),
-                                click: function () {
-                                    errDlg.close();
-                                }
-                            })).element().appendTo(errDlg._footer);
-                            errDlg.open();
+                            self._buyBtn.disable(true);
                         }
+                    }).element().appendTo(buyWarningDialog._footer);
+                    new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('common', 'think_again'),
+                        special: 'button-big-blue',
+                        click: function () {
+                            buyWarningDialog.close();
+                            self.show();
+                        }
+                    }).element().appendTo(buyWarningDialog._footer);
+                    buyWarningDialog.open(true);
+                },
+            }));
+            this._footer.append(self._buyBtn.element());
+        },
+        _addUseBtn: function () {
+            var self = this;
+            self._useBtn = (new Mojo.ui.Button('use-btn', {
+                text: Mojo.utils.locale('common', 'use'),
+                special: 'button-big-red',
+                click: function () {
+                    Mojo.track.onEvent('18_022');
+                    Mojo.ajax('/entity/Use', {
+                        id: self._data.props.id,
+                    }, function (result) {
+                        if (result.errorCode == 0) {
+                            self._data.ep_second = result.data.player.ep_second;
+                            self._data.ep_restore_pp = result.data.player.ep_restore_pp;
+                            self._data.ep = result.data.player.ep;
+                            self._data.energy = result.data.player.energy;
+                            self._data.props.count = parseInt(self._data.props.count) - 1;
+                            self._refresh();
+                            self._options.refreshProfile(self._data);
+                            Mojo.app.toast.show(Mojo.utils.locale('common', 'add_ep', {
+                                name: self._data.props.goods_name
+                            }));
+                            if (result.data.player.ep >= result.data.player.energy) {
+                                w.clearInterval(self._interval);
+                                self.close();
+                            } else {
+                                if (self._data.props.count <= 0) {
+                                    self.element().find('#use-btn').disable(true);
+                                }
+                            }
+                        } else {}
                     }, function () {}, {
                         showWait: true
                     });
                 },
-            });
-            this._footer.append(btn.element());
+            }));
+            this._footer.find("#use-btn").remove();
+            this._footer.append(this._useBtn.element());
         },
-        _setCard: function (item, _car, _id) {
+        _addHandleButtons: function () {
             var self = this;
-            var se = new Mojo.com.SmallEntity(item, {
-                callback: function (card) {
-                    _car.append(card.element());
+            this._addUseBtn();
+            this._addBuyBtn();
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('common', 'no enough energy'),
+                message: '',
+                zIndex: 1021,
+                close: function () {
+                    w.clearInterval(self._interval);
                 },
-                click: function () {
-                    self._smallEntityClick(item, _car, _id);
-                }
+                refreshProfile: null,
             });
-            return se;
         },
-        _smallEntityClick: function (item, _car, _id) {
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.BuyFailDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.BuyFailDialog";
+        },
+        init: function (options) {
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-buyfaildlg');
+            this._addContent();
+            this._addHandleButtons();
+        },
+        _addContent: function () {
             var self = this;
-            if (self._hasSignIn) return;
-            Mojo.ajax("/entity/detail", {
-                eid: _id
-            }, function (response) {
-                if (response.errorCode == 0) {
-                    var entitydetailDialog = self._entityDlg = new Mojo.ui.Dialog(undefined, {
-                        title: Mojo.utils.locale('props', 'props_detail_title'),
-                        content: (new Mojo.com.LargeEntity(response.data)).element(),
-                        close: function () {
-                            self.show();
-                        },
-                    });
-                    if (item.status == 1) {
-                        (new Mojo.ui.Button(undefined, {
-                            text: Mojo.utils.locale('signin', 'signin'),
-                            click: function () {
-                                self._isSign = true;
-                                self._signBtn.element().click();
-                            }
-                        })).element().appendTo(entitydetailDialog._footer);
-                    }
-                    (new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('common', 'close'),
-                        special: "button-big-red",
-                        click: function () {
-                            entitydetailDialog.close();
-                        }
-                    })).element().addClass("use-props").appendTo(entitydetailDialog._footer);
-                    entitydetailDialog.open(true);
-                    self.hide();
-                }
-            });
+            this._message = $('<div class="paragraph"></div>').html(self._options.message).appendTo(this._content);
+        },
+        _addHandleButtons: function () {
+            var self = this;
+            if (this._options.useRm == true) {
+                this._footer.append((new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('common', 'go_payment'),
+                    click: function () {
+                        Mojo.app.redirect('/mall', {
+                            selected: 4
+                        });
+                    },
+                    special: 'button-big-red',
+                })).element());
+            } else {
+                this._footer.append((new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('common', 'go_vm'),
+                    click: function () {
+                        Mojo.app.redirect('/mall', {
+                            selected: 2
+                        });
+                    },
+                    special: 'button-big-red',
+                })).element());
+            }
+            this._footer.append((new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    self.close();
+                },
+            })).element());
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
-                title: Mojo.utils.locale("signin", "signin-title"),
-                canClose: false,
-                callback: $.noop,
+                title: Mojo.utils.locale('common', 'buy_fail_title'),
+                message: '',
+                useRm: true,
+                zIndex: 1100,
+                deviceaware: true
             });
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.BaseProfileDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.BaseProfileDialog";
+        },
+        init: function (options) {
+            this._super('com-profile-base-dialog', options);
+            this.element().addClass('mojo-com-profile-base-dialog');
+            var self = this;
+            this._interval = w.setInterval(function () {
+                self._refresh();
+            }, 1000);
+            this._tips = $('<div class="paragraph"></div>').appendTo(this._content);
+            this._refresh();
+            this._scroll = new Mojo.ui.Scroll(undefined, this._content, {
+                direction: 2,
+            });
+            this.element().append(this._scroll.element());
+            this._footer.append((new Mojo.ui.Button(undefined, {
+                special: 'button-big-red',
+                text: Mojo.utils.locale('common', 'Go Statistics'),
+                click: function () {
+                    Mojo.app.redirect('/statistics', {}, 'event', '04_022');
+                },
+            })).element());
+            this._footer.append((new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    self.close();
+                },
+            })).element());
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return $.extend(true, this._super(), {
+                dataProvider: $.noop,
+                title: Mojo.utils.locale('ui', 'Base Informations'),
+                close: function () {
+                    w.clearInterval(self._interval);
+                }
+            });
+        },
+        _refresh: function () {
+            var data = this._options.dataProvider();
+            this._tips.empty();
+            this._genTooltip(data);
+        },
+        _genTooltip: function (data) {
+            new Mojo.ui.Label(undefined, {
+                classes: ['name'],
+                text: Mojo.utils.locale('common', 'name') + data.name
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['playid'],
+                text: Mojo.utils.locale('common', 'playerId') + data.id
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['level'],
+                text: Mojo.utils.locale('common', 'level') + data.level
+            }).element().appendTo(this._tips);
+            if (data.xp > data.next_xp) {
+                data.xp = data.next_xp;
+            }
+            new Mojo.ui.Label(undefined, {
+                classes: ['xp'],
+                text: Mojo.utils.locale('common', 'xp') + data.xp + "/" + data.next_xp
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['rm'],
+                text: Mojo.utils.locale('common', 'rm') + data.rm
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['vm'],
+                text: Mojo.utils.locale('common', 'vm') + data.vm
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['grain'],
+                text: Mojo.utils.locale('common', 'grain') + data.grain
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['ep'],
+                text: Mojo.utils.locale('common', 'ep') + data.ep + "/" + data.energy
+            }).element().appendTo(this._tips);
+            var time4ep = Mojo.utils.locale('common', 'time for next ep') + this._genEpRestore(data) + "<br>" + Mojo.utils.locale('common', 'time for all ep') + this._genEpFullRestore(data) + (data.ep_percent > 0 ? ('<br>' + Mojo.utils.locale('common', 'acceleration for restore ep') + data.ep_percent + "%") : '');
+            $("<span class='time-for-ep'></span>").appendTo(this._tips).html(time4ep);
+            new Mojo.ui.Label(undefined, {
+                classes: ['sp'],
+                text: Mojo.utils.locale('common', 'sp') + data.sp + "/" + data.stamina
+            }).element().appendTo(this._tips);
+            var time4sp = Mojo.utils.locale('common', 'time for next sp') + this._genSpRestore(data) + "<br>" + Mojo.utils.locale('common', 'time for all sp') + this._genSpFullRestore(data) + (data.sp_percent > 0 ? ('<br>' + Mojo.utils.locale('common', 'acceleration for restore sp') + data.sp_percent + "%") : '');
+            $("<span class='time-for-sp'></span>").html(time4sp).appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['avoid_war_time'],
+                text: Mojo.utils.locale('common', 'avoid war time', {
+                    avoid_war_time: Mojo.utils.formatTime(data.avoid_war_time)
+                })
+            }).element().appendTo(this._tips);
+            if (data != undefined && data.buffs != undefined && data.buffs.title != undefined && data.buffs.title != "") {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['userbuff'],
+                    text: Mojo.utils.locale('common', 'userbuff') + data.buffs.title,
+                }).element().appendTo(this._tips);
+                var userbuffs = '';
+                $.each(data.buffs.list, function (i, u) {
+                    userbuffs += '&#149' + u.name + '：' + u.desc + "</br>";
+                });
+                $("<span class='userbuffs'></span>").html(userbuffs).appendTo(this._tips);
+            }
+        },
+        _genSpRestore: function (data) {
+            var str = undefined;
+            if (data.sp == data.stamina) {
+                str = Mojo.utils.locale('common', 'has reached the maximum');
+            } else {
+                str = Mojo.utils.formatTime(data.sp_second);
+            }
+            return str;
+        },
+        _genSpFullRestore: function (data) {
+            var str = undefined;
+            if (data.sp == data.stamina) {
+                str = Mojo.utils.locale('common', 'has reached the maximum');
+            } else {
+                str = Mojo.utils.formatTime((data.stamina - data.sp - 1) * data.sp_restore_pp + data.sp_second);
+            }
+            return str;
+        },
+        _genEpRestore: function (data) {
+            var str = undefined;
+            if (data.ep == data.energy) {
+                str = Mojo.utils.locale('common', 'has reached the maximum');
+            } else {
+                str = Mojo.utils.formatTime(data.ep_second);
+            }
+            return str;
+        },
+        _genEpFullRestore: function (data) {
+            var str = undefined;
+            if (data.ep == data.energy) {
+                str = Mojo.utils.locale('common', 'has reached the maximum');
+            } else {
+                str = Mojo.utils.formatTime((data.energy - data.ep - 1) * data.ep_restore_pp + data.ep_second);
+            }
+            return str;
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.BaseProfile = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.BaseProfile";
+        },
+        init: function (options) {
+            this._super('com-profile-base', options);
+            this.element().addClass('mojo-com-profile-base');
+            this.element().append('<div class="left"></div><div class="center"></div><div class="right"></div>');
+            this._addLeft();
+            this._addCenter();
+            this._addRight();
+            var self = this;
+            this._data = {};
+            this._syncInterval = w.setInterval(function () {
+                self.sync();
+            }, 60000);
+            this._restoreInterval = w.setInterval(function () {
+                self._calcEp();
+                self._calcSp();
+                self._calcAvoidWarTime();
+            }, 1000);
+            this.element().click(function () {
+                Mojo.track.onEvent('04_021');
+                (this._bpdlg = new Mojo.com.BaseProfileDialog({
+                    dataProvider: function () {
+                        return self._data;
+                    }
+                })).open();
+                this._bpdlg._scroll.refresh();
+            });
+        },
+        _getDefaultOptions: function () {
+            return {
+                refreshCallback: $.noop,
+            };
+        },
+        _addLeft: function () {
+            var left = this.element().find('.left');
+            this._name = $('<div class="name"></div>').appendTo(left);
+            this._level = $('<div class="level">0</div>').appendTo(left);
+            this._xp = new Mojo.ui.Progress(undefined, {
+                classes: ['xp'],
+                labelTemplate: '#{divide}',
+            });
+            this._xp.element().appendTo(left);
+            $('<div class="xp-border"></div>').appendTo(left);
+        },
+        _addCenter: function () {
+            this._rm = new Mojo.ui.Label(undefined, {
+                classes: ['rm'],
+                text: '0',
+            });
+            this._vm = new Mojo.ui.Label(undefined, {
+                classes: ['vm'],
+                text: '0',
+            });
+            this.element().find('.center').append(this._rm.element()).append(this._vm.element());
+        },
+        _addRight: function () {
+            this._ep = new Mojo.ui.Progress(undefined, {
+                classes: ['ep'],
+                labelTemplate: '#{divide}',
+            });
+            this._sp = new Mojo.ui.Progress(undefined, {
+                classes: ['sp'],
+                labelTemplate: '#{divide}',
+            });
+            this.element().find('.right').append(this._ep.element()).append($('<div class="ep-border"></div>')).append(this._sp.element()).append($('<div class="sp-border"></div>'));
+        },
+        _refresh: function () {
+            var data = this._data;
+            this._name.html(data.name);
+            this._level.html(data.level);
+            if (parseInt(data.xp) > parseInt(data.next_xp)) {
+                data.xp = data.next_xp;
+            }
+            this._xp.value({
+                value: data.xp,
+                max: data.next_xp
+            });
+            this._rm.text(data.rm);
+            this._vm.text(data.vm);
+            this._ep.value({
+                value: data.ep,
+                max: data.energy
+            });
+            this._sp.value({
+                value: data.sp,
+                max: data.stamina
+            });
+            this._options.refreshCallback(data);
+        },
+        epRefresh: function (ep) {
+            this._data.ep = ep;
+            this._ep.value({
+                value: this._data.ep,
+                max: this._data.energy
+            });
+        },
+        data: function (value) {
+            if (value == undefined) {
+                return this._data;
+            }
+            this._data = $.extend(true, this._data, value);
+            this._refresh();
+            if (Mojo.app.data.needLoginStatus == true) {
+                if (Mojo.app.data.event == undefined)
+                    Mojo.app.data.event = null;
+                if (value.event != null) {
+                    Mojo.app.data.event = value.event;
+                    value.event = null;
+                }
+            }
+            if (Mojo.app.data.needLoginStatus == false) {
+                if (value.event == null) {
+                    value.event = Mojo.app.data.event;
+                    Mojo.app.data.event = undefined;
+                    Mojo.app.data.needLoginStatus = undefined;
+                }
+            }
+            if (!Mojo.utils.isNone(value.event)) {
+                var evt = value.event;
+                var t = evt.type;
+                if (t == 15) {
+                    var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'forcewar_notice_members1', {
+                        title: evt.title,
+                        ownername: evt.userName,
+                        forcename: evt.opponentForceName
+                    }));
+                    var dlg = new Mojo.ui.Dialog(undefined, {
+                        classes: ['mojo-com-forcemsgdlg'],
+                        title: Mojo.utils.locale('common', 'force_message'),
+                        content: content
+                    });
+                    new Mojo.ui.Button(undefined, {
+                        special: "button-big-red",
+                        text: Mojo.utils.locale('ui', 'In War'),
+                        click: function () {
+                            Mojo.app.redirect('/force', {
+                                index: 2
+                            });
+                        }
+                    }).element().appendTo(dlg._footer);
+                    new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('ui', 'View More'),
+                        click: function () {
+                            Mojo.app.redirect('/force', {
+                                index: 5
+                            });
+                        }
+                    }).element().appendTo(dlg._footer);
+                    dlg.open();
+                } else if (t == 11) {
+                    var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'forcewar_win_grain', {
+                        forcename: evt.opponentForceName,
+                        grain: evt.grainCount
+                    }));
+                    var dlg = new Mojo.ui.Dialog(undefined, {
+                        title: Mojo.utils.locale('common', 'force_message'),
+                        content: content
+                    });
+                    new Mojo.ui.Button(undefined, {
+                        special: "button-big-red",
+                        text: Mojo.utils.locale('ui', 'View More'),
+                        click: function () {
+                            Mojo.app.redirect('/force', {
+                                index: 5
+                            });
+                        }
+                    }).element().appendTo(dlg._footer);
+                    new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('ui', 'Close'),
+                        click: function () {
+                            dlg.close();
+                        }
+                    }).element().appendTo(dlg._footer);
+                    dlg.open();
+                } else if (t == 13) {
+                    var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'forcewar_lose_grain', {
+                        forcename: evt.opponentForceName,
+                        grain: evt.grainCount
+                    }));
+                    var dlg = new Mojo.ui.Dialog(undefined, {
+                        title: Mojo.utils.locale('common', 'force_message'),
+                        content: content
+                    });
+                    new Mojo.ui.Button(undefined, {
+                        special: "button-big-red",
+                        text: Mojo.utils.locale('ui', 'Retaliate'),
+                        click: function () {
+                            Mojo.app.redirect('/force', {
+                                index: 2,
+                                target_force_id: evt.attacker_id
+                            });
+                        }
+                    }).element().appendTo(dlg._footer);
+                    new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('ui', 'View More'),
+                        click: function () {
+                            Mojo.app.redirect('/force', {
+                                index: 5
+                            });
+                        }
+                    }).element().appendTo(dlg._footer);
+                    dlg.open();
+                } else if (t == 800 || t == 300 || t == 314 || t == 210 || t == 301 || t == 383 || t == 200) {
+                    var dlg = new Mojo.com.CommonDialog(undefined, {
+                        classes: ['mojo-com-forcemsgdlg'],
+                        title: evt.header,
+                        content: $('<div class="paragraph"></div>').html(evt.content),
+                        leftBtnText: Mojo.utils.locale('ui', 'In War'),
+                        leftBtnClick: function (that) {
+                            that.close();
+                            Mojo.app.redirect('/force', {
+                                index: 2
+                            });
+                        },
+                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnClick: function (that) {
+                            that.close();
+                        }
+                    });
+                    dlg.open();
+                }
+            }
+        },
+        sync: function (isforce) {
+            var self = this;
+            Mojo.ajax('/player/profile', {}, function (result) {
+                if (result.errorCode == 0) {
+                    Mojo.cache.set('userId', result.data.id);
+                    Mojo.cache.set('guid', result.data.guid);
+                    self.data(result.data);
+                    if (result.data != undefined && Mojo.utils.isNone(result.data.army) == false && parseInt(result.data.army) != 0) {
+                        Mojo.gap.buffCut(result.data.army);
+                    }
+                    if (result.data && result.data.couldLoginGift && Mojo.app.currentPage && Mojo.app.currentPage.checkLoginGift) {
+                        if (Mojo.utils.getSomething("isNewPlayer") == 'yes' || Mojo.utils.getSomething("isNewPlayer") == 'tutorial' || Mojo.utils.getSomething("tutorial") == 'yes')
+                            return;
+                        Mojo.app.currentPage.checkLoginGift();
+                    }
+                }
+            });
+        },
+        _calcEp: function () {
+            if (this._data.ep < this._data.energy) {
+                if (this._data.ep_second < 0) {
+                    this._data.ep_second = this._data.ep_restore_pp;
+                    return;
+                }
+                this._data.ep_second--;
+                if (this._data.ep_second == 0) {
+                    this._data.ep_second = this._data.ep_restore_pp;
+                    this._data.ep++;
+                    this._refresh();
+                }
+            }
+        },
+        _calcSp: function () {
+            if (this._data.sp < this._data.stamina) {
+                if (this._data.sp_second < 0) {
+                    this._data.sp_second = this._data.sp_restore_pp;
+                    return;
+                }
+                this._data.sp_second--;
+                if (this._data.sp_second == 0) {
+                    this._data.sp_second = this._data.sp_restore_pp;
+                    this._data.sp++;
+                    this._refresh();
+                }
+            }
+        },
+        _calcAvoidWarTime: function () {
+            if (this._data.avoid_war_time > 0) {
+                this._data.avoid_war_time--;
+            }
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    var g = w.Mojo.com.Slot = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.Slot";
+        },
+        init: function (options) {
+            this._super(undefined, options);
+            var self = this;
+            this._slotContainer = this.element();
+            this._slotContainer.show().addClass(self._options.slotContainerClass);
+            this._slot = $('<div></div>').attr("id", self._options.slotId).addClass(self._options.slotClass).addClass(self._options.slotClass + '-' + Mojo.app.data.userLanguage).appendTo(this._slotContainer);
+            $(this._slot).pan({
+                fps: 30,
+                dir: 'down'
+            });
+            $(this._slot).spStop();
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return {
+                slotId: '0',
+                speed: 0,
+                step: 2,
+                interval: null,
+                maxSpeed: 60,
+                minSpeed: 10,
+                imgHeight: self.getR("imgHeight"),
+                spriteHeight: self.getR("spriteHeight"),
+                started: false,
+                slotContainerClass: 'mojo-com-slot-container',
+                slotClass: 'mojo-com-slot',
+                slotMotionClass: 'mojo-com-slot-motion',
+                slotActivePaneClass: 'mojo-com-slot-activepane',
+                slotActiveBtnClass: 'mojo-com-slot-activebtn',
+            };
+        },
+        reset: function () {
+            var self = this;
+            $(this._slot).spStop();
+            $._spritely.instances[self._options.slotId].t = 0;
+            $(this._slot).css('background-position', self.getR("background-position"));
+            self._options.speed = 0;
+        },
+        canStart: function () {
+            var self = this;
+            if (self._options.started === false && self._options.speed == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        startInSchedule: function () {
+            var self = this;
+            if (self._options.started === false) {
+                if (self._options.speed == 0) {
+                    self.start();
+                } else {
+                    var interval = window.setInterval(function () {
+                        if (self._options.speed == 0) {
+                            self.start();
+                            clearInterval(interval);
+                        }
+                    }, 100);
+                }
+            }
+        },
+        start: function () {
+            var self = this;
+            $(this._slot).spStart();
+            self._options.started = true;
+            self._options.interval = window.setInterval(function () {
+                if (self._options.speed < self._options.maxSpeed) {
+                    self._options.speed += self._options.step;
+                    $(self._slot).spSpeed(self._options.speed);
+                }
+            }, 40);
+        },
+        canStop: function () {
+            var self = this;
+            if (self._options.started === true && self._options.speed >= self._options.maxSpeed) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        stopInSchedule: function (n, callback) {
+            var self = this;
+            if (self._options.started === true) {
+                var targetPos = self._options.spriteHeight * n;
+                if (self._options.speed >= self._options.maxSpeed) {
+                    self.stop(targetPos, callback);
+                } else {
+                    var interval = window.setInterval(function () {
+                        if (self._options.speed >= self._options.maxSpeed) {
+                            self.stop(targetPos, callback);
+                            clearInterval(interval);
+                        }
+                    }, 100);
+                }
+            }
+        },
+        stop: function (targetPos, callback) {
+            var self = this;
+            clearInterval(self._options.interval);
+            self._options.interval = window.setInterval(function () {
+                if (self._options.speed > self._options.minSpeed) {
+                    self._options.speed -= self._options.step;
+                    $(self._slot).spSpeed(self._options.speed);
+                }
+                if (self._options.speed <= self._options.minSpeed) {
+                    var range = self._rangeFromTarget_when_dir_down(targetPos);
+                    if (range > 0) {
+                        if (Mojo.gap.device == 'ipad') {
+                            if (range < 0.05) {
+                                var best = targetPos;
+                                var bgPos = "0px " + best + "px";
+                                $(self._slot).css('background-position', bgPos);
+                                $(self._slot).spSpeed(0);
+                                $(self._slot).spStop();
+                                clearInterval(self._options.interval);
+                                $(self._slot).removeClass(self._options.slotMotionClass);
+                                self._options.speed = 0;
+                                self._options.started = false;
+                                if (callback != undefined) {
+                                    callback.call();
+                                }
+                            } else if (range < 0.1) {
+                                self._options.speed = 1;
+                                $(self._slot).spSpeed(1);
+                            } else if (range < 0.5) {
+                                self._options.speed = 2;
+                                $(self._slot).spSpeed(2);
+                            } else if (range < 0.9) {
+                                self._options.speed = 4;
+                                $(self._slot).spSpeed(4);
+                            } else if (range < 1.4) {
+                                self._options.speed = 6;
+                                $(self._slot).spSpeed(6);
+                            } else if (range < 2) {
+                                self._options.speed = 8;
+                                $(self._slot).spSpeed(8);
+                            }
+                        } else {
+                            if (range < 0.1) {
+                                var best = targetPos - 7;
+                                var bgPos = "5px " + best + "px";
+                                $(self._slot).css('background-position', bgPos);
+                                $(self._slot).spSpeed(0);
+                                $(self._slot).spStop();
+                                clearInterval(self._options.interval);
+                                $(self._slot).removeClass(self._options.slotMotionClass);
+                                self._options.speed = 0;
+                                self._options.started = false;
+                                if (callback != undefined) {
+                                    callback.call();
+                                }
+                            } else if (range < 0.5) {
+                                self._options.speed = 2;
+                                $(self._slot).spSpeed(2);
+                            } else if (range < 0.9) {
+                                self._options.speed = 4;
+                                $(self._slot).spSpeed(4);
+                            } else if (range < 1.4) {
+                                self._options.speed = 6;
+                                $(self._slot).spSpeed(6);
+                            } else if (range < 2) {
+                                self._options.speed = 8;
+                                $(self._slot).spSpeed(8);
+                            }
+                        }
+                    }
+                }
+            }, 40);
+        },
+        _rangeFromTarget_when_dir_down: function (targetPos) {
+            var self = this;
+            var currentPos = $(self._slot).css('background-position');
+            currentPos = currentPos.split(' ')[1];
+            currentPos = parseInt(currentPos, 10);
+            if ((targetPos - (currentPos % self._options.imgHeight)) > 0) {
+                return ((targetPos - (currentPos % self._options.imgHeight)) / self._options.spriteHeight);
+            } else {
+                return -1;
+            }
+        },
+        _rangeFromTarget_when_dir_up: function (targetPos) {
+            var self = this;
+            var currentPos = $(self._slot).css('background-position');
+            currentPos = currentPos.split(' ')[1];
+            currentPos = parseInt(currentPos, 10);
+            if (((currentPos % self._options.imgHeight) - targetPos) > 0) {
+                return (((currentPos % self._options.imgHeight) - targetPos) / self._options.spriteHeight);
+            } else {
+                return -1;
+            }
+        },
+        _isNearTarget: function (range, targetPos) {
+            var self = this;
+            var currentPos = $(self._slot).css('background-position');
+            currentPos = currentPos.split(' ')[1];
+            currentPos = parseInt(currentPos, 10);
+            if (((currentPos % self._options.imgHeight) - targetPos) > 0 && ((currentPos % self._options.imgHeight) - targetPos) < (self._options.spriteHeight * range)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.Task = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.Task";
+        },
+        init: function (scenario, group, task, options) {
+            this.scenario = scenario;
+            this.group = group;
+            this.task = task;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-task');
+            this._addTitle();
+            this._addDescription();
+            this._addDetail();
+            this._addAction();
+            this._refresh();
+        },
+        _addTitle: function () {
+            this.element().append('<div class="title"><div class="left">' +
+                this.scenario.order + '-' + this.group.order + '-' + this.task.order + '</div><div class="center">' +
+                this.task.name + '</div><div class="right">' +
+                Mojo.utils.locale('ui', 'Level') + this.task.level + '</div></div>');
+        },
+        _addDescription: function () {
+            this.element().append('<div class="row description">' + this.task.description + '</div>');
+        },
+        _addDetail: function () {
+            if (this.task.hp > 0) {
+                this._lblHp = new Mojo.ui.Label(undefined, {
+                    classes: ['hp'],
+                    text: this.task.hp
+                });
+            }
+            if (this.task.ep > 0) {
+                this._lblEp = new Mojo.ui.Label(undefined, {
+                    classes: ['ep'],
+                    text: this.task.ep
+                });
+            }
+            if (this.task.sp > 0) {
+                this._lblSp = new Mojo.ui.Label(undefined, {
+                    classes: ['sp'],
+                    text: this.task.sp
+                });
+            }
+            if (this.task.xp > 0) {
+                this._lblXp = new Mojo.ui.Label(undefined, {
+                    classes: ['xp'],
+                    text: this.task.xp
+                });
+            }
+            if (this.task.rm > 0) {
+                this._lblRm = new Mojo.ui.Label(undefined, {
+                    classes: ['rm'],
+                    text: this.task.rm
+                });
+            }
+            if (this.task.vm > 0) {
+                this._lblVm = new Mojo.ui.Label(undefined, {
+                    classes: ['vm'],
+                    text: this.task.vm
+                });
+            }
+            if (this.task.boss && this.task.boss.award != undefined && this.task.boss.award.length > 0) {
+                this._lblAward = new Mojo.ui.Label(undefined, {
+                    classes: ['bonus'],
+                    text: this.task.award,
+                });
+            }
+            this._progress = new Mojo.ui.Progress(undefined, {
+                value: this.task.count,
+                max: this.task.sum_count,
+            });
+            this.element().append('<div class="row"><div class="requirement"></div><div class="reward"></div><div class="progress"></div></div>');
+            this.element().find('.row > .requirement').append(Mojo.utils.locale('ui', 'Requirement') + '<br>').append(this._lblHp != undefined ? this._lblHp.element() : '').append(this._lblEp != undefined ? this._lblEp.element() : '').append(this._lblSp != undefined ? this._lblSp.element() : '');
+            this.element().find('.row > .reward').append(Mojo.utils.locale('ui', 'Reward') + '<br>').append('<div class="group"></div>').find('.group').append(this._lblXp != undefined ? this._lblXp.element() : '').append(this._lblRm != undefined ? this._lblRm.element() : '').append(this._lblVm != undefined ? this._lblVm.element() : '').append(this._lblAward != undefined ? this._lblAward.element() : '');
+            this.element().find('.row > .progress').append(Mojo.utils.locale('ui', 'Progress') + '<br>').append(this._progress.element());
+            if (this.task.boss_info && this._boosAttr == undefined) {
+                this._boosAttr = $('<div class="row"><div class="defence"></div></div>').appendTo(this.element());
+                this.element().find('.row > .defence').html(Mojo.utils.locale('fuben', 'defence') + this.task.boss_info.def.min + '~' + this.task.boss_info.def.max);
+                if (this.task.boss_info.skills != undefined && this.task.boss_info.skills.length > 0) {
+                    this.element().append('<div class="row"><div class="skills"></div></div>');
+                    var str = '';
+                    for (var i = 0; i < this.task.boss_info.skills.length; i++) {
+                        str += this.task.boss_info.skills[i] + '<br>';
+                    }
+                    this.element().find('.row > .skills').html(Mojo.utils.locale('fuben', 'skills') + '<span>' + str + '</span>');
+                }
+            }
+        },
+        _addAction: function () {
+            var self = this;
+            if (this._slotBorder == undefined) {
+                this._slotBorder = $('<div class="row"><div class="slot"></div></div>');
+            }
+            if (this.task.boss && this.task.boss.img != undefined) {
+                if (this._boss != undefined) {
+                    return;
+                }
+                if (this._slot != undefined) {
+                    this._slot.element().remove();
+                    this._slot = undefined;
+                    this._btnDo.element().remove();
+                    this._btnDo = undefined;
+                }
+                this._boss = new Mojo.ui.Image(undefined, {
+                    src: this.task.boss.img
+                });
+                this._btnDo = new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('ui', 'Do'),
+                    click: function () {
+                        Mojo.track.onEvent('05_041');
+                        self._showTaskPreviewDialog();
+                    },
+                    disableClick: function () {
+                        if (parseInt(self.task.status) == 2) {
+                            Mojo.app.toast.show(Mojo.utils.locale('mission', 'The task is completed!'));
+                        } else {
+                            Mojo.app.toast.show(Mojo.utils.locale('mission', 'Please complete the tasks above!'));
+                        }
+                    },
+                    special: 'button-big-red',
+                });
+            } else {
+                this._slot = new Mojo.com.Slot({
+                    slotId: 'slot-task-' + this.task.task_id,
+                });
+                this._btnDo = new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('ui', 'Do'),
+                    click: function () {
+                        Mojo.track.onEvent('05_031');
+                        self._slot.startInSchedule();
+                        self._sendRequest();
+                    },
+                    disableClick: function () {
+                        if (parseInt(self.task.status) == 2) {
+                            Mojo.app.toast.show(Mojo.utils.locale('mission', 'The task is completed!'));
+                        }
+                    },
+                    special: 'button-big-red',
+                    sound: '17_slotmachine',
+                });
+            }
+            this._slotBorder.appendTo(this.element()).append(this._btnDo.element()).children('.slot').append(this._slot == undefined ? this._boss.element() : this._slot.element());
+        },
+        _showTaskPreviewDialog: function () {
+            var self = this;
+            Mojo.ajax('/mission/do', {
+                id: self.task.id,
+                preview: 1,
+            }, function (result) {
+                if (result.errorCode == 0) {
+                    (new Mojo.com.TaskPreviewDialog(result.data, {
+                        buttonClick: function () {
+                            self._sendRequest();
+                        },
+                    })).open();
+                } else if (result.errorCode == 10002) {
+                    (new Mojo.com.EpDialog(result.data, {
+                        title: Mojo.utils.locale('mission', 'Energy point is not enough'),
+                        message: result.errorMsg,
+                        refreshProfile: function (data) {
+                            self._options.refreshProfile(data);
+                        },
+                    })).open();
+                } else if (result.errorCode == 160003) {
+                    var dlg = new Mojo.com.CommonDialog(undefined, {
+                        title: Mojo.utils.locale('common', 'capacify_lack'),
+                        content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'capacify_lack_tip')),
+                        leftBtnText: Mojo.utils.locale('common', 'go_intensify'),
+                        leftBtnClick: function () {
+                            Mojo.app.redirect('/intensify');
+                        },
+                        rightBtnText: Mojo.utils.locale('common', 'go_sale'),
+                        rightBtnClick: function () {
+                            Mojo.app.redirect('/entity', {
+                                selected: 3
+                            });
+                        },
+                        close: function () {
+                            Mojo.app.redirect('/home');
+                        }
+                    });
+                    dlg.open();
+                } else {
+                    (new Mojo.com.TipsDialog({
+                        title: Mojo.utils.locale('common', 'tips'),
+                        message: result.errorMsg,
+                    })).open();
+                }
+            }, function () {}, {
+                showWait: true
+            });
+        },
+        _refresh: function (boss) {
+            var self = this;
+            this._progress.value(this.task.count);
+            this._btnDo.disable(this.task.status == 2 || this.task.unlock == 0);
+            if (boss != undefined) {
+                this._addAction();
+                setTimeout(function () {
+                    self._options.reSize();
+                }, 100);
+            }
+        },
+        _onResult: function (result) {
+            Mojo.gap.showbattleskip();
+            var self = this;
+            var data = result.data;
+            self._overlayHide();
+            var sucessDlg = new Mojo.com.TaskDialog(data, {
+                close: function () {
+                    $.extend(self.task, data.task);
+                    self._options.afterDo(data, result);
+                    self._refresh(data.task.boss);
+                    if (self.task.status == 2) {
+                        self.unlock(false);
+                        self._options.complete(this, data.unlock);
+                    }
+                    if (result.data.wuhu) {
+                        self._newPlayerGift(result);
+                    }
+                    Mojo.light.showLight('task', {
+                        level: data.player.level
+                    });
+                },
+            });
+            if (self._slot == undefined) {
+                setTimeout(function () {
+                    Mojo.ajax('/battle/Detail', {}, function (response) {
+                        if (response.errorCode == 0) {
+                            (new Mojo.com.BattleDetailDialog(response.data, {
+                                title: Mojo.utils.locale('mission', 'battle_result_formation_title_win'),
+                                show_detail_first: true,
+                                non_show_def_lever: true,
+                                non_show_base_def: true,
+                                close: function () {
+                                    sucessDlg.open(true);
+                                },
+                            })).open(true);
+                        } else {}
+                    }, function () {}, {
+                        showWait: true
+                    });
+                }, 500);
+            } else {
+                sucessDlg.open(true);
+            }
+        },
+        _newPlayerGift: function (response) {
+            var self = this;
+            var newPlayerTutorial = undefined;
+            var newPlayerAwardDiv = $('<div id="new-player-award"></div>');
+            var generalList = {};
+            var chooseGeneralId = undefined;
+            var elmDiv1 = $('<div class="new-player-awards"></div>');
+            if (response && response.errorCode === 0) {
+                for (var index in response.data.wuhu.list) {
+                    var data = response.data.wuhu.list[index];
+                    var obj = new Mojo.Object(undefined, {
+                        classes: ['new-player-award-element', 'image'],
+                    });
+                    obj.element().append('<img src="' + data.small_image + '">');
+                    obj.element().append('<div class="element-border"></div>');
+                    obj.element().append('<div class="element-name">' + data.name + '</div>');
+                    obj.element().bind('click', {
+                        id: data.id
+                    }, function (evt) {
+                        elmDiv1.find('.selected').removeClass('selected');
+                        for (var id in generalList) {
+                            var el = generalList[id];
+                            if (id == evt.data.id) {
+                                el.element().addClass('selected');
+                                chooseGeneralId = evt.data.id;
+                            }
+                        }
+                    });
+                    if (parseInt(data.is_default) == 1) {
+                        obj.element().addClass('selected');
+                        chooseGeneralId = data.id;
+                    }
+                    generalList[data.id] = obj;
+                    elmDiv1.append(obj.element());
+                }
+                elmDiv1.appendTo(newPlayerAwardDiv);
+                (new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('common', 'ok'),
+                    special: 'button-big-red',
+                    click: function () {
+                        Mojo.ajax("/bonus/NewPlayerAward", {
+                            entity_id: chooseGeneralId
+                        }, function (response) {
+                            newPlayerAwardDiv.remove();
+                            newPlayerTutorial.close();
+                            Mojo.gap.highlightMenuItem(-1);
+                        }, function () {
+                            newPlayerAwardDiv.remove();
+                            newPlayerTutorial.close();
+                        });
+                    }
+                })).element().addClass("go-sanguo").appendTo(newPlayerAwardDiv);
+            }
+            newPlayerTutorial = (new Mojo.com.Tutorial(undefined, {
+                text: Mojo.utils.locale('tutorial', 'tutorial_new_player'),
+            }));
+            newPlayerTutorial.open();
+            newPlayerTutorial.element().attr("id", "new-player-tutorial").find(".tutorial-arrow").hide();
+            newPlayerTutorial.element().append($('<div class="new-player-award-title"></div>').html(Mojo.utils.locale('mission', 'new_player_gift_title')));
+            newPlayerTutorial.element().append(newPlayerAwardDiv);
+        },
+        _overlayShow: function () {
+            if (this._overlay == undefined) {
+                this._overlay = new Mojo.ui.Overlay('task-slot-overlay', {
+                    opacity: 0,
+                });
+            }
+            this._overlay.show();
+        },
+        _overlayHide: function () {
+            if (this._overlay != undefined) {
+                this._overlay.hide();
+            }
+        },
+        _sendRequest: function () {
+            var self = this;
+            self._overlayShow();
+            Mojo.ajax('/mission/do', {
+                id: self.task.id,
+                preview: 0,
+            }, function (result) {
+                if (result.errorCode == 0) {
+                    self._stopSlot(result.data.award.bonus, function () {
+                        self._onResult(result);
+                    });
+                    if (self._slot == undefined) {
+                        Mojo.gap.battleAnimationPlay(result.data.player_army, result.data.opponent_army);
+                        setTimeout(function () {
+                            self._onResult(result);
+                        }, 500);
+                    }
+                } else {
+                    self._stopSlot(undefined, function () {
+                        self._overlayHide();
+                    });
+                    if (self.task.boss != undefined) {
+                        self._overlayHide();
+                    }
+                    if (result.errorCode == 10002) {
+                        (new Mojo.com.EpDialog(result.data, {
+                            title: Mojo.utils.locale('mission', 'Energy point is not enough'),
+                            message: result.errorMsg,
+                            refreshProfile: function (data) {
+                                self._options.refreshProfile(data);
+                            },
+                        })).open();
+                    } else if (result.errorCode == 160003) {
+                        var dlg = new Mojo.com.CommonDialog(undefined, {
+                            title: Mojo.utils.locale('common', 'capacify_lack'),
+                            content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'capacify_lack_tip')),
+                            leftBtnText: Mojo.utils.locale('common', 'go_intensify'),
+                            leftBtnClick: function () {
+                                Mojo.app.redirect('/intensify');
+                            },
+                            rightBtnText: Mojo.utils.locale('common', 'go_sale'),
+                            rightBtnClick: function () {
+                                Mojo.app.redirect('/entity', {
+                                    selected: 3
+                                });
+                            },
+                            close: function () {
+                                Mojo.app.redirect('/home');
+                            }
+                        });
+                        dlg.open();
+                    } else if (result.errorCode == 20010) {
+                        Mojo.gap.battleAnimationPlay(result.data.player_army, result.data.opponent_army);
+                        Mojo.ajax('/battle/Detail', {}, function (response) {
+                            if (response.errorCode == 0) {
+                                (new Mojo.com.BattleDetailDialog(response.data, {
+                                    title: Mojo.utils.locale('mission', 'battle_result_formation_title_lose'),
+                                    show_detail_first: true,
+                                    non_show_def_lever: true,
+                                    non_show_base_def: true,
+                                    close: function () {
+                                        self._options.afterDo(result.data, result);
+                                        if (result.data.showcan > 0) {
+                                            setTimeout(function () {
+                                                if (result.data.showcan == 2) {
+                                                    Mojo.light.showLight('task|0');
+                                                    Mojo.utils.showDiaochan(Mojo.utils.locale('common', 'diaochan_first_card'), function () {
+                                                        Mojo.app.redirect('/home');
+                                                    });
+                                                } else if (result.data.showcan == 3) {
+                                                    Mojo.light.showLight('task|0');
+                                                    Mojo.utils.showDiaochan(Mojo.utils.locale('common', 'diaochan_intity_first_card'), function () {
+                                                        Mojo.app.redirect('/home');
+                                                    });
+                                                }
+                                                Mojo.app.toast.show(result.errorMsg);
+                                            }, 500);
+                                        } else {
+                                            new Mojo.com.CommonDialog(undefined, {
+                                                title: Mojo.utils.locale('mission', 'battle_result_formation_title_lose'),
+                                                content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('mission', 'battle_result_fail')),
+                                                leftBtnText: Mojo.utils.locale('common', 'go_intensify'),
+                                                leftBtnClick: function () {
+                                                    Mojo.app.redirect('/intensify');
+                                                },
+                                                rightBtnText: Mojo.utils.locale('mission', 'formation'),
+                                                rightBtnClick: function () {
+                                                    Mojo.app.redirect('/package');
+                                                },
+                                            }).open(true);
+                                        }
+                                    },
+                                })).open(true);
+                            } else {}
+                        }, function () {}, {
+                            showWait: true
+                        });
+                    } else {
+                        Mojo.app.toast.show(result.errorMsg);
+                    }
+                }
+            }, function () {
+                self._stopSlot(undefined, function () {
+                    self._overlayHide();
+                });
+            });
+        },
+        _stopSlot: function (bonus, callback) {
+            if (this._slot == undefined) return;
+            var n = 1;
+            if (bonus != undefined) {
+                if (bonus.vm != undefined) {
+                    n = 2;
+                } else if (bonus.xp != undefined) {
+                    n = 3;
+                } else if (bonus.entities != undefined) {
+                    n = 4;
+                }
+            }
+            this._slot.stopInSchedule(n, callback);
+        },
+        _getDefaultOptions: function () {
+            return {
+                complete: $.noop,
+                afterDo: $.noop,
+                refreshProfile: $.noop,
+            };
+        },
+        unlock: function (value) {
+            this._btnDo.disable(!value);
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.TaskList = w.Mojo.ui.ListPanel.extend({
+        clsname: function () {
+            return "com.TaskList";
+        },
+        init: function (options) {
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-tasklist');
+            this._addNavigator();
+        },
+        _addNavigator: function () {
+            var self = this;
+            this._scenBtn = new Mojo.ui.Button('btn-scenario', {
+                text: '',
+                click: function () {
+                    self._options.clickScenario(self._scenario);
+                },
+            });
+            this._gpRadio = new Mojo.ui.Radio('radio-groups', {
+                selectionChange: function (i) {
+                    Mojo.track.onEvent('05_012');
+                    self.switchTo(self.data.cur_scenario.scenario_id, self.data.task_groups[i].task_group_id);
+                },
+                disableClick: function (index) {
+                    Mojo.app.toast.show(Mojo.utils.locale('mission', 'You have to complete the previous task group!'));
+                },
+            });
+            this._group_scroll = new Mojo.ui.Scroll('task-groups-scroll', this._gpRadio, {
+                direction: 1,
+            });
+            this.element().children('.header').append(this._scenBtn.element()).append(this._group_scroll.element());
+        },
+        _refreshNav: function () {
+            var self = this;
+            this._scenBtn.text(this.data.cur_scenario.name);
+            this._gpRadio.removeAll();
+            this._gpRadio.element().css('width', self.data.task_groups.length * this.getR("unitWidth"));
+            $.each(self.data.task_groups, function (i, gp) {
+                self._gpRadio.addOption(gp.name);
+                if (gp.unlock == 0) {
+                    self._gpRadio.disable(i, true);
+                }
+                if (gp.task_group_id == self.data.cur_task_group.task_group_id) {
+                    self._gpRadio.selection(i);
+                    self._group_scroll.scroll((i * self.getR("unitWidth")), 0);
+                }
+            });
+            this._options.scenario_id = this.data.cur_scenario.scenario_id;
+            this._options.task_group_id = this.data.cur_task_group.task_group_id;
+            this._group_scroll.refresh();
+        },
+        _refreshList: function () {
+            this.initial();
+            this.appendData(this.data.tasks);
+            this.resize();
+            this._options.onListRefresh();
+        },
+        switchTo: function (sid, gid, track) {
+            if (sid == undefined) {
+                return;
+            }
+            this._options.scenario_id = sid;
+            this._options.task_group_id = gid;
+            this.removeAll();
+            this._children = [];
+            this._load(track);
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return {
+                onListRefresh: $.noop,
+                scrollable: true,
+                scenario_id: null,
+                task_group_id: null,
+                pageSize: 50,
+                clickScenario: $.noop,
+                afterDoTask: $.noop,
+                refreshProfile: $.noop,
+                unlockScenario: $.noop,
+                loadFunc: function (start, count, track) {
+                    var params = {
+                        start: start,
+                        count: count,
+                    };
+                    if (self._options.scenario_id != null) {
+                        params.scenario_id = self._options.scenario_id;
+                    }
+                    if (self._options.task_group_id != null) {
+                        params.task_group_id = self._options.task_group_id;
+                    }
+                    Mojo.ajax('/mission', params, function (result) {
+                        if (result.errorCode == 0) {
+                            self.data = result.data;
+                            self._refreshNav();
+                            self._refreshList();
+                        }
+                    }, function () {
+                        self.appendData(null);
+                    });
+                },
+                drawFunc: function (data) {
+                    return new Mojo.com.Task(self.data.cur_scenario, self.data.cur_task_group, data, {
+                        complete: function (task, unlock) {
+                            if (unlock != undefined && unlock != null) {
+                                self._unlock(unlock.scenario_id, unlock.task_group_id, unlock.task_id, unlock.next_level);
+                            }
+                        },
+                        afterDo: function (data, result) {
+                            self._options.afterDoTask(data, result);
+                        },
+                        refreshProfile: function (data) {
+                            self._options.refreshProfile(data);
+                        },
+                        reSize: function () {
+                            self.resize();
+                        },
+                    });
+                },
+            };
+        },
+        _unlock: function (sid, gid, tid, nlevel) {
+            if (sid != this._options.scenario_id) {
+                this._options.unlockScenario(sid);
+            } else if (gid == this._options.task_group_id && nlevel != undefined && nlevel == 1) {
+                this.switchTo(sid, gid, true);
+                return;
+            }
+            if (sid != this._options.scenario_id || gid != this._options.task_group_id) {
+                this.switchTo(sid, gid, true);
+            } else {
+                var ts = this.children();
+                var t = null;
+                for (var i = 0; i < ts.length; i++) {
+                    t = ts[i];
+                    if (t.task.scenario_id == sid && t.task.task_group_id == gid && t.task.task_id == tid) {
+                        t.unlock(true);
+                        break;
+                    }
+                }
+            }
+        },
+        debugTitle: function () {
+            return "Mojo.com.TaskList";
         }
     });
 })(window, jQuery);;
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
     w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.Announcement = w.Mojo.Object.extend({
+    w.Mojo.com.TaskDialog = w.Mojo.ui.Dialog.extend({
         clsname: function () {
-            return "com.Announcement";
+            return "com.TaskDialog";
         },
         init: function (data, options) {
-            this._data = data;
+            this._data = data.award;
+            this._task = data.task;
             this._super(undefined, options);
-            this.element().addClass("mojo-com-announcement, box-inner");
-            this._titleDiv = $('<div></div>').addClass("annuncement-title").appendTo(this.element());
-            this._contentDiv = $('<div></div>').addClass("annuncement-content").appendTo(this.element());
-            this._btnDiv = $('<div></div>').addClass("annuncement-buttons").appendTo(this.element());
-            this.refresh();
-        },
-        refresh: function (data) {
-            if (data === undefined) {
-                data = this._data;
-            }
-            this.setTitle(data);
-            this.setContent(data);
-            this.setImportant(data);
-            this.setButtons(data);
-        },
-        setTitle: function (data) {
-            this._titleDiv.html(data.title);
-        },
-        setContent: function (data) {
-            this._contentDiv.html(data.content);
-        },
-        setImportant: function (data) {
-            if (data.weights > 0) {
-                this.element().addClass("important");
-            } else {
-                this.element().removeClass("important");
-            }
-        },
-        setButtons: function (data) {
-            if (Mojo.utils.isNone(data.btn_text) == false && Mojo.utils.isNone(data.btn_url) == false) {
-                var url = data.btn_url.replace("mojo://", "");
-                var str = url.substring(url.indexOf('?') + 1, url.length).split('&');
-                url = url.substring(0, url.indexOf('?'));
-                var obj = {};
-                var j;
-                for (var i = 0; str[i] != undefined; i++) {
-                    j = str[i];
-                    obj[j.substring(0, j.indexOf('=')).toLowerCase().replace(/(^\s*)|(\s*$)/g, "")] = j.substring(j.indexOf('=') + 1, j.length).replace(/(^\s*)|(\s*$)/g, "");
-                }
-                new Mojo.ui.Button(undefined, {
-                    text: data.btn_text,
-                    click: function () {
-                        Mojo.app.redirect("/" + url, obj);
-                    }
-                }).element().appendTo(this._btnDiv);
-            }
-        }
-    });
-})(window, jQuery);
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.AnnouncementDlg = w.Mojo.ui.Dialog.extend({
-        clsname: function () {
-            return "com.AnnouncementDlg";
-        },
-        init: function (options) {
-            this._super("sys-announcement-dlg", options);
-            this.element().addClass('mojo-com-announcementdlg');
-            this._initContent();
-        },
-        open: function (force) {
-            this._super(force);
-            this._panel.resize();
-        },
-        _initContent: function () {
+            this.element().addClass('mojo-com-taskdlg');
             var self = this;
-            this._panel = new Mojo.ui.ListPanel('announcement-listpanel', {
-                scrollable: true,
-                showMore: false,
-                pageSize: 20,
-                loadFunc: function (count, pagesize, params) {
-                    if (Mojo.utils.isNone(self._options.announcement) == false) {
-                        setTimeout(function () {
-                            self._panel.appendData(self._options.announcement);
-                        }, 100);
+            this._addContent();
+            this._addHandleButtons();
+        },
+        _addContent: function () {
+            var data = null;
+            var vm = 0,
+                rm = 0,
+                xp = 0,
+                addvm = 0,
+                addrm = 0;
+            if (this._data.bonus != undefined) {
+                if (this._data.bonus.entities != undefined && this._data.bonus.entities.length > 0) {
+                    Mojo.gap.soundPlay('18_new_card');
+                    data = this._data.bonus.entities[0];
+                }
+            } else {}
+            if (this._data.boss != undefined) {
+                if (this._data.boss.entities != undefined && this._data.boss.entities.length > 0) {
+                    data = this._data.boss.entities[0];
+                }
+            }
+            if (data != null) {
+                this._entity = new Mojo.com.LargeEntity(data);
+                this._content.append(this._entity.element());
+                this._content.append('<div class="tip">' + this._contentText(data) + '</div>');
+            }
+            this._content.append('<div class="reward"></div>');
+            this._content.find('.reward').append((new Mojo.ui.Label(undefined, {
+                text: Mojo.utils.locale('mission', 'Gained') + '：',
+                classes: ['gained'],
+            })).element());
+            this._content.find('.reward').append((new Mojo.ui.Label(undefined, {
+                text: this._xpText(),
+                classes: ['xp'],
+            })).element());
+            this._content.find('.reward').append((new Mojo.ui.Label(undefined, {
+                text: this._vmText(),
+                classes: ['vm'],
+            })).element());
+        },
+        _xpText: function () {
+            if (this._data.bonus != undefined) {
+                return this._data.fixed.xp + (this._data.fixed.add_xp > 0 ? "+" + this._data.fixed.add_xp : "") + (this._data.bonus.xp > 0 ? "+" + this._data.bonus.xp : "");
+            } else {
+                return this._data.fixed.xp + (this._data.fixed.add_xp > 0 ? "+" + this._data.fixed.add_xp : "");
+            }
+        },
+        _vmText: function () {
+            if (this._data.bonus != undefined) {
+                return this._data.fixed.vm + (this._data.fixed.add_vm > 0 ? "+" + this._data.fixed.add_vm : "") + (this._data.bonus.vm > 0 ? "+" + this._data.bonus.vm : "");
+            } else {
+                return this._data.fixed.vm + (this._data.fixed.add_vm > 0 ? "+" + this._data.fixed.add_vm : "");
+            }
+        },
+        _contentText: function (entity) {
+            var number = Math.random();
+            if (this._data.bonus != undefined) {
+                if (entity.type_id == 1) {
+                    if (number > 0.5) {
+                        return Mojo.utils.locale('mission', 'Get One Generals', {
+                            name: entity.name
+                        });
                     } else {
-                        Mojo.ajax("/announcement", {}, function (response) {
-                            if (response && response.errorCode === 0) {
-                                self._panel.appendData(response.data);
-                            } else {
-                                self._panel.appendData(null);
-                            }
-                        }, function () {
-                            self._panel.appendData(null);
+                        return Mojo.utils.locale('mission', 'Get Another Generals', {
+                            name: entity.name
                         });
                     }
-                },
-                drawFunc: function (data) {
-                    return (new Mojo.com.Announcement(data));
+                } else {
+                    if (number > 0.5) {
+                        return Mojo.utils.locale('mission', 'Get One Collection', {
+                            name: entity.name
+                        });
+                    } else {
+                        return Mojo.utils.locale('mission', 'Get Another Collection', {
+                            name: entity.name
+                        });
+                    }
                 }
-            });
-            this._panel.element().appendTo(this._content);
+            } else {
+                if (entity.type_id == 1) {
+                    return Mojo.utils.locale('mission', 'Attack One Generals', {
+                        boss_name: this._task.boss.name,
+                        name: entity.name
+                    });
+                } else {
+                    return Mojo.utils.locale('mission', 'Attack Another Generals', {
+                        boss_name: this._task.boss.name,
+                        name: entity.name
+                    });
+                }
+            }
+        },
+        _addHandleButtons: function () {
+            var self = this;
+            this._footer.append((new Mojo.ui.Button(undefined, {
+                special: 'button-big-red',
+                text: Mojo.utils.locale('common', 'ok'),
+                click: function () {
+                    self.close();
+                },
+            })).element());
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
-                title: Mojo.utils.locale("home", "announcement_title"),
-                announcement: undefined
+                title: Mojo.utils.locale('mission', 'Task Awards'),
+                handle: $.noop,
+            });
+        },
+        open: function () {
+            if (this._entity != null && this._entity != undefined) {
+                this._super();
+            } else {
+                Mojo.app.toast.show(Mojo.utils.locale('mission', 'Gained') + ' XP:' + this._xpText() + '&nbsp;，&nbsp;' + Mojo.utils.locale('mission', 'Coins') + ':' + this._vmText());
+                this.close();
+            }
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.Map = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.Map";
+        },
+        init: function (scenario, options) {
+            this._scenario = scenario;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-map');
+            var self = this;
+            this._btnBack = (new Mojo.ui.Button('btn-map-back', {
+                click: self._options.clickBack,
+                text: '',
+            }));
+            this.element().append(this._btnBack.element());
+            this._maplist = new Mojo.ui.ListPanel('com-map-maplist', {
+                pageSize: 50,
+                loadFunc: function (start, count) {
+                    Mojo.ajax('/mission/map', {
+                        start: start,
+                        count: count,
+                    }, function (result) {
+                        if (result.errorCode == 0) {
+                            self._maplist.appendData(result.data);
+                            self.focus();
+                        } else {
+                            self._maplist.appendData(null);
+                        }
+                    }, function () {
+                        self._maplist.appendData(null);
+                    });
+                },
+                drawFunc: function (data) {
+                    return new Mojo.com.MapElement(data, {
+                        click: function (data) {
+                            self._options.clickElement(data);
+                        },
+                    });
+                },
+            });
+            this._scroll = new Mojo.ui.Scroll('com-map-scroll', this._maplist, {});
+            this.element().append(this._scroll.element());
+        },
+        focus: function () {
+            this._scroll.refresh();
+            var ml = this._maplist.children();
+            var m = null;
+            for (var i = 0; i < ml.length; i++) {
+                m = ml[i];
+                if (m.data.data == this._scenario.scenario_id) {
+                    var dx = (m.data.x - this._scroll.wrapperWidth() / 2);
+                    var dy = (m.data.y - this._scroll.wrapperHeight() / 2);
+                    this._scroll.scroll(dx, dy);
+                    break;
+                }
+            }
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return $.extend(true, this._super, {
+                clickBack: $.noop,
+                clickElement: $.noop,
+            });
+        },
+        scenario: function (scen) {
+            if (scen == undefined) {
+                return this._scenario;
+            }
+            this._scenario = scen;
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.MapElement = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.MapElement";
+        },
+        init: function (data, options) {
+            this.data = data;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-map-element');
+            this.element().append('<div class="name"></div><div class="status"></div>');
+            this._refresh();
+        },
+        _refresh: function () {
+            var self = this;
+            var icons = ['main-city', 'border-town', 'border', 'points'];
+            var flags = ['locked', 'fighting', 'occupied'];
+            var type = parseInt(this.data.type);
+            var status = parseInt(this.data.status);
+            this.element().addClass("map-" + icons[type] + (status == 0 ? "-disabled" : ""));
+            this.element().find('.name').html(this.data.name);
+            this.element().find('.status').addClass(flags[status]);
+            this.element().css('left', this.getR("left") * parseInt(this.data.x)).css('top', this.getR("top") * parseInt(this.data.y));
+            if (status != 0) {
+                this.element().click(function () {
+                    self._options.click(self.data);
+                });
+            }
+        },
+        _getDefaultOptions: function () {
+            return {
+                click: $.noop,
+            };
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.LevelUpDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.LevelUpDialog";
+        },
+        init: function (data, fulldata, options) {
+            this._data = data;
+            this._fulldata = fulldata;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-levelupdlg');
+            this.element().addClass('mojo-com-levelupdlg-' + Mojo.app.data.userLanguage);
+            this._addContent();
+            this._addHandleButtons();
+        },
+        _getIOSMajorVersion: function () {
+            var userAgent = window.navigator.userAgent;
+            var result = userAgent.match(/iPhone OS (\d*)_/);
+            if (!Mojo.utils.isNone(result)) {
+                return result[1];
+            }
+            result = userAgent.match(/iPad OS (\d*)_/);
+            if (!Mojo.utils.isNone(result)) {
+                return result[1];
+            }
+            return undefined;
+        },
+        _addContent: function () {
+            this._genTips();
+            if (this._data.award.vm != undefined && this._data.award.vm != null) {
+                this._bonus = $('<div class="bonus mojo-ui-label"></div>').appendTo(this._content.find('.paragraph'));
+                this._bonus.append((new Mojo.ui.Label(undefined, {
+                    classes: ['vm'],
+                    text: this._data.award.vm
+                })).element());
+            }
+            if (this._data.award.rm != undefined && this._data.award.rm != null) {
+                this._bonus.append((new Mojo.ui.Label(undefined, {
+                    classes: ['rm'],
+                    text: this._data.award.rm
+                })).element());
+            }
+        },
+        _isDataChanged: function (attr) {
+            if (attr && attr.length > 1) {
+                return attr[0] != attr[1];
+            }
+            return false;
+        },
+        _genTips: function () {
+            var _message = $('<div class="paragraph"></div>');
+            new Mojo.ui.Label(undefined, {
+                classes: ['level'],
+                text: Mojo.utils.locale('common', 'level_up', {
+                    'level': this._data.level[1]
+                })
+            }).element().appendTo(_message);
+            new Mojo.ui.Label(undefined, {
+                classes: ['base_attack'],
+                text: Mojo.utils.locale('common', 'base_attack', {
+                    'old': this._data.attack[0],
+                    'new': this._data.attack[1]
+                })
+            }).element().appendTo(_message);
+            new Mojo.ui.Label(undefined, {
+                classes: ['base_defence'],
+                text: Mojo.utils.locale('common', 'base_defence', {
+                    'old': this._data.defence[0],
+                    'new': this._data.defence[1]
+                })
+            }).element().appendTo(_message);
+            new Mojo.ui.Label(undefined, {
+                classes: ['max_energy'],
+                text: Mojo.utils.locale('common', 'max_energy', {
+                    'old': this._data.energy[0],
+                    'new': this._data.energy[1]
+                })
+            }).element().appendTo(_message);
+            if (this._isDataChanged(this._data.stamina)) {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['max_stamina'],
+                    text: Mojo.utils.locale('common', 'max_stamina', {
+                        'old': this._data.stamina[0],
+                        'new': this._data.stamina[1]
+                    })
+                }).element().appendTo(_message);
+            }
+            if (this._isDataChanged(this._data.maxFriendsNum)) {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['max_friend'],
+                    text: Mojo.utils.locale('common', 'max_friends_count', {
+                        'old': this._data.maxFriendsNum[0],
+                        'new': this._data.maxFriendsNum[1]
+                    })
+                }).element().appendTo(_message);
+            }
+            if (this._isDataChanged(this._data.entity)) {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['entity'],
+                    text: Mojo.utils.locale('common', 'max_entity', {
+                        'old': this._data.entity[0],
+                        'new': this._data.entity[1]
+                    })
+                }).element().appendTo(_message);
+            }
+            if (this._isDataChanged(this._data.unlockSlotNum)) {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['unlock_slot'],
+                    text: Mojo.utils.locale('common', 'unlock_slot_count', {
+                        'old': this._data.unlockSlotNum[0],
+                        'new': this._data.unlockSlotNum[1]
+                    })
+                }).element().appendTo(_message);
+            }
+            if (!Mojo.utils.isNone(this._data.unlockFuben)) {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['unlock_fuben'],
+                    text: Mojo.utils.locale('common', 'unlock_fuben_name', {
+                        'name': this._data.unlockFuben
+                    })
+                }).element().appendTo(_message);
+            }
+            var appendAwardTitle = false;
+            var award = this._data.award;
+            if (!Mojo.utils.isNone(award.vm) || !Mojo.utils.isNone(award.rm)) {
+                new Mojo.ui.Label(undefined, {
+                    classes: ['levelup_award'],
+                    text: Mojo.utils.locale('common', 'gain_levelup_award')
+                }).element().appendTo(_message);
+                appendAwardTitle = true;
+            }
+            _message.appendTo(this._content);
+        },
+        _doWeiboBind: function () {
+            Mojo.app.redirect('/newplayer/sinaAuth?state=bind');
+        },
+        _addHandleButtons: function () {
+            var self = this;
+            if (self._data.level[1] >= 20 && self._data.level[1] % 5 == 0 && !self._fulldata.data.isbind && !Mojo.app.isNd) {
+                self._needBind = true;
+            }
+            if (self._data && self._data.weibo) {
+                self._data.weibo.btnClick = function () {
+                    self.close();
+                    if (self._needBind) {
+                        self._showGoBindDialog();
+                    }
+                };
+            }
+            self._data.weibo.showGoBindDialog = function () {
+                if (self._needBind) {
+                    self._showGoBindDialog();
+                }
+            };
+            var weiboBind = self._fulldata.data.weiboBind || false;
+            self._data.weibo = self._data.weibo || {};
+            self._data.weibo.weiboBind = weiboBind;
+            var platformBtn = new Mojo.com.PlatformButton(undefined, self._data.weibo);
+            self._footer.prepend(platformBtn.element());
+            this._footer.append((new Mojo.ui.Button('close-btn', {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    self.close();
+                    if (self._needBind) {
+                        self._showGoBindDialog();
+                    }
+                }
+            })).element());
+        },
+        _showGoBindDialog: function () {
+            var self = this;
+            self._needBind = false;
+            setTimeout(function () {
+                var dlg = new Mojo.com.CommonDialog(undefined, {
+                    title: Mojo.utils.locale('common', 'friendly_tip'),
+                    content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'bind_tip3')),
+                    leftBtnText: Mojo.utils.locale('weibo', 'go bind'),
+                    leftBtnClick: function () {
+                        dlg.close();
+                        Mojo.app.redirect('/settings', {
+                            selected: 1
+                        });
+                    }
+                });
+                dlg.open();
+            }, 500);
+        },
+        _showFiveStarDialog: function () {
+            var self = this;
+            var isOpenUrlSupport = Mojo.utils.isOpenUrlAvailable();
+            if (!Mojo.app.isNd && self._data.showFiveStarCommentActivity && isOpenUrlSupport) {
+                Mojo.track.onEvent('101_001');
+                self._openFiveStarDialog();
+            }
+        },
+        _openFiveStarDialog: function () {
+            var self = this;
+            self._flag = false;
+            var fiveStarDlg = new Mojo.com.CommonDialog(undefined, {
+                title: Mojo.utils.locale('appraise', 'appraise_title'),
+                classes: ['five-star-dialog'],
+                leftBtnText: Mojo.utils.locale('appraise', 'appraise_btn_txt'),
+                leftBtnClick: function (that) {
+                    Mojo.track.onEvent('101_002');
+                    Mojo.ajax('/gameactivity/fivestarcomment', {
+                        agree: 1
+                    }, function (resp) {
+                        that.close();
+                        var url = 'itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=';
+                        if (Mojo.gap.device == 'ipad') {
+                            url = url + '527515340';
+                        } else {
+                            url = url + '500601105';
+                        }
+                        var dlg = new Mojo.ui.Dialog(undefined, {
+                            title: Mojo.utils.locale('common', 'tips'),
+                            content: $('<div class="tip"></div>').html(Mojo.utils.locale('gameactivity', 'five_star_agree', {
+                                '__default__': '请主公稍等，24小时内系统会随即奖励一张四星卡发放到您的卡牌包中，祝您游戏愉快！'
+                            })),
+                            close: function () {
+                                Mojo.gap.openurl(url);
+                            }
+                        });
+                        (new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('common', 'ok'),
+                            click: function () {
+                                dlg.close();
+                            }
+                        })).element().appendTo(dlg._footer);
+                        dlg.open();
+                    }, {
+                        showWait: true
+                    });
+                },
+                rightBtnText: Mojo.utils.locale('common', 'close'),
+                rightBtnClick: function (that) {
+                    that.close();
+                },
+                close: function () {
+                    Mojo.track.onEvent('101_003');
+                }
+            });
+            var paragraph = $('<div class="paragraph"></div>').appendTo(fiveStarDlg._content);
+            var desc = $('<div class="desc"></div>').html(Mojo.utils.locale('appraise', 'appraise_desc')).appendTo(paragraph);
+            var imgborder = $('<div class="img-border"></div>').appendTo(paragraph);
+            var img = $('<div class="img"></div>').appendTo(imgborder);
+            var info1 = $('<div class="info1"></div>').html(Mojo.utils.locale('appraise', 'appraise_info1')).appendTo(paragraph);
+            var info2 = $('<div class="info2"></div>').html(Mojo.utils.locale('appraise', 'appraise_info2')).appendTo(paragraph);
+            var info3 = $('<div class="info3"></div>').html(Mojo.utils.locale('appraise', 'appraise_info3')).appendTo(paragraph);
+            fiveStarDlg.open();
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return $.extend(true, this._super(), {
+                noTitle: true,
+                close: function () {
+                    self._showFiveStarDialog();
+                },
+                zIndex: 1101
             });
         }
     });
@@ -12465,9 +14366,294 @@ function trackClient(appkeys) {
         },
     });
 })(window, jQuery);;
-(function (w, $, undefined) {
+(function (w, $, g, undefined) {
     w.Mojo = w.Mojo || {};
+    g = w.Mojo.light = w.Mojo.light || {};
+    g.showLight = function (position, opts) {
+        var positions = position.split('|');
+        var modul = positions[0];
+        var p = positions[1];
+        var lightQuickBtns = Mojo.app.getStorage('lightQuickBtns');
+        switch (modul) {
+        case 'first-card-border':
+            if (lightQuickBtns != 'first-card-border') {
+                break;
+            }
+            var firstCard = $('#package-page-panel .general-list-bg-border .mojo-com-baseslotlist-element').first().find('div');
+            if (!firstCard.hasClass('selected')) {
+                break;
+            }
+            switch (p) {
+            case '1':
+                var lightEle = $('#page-package #package-page-panel .mojo-com-package .mojo-com-package-general .card-default');
+                lightEle.addClass('mojo-com-light');
+                break;
+            case '2':
+                var lightEle = $('#mojo-com-entity-preview .mojo-com-entitylist .mojo-com-entity-element').first().find('.radio');
+                lightEle.addClass('mojo-com-light-radius-round');
+                break;
+            case '3':
+                var lightEle = $('#mojo-com-entity-preview #confirm-button');
+                var radio = $('#mojo-com-entity-preview .mojo-com-entitylist .mojo-com-entity-element').first().find('.radio');
+                if (radio.hasClass('radio-selected-class')) {
+                    lightEle.addClass('mojo-com-light');
+                    radio.removeClass('mojo-com-light-radius-round');
+                } else {
+                    lightEle.removeClass('mojo-com-light');
+                    radio.addClass('mojo-com-light-radius-round');
+                }
+                break;
+            case '4':
+                var lightEle = $('#page-package #package-page-panel .mojo-com-package .mojo-com-light');
+                lightEle.removeClass('mojo-com-light');
+                Mojo.app.saveStorage('lightQuickBtns', '');
+                break;
+            }
+            break;
+        case 'task':
+            if (lightQuickBtns != 'btn-task') {
+                break;
+            }
+            var level = opts && opts.level;
+            if (level > 3) {
+                Mojo.app.saveStorage('lightQuickBtns', '');
+                var lighted = $('.mojo-com-tasklist .mojo-ui-listpanel-child .mojo-com-light-radius-round');
+                lighted.removeClass('mojo-com-light-radius-round');
+                return;
+            }
+            var lighted = $('.mojo-com-tasklist .mojo-ui-listpanel-child .mojo-com-light-radius-round');
+            lighted.removeClass('mojo-com-light-radius-round');
+            var lightEle = $('.mojo-com-tasklist .mojo-ui-listpanel-child').filter(function () {
+                return $('.mojo-ui-button-disabled', this).length == 0;
+            }).first().find('.mojo-ui-button');
+            lightEle.addClass('mojo-com-light-radius-round');
+            switch (p) {
+            case '0':
+                Mojo.app.saveStorage('lightQuickBtns', '');
+                var lighted = $('.mojo-com-tasklist .mojo-ui-listpanel-child .mojo-com-light-radius-round');
+                lighted.removeClass('mojo-com-light-radius-round');
+                break;
+            }
+            break;
+        case 'first-card-border-intensify':
+            if (lightQuickBtns != 'first-card-border-intensify') {
+                break;
+            }
+            switch (p) {
+            case '1':
+                var firstCard = $('#package-page-panel .general-list-bg-border .mojo-com-baseslotlist-element .card-border').first();
+                if (!firstCard.hasClass('selected')) {
+                    break;
+                }
+                var lightEle = $('#page-package #package-page-panel .mojo-com-package .mojo-com-package-general .card');
+                lightEle.addClass('mojo-com-light');
+                break;
+            case '2':
+                var firstCard = $('#package-page-panel .general-list-bg-border .mojo-com-baseslotlist-element .card-border').first();
+                if (!firstCard.hasClass('selected')) {
+                    break;
+                }
+                if (opts.ele) {
+                    opts.ele.addClass('mojo-com-light-radius-round');
+                }
+                break;
+            case '3':
+                setTimeout(function () {
+                    var lightEle = $('#page-intensify .panel').first().find('.ritual-icon');
+                    lightEle.addClass('mojo-com-light');
+                });
+                break;
+            case '4':
+                setTimeout(function () {
+                    var lightEleP = $('#page-intensify .panel').first().find('.ritual-icon');
+                    if (lightEleP.hasClass('mojo-com-light')) {
+                        var lightEle = $('#mojo-com-entity-preview .mojo-com-entitylist .mojo-com-entity-element .combo');
+                        lightEle.addClass('mojo-com-light');
+                    }
+                });
+                break;
+            case '5':
+                var lightEle = $('#mojo-com-entity-preview .mojo-com-entitylist .mojo-com-entity-element .combo');
+                if (!lightEle.hasClass('mojo-com-light')) {
+                    break;
+                }
+                var maxCard = 7;
+                var lightEle = $('.mojo-com-entity-preview #confirm-button');
+                var comboSel = $('.mojo-com-entity-preview .mojo-com-entitylist .combo-selected-class');
+                if (comboSel.length >= maxCard) {
+                    lightEle.addClass('mojo-com-light');
+                    var lightEles = $('.mojo-com-entity-preview .mojo-com-entitylist .mojo-com-light');
+                    lightEles.removeClass('mojo-com-light');
+                } else {
+                    var star1 = $('#mojo-com-entity-preview .mojo-com-entitylist .star-1');
+                    var star2 = $('#mojo-com-entity-preview .mojo-com-entitylist .star-2');
+                    var flag = false;
+                    for (var i = 0; i < star1.length; i++) {
+                        var s1 = $(star1[i]);
+                        if (s1.attr('class').indexOf('combo-selected-class') == -1) {
+                            flag = true;
+                        }
+                    }
+                    for (var i = 0; i < star2.length; i++) {
+                        var s2 = $(star2[i]);
+                        if (s2.attr('class').indexOf('combo-selected-class') == -1) {
+                            flag = true;
+                        }
+                    }
+                    if (flag) {
+                        lightEle.removeClass('mojo-com-light');
+                        var lightEles = $('.mojo-com-entity-preview .mojo-com-entitylist .mojo-com-light');
+                        lightEles.addClass('mojo-com-light');
+                    } else {
+                        lightEle.addClass('mojo-com-light');
+                        var lightEles = $('.mojo-com-entity-preview .mojo-com-entitylist .mojo-com-light');
+                        lightEles.removeClass('mojo-com-light');
+                    }
+                }
+                break;
+            case '6':
+                var confirmButton = $('.mojo-com-entity-preview #confirm-button');
+                if (confirmButton.hasClass('mojo-com-light')) {
+                    if (opts.ele) {
+                        opts.ele.addClass('mojo-com-light-radius-round');
+                    }
+                    Mojo.app.data.intensify5 = true;
+                }
+                break;
+            case '7':
+                if (Mojo.app.data.intensify5) {
+                    var oldLightEle = $('#page-intensify .mojo-com-intensify .mojo-com-light');
+                    oldLightEle.removeClass('mojo-com-light');
+                    var lightEle = $('#page-intensify .mojo-com-intensify .intensify-button');
+                    lightEle.addClass('mojo-com-light-radius-round');
+                    delete Mojo.app.data.intensify5;
+                }
+                break;
+            case '8':
+                Mojo.app.saveStorage('lightQuickBtns', '');
+                var lightEle = $('#page-intensify .mojo-com-intensify .mojo-com-light-radius-round');
+                lightEle.removeClass('mojo-com-light-radius-round');
+                break;
+            }
+            break;
+        case 'battle':
+            if (lightQuickBtns != 'btn-battle') {
+                break;
+            }
+            switch (p) {
+            case '1':
+                var lightEle = $('#page-battle .mojo-ui-scroll .mojo-com-opponent .go-attack-btn');
+                lightEle.addClass('mojo-com-light');
+                break;
+            case '2':
+                Mojo.app.saveStorage('lightQuickBtns', '');
+                break;
+            }
+            break;
+        case 'entity-battle':
+            if (lightQuickBtns != 'btn-entity-battle') {
+                break;
+            }
+            var firstCard = $('#page-rob .mojo-ui-pagepanel .general-list-bg-border .mojo-com-collectlist-element').first().find('.card-border');
+            if (!firstCard.hasClass('selected')) {
+                break;
+            }
+            switch (p) {
+            case '1':
+                var lightEle = $('.mojo-com-collection .mojo-com-collect-fragment .image');
+                lightEle.addClass('mojo-com-light-radius-round');
+                break;
+            case '2':
+                var lightEle = $('.mojo-com-collectfragdlg .footer #rob-btn');
+                lightEle.addClass('mojo-com-light-radius-round');
+                break;
+            case '3':
+                var lightEle = $('#page-rob .opplist .mojo-ui-scroll .mojo-com-opponent .go-attack-btn');
+                lightEle.addClass('mojo-com-light');
+                break;
+            case '4':
+                Mojo.app.saveStorage('lightQuickBtns', '');
+                break;
+            }
+            break;
+        case 'fuben':
+            break;
+        case 'force':
+            break;
+        }
+    };
+    g.showShadow = function () {
+        $(document.body).find(".mojo-com-tutorial").remove();
+        var tutorial = $('<div class="mojo-com-tutorial"><div class="shadow"></div></div>').appendTo($(document.body));
+        tutorial.find(".shadow").css({
+            left: 0,
+            top: 0,
+            width: $(document).width(),
+            height: $(document).height()
+        });
+    };
     w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.Diaochan = Mojo.Object.extend({
+        clsname: function () {
+            return "Mojo.com.Diaochan";
+        },
+        init: function (data, options) {
+            var self = this;
+            this._data = data;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-tutorial mojo-com-diaochan-tutorial').css({
+                width: $(document).width(),
+                height: $(document).height()
+            });
+            this.element().click(function (e) {
+                self._click(e);
+            });
+            Mojo.gap.highlightMenuItem(0);
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return {
+                click: undefined,
+                text: "",
+                textposition: "lt",
+                diaochabTextClass: "tutorial-text"
+            };
+        },
+        _createtutorialIcon: function (text) {
+            if (text) {
+                this._options.text = text;
+            }
+            var tutorialTextDiv = $('<div></div>').addClass(this._options.diaochabTextClass).addClass(this._options.textposition);
+            $('<div></div>').addClass('arrow').appendTo(tutorialTextDiv);
+            $('<div></div>').addClass('text').html(this._options.text).appendTo(tutorialTextDiv);
+            tutorialTextDiv.appendTo(this.element());
+        },
+        _createShadow: function (left, top, width, height) {
+            $('<div></div>').addClass('shadow').css({
+                left: left,
+                top: top,
+                width: width,
+                height: height
+            }).appendTo(this.element());
+        },
+        open: function () {
+            var dwidth = $(document).width();
+            var dheight = $(document).height();
+            this._createShadow(0, 0, dwidth, dheight);
+            this._createtutorialIcon();
+            $(document.body).find(".mojo-com-tutorial").remove();
+            this.element().appendTo($(document.body));
+            return this;
+        },
+        _click: function () {
+            var self = this;
+            this.element().remove();
+            Mojo.gap.highlightMenuItem(-1);
+            if (self._options.click instanceof Function) {
+                self._options.click(self);
+            }
+        }
+    });
     w.Mojo.com.Tutorial = Mojo.Object.extend({
         clsname: function () {
             return "com.Tutorial";
@@ -12516,6 +14702,8 @@ function trackClient(appkeys) {
                 click: undefined,
                 tutorial: undefined,
                 text: "",
+                pos: '',
+                unAppendBody: false,
                 textposition: "lt",
                 tutotialTextClass: "tutorial-text",
                 arrowoffset: [0, 0]
@@ -12564,9 +14752,9 @@ function trackClient(appkeys) {
                 aleft = left + (width / 2) - (this._options.arrowwidth / 2);
                 up = true;
             }
-            this._createArrow(aleft, atop, up);
         },
         _createArrow: function (left, top, up, event) {
+            return;
             var arrow = $('<div></div>').addClass('tutorial-arrow').addClass((up === true ? 'tutorial-arrow-up' : 'tutorial-arrow-down')).css({
                 width: this._options.arrowwidth,
                 height: this._options.arrowheight,
@@ -12644,17 +14832,18 @@ function trackClient(appkeys) {
             this._createText();
             Mojo.gap.highlightMenuItem(menuIndex);
             $(document.body).find(".mojo-com-tutorial").remove();
-            this.element().appendTo($(document.body));
+            if (this._options.unAppendBody != true) {
+                this.element().appendTo($(document.body));
+            }
             Mojo.app.tutorial = this;
             return this;
         },
         close: function (closeNative) {
             this.element().remove();
+            Mojo.gap.highlightMenuItem(-1);
             if (closeNative === true) {
-                Mojo.gap.highlightMenuItem(-1);
                 Mojo.app.tutorial = undefined;
             } else {
-                Mojo.gap.highlightMenuItem(0);
                 Mojo.app.tutorial = "__NAV__";
             }
         },
@@ -12668,519 +14857,73 @@ function trackClient(appkeys) {
 })(window, jQuery);;
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.BaseSlotList = w.Mojo.Object.extend({
+    w.Mojo.page = w.Mojo.page || {};
+    w.Mojo.page.Mission = w.Mojo.Page.extend({
         clsname: function () {
-            return "com.BaseSlotList";
+            return "page.Mission";
         },
-        init: function (options) {
-            this._super('com-baseslot-list', options);
-            this._hasLoaded = false;
-            this._baseSlots = {};
-            this._lastSelected = undefined;
-            this._scrollDistX = 0;
-            this._max_army = 1;
-            var self = this;
-            var params = (this._options.isMine ? {} : {
-                pid: this._options.friendId
+        init: function () {
+            this._super('page-mission', {
+                baseProfile: true
             });
-            this._list = new Mojo.ui.ListPanel(undefined, {
-                pageSize: 20,
-                showMore: false,
-                loadFunc: function (start, count, packageId) {
-                    Mojo.ajax('/embed/simple', params, function (result) {
-                        self._max_army = result.data.max_army;
-                        if (result.errorCode == 0) {
-                            if (result.data.base_slots.length < 4) {
-                                for (; result.data.base_slots.length < 4;) {
-                                    result.data.base_slots.push(undefined);
-                                }
-                            } else if (self._options.isMine === true && self._options.showUnlock === true) {
-                                result.data.base_slots.push(undefined);
-                            }
-                            self._list.element().width(result.data.base_slots.length * self._options.unitWidth);
-                            self._list.appendData(result.data.base_slots);
-                            if (result.data.player_level >= result.data.permit_change_leve) {
-                                self._scroll.element().addClass('canswitch');
-                                if (self.changeBtn != undefined) {
-                                    self.changeBtn.element().remove();
-                                }
-                                self._addPackageSwitchBtn(result.data.army_id);
-                            }
-                            self._scroll.refresh();
-                        } else {
-                            self._list.appendData(null);
-                        }
-                    }, function () {
-                        self._list.appendData(null);
-                    });
-                },
-                drawFunc: function (data) {
-                    return self._getBaseSlotEntity(data);
-                },
-                onLoaded: function (listpanel) {
-                    if (Mojo.utils.getSomething("selected")) {
-                        self.selector(parseInt(Mojo.utils.getSomething("selected")));
+            this._hasTutorial = false;
+            this._addTaskList();
+        },
+        _addTaskList: function () {
+            var self = this;
+            this._taskList = new Mojo.com.TaskList({
+                unlockScenario: function (sid) {
+                    if (self._map != undefined || self._map != null) {
+                        self._map.element().remove();
+                        self._map = null;
                     }
-                    if (self._hasLoaded === false && self._options.onLoaded instanceof Function) {
-                        self._options.onLoaded(self);
-                    }
-                    self._hasLoaded = true;
+                },
+                clickScenario: function () {
+                    Mojo.track.onEvent('05_011');
+                    self._switchToMap();
+                },
+                afterDoTask: function (data, result) {
+                    self.baseProfile.data(data.player);
+                },
+                onListRefresh: function (data, result) {
+                    Mojo.light.showLight('task');
+                },
+                refreshProfile: function (data) {
+                    self.baseProfile.data(data);
                 }
             });
-            this._scroll = new Mojo.ui.Scroll(undefined, this._list, {
-                direction: 1,
-                classes: ['all-small-card-border'],
-                showArrow: true,
-                step: self._options.unitWidth,
-            });
-            this.element().append(this._scroll.element());
+            this.element().append(this._taskList.element());
+            this._taskList._group_scroll.refresh();
         },
-        _addPackageSwitchBtn: function (current) {
+        _switchToMap: function () {
             var self = this;
-            if (self._options.isMine && self._options.showSwitch) {
-                self.changeBtn = new Mojo.ui.Button(undefined, {
-                    text: self.getL('package', 'package_switch'),
-                    special: 'changePackage-btn',
-                    click: function () {
-                        self._showPackageSwitchDialog(current);
-                    }
+            if (this._map == undefined || this._map == null) {
+                this._map = new Mojo.com.Map(this._taskList.data.cur_scenario, {
+                    clickBack: function () {
+                        Mojo.track.onEvent('05_021');
+                        self._switchToTaskList();
+                    },
+                    clickElement: function (data) {
+                        Mojo.track.onEvent('05_022');
+                        self._switchToTaskList(data.data);
+                    },
                 });
-                self.changeBtn.element().appendTo(this.element());
-            }
-        },
-        _showPackageSwitchDialog: function (current) {
-            current = parseInt(current);
-            var self = this;
-            var content = $('<div class="paragraph"></div>');
-            var pName = self.getL('package', 'package_num' + current);
-            $('<div class="package_tip"></div>').html(self.getL('package', 'package_using', {
-                packageName: pName
-            })).appendTo(content);
-            for (var i = 1; i <= self._max_army; i++) {
-                new Mojo.ui.Button(undefined, {
-                    text: self.getL('package', 'package_num' + i),
-                    special: current == i ? "current" : "",
-                    click: (function (i, c) {
-                        return function () {
-                            if (i != c) {
-                                self._switchPackage(i);
-                            } else {
-                                Mojo.app.toast.show(Mojo.utils.locale('package', 'has_mount'));
-                            }
-                        };
-                    })(i, current)
-                }).element().appendTo(content);
-            }
-            self.dlg = new Mojo.ui.Dialog(undefined, {
-                classes: ["change-package"],
-                title: self.getL('package', 'package_switch1'),
-                content: content
-            });
-            self.dlg.open();
-        },
-        _switchPackage: function (index) {
-            var self = this;
-            Mojo.ajax('/embed/ChangeArmy', {
-                army_id: index
-            }, function (response) {
-                if (response.errorCode == 0) {
-                    self.reLoad();
-                    self.dlg.close();
-                    self._options.onPackageChange();
-                } else {
-                    self.dlg.close();
-                    Mojo.app.toast.show(response.errorMsg);
-                }
-            }, function () {});
-        },
-        reLoad: function (index) {
-            this._list.element().find(".mojo-com-baseslotlist-element").remove();
-            this._hasLoaded = false;
-            this._baseSlots = {};
-            this._lastSelected = undefined;
-            this._scrollDistX = 0;
-            this._list._load();
-        },
-        refreshAll: function (data) {
-            if (Array.isArray(data.list)) {
-                var self = this;
-                $.each(data.list, function (i, d) {
-                    var baseSlotId = "base_slot_" + d.player_base_slot_id;
-                    var slotObj = self._baseSlots[baseSlotId];
-                    if (slotObj instanceof Object) {
-                        var selected = "";
-                        if (slotObj.element().find(".card-border").hasClass("selected") || slotObj.element().find(".card-slot").hasClass("selected")) {
-                            selected = "selected";
-                        }
-                        slotObj.element().children().remove();
-                        if (d.player_entity_id == null || d.player_entity_id == "") {
-                            slotObj.element().append('<div class="card-slot ' + selected + '"></div>');
-                        } else {
-                            slotObj.element().append('<img src="' + d.small_image + '">');
-                            slotObj.element().append('<div class="card-border ' + selected + '"></div>');
-                        }
-                        if (selected == "selected") {
-                            slotObj.element().find('img').addClass('img-class');
-                        }
-                    }
-                });
-            }
-        },
-        _getDefaultOptions: function () {
-            var self = this;
-            return $.extend(this._super(), {
-                unitWidth: self.getR("unitWidth"),
-                onLoaded: undefined,
-                onSelect: undefined,
-                showUnlock: false,
-                isMine: true,
-                friendId: undefined,
-                onPackageChange: $.noop,
-                showSwitch: false
-            });
-        },
-        _getBaseSlotEntity: function (data) {
-            var obj = new Mojo.Object(undefined, {
-                classes: ['mojo-com-baseslotlist-element', 'image'],
-            });
-            if (data == undefined) {
-                obj.element().append('<div class="locked"></div>');
+                this.element().append(this._map.element());
+                this.rebinding();
             } else {
-                var baseSlotId = "base_slot_" + data.player_base_slot_id;
-                this._baseSlots[baseSlotId] = obj;
-                if (data.player_entity_id == null || data.player_entity_id == "") {
-                    obj.element().append('<div class="card-slot"></div>');
-                } else {
-                    obj.element().append('<img src="' + data.small_image + '">');
-                    obj.element().append('<div class="card-border"></div>');
-                }
+                this._map.scenario(this._taskList.data.cur_scenario);
             }
-            var self = this;
-            if (this._lastSelected === undefined) {
-                this._lastSelected = obj.element();
-                this._lastSelected.find(".card-border").addClass("selected");
-            }
-            obj.element().click(function () {
-                if (data == undefined) {} else if (data.player_entity_id == null) {} else {}
-                self._lastSelected.find(".card-border").removeClass("selected");
-                self._lastSelected.find(".card-slot").removeClass("selected");
-                self._lastSelected.find("img").removeClass("img-class");
-                obj.element().find(".card-border").addClass("selected");
-                obj.element().find(".card-slot").addClass("selected");
-                obj.element().find("img").addClass("img-class");
-                self._lastSelected = obj.element();
-                if (self._options.onSelect instanceof Function) {
-                    self._options.onSelect(self, obj.element().index(), data);
-                }
-            });
-            return obj;
+            this._taskList.hide();
+            this._map.show();
+            this._map.focus();
         },
-        selector: function (current) {
-            var self = this;
-            if (Mojo.utils.isNone(self._lastSelected) == false) {
-                self._lastSelected.find(".card-border").removeClass("selected");
-                self._lastSelected.find(".card-slot").removeClass("selected");
-            }
-            $.each(this.element().find(".mojo-com-baseslotlist-element"), function (i, e) {
-                if (current == i) {
-                    $(e).find(".card-border").addClass("selected");
-                    $(e).find(".card-slot").addClass("selected");
-                    $(e).find("img").addClass("img-class");
-                    self._lastSelected = $(e);
-                    var listleft = self._scroll.scrollerLeft();
-                    if (self._options.unitWidth > 0) {
-                        var r = i - Math.abs(listleft / self._options.unitWidth);
-                        if (r > 2 || r < 0) {
-                            var l = ((i - 1) * self._options.unitWidth);
-                            if (self._scrollDistX != l) {
-                                self._scroll.scrollTo(l, 0);
-                                self._scrollDistX = l;
-                            }
-                        }
-                    }
-                }
-            });
-        }
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.ForceCreateDialog = w.Mojo.ui.Dialog.extend({
-        clsname: function () {
-            return "com.ForceCreateDialog";
+        _switchToTaskList: function (sid) {
+            this._map.hide();
+            this._taskList.show();
+            this._taskList.switchTo(sid);
         },
-        _player: undefined,
-        init: function (data, options) {
-            this._player = data;
-            this._super(undefined, options);
-            this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
-            this._addContent();
-        },
-        title: function (titletext) {
-            if (this._options.noTitle == false) {
-                this.element().find('.title').html(titletext);
-            }
-        },
-        _contentCantJoin: function () {
-            var self = this;
-            self.title(Mojo.utils.locale('common', 'tips'));
-            this._paragraph.html(Mojo.utils.locale('home', 'force_join_no', {
-                level: 20
-            }));
-            new Mojo.ui.Button("close-btn", {
-                text: Mojo.utils.locale('ui', 'Close'),
-                click: function () {
-                    self.close();
-                }
-            }).element().appendTo(self._footer);
-        },
-        _contentCanJoin: function () {
-            var self = this;
-            self.title(Mojo.utils.locale('common', 'tips'));
-            this._paragraph.html(Mojo.utils.locale('home', 'force_join_ok', {
-                level: 50
-            }));
-            new Mojo.ui.Button("join-btn", {
-                text: Mojo.utils.locale('home', 'join_force'),
-                special: 'button-big-red',
-                click: function () {
-                    Mojo.app.redirect('/force/list');
-                }
-            }).element().appendTo(self._footer);
-            new Mojo.ui.Button("close-btn", {
-                text: Mojo.utils.locale('ui', 'Close'),
-                click: function () {
-                    self.close();
-                }
-            }).element().appendTo(self._footer);
-        },
-        _contentCanCreate: function () {
-            this.element().addClass('mojo-com-forcecreatedlg');
-            var self = this;
-            self.title(Mojo.utils.locale('common', 'tips'));
-            this._paragraph.html(Mojo.utils.locale('home', 'force_create_ok'));
-            new Mojo.ui.Button("create-btn", {
-                text: Mojo.utils.locale('home', 'create_force'),
-                special: 'button-big-red',
-                click: function () {
-                    self._createForce();
-                }
-            }).element().appendTo(self._footer);
-            new Mojo.ui.Button("join-btn", {
-                text: Mojo.utils.locale('home', 'join_force'),
-                click: function () {
-                    Mojo.app.redirect('/force/list');
-                }
-            }).element().appendTo(self._footer);
-        },
-        _docreate: function (isPay) {
-            var self = this;
-            self._setValidate('');
-            if (!self._isNameValid()) {
-                return;
-            }
-            Mojo.ajax('/force/create', {
-                force_name: $('#force-name').val(),
-                type: isPay ? 1 : 2
-            }, function (response) {
-                if (response.errorCode == 0) {
-                    if (isPay) {
-                        Mojo.track.onEvent('24_101');
-                    } else {
-                        Mojo.track.onEvent('24_202');
-                    }
-                    self.close();
-                    new Mojo.com.ForceCreateSuccDialog(response, {}).open();
-                } else {
-                    if (response.errorCode == 10005) {
-                        self.close();
-                        var failDialog = new Mojo.ui.Dialog(undefined, {
-                            title: Mojo.utils.locale('home', "force_create_failed"),
-                            content: $('<div class="tip">' + response.errorMsg + '</div>'),
-                            zIndex: 1101
-                        });
-                        new Mojo.ui.Button(undefined, {
-                            text: Mojo.utils.locale('common', 'go_payment'),
-                            special: "button-big-red",
-                            click: function () {
-                                Mojo.app.redirect('/mall', {
-                                    selected: 4
-                                });
-                            }
-                        }).element().appendTo(failDialog._footer);
-                        new Mojo.ui.Button(undefined, {
-                            text: Mojo.utils.locale('common', 'close'),
-                            click: function () {
-                                failDialog.close();
-                            }
-                        }).element().appendTo(failDialog._footer);
-                        failDialog.open();
-                    } else if (response.errorCode == 60011) {
-                        self.hide();
-                        var failDialog = new Mojo.ui.Dialog(undefined, {
-                            title: Mojo.utils.locale('home', "rebirth_not_enouph_title"),
-                            content: $('<div class="tip">' + Mojo.utils.locale('home', 'rebirth_not_enouph') + '</div>'),
-                            zIndex: 1101
-                        });
-                        new Mojo.ui.Button(undefined, {
-                            text: Mojo.utils.locale('home', 'Fuben'),
-                            special: "button-big-red",
-                            click: function () {
-                                Mojo.app.redirect('/fb', {}, 'event', '04_047');
-                            }
-                        }).element().appendTo(failDialog._footer);
-                        new Mojo.ui.Button(undefined, {
-                            text: Mojo.utils.locale('common', 'back'),
-                            click: function () {
-                                failDialog.close();
-                                self.show();
-                            }
-                        }).element().appendTo(failDialog._footer);
-                        failDialog.open(true);
-                    } else {
-                        self._setValidate(response.errorMsg);
-                    }
-                }
-            }, function () {});
-        },
-        _createForce: function () {
-            var self = this;
-            self.title(Mojo.utils.locale('home', 'create_force'));
-            self._clear();
-            $("<div class='create-tip'></div>").html(Mojo.utils.locale('home', 'create_tip')).appendTo(self._paragraph);
-            var input = $("<input type='text' id='force-name' maxlength='5'/>").val(Mojo.utils.locale('home', 'force_name_max')).appendTo(self._paragraph);
-            input.focus(function () {
-                if ($(this).val() == Mojo.utils.locale('home', 'force_name_max')) {
-                    $(this).val('');
-                }
-            });
-            $('<div class="force-validate"></div>').appendTo(self._paragraph);
-            var price = $('<div class="price"></div>').appendTo(self._paragraph).html(Mojo.utils.locale('common', 'price'));
-            new Mojo.ui.Label(undefined, {
-                classes: ['rm'],
-                text: 399
-            }).element().appendTo(self._paragraph);
-            var tip = $('<div class="tip"></div>').appendTo(self._paragraph).html(Mojo.utils.locale('home', 'create_use_rebirth') + "<br>" + Mojo.utils.locale('home', 'rebirth_now_have', {
-                num: this._player.rp
-            }));
-            new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('home', 'create_pay'),
-                special: 'button-big-red',
-                click: function () {
-                    self._docreate(true);
-                }
-            }).element().appendTo(this._footer);
-            new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('home', 'create_free'),
-                click: function () {
-                    self._docreate(false);
-                }
-            }).element().appendTo(this._footer);
-            Mojo.utils.center(this.element());
-        },
-        _setValidate: function (content) {
-            var e = this.element().find('.force-validate');
-            if (e) {
-                e.html(content);
-            }
-        },
-        _isNameValid: function () {
-            if ($('#force-name')) {
-                var val = $('#force-name').val();
-                if (Mojo.utils.isNone(val.trim())) {
-                    this._setValidate(Mojo.utils.locale('home', 'force_name_empty'));
-                    return false;
-                }
-                if (val == Mojo.utils.locale('home', 'force_name_max')) {
-                    this._setValidate(Mojo.utils.locale('home', 'force_name_empty1'));
-                    return false;
-                }
-                return true;
-            }
-            return false;
-        },
-        _clear: function () {
-            this._paragraph.empty();
-            this._footer.empty();
-        },
-        _addContent: function () {
-            var self = this;
-            if (this._player.status == 2) {
-                this._contentCantJoin();
-            } else if (this._player.status == 3) {
-                this._contentCanJoin();
-            } else if (this._player.status == 4) {
-                this._contentCanCreate();
-            }
-        },
-        _addHandleButtons: function () {
-            var self = this;
-            this._footer.append((new Mojo.ui.Button(undefined, {
-                special: 'button-big-red',
-                text: Mojo.utils.locale('common', 'ok'),
-                click: function () {
-                    self.close();
-                },
-            })).element());
-        },
-        _getDefaultOptions: function () {
-            return $.extend(true, this._super(), {
-                title: Mojo.utils.locale('common', 'tips'),
-                handle: $.noop,
-                zIndex: 1100
-            });
-        },
-    });
-})(window, jQuery);;;
-(function (w, $) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.ForceCreateSuccDialog = w.Mojo.ui.Dialog.extend({
-        clsname: function () {
-            return "com.ForceCreateSuccDialog";
-        },
-        init: function (response, options) {
-            this._super(undefined, options);
-            this._force = response.data;
-            this._event = response.event;
-            this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
-            this._addContent();
-            this._addButtons();
-            this.closeFlag = true;
-        },
-        _addContent: function () {
-            this._paragraph.html(Mojo.utils.locale('home', 'create_succ_tip', {
-                name: this._force.name
-            }));
-        },
-        _addButtons: function () {
-            var self = this;
-            var platformBtn = new Mojo.com.PlatformButton(self._event, {
-                btnClick: function () {
-                    this.closeFlag = false;
-                    self.close();
-                }
-            });
-            this._footer.append(platformBtn.element());
-            new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('common', 'close'),
-                click: function () {
-                    Mojo.app.redirect("/force");
-                }
-            }).element().appendTo(this._footer);
-        },
-        _getDefaultOptions: function () {
-            return $.extend(true, this._super(), {
-                title: Mojo.utils.locale('home', 'create_succ'),
-                handle: $.noop,
-                close: function () {
-                    if (this.closeFlag)
-                        Mojo.app.redirect("/force");
-                },
-                zIndex: 1102
-            });
+        load: function () {
+            this._super();
         },
     });
 })(window, jQuery);;
@@ -13252,2591 +14995,302 @@ function trackClient(appkeys) {
 })(window, jQuery);;
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
-    w.Mojo.page = w.Mojo.page || {};
-    w.Mojo.page.Home = w.Mojo.Page.extend({
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.BattleDetailDialog = w.Mojo.ui.Dialog.extend({
         clsname: function () {
-            return "page.Home";
+            return "com.BattleDetailDialog";
         },
-        init: function () {
-            if (Mojo.utils.getSomething("needLoginStatus") == 'yes')
-                Mojo.app.data.needLoginStatus = true;
-            else
-                Mojo.app.data.needLoginStatus = false;
-            this._super('page-home', {
-                baseProfile: true,
-                classes: ['home']
-            });
-            Mojo.gap.highlightMenuItem(-1);
-            if (Mojo.utils.getSomething("isNewPlayer") == 'yes') {
-                Mojo.track.onEvent('02_040');
-                Mojo.gap.highlightMenuItem(0);
-                this._newPlayerGift();
-            } else if (Mojo.utils.getSomething("isNewPlayer") == 'tutorial') {
-                Mojo.track.onEvent('02_040');
-                Mojo.app.tutorial = new Mojo.com.Tutorial(undefined, {
-                    tutorial: "mission",
-                    text: Mojo.utils.locale('tutorial', 'tutorial_start'),
-                    click: function (tutorial) {
-                        Mojo.app.redirect('/mission', {
-                            tutorial: 'yes'
-                        });
-                    }
-                }).open();
-            }
+        init: function (data, options) {
             var self = this;
-            var activity_img = $('<div class="activity-center-img"></div>').appendTo(this.element());
-            activity_img.click(function () {
-                Mojo.app.redirect('/activity', {
-                    selected: 0
+            this._data = data;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-battledetaildlg');
+            this._attackerStatistics = {
+                'is_res': 0,
+                'is_anti_res': 0,
+                'weapon_add_attack': 0
+            };
+            this._defenderStatistics = {
+                'is_res': 0,
+                'is_anti_res': 0,
+                'armor_add_defence': 0
+            };
+            this._addContent();
+            this._showResult();
+            this._addButtons();
+        },
+        _addContent: function () {
+            var self = this;
+            this._content.append(this._templateLeft);
+            this._content.append(this._templateRight);
+            this._content.after($('<div class="center_line"></div>'));
+        },
+        _showResult: function () {
+            var self = this;
+            this._content.find('.top-left > .player_name').html(self._data.attacker.player.name);
+            this._content.find('.top-left > .player_level').html(Mojo.utils.locale('common', 'level') + self._data.attacker.player.level);
+            this._content.find('.top-left > .player_sum').html(Mojo.utils.locale('battle', 'sum attack') + self._data.attacker.player.sum_attack);
+            this._content.find('.top-left > .player_base').html(Mojo.utils.locale('battle', 'base attack') + self._data.attacker.player.base_attack);
+            this._content.find('.top-right > .player_name').html(self._data.defender.player.name);
+            if (self._options.non_show_def_lever == undefined || self._options.non_show_def_lever == false) {
+                this._content.find('.top-right > .player_level').html(Mojo.utils.locale('common', 'level') + self._data.defender.player.level);
+            }
+            this._content.find('.top-right > .player_sum').html(Mojo.utils.locale('battle', 'sum defence') + self._data.defender.player.sum_defence);
+            if (self._options.non_show_base_def == undefined || self._options.non_show_base_def == false) {
+                this._content.find('.top-right > .player_base').html(Mojo.utils.locale('battle', 'base defence') + self._data.defender.player.base_defence);
+            }
+            this._army = $('<div class="army"></div>').appendTo(this._content);
+            var _blankScroll = $('<div></div>');
+            var _playerArmy = $('<div class="con_left"></div>').appendTo(_blankScroll);
+            if (self._data.attacker.army != undefined && self._data.attacker.army.length > 0) {
+                for (var index in self._data.attacker.army) {
+                    var army = self._data.attacker.army[index];
+                    var attacker = $('<div></div>').addClass("player_attacker").appendTo(_playerArmy);
+                    var image = $('<div class="small-card"></div>');
+                    $('<img></img>').attr('src', army.small_image).appendTo(image);
+                    image.appendTo(attacker);
+                    var attackerRestraint = $('<div class="attacker-restraint"></div>').appendTo(attacker);
+                    if (army.is_res == 1) {
+                        self._attackerStatistics.is_res += 1;
+                        var res = new Mojo.ui.Label(undefined, {
+                            text: Mojo.utils.locale('battle', 'restraint'),
+                            classes: ['restraint'],
+                        });
+                        res.element().appendTo(attackerRestraint);
+                    }
+                    if (army.is_be_res == 1) {
+                        var be_res = undefined;
+                        if (army.is_anti_res == 1) {
+                            self._attackerStatistics.is_anti_res += 1;
+                            be_res = new Mojo.ui.Label(undefined, {
+                                text: Mojo.utils.locale('battle', 'resist'),
+                                classes: ['resist'],
+                            });
+                        } else {
+                            be_res = new Mojo.ui.Label(undefined, {
+                                text: Mojo.utils.locale('battle', 'be_restraint'),
+                                classes: ['be-restraint'],
+                            });
+                        }
+                        be_res.element().appendTo(attackerRestraint);
+                    }
+                    if (army.weapon_add_attack > 0) {
+                        self._attackerStatistics.weapon_add_attack += 1;
+                        var res = new Mojo.ui.Label(undefined, {
+                            text: Mojo.utils.locale('battle', 'weapon_hit'),
+                            classes: ['weapon_hit'],
+                        });
+                        res.element().appendTo(attackerRestraint);
+                    }
+                    var attackerName = $('<div></div>').addClass("attacker_name").addClass('rebirth-' + (army.rebirth_sum > 6 ? 6 : army.rebirth_sum)).appendTo(attacker).html(army.name);
+                    var attackerAttack = $('<div></div>').addClass("attacker_attack").appendTo(attacker).html(Mojo.utils.locale('common', 'simple_attack') + army.attack);
+                }
+                var playerArmyStatistics = $('<div class="army-statistics"></div>').prependTo(_playerArmy);
+                (new Mojo.ui.Label(undefined, {
+                    text: Mojo.utils.locale('battle', 'restraint') + "：" + self._attackerStatistics.is_res,
+                    classes: ['restraint']
+                })).element().appendTo(playerArmyStatistics);
+                (new Mojo.ui.Label(undefined, {
+                    text: Mojo.utils.locale('battle', 'resist') + "：" + self._attackerStatistics.is_anti_res,
+                    classes: ['resist']
+                })).element().appendTo(playerArmyStatistics);
+                (new Mojo.ui.Label(undefined, {
+                    text: Mojo.utils.locale('battle', 'weapon_hit') + "：" + self._attackerStatistics.weapon_add_attack,
+                    classes: ['weapon_hit']
+                })).element().appendTo(playerArmyStatistics);
+            }
+            var _opponentArmy = $('<div class="con_right"></div>').appendTo(_blankScroll);
+            if (self._data.defender.army != undefined && self._data.defender.army.length > 0) {
+                for (var index in self._data.defender.army) {
+                    var army = self._data.defender.army[index];
+                    var defender = $('<div></div>').addClass("opponent_defender").appendTo(_opponentArmy);
+                    var image = $('<div class="small-card"></div>');
+                    $('<img></img>').attr('src', army.small_image).appendTo(image);
+                    image.appendTo(defender);
+                    var defenderRestraint = $('<div class="defender-restraint"></div>').appendTo(defender);
+                    if (army.is_res == 1) {
+                        self._defenderStatistics.is_res += 1;
+                        var res = new Mojo.ui.Label(undefined, {
+                            text: Mojo.utils.locale('battle', 'restraint'),
+                            classes: ['restraint'],
+                        });
+                        res.element().appendTo(defenderRestraint);
+                    }
+                    if (army.is_be_res == 1) {
+                        var be_res = undefined;
+                        if (army.is_anti_res == 1) {
+                            self._defenderStatistics.is_anti_res += 1;
+                            be_res = new Mojo.ui.Label(undefined, {
+                                text: Mojo.utils.locale('battle', 'resist'),
+                                classes: ['resist'],
+                            });
+                        } else {
+                            be_res = new Mojo.ui.Label(undefined, {
+                                text: Mojo.utils.locale('battle', 'be_restraint'),
+                                classes: ['be-restraint'],
+                            });
+                        }
+                        be_res.element().appendTo(defenderRestraint);
+                    }
+                    if (army.armor_add_defence > 0) {
+                        self._defenderStatistics.armor_add_defence += 1;
+                        var res = new Mojo.ui.Label(undefined, {
+                            text: Mojo.utils.locale('battle', 'armor_protect'),
+                            classes: ['armor_protect'],
+                        });
+                        res.element().appendTo(defenderRestraint);
+                    }
+                    var defenderName = $('<div></div>').addClass("defender_name").addClass('rebirth-' + (army.rebirth_sum > 6 ? 6 : army.rebirth_sum)).appendTo(defender).html(army.name);
+                    var defenderDefence = $('<div></div>').addClass("defender_defence").appendTo(defender).html(Mojo.utils.locale('common', 'simple_defence') + army.defence);
+                }
+                var opponentArmyStatistics = $('<div class="army-statistics"></div>').prependTo(_opponentArmy);
+                (new Mojo.ui.Label(undefined, {
+                    text: Mojo.utils.locale('battle', 'restraint') + "：" + self._defenderStatistics.is_res,
+                    classes: ['restraint']
+                })).element().appendTo(opponentArmyStatistics);
+                (new Mojo.ui.Label(undefined, {
+                    text: Mojo.utils.locale('battle', 'resist') + "：" + self._defenderStatistics.is_anti_res,
+                    classes: ['resist']
+                })).element().appendTo(opponentArmyStatistics);
+                (new Mojo.ui.Label(undefined, {
+                    text: Mojo.utils.locale('battle', 'armor_protect') + "：" + self._defenderStatistics.armor_add_defence,
+                    classes: ['armor_protect']
+                })).element().appendTo(opponentArmyStatistics);
+            }
+            self._scroll = new Mojo.ui.Scroll(undefined, _blankScroll, {
+                direction: 2
+            });
+            self._scroll.element().css('height', self.getR("height"));
+            this._army.append(self._scroll.element());
+            if (self._data.win == true) {
+                Mojo.gap.soundPlay('19_battle_win,mp3');
+            } else {
+                Mojo.gap.soundPlay('20_battle_lose,mp3');
+            }
+        },
+        _onDialogAppend: function () {
+            var self = this;
+            self._scroll.refresh();
+        },
+        _addButtons: function () {
+            var self = this;
+            var btn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('battle', 'formation'),
+                click: function () {
+                    Mojo.app.redirect('/package');
+                },
+                special: 'button-big-red',
+            });
+            if (self._options.show_detail_first == true) {
+                btn = new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('common', 'ok'),
+                    click: function () {
+                        self.close();
+                    },
+                    special: 'button-big-red',
                 });
+            }
+            this._footer.append(btn.element());
+        },
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('battle', 'formation detail'),
+                opponent_id: '',
+                opponent_name: '',
+                entity_id: '',
+                pk_mode: false,
+                zIndex: 1005,
+                backCallback: $.noop,
+                xp: '',
+                vm: '',
+                entity: null,
             });
-            this._baseSlotList = (new Mojo.com.BaseSlotList({
-                classes: ['general-list-bg-border'],
-                onSelect: function (that, index, data) {
-                    if (data == undefined) {
-                        Mojo.app.redirect('/package', {
-                            selected: index
-                        }, 'event', '04_032');
-                    } else if (data.player_entity_id == null) {
-                        Mojo.app.redirect('/package', {
-                            selected: index
-                        }, 'event', '04_033');
-                    } else {
-                        Mojo.app.redirect('/package', {
-                            selected: index
-                        }, 'event', '04_031');
-                    }
+        },
+        _templateLeft: '<div class="top-left">\
+    <div class="player_name"></div>\
+    <div class="player_level"></div>\
+    <div class="player_sum"></div>\
+    <div class="player_base"></div>\
+   </div>',
+        _templateRight: '<div class="top-right">\
+    <div class="player_name"></div>\
+    <div class="player_level"></div>\
+    <div class="player_sum"></div>\
+    <div class="player_base"></div>\
+   </div>',
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.TaskPreviewDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.TaskPreviewDialog";
+        },
+        init: function (data, options) {
+            this._data = data;
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-taskpreviewdlg');
+            this._addContent();
+            this._addHandleButtons();
+        },
+        _addContent: function () {
+            var self = this;
+            this._name = $('<div class="name"></div>').appendTo(this._content);
+            this._player = $('<div class="player"></div>').appendTo(this._name);
+            $('<div class="player_icon"></div>').appendTo(this._player);
+            this._playerName = $('<div class="player_name"></div>').html(self._data.player_name).appendTo(this._player);
+            this._playerAttack = $('<div class="player_attack"></div>').html('(' + self._data.attack_min + '-' + self._data.attack_max + ')').appendTo(this._player);
+            this._vs = $('<div class="vs"></div>').html('VS').appendTo(this._name);
+            this._opp = $('<div class="opp"></div>').appendTo(this._name);
+            $('<div class="opp_icon"></div>').appendTo(this._opp);
+            this._oppName = $('<div class="opp_name"></div>').html(self._data.boss.name).appendTo(this._opp);
+            this._oppDefence = $('<div class="opp_defence"></div>').html('(' + self._data.boss.def.min + '-' + self._data.boss.def.max + ')').appendTo(this._opp);
+            this._ifwin = $('<div class="ifwin"></div>').appendTo(this._content);
+            this._win = $('<div class="win"></div>').html(Mojo.utils.locale('common', 'when win')).appendTo(this._ifwin);
+            this._ifwin.append((new Mojo.ui.Label(undefined, {
+                classes: ['winxp'],
+                text: self._data.win_xp,
+            })).element());
+            this._ifwin.append((new Mojo.ui.Label(undefined, {
+                classes: ['winvm'],
+                text: self._data.win_vm,
+            })).element());
+            this._rate = $('<div class="rate"></div>').html(Mojo.utils.locale('mission', 'win_card')).appendTo(this._ifwin);
+            this._iflose = $('<div class="iflose"></div>').appendTo(this._content);
+            this._lose = $('<div class="lose"></div>').html(Mojo.utils.locale('common', 'when lose')).appendTo(this._iflose);
+            this._iflose.append((new Mojo.ui.Label(undefined, {
+                classes: ['losevm'],
+                text: '-' + self._data.lose_vm,
+            })).element());
+        },
+        _addHandleButtons: function () {
+            var self = this;
+            this._attackBtn = new Mojo.ui.Button('attack-btn', {
+                special: 'button-big-red',
+                text: self._options.atackBtnText,
+                click: function () {
+                    self._attackBtn.disable(true);
+                    self._options.buttonClick();
+                    self.close();
                 },
-                onLoaded: function (com) {
-                    if (Mojo.utils.getSomething('tutorial')) {
-                        Mojo.app.tutorial = new Mojo.com.Tutorial(undefined, {
-                            text: Mojo.utils.locale('tutorial', 'tutorial_package_start'),
-                            textposition: 'lb',
-                            click: function (tutorial) {
-                                Mojo.app.redirect('/package', {
-                                    selected: 1,
-                                    tutorial: 5
-                                });
-                            }
-                        }).open(com._list._children[1].element());
-                    }
-                }
-            }));
-            this._baseSlotList.element().appendTo(this.element());
-            this._quickButtons = $('<div class="everyday-do"></div>').appendTo(this.element());
-            this._addQuickButtons();
-            this._circleButtons = $('<div class="circle-buttons task"></div>').appendTo(this.element());
-            this._addCircleButtons();
-            self._showMsg = "";
-            setTimeout(function () {
-                Mojo.gap.bindUser(Mojo.cache.get('userId'));
-                Mojo.ajax('/mall/isNew', {}, function (result) {
-                    if (result.errorCode == 0) {
-                        if (result.data == 1) {
-                            Mojo.gap.showMallIcon();
-                        } else {
-                            Mojo.gap.hideMallIcon();
-                        }
-                    } else {}
-                }, function () {});
-            }, 1000);
-            this.rebinding();
-        },
-        _enterForce: function () {
-            Mojo.ajax('/force/index', {}, function (response) {
-                var force = response.data;
-                if (force.status != 1) {
-                    new Mojo.com.ForceCreateDialog(force).open();
-                } else {
-                    Mojo.app.redirect('/force');
-                }
-            }, function () {});
-        },
-        i: function () {
-            var self = this;
-            Mojo.app.toast.show("初始化内政数据ing");
-            var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
-            var arrTaskCool = new Array(arrTask.length);
-            for (var i = 0; i < arrTask.length; i++) {
-                arrTaskCool[i] = 0
-            }
-            var time;
-            var fbindex = 0;
-            var i = 0;
-            var title = "";
-            var mi;
-            var ss;
-            var timestr;
-            var timef;
-            var sumtime;
-            var empty = 0;
-            var empty1 = 0;
-            var serverRe = 0;
-            var repeatFlag = 120;
-            var repeatFlagMax = repeatFlag;
-            var autoForce = w.setInterval(function () {
-                var date = new Date();
-                var now = date.getTime() / 1000;
-                var t = parseInt(now + 8 * 3600);
-                var hour = parseInt((t % (3600 * 24)) / 3600);
-                var minute = parseInt((t % 3600) / 60);
-                var second = t % 60;
-                var strHour = hour;
-                var strMinute = minute;
-                var strSecond = second;
-                if (hour < 10) {
-                    strHour = "0" + hour
-                }
-                if (minute < 10) {
-                    strMinute = "0" + minute
-                }
-                if (second < 10) {
-                    strSecond = "0" + second
-                }
-                if (fbindex < arrTaskCool.length) {
-                    if (repeatFlag >= repeatFlagMax) {
-                        repeatFlag = 0;
-                        time = parseInt(new Date().getTime() / 1000);
-                        var fubenid = arrTask[fbindex].split("@")[0];
-                        var fubencool = arrTask[fbindex].split("@")[1];
-                        Mojo.ajax("/force/doTask", {
-                            id: fubenid,
-                        }, function (result) {
-                            setTimeout(function () {
-                                repeatFlag = repeatFlagMax
-                            }, 2000);
-                            switch (fbindex) {
-                            case 0:
-                                title = "全民挖地球";
-                                break;
-                            case 1:
-                                title = "后门要牢固";
-                                break;
-                            case 2:
-                                title = "别动我的粮饷";
-                                break;
-                            case 3:
-                                title = "师兄需要你";
-                                break;
-                            case 4:
-                                title = "魔鬼式训练";
-                                break;
-                            case 5:
-                                title = "你吃了吗";
-                                break;
-                            case 6:
-                                title = "叛徒必须死";
-                                break;
-                            case 7:
-                                title = "你的都是我的";
-                                break;
-                            case 8:
-                                title = "偷窥可以有"
-                            }
-                            if (result.errorCode == 0) {
-                                arrTaskCool[fbindex] = time + parseInt(fubencool);
-                                if (self._showMsg.length > 0) {
-                                    var arrMsg = self._showMsg.split("</br>");
-                                    if (arrMsg.length > 8) {
-                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                    }
-                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]执行: " + title
-                                } else {
-                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]执行: " + title
-                                }
-                                Mojo.app.toast.show(self._showMsg, "20000");
-                                serverRe = 0
-                            } else if (result.errorCode == 1) {} else if (result.errorCode == 130100) {
-                                arrTaskCool[fbindex] = "-1";
-                                for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                    if (arrTaskCool[i] != "-1" && arrTaskCool[i] - time < 0) {
-                                        break
-                                    }
-                                }
-                                fbindex = i
-                            } else if (result.errorCode == 160003) {
-                                alert("卡牌容量不足");
-                                w.clearInterval(autoForce)
-                            } else if (result.errorCode == 20004) {
-                                for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                    if (arrTaskCool[i] != "-1" && arrTaskCool[i] - time < 0) {
-                                        break
-                                    }
-                                }
-                                fbindex = i;
-                                serverRe = 0
-                            } else if (result.errorCode == 20002) {
-                                arrTaskCool[fbindex] = "-1";
-                                for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                    if (arrTaskCool[i] != "-1" && arrTaskCool[i] - time < 0) {
-                                        break
-                                    }
-                                }
-                                fbindex = i;
-                                if (serverRe == 1) {;
-                                    serverRe = 0;
-                                    for (i = 0; i < arrTask.length; i++) {
-                                        arrTaskCool[i] = "-1"
-                                    }
-                                    fbindex = arrTask.length + 1
-                                }
-                            } else {
-                                w.clearInterval(autoForce)
-                            }
-                        }, function () {}, {})
-                    } else {
-                        repeatFlag++
-                    }
-                } else {
-                    timef = parseInt(new Date().getTime() / 1000);
-                    sumtime = 0;
-                    for (i = 0; i < arrTaskCool.length; i++) {
-                        sumtime = sumtime + parseInt(arrTaskCool[i]);
-                        if (arrTaskCool[i] != "-1" && arrTaskCool[i] - timef < 0) {
-                            fbindex = i
-                        }
-                    }
-                    mi = parseInt((timef - time) / 60);
-                    ss = (timef - time) % 60;
-                    if (ss.length == 1) {
-                        ss = "0" + ss
-                    }
-                    timestr = mi + "分" + ss + "秒";
-                    if (sumtime == -9) {
-                        empty++;
-                        if (empty == 2) {
-                            Mojo.ajax("/force/playerTasks", {}, function (result) {
-                                if (result.errorCode == 0) {
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split("</br>");
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]尝试接收系统刷新"
-                                    } else {
-                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]尝试接收系统刷新"
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000");
-                                    for (i = 0; i < arrTask.length; i++) {
-                                        arrTaskCool[i] = 0
-                                    }
-                                    fbindex = 0;
-                                    serverRe = 1
-                                }
-                            }, function () {})
-                        } else if (empty > 15) {
-                            Mojo.ajax("/force/acceptRefreshTask", {}, function (result) {
-                                if (result.errorCode == 0) {
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split("</br>");
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]自动接收官员刷新"
-                                    } else {
-                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]自动接收官员刷新"
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000");
-                                    for (i = 0; i < arrTask.length; i++) {
-                                        arrTaskCool[i] = 0
-                                    }
-                                    fbindex = 0
-                                }
-                            });
-                            empty = 0
-                        }
-                    } else {
-                        empty1++;
-                        if (empty1 > 120) {
-                            if (self._showMsg.length > 0) {
-                                var arrMsg = self._showMsg.split("</br>");
-                                if (arrMsg.length > 8) {
-                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                }
-                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [内政]等待冷却中..."
-                            } else {
-                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [内政]等待冷却中..."
-                            }
-                            Mojo.app.toast.show(self._showMsg, "20000");
-                            empty1 = 0
-                        }
-                    }
-                }
-            }, 500)
-        },
-        nc: function () {
-            var self = this;
-            var robs = ["b101", "b102", "b103", "b104", "b105", "b106", "b107", "b108", "b109", "b110"];
-            var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
-            Mojo.app.toast.show("开始收宝");
-            var robid = 0;
-            var mzflag = confirm("是否开启自动免战模式?");
-            var repeatFlag = 120;
-            var repeatFlagMax = repeatFlag;
-            var autoRob = w.setInterval(function () {
-                if (repeatFlag >= repeatFlagMax) {
-                    repeatFlag = 0;
-                    var date = new Date();
-                    var now = date.getTime() / 1000;
-                    var t = parseInt(now + 8 * 3600);
-                    var hour = parseInt((t % (3600 * 24)) / 3600);
-                    var minute = parseInt((t % 3600) / 60);
-                    var second = t % 60;
-                    var strHour = hour;
-                    var strMinute = minute;
-                    var strSecond = second;
-                    if (hour < 10) {
-                        strHour = "0" + hour
-                    }
-                    if (minute < 10) {
-                        strMinute = "0" + minute
-                    }
-                    if (second < 10) {
-                        strSecond = "0" + second
-                    }
-                    Mojo.ajax("/collect/composite", {
-                        id: robs[robid]
-                    }, function (result) {
-                        if (result.errorCode == 50003) {
-                            msg = result.errorMsg;
-                            msgindex = msg.indexOf("剩余时间");
-                            if (msgindex != -1) {
-                                msg = msg.substring(msgindex);
-                                if (self._showMsg.length > 0) {
-                                    var arrMsg = self._showMsg.split("</br>");
-                                    if (arrMsg.length > 8) {
-                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                    }
-                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + robname[robid] + "正在合成中, " + msg
-                                } else {
-                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + robname[robid] + "正在合成中, " + msg
-                                }
-                                Mojo.app.toast.show(self._showMsg, "20000");
-                                robid = robid + 1;
-                                if (robid > 9) {
-                                    robid = 0
-                                }
-                                if (mzflag) {
-                                    setTimeout(function () {
-                                        Mojo.ajax("/collect/avoidWar", {}, function (result) {
-                                            setTimeout(function () {
-                                                repeatFlag = repeatFlagMax
-                                            }, 1000);
-                                            if (result.errorCode == 0) {
-                                                if (parseInt(result.data.avoid_war_time) > 0) {
-                                                    if (self._showMsg.length > 0) {
-                                                        var arrMsg = self._showMsg.split("</br>");
-                                                        if (arrMsg.length > 8) {
-                                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                        }
-                                                        self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                    } else {
-                                                        self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                    }
-                                                    Mojo.app.toast.show(self._showMsg, "20000")
-                                                } else {
-                                                    if (result.data.id != undefined) {
-                                                        Mojo.ajax("/entity/Use", {
-                                                            id: result.data.id,
-                                                        }, function (result) {
-                                                            if (result.errorCode == 0) {
-                                                                if (self._showMsg.length > 0) {
-                                                                    var arrMsg = self._showMsg.split("</br>");
-                                                                    if (arrMsg.length > 8) {
-                                                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                    }
-                                                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                } else {
-                                                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                }
-                                                                Mojo.app.toast.show(self._showMsg, "20000")
-                                                            }
-                                                        }, function () {}, {})
-                                                    } else {
-                                                        if (self._showMsg.length > 0) {
-                                                            var arrMsg = self._showMsg.split("</br>");
-                                                            if (arrMsg.length > 8) {
-                                                                var msgIndex = self._showMsg.indexOf("</br>");
-                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                            }
-                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                        } else {
-                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                        }
-                                                        Mojo.app.toast.show(self._showMsg, "20000")
-                                                    }
-                                                }
-                                            }
-                                        }, function () {}, {})
-                                    }, 1000)
-                                } else {
-                                    setTimeout(function () {
-                                        repeatFlag = repeatFlagMax
-                                    }, 1000)
-                                }
-                            }
-                        } else if (result.errorCode == 0) {
-                            if (self._showMsg.length > 0) {
-                                var arrMsg = self._showMsg.split("</br>");
-                                if (arrMsg.length > 8) {
-                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                }
-                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]收获 " + robname[robid] + " 1本"
-                            } else {
-                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]收获 " + robname[robid] + " 1本"
-                            }
-                            Mojo.app.toast.show(self._showMsg, "20000")
-                        }
-                        if (result.errorCode == 0 || result.errorCode == 50004 || (result.errorCode == 50003 && msgindex == -1)) {
-                            setTimeout(function () {
-                                Mojo.ajax("/collect/compositeStart", {
-                                    id: robs[robid]
-                                }, function (result) {
-                                    if (result.errorCode == 0) {
-                                        if (self._showMsg.length > 0) {
-                                            var arrMsg = self._showMsg.split("</br>");
-                                            if (arrMsg.length > 8) {
-                                                var msgIndex = self._showMsg.indexOf("</br>");
-                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                            }
-                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]开始合成:" + robname[robid]
-                                        } else {
-                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]开始合成:" + robname[robid]
-                                        }
-                                        Mojo.app.toast.show(self._showMsg, "20000");
-                                        if (mzflag) {
-                                            setTimeout(function () {
-                                                Mojo.ajax("/collect/avoidWar", {}, function (result) {
-                                                    setTimeout(function () {
-                                                        repeatFlag = repeatFlagMax
-                                                    }, 1000);
-                                                    if (result.errorCode == 0) {
-                                                        if (parseInt(result.data.avoid_war_time) > 0) {
-                                                            if (self._showMsg.length > 0) {
-                                                                var arrMsg = self._showMsg.split("</br>");
-                                                                if (arrMsg.length > 8) {
-                                                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                }
-                                                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                            } else {
-                                                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]免战时间：" + parseInt(result.data.avoid_war_time) + "秒"
-                                                            }
-                                                            Mojo.app.toast.show(self._showMsg, "20000")
-                                                        } else {
-                                                            if (result.data.id != undefined) {
-                                                                Mojo.ajax("/entity/Use", {
-                                                                    id: result.data.id,
-                                                                }, function (result) {
-                                                                    if (result.errorCode == 0) {
-                                                                        if (self._showMsg.length > 0) {
-                                                                            var arrMsg = self._showMsg.split("</br>");
-                                                                            if (arrMsg.length > 8) {
-                                                                                var msgIndex = self._showMsg.indexOf("</br>");
-                                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                            }
-                                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                        } else {
-                                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]自动使用1个免战令"
-                                                                        }
-                                                                        Mojo.app.toast.show(self._showMsg, "20000")
-                                                                    }
-                                                                }, function () {}, {})
-                                                            } else {
-                                                                if (self._showMsg.length > 0) {
-                                                                    var arrMsg = self._showMsg.split("</br>");
-                                                                    if (arrMsg.length > 8) {
-                                                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                    }
-                                                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                                } else {
-                                                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [合成]缺少免战令"
-                                                                }
-                                                                Mojo.app.toast.show(self._showMsg, "20000")
-                                                            }
-                                                        }
-                                                    }
-                                                }, function () {}, {})
-                                            }, 1000)
-                                        } else {
-                                            setTimeout(function () {
-                                                repeatFlag = repeatFlagMax
-                                            }, 1000)
-                                        }
-                                    } else {
-                                        setTimeout(function () {
-                                            repeatFlag = repeatFlagMax
-                                        }, 1000)
-                                    }
-                                    robid = robid + 1;
-                                    if (robid > 9) {
-                                        robid = 0
-                                    }
-                                }, function () {}, {})
-                            }, 1000)
-                        }
-                    }, function () {}, {})
-                } else {
-                    repeatFlag++
-                }
-            }, 500)
-        },
-        ct: function () {
-            var self = this;
-            var params = {};
-            var cond;
-            var cd;
-            var num = 0;
-            var repeatFlag = 8;
-            var repeatFlagMax = repeatFlag;
-            var listParams = {
-                start: 0,
-                count: 20,
-                type: 4,
-                sub_type: 0,
-            };
-            Mojo.ajax("/illustration/list", listParams, function (result) {
-                if (result.errorCode == 0) {
-                    for (var i in result.data.list) {
-                        var award = result.data.list[i].award.name;
-                        var name = result.data.list[i].name;
-                        if (award == "钱袋" && name == "变碎为宝活动") {
-                            params.game_activity_id = result.data.list[i].id;
-                            cond = result.data.list[i].conditions[2].id;
-                            cd = result.data.list[i].cooling_time
-                        }
-                    }
-                    Mojo.app.toast.show("开启自动兑换钱袋,冷却时间: " + cd + "秒", "20000");
-                    var date = new Date();
-                    var now = date.getTime() / 1000;
-                    cd = parseInt(cd) + parseInt(now) + parseInt(3);
-                    var autosuipian = w.setInterval(function () {
-                        date = new Date();
-                        now = date.getTime() / 1000;
-                        var cha = parseInt(cd) - parseInt(now);
-                        if (cha < 0 && repeatFlag >= repeatFlagMax) {
-                            repeatFlag = 0;
-                            var t = parseInt(now + 8 * 3600);
-                            var hour = parseInt((t % (3600 * 24)) / 3600);
-                            var minute = parseInt((t % 3600) / 60);
-                            var second = t % 60;
-                            var strHour = hour;
-                            var strMinute = minute;
-                            var strSecond = second;
-                            if (hour < 10) {
-                                strHour = "0" + hour
-                            }
-                            if (minute < 10) {
-                                strMinute = "0" + minute
-                            }
-                            if (second < 10) {
-                                strSecond = "0" + second
-                            }
-                            var shownow = strHour + ":" + strMinute + ":" + strSecond + " ";
-                            Mojo.ajax("/gameactivity/choose", {
-                                start: 0,
-                                count: 1,
-                                condition_id: cond
-                            }, function (response) {
-                                if (response.errorCode == 0) {
-                                    if (response.data.list.length > 0) {
-                                        eval("params.condition_" + cond + " = " + response.data.list[0].player_entity_id + ";");
-                                        Mojo.ajax("/gameactivity/do", params, function (response1) {
-                                            setTimeout(function () {
-                                                repeatFlag = repeatFlagMax
-                                            }, 1000);
-                                            if (response1.errorCode == 0) {
-                                                if (self._showMsg.length > 0) {
-                                                    var arrMsg = self._showMsg.split("</br>");
-                                                    if (arrMsg.length > 8) {
-                                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                    }
-                                                    self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]获得1个钱袋"
-                                                } else {
-                                                    self._showMsg = shownow + "[兑换]获得1个钱袋"
-                                                }
-                                                Mojo.app.toast.show(self._showMsg, "20000");
-                                                date = new Date();
-                                                now = date.getTime() / 1000;
-                                                cd = parseInt(3603) + parseInt(now)
-                                            } else {
-                                                if (self._showMsg.length > 0) {
-                                                    var arrMsg = self._showMsg.split("</br>");
-                                                    if (arrMsg.length > 8) {
-                                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                    }
-                                                    self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]" + response1.errorMsg
-                                                } else {
-                                                    self._showMsg = shownow + "[兑换]" + response1.errorMsg
-                                                }
-                                                Mojo.app.toast.show(self._showMsg, "20000")
-                                            }
-                                        }, function () {})
-                                    } else {
-                                        setTimeout(function () {
-                                            repeatFlag = repeatFlagMax
-                                        }, 1000);
-                                        if (self._showMsg.length > 0) {
-                                            var arrMsg = self._showMsg.split("</br>");
-                                            if (arrMsg.length > 8) {
-                                                var msgIndex = self._showMsg.indexOf("</br>");
-                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                            }
-                                            self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]缺少祭祀卡"
-                                        } else {
-                                            self._showMsg = shownow + "[兑换]缺少祭祀卡"
-                                        }
-                                        Mojo.app.toast.show(self._showMsg, "20000")
-                                    }
-                                } else {
-                                    setTimeout(function () {
-                                        repeatFlag = repeatFlagMax
-                                    }, 1000);
-                                    if (self._showMsg.length > 0) {
-                                        var arrMsg = self._showMsg.split("</br>");
-                                        if (arrMsg.length > 8) {
-                                            var msgIndex = self._showMsg.indexOf("</br>");
-                                            self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                        }
-                                        self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]" + response.errorMsg
-                                    } else {
-                                        self._showMsg = shownow + "[兑换]" + response.errorMsg
-                                    }
-                                    Mojo.app.toast.show(self._showMsg, "20000")
-                                }
-                            }, function () {})
-                        } else {
-                            repeatFlag++;
-                            if (num > 10) {
-                                num = 0;
-                                var t = parseInt(now + 8 * 3600);
-                                var hour = parseInt((t % (3600 * 24)) / 3600);
-                                var minute = parseInt((t % 3600) / 60);
-                                var second = t % 60;
-                                var strHour = hour;
-                                var strMinute = minute;
-                                var strSecond = second;
-                                if (hour < 10) {
-                                    strHour = "0" + hour
-                                }
-                                if (minute < 10) {
-                                    strMinute = "0" + minute
-                                }
-                                if (second < 10) {
-                                    strSecond = "0" + second
-                                }
-                                var shownow = strHour + ":" + strMinute + ":" + strSecond + " ";
-                                if (self._showMsg.length > 0) {
-                                    var arrMsg = self._showMsg.split("</br>");
-                                    if (arrMsg.length > 8) {
-                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                    }
-                                    self._showMsg = self._showMsg + "</br>" + shownow + "[兑换]预计" + cha + "秒后兑换钱袋"
-                                } else {
-                                    self._showMsg = shownow + "[兑换]预计" + cha + "秒后兑换钱袋"
-                                }
-                                Mojo.app.toast.show(self._showMsg, "20000")
-                            } else {
-                                num++
-                            }
-                        }
-                    }, 5000)
-                }
-            }, function () {})
-        },
-        ti: function () {
-            var self = this;
-            var startFlag = true;
-            var xmlHttp = false;
-            try {
-                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
-            } catch (e) {
-                try {
-                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
-                } catch (e2) {
-                    xmlHttp = false
-                }
-            };
-            if (!xmlHttp && typeof XMLHttpRequest != "undefined") {
-                xmlHttp = new XMLHttpRequest()
-            }
-            xmlHttp.open("GET", "null.txt", false);
-            xmlHttp.setRequestHeader("Range", "bytes=-1");
-            xmlHttp.send(null);
-            severtime = new Date(xmlHttp.getResponseHeader("Date"));
-            var stime = severtime.getTime();
-            var ltime = new Date().getTime();
-            startFlag = false;
-            Mojo.app.toast.show("自动闯关开始 初始化需要20-40秒");
-            var runfb = new Array(0);
-            var tasks = new Array(0);
-            var groups = new Array(0);
-            var names = new Array(0);
-            var cools = new Array(0);
-            var pris = new Array(0);
-            var index = 0;
-            Mojo.ajax("/fuben/fubens", {}, function (result) {
-                for (var i = 0; i < result.data.length; i++) {
-                    if (result.data[i].status == 1 && result.data[i].unlock == 1) {
-                        runfb[index] = result.data[i].id;
-                        index++
-                    }
-                }
-                self.un(runfb, 0, 1, tasks, groups, names, cools, pris)
-            }, function () {});
-        },
-        un: function (runfb, index, group, tasks, groups, names, cools, pris) {
-            var self = this;
-            if (group == 100) {
-                for (var i = 0; i < 5; i++) {
-                    tasks[tasks.length] = 0;
-                    groups[groups.length] = "0-0-0";
-                    names[names.length] = "0-0-0";
-                    cools[cools.length] = "-1";
-                    pris[pris.length] = "-1"
-                }
-                group = 1;
-                index++;
-                if (index < runfb.length) {
-                    self.un(runfb, index, group, tasks, groups, names, cools, pris)
-                } else {
-                    self.fu(tasks, groups, names, cools, pris)
-                };
-            } else {
-                var params = {
-                    start: 0,
-                    count: 50,
-                    fuben_id: runfb[index],
-                    fb_task_group_id: group,
-                };
-                Mojo.ajax("/fuben/fbTasks", params, function (result) {
-                    if (result.errorCode == 0 && result.data.fb_tasks != "") {
-                        var time = parseInt(new Date().getTime() / 1000);
-                        for (var i = 0; i < 5; i++) {
-                            tasks[tasks.length] = result.data.fb_tasks[i].id;
-                            groups[groups.length] = runfb[index] + "-" + group + "-" + (i + 1);
-                            names[names.length] = result.data.cur_fuben.name + "-" + result.data.fb_task_groups[group - 1].name + "-" + result.data.fb_tasks[i].name;
-                            if (result.data.fb_tasks[i].percent < 100) {
-                                cools[cools.length] = parseInt(result.data.fb_tasks[i].cold_down) + parseInt(time) + 1
-                            } else {
-                                cools[cools.length] = "-1"
-                            } if (i == 0) {
-                                if (runfb[index] == 2 || runfb[index] == 6) {
-                                    pris[pris.length] = 2
-                                } else if (runfb[index] == 3 || runfb[index] == 5 || runfb[index] == 7 || runfb[index] == 8) {
-                                    pris[pris.length] = 3
-                                } else if (runfb[index] == 1 || runfb[index] == 4 || runfb[index] == 9 || runfb[index] == 10 || runfb[index] == 11) {
-                                    pris[pris.length] = 4
-                                } else {
-                                    pris[pris.length] = 2
-                                }
-                            } else if (i == 1) {
-                                if (runfb[index] == 3 || runfb[index] == 4) {
-                                    pris[pris.length] = 6
-                                } else {
-                                    pris[pris.length] = 5
-                                }
-                            } else if (i == 2) {
-                                if (runfb[index] == 3 || runfb[index] == 4) {
-                                    pris[pris.length] = 8
-                                } else {
-                                    pris[pris.length] = 7
-                                }
-                            } else if (i == 3) {
-                                if (runfb[index] == 3 || runfb[index] == 4) {
-                                    pris[pris.length] = 12
-                                } else if (runfb[index] == 1 || runfb[index] == 9 || runfb[index] == 10) {
-                                    pris[pris.length] = 11
-                                } else if (runfb[index] == 2) {
-                                    pris[pris.length] = 9
-                                } else {
-                                    pris[pris.length] = 10
-                                }
-                            } else {
-                                pris[pris.length] = 1
-                            }
-                        }
-                        if (group < result.data.fb_task_groups.length) {
-                            group++
-                        } else {
-                            group = 100
-                        }
-                        self.un(runfb, index, group, tasks, groups, names, cools, pris);
-                    } else {
-                        for (var i = 0; i < 5; i++) {
-                            tasks[tasks.length] = 0;
-                            groups[groups.length] = "0-0-0";
-                            names[names.length] = "0-0-0";
-                            cools[cools.length] = "-1";
-                            pris[pris.length] = "-1"
-                        }
-                        group = 1;
-                        index++;
-                        if (index < runfb.length) {
-                            self.un(runfb, index, group, tasks, groups, names, cools, pris)
-                        } else {
-                            self.fu(tasks, groups, names, cools, pris)
-                        };
-                    }
-                }, function () {})
-            }
-        },
-        fu: function (tasks, groups, names, cools, pris) {
-            Mojo.app.toast.show("开始计算副本状态");
-            var self = this;
-            var zhixingtime = 3000;
-            var empty = 0;
-            var time = parseInt(new Date().getTime() / 1000);
-            var fbindex = tasks.length;
-            for (var i = 0; i < tasks.length; i++) {
-                if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                    if ((i + 1) % 5 == 0) {
-                        if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                            if (fbindex == tasks.length) {
-                                fbindex = i
-                            } else {
-                                i++
-                            }
-                        } else {
-                            i++
-                        }
-                    } else {
-                        if (fbindex == tasks.length) {
-                            fbindex = i
-                        } else {
-                            var pri1 = pris[fbindex];
-                            var pri2 = pris[i];
-                            if (pri1 < pri2) {
-                                fbindex = i
-                            }
-                        }
-                    }
-                }
-            }
-            var repeatFlag = 10;
-            var repeatFlagMax = repeatFlag;
-            var autoFuben2 = w.setInterval(function () {
-                time = parseInt(new Date().getTime() / 1000);
-                if (fbindex < cools.length) {
-                    if (repeatFlag >= repeatFlagMax) {
-                        repeatFlag = 0;
-                        var fubenid = tasks[fbindex];
-                        Mojo.ajax("/fuben/do", {
-                            id: fubenid,
-                        }, function (result) {
-                            setTimeout(function () {
-                                repeatFlag = repeatFlagMax
-                            }, 1000);
-                            var date = new Date();
-                            var now = date.getTime() / 1000;
-                            var t = parseInt(now + 8 * 3600);
-                            var hour = parseInt((t % (3600 * 24)) / 3600);
-                            var minute = parseInt((t % 3600) / 60);
-                            var second = t % 60;
-                            var strHour = hour;
-                            var strMinute = minute;
-                            var strSecond = second;
-                            if (hour < 10) {
-                                strHour = "0" + hour
-                            }
-                            if (minute < 10) {
-                                strMinute = "0" + minute
-                            }
-                            if (second < 10) {
-                                strSecond = "0" + second
-                            }
-                            var titleMsg = "";
-                            if (result.errorCode == 0) {
-                                var emsg = "";
-                                if (result.data.award) {
-                                    if (result.data.award.bonus) {
-                                        if (result.data.award.bonus.entities) {
-                                            if (result.data.award.bonus.entities[0]) {
-                                                if (result.data.award.bonus.entities[0].id) {
-                                                    if (result.data.award.bonus.entities[0].id == "d12") {
-                                                        emsg = ", 获得转生丹"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                titleMsg = " [自动副本]:执行成功" + emsg
-                            }
-                            if (titleMsg.length > 0) {
-                                if (self._showMsg.length > 0) {
-                                    var arrMsg = self._showMsg.split("</br>");
-                                    if (arrMsg.length > 8) {
-                                        var msgIndex = self._showMsg.indexOf("</br>");
-                                        self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                    }
-                                    self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
-                                } else {
-                                    self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
-                                }
-                                Mojo.app.toast.show(self._showMsg, "20000")
-                            }
-                            if (result.errorCode == 0) {
-                                if ((fbindex + 1) % 5 == 0) {
-                                    cools[fbindex] = "-1";
-                                    if (tasks[fbindex + 1] != 0) {
-                                        Mojo.ajax("/fuben/getAward", {
-                                            id: fubenid,
-                                        }, function (result) {
-                                            if (result.errorCode == 0) {
-                                                Mojo.ajax("/fuben/openAward", {
-                                                    id: fubenid,
-                                                    award_id: result.data.free_award.id,
-                                                    status: 1,
-                                                }, function (result) {
-                                                    cools[fbindex + 1] = "0";
-                                                    cools[fbindex + 2] = "0";
-                                                    cools[fbindex + 3] = "0";
-                                                    cools[fbindex + 4] = "0";
-                                                    cools[fbindex + 5] = "0";
-                                                    if (result.data) {
-                                                        if (result.data.entity) {
-                                                            if (result.data.entity.id) {
-                                                                if (result.data.entity.id == "d12") {
-                                                                    titleMsg = " [自动副本]:领奖成功, 获得转生丹";
-                                                                    if (titleMsg.length > 0) {
-                                                                        if (self._showMsg.length > 0) {
-                                                                            var arrMsg = self._showMsg.split("</br>");
-                                                                            if (arrMsg.length > 8) {
-                                                                                var msgIndex = self._showMsg.indexOf("</br>");
-                                                                                self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                                                            }
-                                                                            self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
-                                                                        } else {
-                                                                            self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " " + titleMsg
-                                                                        }
-                                                                        Mojo.app.toast.show(self._showMsg, "20000")
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }, function () {}, {})
-                                            }
-                                        }, function () {}, {})
-                                    }
-                                    fbindex = tasks.length;
-                                    for (var i = 0; i < tasks.length; i++) {
-                                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                            if ((i + 1) % 5 == 0) {
-                                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                    if (fbindex == tasks.length) {
-                                                        fbindex = i
-                                                    } else {
-                                                        i++
-                                                    }
-                                                } else {
-                                                    i++
-                                                }
-                                            } else {
-                                                if (fbindex == tasks.length) {
-                                                    fbindex = i
-                                                } else {
-                                                    var pri1 = pris[fbindex];
-                                                    var pri2 = pris[i];
-                                                    if (pri1 < pri2) {
-                                                        fbindex = i
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    if (result.data.fb_task.percent == 100) {
-                                        cools[fbindex] = "-1"
-                                    } else {
-                                        cools[fbindex] = time + 1 + parseInt(result.data.fb_task.cold_down)
-                                    }
-                                    fbindex = tasks.length;
-                                    for (var i = 0; i < tasks.length; i++) {
-                                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                            if ((i + 1) % 5 == 0) {
-                                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                    if (fbindex == tasks.length) {
-                                                        fbindex = i
-                                                    } else {
-                                                        i++
-                                                    }
-                                                } else {
-                                                    i++
-                                                }
-                                            } else {
-                                                if (fbindex == tasks.length) {
-                                                    fbindex = i
-                                                } else {
-                                                    var pri1 = pris[fbindex];
-                                                    var pri2 = pris[i];
-                                                    if (pri1 < pri2) {
-                                                        fbindex = i
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } else if (result.errorCode == 20009) {
-                                cools[fbindex] = "-2";
-                                fbindex = tasks.length;
-                                for (var i = 0; i < tasks.length; i++) {
-                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                        if ((i + 1) % 5 == 0) {
-                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                if (fbindex == tasks.length) {
-                                                    fbindex = i
-                                                } else {
-                                                    i++
-                                                }
-                                            } else {
-                                                i++
-                                            }
-                                        } else {
-                                            if (fbindex == tasks.length) {
-                                                fbindex = i
-                                            } else {
-                                                var pri1 = pris[fbindex];
-                                                var pri2 = pris[i];
-                                                if (pri1 < pri2) {
-                                                    fbindex = i
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } else if (result.errorCode == 1) {} else if (result.errorCode == 20006) {} else if (result.errorCode == 20001) {
-                                cools[fbindex - 1] = "0";
-                                cools[fbindex - 2] = "0";
-                                cools[fbindex - 3] = "0";
-                                cools[fbindex - 4] = "0";
-                                fbindex = tasks.length;
-                                for (var i = 0; i < tasks.length; i++) {
-                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                        if ((i + 1) % 5 == 0) {
-                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                if (fbindex == tasks.length) {
-                                                    fbindex = i
-                                                } else {
-                                                    i++
-                                                }
-                                            } else {
-                                                i++
-                                            }
-                                        } else {
-                                            if (fbindex == tasks.length) {
-                                                fbindex = i
-                                            } else {
-                                                var pri1 = pris[fbindex];
-                                                var pri2 = pris[i];
-                                                if (pri1 < pri2) {
-                                                    fbindex = i
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } else if (result.errorCode == 160003) {
-                                alert(strHour + ":" + strMinute + ":" + strSecond + "卡牌容量不足");
-                                w.clearInterval(autoFuben2)
-                            } else if (result.errorCode == 20004) {
-                                var params = {
-                                    start: 0,
-                                    count: 50,
-                                    fuben_id: groups[fbindex].split("-")[0],
-                                    fb_task_group_id: groups[fbindex].split("-")[1],
-                                };
-                                Mojo.ajax("/fuben/fbTasks", params, function (result) {
-                                    if (result.data.fb_tasks[parseInt(groups[fbindex].split("-")[2]) - 1].percent < 100) {
-                                        cools[fbindex] = parseInt(result.data.fb_tasks[parseInt(groups[fbindex].split("-")[2]) - 1].cold_down) + parseInt(time) + 1
-                                    } else {
-                                        cools[fbindex] = -1
-                                    }
-                                    fbindex = tasks.length;
-                                    for (var i = 0; i < tasks.length; i++) {
-                                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                            if ((i + 1) % 5 == 0) {
-                                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                    if (fbindex == tasks.length) {
-                                                        fbindex = i
-                                                    } else {
-                                                        i++
-                                                    }
-                                                } else {
-                                                    i++
-                                                }
-                                            } else {
-                                                if (fbindex == tasks.length) {
-                                                    fbindex = i
-                                                } else {
-                                                    var pri1 = pris[fbindex];
-                                                    var pri2 = pris[i];
-                                                    if (pri1 < pri2) {
-                                                        fbindex = i
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }, function () {})
-                            } else if (result.errorCode == 20002) {
-                                cools[fbindex] = "-1";
-                                fbindex = tasks.length;
-                                for (var i = 0; i < tasks.length; i++) {
-                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                        if ((i + 1) % 5 == 0) {
-                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                if (fbindex == tasks.length) {
-                                                    fbindex = i
-                                                } else {
-                                                    i++
-                                                }
-                                            } else {
-                                                i++
-                                            }
-                                        } else {
-                                            if (fbindex == tasks.length) {
-                                                fbindex = i
-                                            } else {
-                                                var pri1 = pris[fbindex];
-                                                var pri2 = pris[i];
-                                                if (pri1 < pri2) {
-                                                    fbindex = i
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } else if (result.errorCode == 10002) {
-                                for (i = fbindex + 2; i < cools.length; i++) {
-                                    if (tasks[i] == 0) {
-                                        break
-                                    }
-                                }
-                                for (i = fbindex + 2; i < cools.length; i++) {
-                                    if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                                        if ((i + 1) % 5 == 0) {
-                                            if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                                break
-                                            } else {
-                                                i++
-                                            }
-                                        } else {
-                                            break
-                                        }
-                                    }
-                                }
-                                fbindex = i
-                            } else if (result.errorCode == 20003) {
-                                w.clearInterval(autoFuben2);
-                                self.ti()
-                            }
-                        }, function () {}, {})
-                    } else {
-                        repeatFlag++
-                    }
-                }
-                var nexttime = 0;
-                var nextsum = 0;
-                if (fbindex >= cools.length) {
-                    for (i = 0; i < cools.length; i++) {
-                        if (parseInt(cools[i]) > -1 && cools[i] - time < 0) {
-                            if ((i + 1) % 5 == 0) {
-                                if (cools[i - 1] == "-1" && cools[i - 2] == "-1" && cools[i - 3] == "-1" && cools[i - 4] == "-1") {
-                                    if (fbindex == tasks.length) {
-                                        fbindex = i
-                                    } else {
-                                        i++
-                                    }
-                                } else {
-                                    nextsum++;
-                                    nextsum++;
-                                    i++
-                                }
-                            } else {
-                                if (fbindex == tasks.length) {
-                                    fbindex = i
-                                } else {
-                                    var pri1 = pris[fbindex];
-                                    var pri2 = pris[i];
-                                    if (pri1 < pri2) {
-                                        fbindex = i
-                                    }
-                                }
-                            }
-                        } else if (parseInt(cools[i]) > -1) {
-                            if (nexttime == 0) {
-                                nexttime = cools[i]
-                            } else if (nexttime - cools[i] > 0) {
-                                nexttime = cools[i]
-                            }
-                            nextsum++
-                        }
-                    }
-                    nexttime = nexttime - time;
-                    if (fbindex >= cools.length) {
-                        empty++;
-                        if (empty == 1) {
-                            var date = new Date();
-                            var now = date.getTime() / 1000;
-                            var t = parseInt(now + 8 * 3600);
-                            var hour = parseInt((t % (3600 * 24)) / 3600);
-                            var minute = parseInt((t % 3600) / 60);
-                            var second = t % 60;
-                            var strHour = hour;
-                            var strMinute = minute;
-                            var strSecond = second;
-                            if (hour < 10) {
-                                strHour = "0" + hour
-                            }
-                            if (minute < 10) {
-                                strMinute = "0" + minute
-                            }
-                            if (second < 10) {
-                                strSecond = "0" + second
-                            }
-                            if (self._showMsg.length > 0) {
-                                var arrMsg = self._showMsg.split("</br>");
-                                if (arrMsg.length > 8) {
-                                    var msgIndex = self._showMsg.indexOf("</br>");
-                                    self._showMsg = self._showMsg.substring(msgIndex + 5)
-                                }
-                                self._showMsg = self._showMsg + "</br>" + strHour + ":" + strMinute + ":" + strSecond + " [刷丹]:预计" + nexttime + "秒,任务:" + nextsum + "个"
-                            } else {
-                                self._showMsg = strHour + ":" + strMinute + ":" + strSecond + " [刷丹]:预计" + nexttime + "秒,任务:" + nextsum + "个"
-                            }
-                            Mojo.app.toast.show(self._showMsg, "20000")
-                        }
-                    } else {
-                        empty = 0
-                    } if (empty > 20) {
-                        for (i = 0; i < cools.length; i++) {
-                            if (parseInt(cools[i]) > -1) {
-                                break
-                            }
-                        }
-                        if (i >= cools.length) {
-                            w.clearInterval(autoFuben2);
-                            alert("副本完成")
-                        } else {
-                            empty = 0
-                        }
-                    }
-                }
-            }, zhixingtime);
-        },
-        _addQuickButtons: function () {
-            var self = this;
-            var onClickQuickBtn = function (btn, e) {
-                var id = btn.id();
-                if ('btn-task' === id) {
-                    self.i();
-                } else if ('btn-entity-embed' === id) {
-                    Mojo.app.redirect('/package', {}, 'event', '玩家点击“排列阵容”按钮');
-                } else if ('btn-entity-battle' === id) {
-                    self.ti();
-                } else if ('btn-friend' === id) {
-                    Mojo.app.redirect('/friend');
-                } else if ('btn-entity-purchase' === id) {
-                    Mojo.app.redirect('/mall', {
-                        selected: 1
-                    }, 'event', '04_046');
-                } else if ('btn-intensify' === id) {
-                    Mojo.app.redirect('/intensify', {}, 'event', '04_044');
-                } else if ('btn-force' === id) {
-                    self._enterForce();
-                } else if ('btn-fuben' === id) {
-                    Mojo.app.redirect('/fb', {}, 'event', '04_047');
-                } else if ('btn-automode' === id) {
-                    if (Mojo.app.getStorage("auto-mode") === "true") {
-                        Mojo.app.toast.show2("自动模式已关闭,3秒后回到首页", 20000, false, true);
-                        Mojo.app.saveStorage("auto-mode", "false");
-                        setTimeout(function () {
-                            window.location.href="/mojo/ipad/home";
-                        }, 3000);
-                    } else {
-                        Mojo.app.toast.show2("开启自动模式......", 20000, false, true);
-                        Mojo.app.saveStorage("auto-mode", "true");
-                        self.load();
-                    }
-                }
-            };
-            var btns = [{
-                id: 'btn-task',
-                text: '内政'
-            }, {
-                id: 'btn-entity-battle',
-                text: '刷丹'
-            }, {
-                id: 'btn-automode',
-                text: '自动'
-            }, {
-                id: 'btn-force',
-                text: 'Force',
-                isNew: true
-            }, {
-                id: 'btn-fuben',
-                text: 'Fuben'
-            }, {
-                id: 'btn-intensify',
-                text: 'Intensify'
-            }];
-            $.each(btns, function (i, b) {
-                self._quickButtons.append((new Mojo.ui.Button(b.id, {
-                    click: onClickQuickBtn,
-                    classes: b.isNew === true ? ['is_new'] : [],
-                    text: self.locale(b.text),
-                    icon: true,
-                    textWrap: true,
-                }).element()));
             });
-        },
-        _addCircleButtons: function () {
-            var self = this;
-            var onClickCircleBtn = function (btn, e) {
-                var id = btn.id();
-                if ('btn-messages' === id) {
-                    Mojo.app.redirect('/message', {}, 'event', '04_054');
-                } else if ('btn-entity-browse' === id) {
-                    Mojo.app.redirect('/entity', {}, 'event', '04_051');
-                } else if ('btn-intensify' === id) {
-                    Mojo.app.redirect('/intensify');
-                } else if ('btn-props' === id) {
-                    Mojo.app.redirect('/mall', {
-                        selected: 2
-                    });
-                } else if ('btn-statistics' === id) {
-                    Mojo.app.redirect('/statistics', {}, 'event', '04_055');
-                } else if ('btn-chat' === id) {
-                    Mojo.app.redirect('/chat', {
-                        history: 0
-                    }, 'event', '19_000');
-                } else if ('btn-settings' === id) {
-                    Mojo.app.redirect('/settings', {}, 'event', '04_056');
-                } else if ('btn-illustration' === id) {
-                    Mojo.app.redirect('/illustration', {}, 'event', '04_052');
-                } else if ('btn-friend' === id) {
-                    Mojo.app.redirect('/friend', {}, 'event', '04_053');
-                } else if ('btn-ranking' === id) {
-                    Mojo.app.redirect('/rank');
-                } else if ('btn-quick-logout' === id) {
-                    Mojo.app.redirect('/default/login');
-                } else if ('btn-auto-collect' === id) {
-                    self.nc();
-                }
-            };
-            var btns = [{
-                id: 'btn-quick-logout',
-                text: '换号',
-                cl: 'task-rank'
-            }, {
-                id: 'btn-entity-browse',
-                text: 'Entity Browse',
-                cl: 'task-card'
-            }, {
-                id: 'btn-illustration',
-                text: 'Illustration',
-                cl: 'task-pic'
-            }, {
-                id: 'btn-auto-collect',
-                text: '合成',
-                cl: 'task-friend'
-            }, {
-                id: 'btn-messages',
-                text: 'Messages',
-                cl: 'task-news'
-            }, {
-                id: 'btn-chat',
-                text: 'Chat',
-                cl: 'task-chat'
-            }, {
-                id: 'btn-settings',
-                text: 'Settings',
-                cl: 'task-set'
-            }, {
-                id: 'btn-ranking',
-                text: 'Rank',
-                cl: 'task-rank'
-            }, {
-                id: 'btn-friend',
-                text: 'Friend',
-                cl: 'task-friend'
-            }];
-            var inner = $('<div class="inner"></div>');
-            $.each(btns, function (i, b) {
-                inner.append((new Mojo.ui.Button(b.id, {
-                    special: b.cl,
-                    click: onClickCircleBtn,
-                    text: self.locale(b.text),
-                    textWrap: true,
-                }).element()));
-            });
-            self.scroll = new Mojo.ui.Scroll(undefined, inner, {
-                showArrow: true,
-                direction: 1,
-                step: self.getR('unitWidth')
-            });
-            self.scroll.element().appendTo(self._circleButtons);
-            self.scroll.refresh();
-        },
-        _bindNavBtnEvent: function () {
-            var self = this;
-            var hasTouch = 'ontouchstart' in window;
-            var START_EV = hasTouch ? 'touchstart' : 'mousedown';
-            var END_EV = hasTouch ? 'touchend' : 'mouseup';
-            self.scroll.element().bind(START_EV, function () {
-                self.scroll._arrowUp.element().fadeOut(200);
-                self.scroll._arrowDown.element().fadeOut(200);
-            });
-            var clear = function () {
-                if (!self.scroll._arrowUp.element().hasClass('mojo-ui-button-disabled')) {
-                    self.scroll._arrowUp.element().fadeIn(200);
-                }
-                if (!self.scroll._arrowDown.element().hasClass('mojo-ui-button-disabled')) {
-                    self.scroll._arrowDown.element().fadeIn(200);
-                }
-            };
-            self.scroll.element().bind(END_EV, clear);
-        },
-        localeCat: function () {
-            return 'home';
-        },
-        loginremind: function (args) {
-            var hasAward = args ? args.hasAward : undefined;
-            var self = this;
-            Mojo.ajax('/player/loginInfoRemind', {}, function (result) {
-                if (result.errorCode == 0 && result.data) {
-                    var nickname = result.data.nickname,
-                        username = result.data.username,
-                        weibo = result.data.weibo,
-                        usertype = result.data.userType,
-                        level = result.data.level,
-                        weibobindingcd = Mojo.utils.formatSecTime(result.data.weiboBindingCD),
-                        emailbindingcd = Mojo.utils.formatSecTime(result.data.emailBindingCD),
-                        bindingremind = result.data.bindingRemind,
-                        isWeiboFollowing = result.data.isWeiboFollowing,
-                        isFirstWeibo = result.data.isFirstWeibo,
-                        effectiveEvent = result.data.effectiveEvent,
-                        bindingEmail = result.data.bindingEmail,
-                        remainingtime = result.data.remainingTime,
-                        isyahooemail = result.data.isYahooEmail;
-                    if (usertype == 1 && nickname && username) {
-                        if (Mojo.app.getStorage('login_method') != 'sina' && Mojo.app.getStorage('login_method') != 'facebook') {
-                            var content = $("<div class='paragraph word-break'></div>");
-                            $("<div class='logininfo'></div>").html(self.getL('home', 'login_info')).appendTo(content);
-                            $("<div class='acc'></div>").html(self.getL('home', 'login_acc') + "<span>" + username + "</span>").appendTo(content);
-                            $("<div class='nick'></div>").html(self.getL('home', 'login_nick') + "<span>" + nickname + "</span>").appendTo(content);
-                            if (Mojo.app.getStorage('single_server') != 'true') {}
-                            var btn = new Mojo.ui.Button(undefined, {
-                                text: '',
-                                classes: ['choose-button'],
-                                special: 'combo',
-                                click: function () {
-                                    if (btn.element().hasClass("combo-selected-class")) {
-                                        btn.element().removeClass("combo-selected-class");
-                                        self.sign = false;
-                                    } else {
-                                        btn.element().addClass('combo-selected-class');
-                                        self.sign = true;
-                                    }
-                                }
-                            });
-                            btn.element().appendTo(content);
-                            $("<div class='neverremind'></div>").html(self.getL('home', 'neven_remind')).appendTo(content);
-                            new Mojo.com.CommonDialog(undefined, {
-                                classes: ['mojo-logininfo-dlg'],
-                                title: self.getL('home', 'login_title'),
-                                content: content,
-                                leftBtnText: self.getL('ui', 'Close'),
-                                leftBtnClick: function (that) {
-                                    that.close();
-                                },
-                                close: function () {
-                                    if (self.sign) {
-                                        Mojo.ajax('/player/cancelLoginRemind', {}, function (result) {});
-                                    }
-                                }
-                            }).open();
-                        }
-                    }
-                    if (effectiveEvent) self._bindSuccessPrompt(effectiveEvent, bindingEmail, isWeiboFollowing, isFirstWeibo, weibo, nickname);
-                    if (emailbindingcd > 0 && weibobindingcd > 0) {
-                        if (emailbindingcd > weibobindingcd) {
-                            Mojo.app.toast.show(self.getL('home', 'binding prompt', {
-                                "date": weibobindingcd
-                            }));
-                        }
-                    } else if (emailbindingcd > 0) {
-                        Mojo.app.toast.show(self.getL('home', 'binding email prompt', {
-                            "date": emailbindingcd
-                        }));
-                    } else if (weibobindingcd > 0) {
-                        Mojo.app.toast.show(self.getL('home', 'binding weibo prompt', {
-                            "date": weibobindingcd
-                        }));
-                    }
-                    if (hasAward != null && usertype == '2' && level >= 20) {
-                        var dlg = new Mojo.com.CommonDialog(undefined, {
-                            title: Mojo.utils.locale('home', 'helpful hints'),
-                            content: $('<div class="paragraph word-break"></div>').html(Mojo.utils.locale('common', 'bind_tip3')),
-                            leftBtnText: Mojo.utils.locale('weibo', 'go bind'),
-                            rightBtnText: Mojo.utils.locale('common', 'close'),
-                            leftBtnClick: function () {
-                                dlg.close();
-                                Mojo.app.redirect('/settings', {
-                                    selected: 1
-                                });
-                            },
-                            rightBtnClick: function () {
-                                dlg.close();
-                            }
-                        });
-                        dlg.open();
-                    }
-                    var guid = Mojo.cache.get('guid');
-                    if (!Mojo.app.getStorage('is_old_bind_prompt' + guid) && '' + bindingremind == '1') {
-                        Mojo.app.saveStorage("is_old_bind_prompt" + guid, true);
-                        self._oldAccountPrompt();
-                    }
-                    if (!Mojo.app.getStorage('is_yahoo_email' + guid) && isyahooemail == '1') {
-                        Mojo.app.saveStorage("is_yahoo_email" + guid, true);
-                        self._yahooPrompt();
-                    }
-                }
-                Mojo.app.data.needLoginStatus = false;
-                self.baseProfile.sync();
-            }, function () {
-                Mojo.app.data.needLoginStatus = false;
-                self.baseProfile.sync();
-            });
-        },
-        auto_force: function (fn) {
-            var self =this;
-            var force_level = 1000;
-            var fbindex = 0;
-            var time;
-            var timef;
-            var sumtime;
-            var empty = 0;
-            var title;
-            var serverRe = 0;
-            var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
-            var arrTitle = ["全民挖地球", "后门要牢固", "别动我的粮饷", "师兄需要你", "魔鬼式训练", "你吃了吗", "叛徒必须死", "你的都是我的", "偷窥可以有"];
-            var arrTaskCool = new Array(arrTask.length);
-            for (var i = 0; i < arrTask.length; i++) {
-                arrTaskCool[i] = 0
-            }
-
-            var auto_force_interval = setInterval(function(){
-                if (force_level == 1000) {
-                    Mojo.ajax('/force/playerTasks', {}, function (result) {
-                        Mojo.app.toast.show2("[内政]尝试获取势力内政信息", 20000);
-                        if (result.errorCode == 0) {
-                            force_level = result.data.task.force_level;
-                            var tasks = result.data.task.tasks;
-                            for (var i in tasks) {
-                                var task = tasks[i];
-                                if (parseInt(task.unlock_level) > parseInt(result.data.task.force_level) || task.status == 2) {
-                                    arrTaskCool[task.id - 1] = "-1";
-                                }
-                            }
-                        } else if (result.errorCode == 130019) {
-                            Mojo.app.toast.show2("[内政]无法内政:未加入势力");
-                            window.clearInterval(auto_force_interval);
-                            self.auto_finish(fn);
-                        }
-                    }, function () {});
-                } else if (fbindex < arrTaskCool.length) {
-                    time = parseInt(new Date().getTime() / 1000);
-                    var fubenid = arrTask[fbindex].split('@')[0];
-                    var fubencool = arrTask[fbindex].split('@')[1];
-                    Mojo.ajax('/force/doTask', {
-                        id: fubenid,
-                    }, function (result) {
-                        title = arrTitle[fbindex];
-                        if (result.errorCode == 0) {
-                            arrTaskCool[fbindex] = time + parseInt(fubencool);
-                            Mojo.app.toast.show2("[内政]执行: " + title, "20000");
-                            serverRe = 0
-                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                    break
-                                }
-                            }
-                            fbindex = i
-                        } else if (result.errorCode == 1) {} else if (result.errorCode == 130100) {
-                            arrTaskCool[fbindex] = '-1';
-                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                    break
-                                }
-                            }
-                            fbindex = i
-                        } else if (result.errorCode == 160003) {
-                            alert('卡牌容量不足');
-                        } else if (result.errorCode == 20004) {
-                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                    break
-                                }
-                            }
-                            fbindex = i;
-                            serverRe = 0
-                        } else if (result.errorCode == 20002) {
-                            arrTaskCool[fbindex] = '-1';
-                            for (i = fbindex + 1; i < arrTaskCool.length; i++) {
-                                if (arrTaskCool[i] != '-1' && arrTaskCool[i] - time < 0) {
-                                    break
-                                }
-                            }
-                            fbindex = i;
-                            if (serverRe == 1) {;
-                                serverRe = 0;
-                                for (i = 0; i < arrTask.length; i++) {
-                                    arrTaskCool[i] = '-1'
-                                }
-                                fbindex = arrTask.length + 1
-                            }
-                        } else if (result.errorCode == 130019) {
-                            Mojo.app.toast.show2("[内政]无法内政:未加入势力");
-                            self.auto_finish(fn);
-                        } else {}
-                    }, function () {}, {})
-                } else {
-                    timef = parseInt(new Date().getTime() / 1000);
-                    sumtime = 0;
-                    for (i = 0; i < arrTaskCool.length; i++) {
-                        sumtime = sumtime + parseInt(arrTaskCool[i]);
-                        if (arrTaskCool[i] != '-1' && arrTaskCool[i] - timef < 0) {
-                            fbindex = i
-                        }
-                    }
-                    if (sumtime == -9) {
-                        empty++;
-                        if (empty == 1) {
-                            Mojo.ajax('/force/playerTasks', {}, function (result) {
-                                if (result.errorCode == 0) {
-                                    Mojo.app.toast.show2("[内政]尝试接收系统刷新", "20000");
-                                    force_level = result.data.task.force_level;
-                                    var tasks = result.data.task.tasks;
-                                    for (var i in tasks) {
-                                        var task = tasks[i];
-                                        if (task.status == 2 || parseInt(task.unlock_level) > parseInt(result.data.task.force_level)) {
-                                            arrTaskCool[task.id - 1] = "-1";
-                                        } else {
-                                            arrTaskCool[task.id - 1] = 0;
-                                        }
-                                    }
-                                    fbindex = 0;
-                                    serverRe = 1
-                                }
-                            }, function () {})
-                        } else if (empty == 2) {
-                            Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
-                                if (result.errorCode == 0) {
-                                    Mojo.app.toast.show2("[内政]自动接收官员刷新", "20000");
-                                    for (i = 0; i < arrTask.length; i++) {
-                                        arrTaskCool[i] = 0
-                                    }
-                                    fbindex = 0
-                                } else{
-                                    window.clearInterval(auto_force_interval);
-                                    self.auto_finish(fn);
-                                }
-                            });
-                        }
-                    } else {
-                        window.clearInterval(auto_force_interval);
-                        self.auto_finish(fn);
-                    }
-                }
-            }, 4000);
-        },
-        auto_zhufushi: function(fn){
-            var self = this;
-            Mojo.ajax('/force/exchange', {
-                id: "dh0001"
-            }, function (result) {
-                if (result.errorCode == 0) {
-                    Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
-                } else {
-                    Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
-                }
-                self.auto_finish(fn);
-            }, function () {});
-        },
-        auto_finish: function(fn){
-            var self = this;
-            var fi = self._fn.indexOf(fn);
-            if(fi>=0){
-                self._fn.splice(fi,1);
-            }
-            if(self._fn.length<=0){
-                Mojo.app.toast.show2("本轮自动任务已全部完成,4秒后切换下一个账号");
-                setTimeout(function () {
-                    Mojo.app.redirect("/default/login");
-                }, 4000);
-            }
-        },
-        auto_force_suipian: function(fn, sid){
-            var self=this;
-            Mojo.ajax('/force/exchange', {
-                id: sid
-            }, function (result) {
-                if (result.errorCode == 0) {
-                    var sp_award = "";
-                    if (result.data && result.data.entities && result.data.entities.length > 0) {
-                        sp_award = "，获得" + result.data.entities[0].name;
-                    }
-                    Mojo.app.toast.show2("[兑换]势力兑换活动碎片成功" + sp_award);
-                } else {
-                    Mojo.app.toast.show2("[兑换]兑换活动碎片失败：" + result.errorMsg);
-                }
-                self.auto_finish(fn);
-            }, function () {});
-        },
-        auto_collect: function(fn){
-            var self=this;
-            var robs = ["b101", "b102", "b103", "b104", "b105", "b106", "b107", "b108", "b109", "b110"];
-            var robname = ["孟德新书", "兵书24篇", "遁甲天书", "春秋左氏传", "史记", "太平要术", "六韬", "孙子兵法", "青囊书", "玉玺"];
-            var robid = 0;
-            var compositestart = false;
-
-            var auto_collect_interval = setInterval(function(){
-                if (compositestart == false) {
-                    Mojo.ajax('/collect/composite', {
-                        id: robs[robid]
-                    }, function (result) {
-                        if (result.errorCode == 50003) {
-                            msg = result.errorMsg;
-                            msgindex = msg.indexOf("剩余时间");
-                            if (msgindex != -1) {
-                                msg = msg.substring(msgindex);
-                                Mojo.app.toast.show2("[合成]" + robname[robid] + "正在合成中," + msg, "20000");
-                                compositestart = !compositestart;
-                                robid = robid + 1;
-                                if (robid >= robs.length) {
-                                    window.clearInterval(auto_collect_interval);
-                                    self.auto_finish(fn);
-                                }
-                            }
-                        } else if (result.errorCode == 0) {
-                            Mojo.app.toast.show2("[合成]收获 " + robname[robid] + " 1本", "20000");
-                        }
-                        compositestart = !compositestart;
-                    }, function () {}, {});
-                } else {
-                    Mojo.ajax('/collect/compositeStart', {
-                        id: robs[robid]
-                    }, function (result) {
-                        if (result.errorCode == 50001) {} else if (result.errorCode == 0) {
-                            Mojo.app.toast.show2("[合成]开始合成:" + robname[robid], "20000");
-                        }
-                        robid = robid + 1;
-                        if (robid >= robs.length) {
-                            window.clearInterval(auto_collect_interval);
-                            self.auto_finish(fn);
-                        }
-                        compositestart = !compositestart;
-                    }, function () {}, {});
-                }
-            },3000);
-        },
-        auto_fuben_internal: function(fn, fubens, fubens_refresh){
-            var self = this;
-            var to_ref=fubens_refresh;
-            var fb_tasks=[];
-            var cur_fuben_index=0;
-            var cur_fb_task_group;
-            var is_boss_group = false;
-            var iv_time = 2800;
-            var runs=0;
-            var needwait=false;
-            var time = new Date().getTime() / 1000;
-            var auto_fuben_iv = setInterval(function(){
-                if(to_ref.length>0){
-                    Mojo.ajax('/fuben/fbTasks', {fuben_id:to_ref[0].id,fuben_refresh:1}, function (result) {
-                        if(result.errorCode == 0){
-                            Mojo.app.toast.show2("[副本]["+to_ref[0].name +"]重置成功");
-                            fubens.push(to_ref.splice(0,1));
-                        }else{
-                            to_ref.splice(0,1);
-                        }
-                    }, function () {}); 
-                }else if(cur_fuben_index < fubens.length){
-                    //do fuben
-                    var cur_fuben = fubens[cur_fuben_index];
-                    var fuben_name = cur_fuben.name;
-                    if(fb_tasks.length==0){
-                        // query current task group and tasks.
-                        Mojo.ajax("/fuben/fbTasks", {"fuben_id":cur_fuben.id}, function (response) {
-                            if(response.errorCode==0){
-                                var fdata=response.data;
-                                if(runs==0){
-                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]:刷新任务列表");
-                                }
-                                fb_tasks = fdata.fb_tasks;
-                                // get current group
-                                for(var gi in fdata.fb_task_groups){
-                                    if(fdata.fb_task_groups[gi].fb_task_group_id==fdata.cur_fb_task_group.fb_task_group_id){
-                                        cur_fb_task_group = fdata.fb_task_groups[gi];
-                                    }
-                                }
-                                //check if the boss group
-                                is_boss_group=(cur_fb_task_group.order==fdata.fb_task_groups.length);
-                            }else{
-                                Mojo.app.toast.show2("[副本]["+fuben_name+"]:刷新任务列表失败");
-                                fb_tasks=[];
-                                cur_fuben_index = cur_fuben_index+1;
-                            }
-                        }, function(){});
-                    }else{
-                        var group_name=cur_fb_task_group.name;
-                        // find available task
-                        for(t_i=0;t_i<fb_tasks.length;t_i++){
-                            if(fb_tasks[t_i].unlock==0)continue;
-                            if((fb_tasks[t_i].status==1 && fb_tasks[t_i].cold_down==0) || fb_tasks[t_i].status==0){
-                                break;
-                            }
-                        }
-                        //if cound, do task
-                        if(t_i < fb_tasks.length){
-                            Mojo.ajax("/fuben/do",{id: fb_tasks[t_i].id},function(result){
-                                // Mojo.app.toast.show2("[debug]"+result.errorCode+":"+result.errorMsg);
-                                if(result.errorCode == 160003){
-                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]失败:卡牌容量不足");
-                                    window.clearInterval(auto_fuben_iv);
-                                    self.auto_finish(fn);
-                                }else if(result.errorCode==0){
-                                    var bonus = result.data.award.bonus;
-                                    var bonus_msg="";
-                                    if(bonus && bonus.entities && bonus.entities.length>0){
-                                        bonus_msg = ",获得："+bonus.entities[0].name;
-                                    }
-                                    Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
-                                    fb_tasks[t_i]=result.data.fb_task;
-                                    //if have award, get award and go to next group
-                                    if(result.data.fb_task.status==3){
-                                        //get award
-                                        if(!is_boss_group){
-                                            Mojo.ajax("/fuben/getAward", {
-                                                id: fb_tasks[t_i].id,
-                                            }, function (garesult) {
-                                                if (garesult.errorCode == 0) {
-                                                    Mojo.ajax("/fuben/openAward", {
-                                                        id: fb_tasks[t_i].id,
-                                                        award_id: garesult.data.free_award.id,
-                                                        status: 1,
-                                                    }, function (oaresult) {
-                                                        if(oaresult.errorCode==0 && oaresult.data && oaresult.data.entity){
-                                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+oaresult.data.entity.name);
-                                                        }
-                                                    }, function () {});
-                                                }
-                                            }, function(){});
-                                        }
-                                        //go to next group if any.
-                                        fb_tasks=[];
-                                        if(is_boss_group){
-                                            cur_fuben_index=cur_fuben_index+1;
-                                            fb_tasks=[];
-                                        }
-                                    }else if(result.data.fb_task.status==1 && parseInt(fb_tasks[t_i].id)%5==1){
-                                        needwait = true;
-                                    }else{
-                                        //check if mini-boss task can be unlocked.
-                                        var f_f=true;
-                                        $.each(fb_tasks,function(i,t){
-                                            if(t.status!=2){
-                                                f_f=false;
-                                                if(i==4)f_f=true;
-                                            }
-                                        });          
-                                        if(f_f){fb_tasks[4].status=1;}
-                                    }
-                                }else{
-                                    cur_fuben_index=cur_fuben_index+1;
-                                    fb_tasks=[];
-                                }
-                            },function(){});
-                        }else{
-                            //if not found, go to next fuben and reset tasks.
-                            cur_fuben_index=cur_fuben_index+1;
-                            fb_tasks=[];
-                        }
-                    }                                   
-                }else{
-                    fb_tasks=[];
-                    cur_fuben_index=0;
-                    if(needwait){
-                        if(runs>=1){
-                            window.clearInterval(auto_fuben_iv);
-                            self.auto_finish(fn);
-                        }else if(new Date().getTime() / 1000 > time+30){
-                            runs=runs+1;
-                            time = date.getTime()/1000;
-                        }
-                    }else{
-                        window.clearInterval(auto_fuben_iv);
-                        self.auto_finish(fn);
-                    }
-                }
-            }, iv_time);
-        },
-        auto_fuben: function(fn){
-            var self=this;
-            var fubens = [];
-            var fubens_refresh=[];
-            Mojo.ajax('/fuben/fubens', {}, function (result) {
-                if (result.errorCode == 0) {
-                    Mojo.app.toast.show2("[副本]初始化副本信息");
-                    $.each(result.data, function (i, fb) {
-                        //unlock: 1=unlocked, 0=locked
-                        //status: 0=init, 1=ing, 3=cold_down
-                        if (fb.unlock == 1) {
-                            if (fb.status == 1) {
-                                fubens.push(fb);
-                            } else if (fb.status == 0 || (fb.status == 3 && fb.cold_down == 0)) {
-                                fubens_refresh.push(fb);
-                            }
-                        }
-                    });
-                    if(fubens.length + fubens_refresh.length==0){
-                        self.auto_finish(fn);
-                    }else{
-                        self.auto_fuben_internal(fn, fubens, fubens_refresh);
-                    }
-                } else {
-                    Mojo.app.toast.show2("[副本]初始化失败:(" + result.errorCode + ")" + result.errorMsg);
-                    self.auto_finish(fn);
-                }
-            }, function () {});
-        },
-        auto_biansuiweibao: function(fn){
-            var self = this;
-            var listParams={
-                start: 0,
-                count: 20,
-                type: 4,
-                sub_type: 0,
-            };
-            Mojo.ajax("/illustration/list", listParams, function (result) {
-                if(result.errorCode==0){
-                    var finished = true;
-                    for (var i in result.data.list) {
-                        var awardname = result.data.list[i].award.name;
-                        var name = result.data.list[i].name;
-                        if ((awardname == "祝福石" || awardname=="转生丹") && name == "变碎为宝活动") {
-                            var params={};
-                            params.game_activity_id = result.data.list[i].id;
-                            var cd = result.data.list[i].cooling_time;
-                            if(parseInt(cd) == 0){
-                                finished = false;
-                                Mojo.ajax("/gameactivity/do", params, function (response1) {
-                                    if(response1.errorCode==0){
-                                        if(response1.data && response1.data.entity){
-                                            Mojo.app.toast.show2("[兑换]变废为宝，获得"+response1.data.entity.name);
-                                        }
-                                    }else{
-                                        Mojo.app.toast.show2("[兑换]变废为宝失败："+response1.errorMsg);
-                                    }
-                                    self.auto_finish(fn);
-                                }, function(){});
-                            }
-                        }
-                    }
-                    if(finished){
-                        self.auto_finish(fn);
-                    }
-                }else{
-                    self.auto_finish(fn);
-                }
-            }, function(){});
-        },
-        auto_mission: function(fn){
-            var self=this;
-            var init = false;
-            var scenario;
-            var task_group;
-            var tasks=[];
-            var t_index=0;
-            var mission_interval = setInterval(function(){
-                if(!init){
-                    Mojo.ajax("/mission", {}, function (result) {
-                        if(result.errorCode==0){
-                            init = true;
-                            Mojo.app.toast.show2("[任务]初始化任务列表");
-                            scenario = result.data.cur_scenario;
-                            task_group = result.data.cur_task_group;
-                            tasks = result.data.tasks;
-                        }else{
-                            Mojo.app.toast.show2("[任务]初始化失败:"+result.errorMsg);
-                            self.auto_finish(fn);
-                        }
-                    }, function(){});
-                }else{
-                    for(i=t_index;i<tasks.length;i++){
-                        if(tasks[i].unlock=="1" && (tasks[i].status=="1" || tasks[i].status=="0")){
-                            t_index=i;
-                            break;
-                        }
-                    }
-                    if(t_index<5){
-                        var _ct=tasks[t_index];
-                        var prefix="[任务]["+scenario.name+"]["+task_group.name+"]["+_ct.name+"]";
-                        Mojo.ajax("/mission/do",{"id":_ct.id,"preview":0},function(result){
-                            // Mojo.app.toast.show2("[debug]("+result.errorCode+")"+result.errorMsg);
-                            if(result.errorCode==0){
-                                var msg=prefix + "执行成功";
-                                if(result.data.award&&result.data.award.bonus&&result.data.award.bonus.entities){
-                                    msg=msg+",获得:"+result.data.award.bonus.entities[0].name;
-                                }
-                                Mojo.app.toast.show2(msg);
-                                if(result.data.task){
-                                    if(result.data.task.count==result.data.task.sum_count){
-                                        tasks[t_index].status=2;                                      
-                                        t_index=t_index+1;
-                                    }
-                                }
-                                var unlockboss=true;
-                                for(j=0;j<tasks.length-1;j++){
-                                    if(tasks[j].status!=2){
-                                        unlockboss=false;
-                                        break;
-                                    }
-                                }
-                                if(unlockboss){
-                                    tasks[tasks.length-1].unlock=1;
-                                }
-                                if(result.data.player){
-                                    // keep 20% energy for fuben
-                                    var ep=parseInt(result.data.player.ep);
-                                    var energy=parseInt(result.data.player.energy);
-                                    if(ep/energy<0.2){
-                                        self.auto_finish(fn);
-                                        clearInterval(mission_interval);
-                                    }
-                                }
-                            }else if (result.errorCode == 10002){
-                                Mojo.app.toast.show2("[任务]体力值不足");
-                                self.auto_finish(fn);
-                                clearInterval(mission_interval);
-                            }else if (result.errorCode == 160003){
-                                Mojo.app.toast.show2("[任务]卡牌容量不足");
-                                self.auto_finish(fn);
-                                clearInterval(mission_interval);
-                            }else if(result.errorCode==20002){
-                                tasks[t_index].status=2;
-                                t_index=t_index+1;
-                            }
-                        },function(){});
-                    }else{
-                        self.auto_finish(fn);
-                    }
-                }
-            }, 4285);
-        },
-        load: function () {
-            this._super();
-            $('#btn-messages').append('<div class="count" style="display:none;"></div>');
-            $('#btn-ranking').append('<div class="count" style="display:none;"></div>');
-            var self = this;
-            Mojo.ajax('/message', {
-                start: 0,
-                count: 0,
-                type: "all"
-            }, function (result) {
-                if (result.errorCode == 0) {
-                    self._renderMsgCount(result.data.unread.system + result.data.unread.friend + result.data.unread.battle);
-                    self._renderRankingCount(result.data.unread.award_count);
-                }
-            });
-            var needLoginStatus = Mojo.utils.getSomething("needLoginStatus");
-            var automode = Mojo.app.getStorage("auto-mode");
-            if (automode === "true") {
-                Mojo.app.toast.show("", 10, true);
-                Mojo.app.saveStorage("auto-mode-green", "true");
-                var user_info = Mojo.app.getStorage("auto-mode-last-user");
-                if (!user_info) {
-                    if (confirm("当前账号未设置自动任务。是否立即返回登录页?")) {
-                        Mojo.app.redirect("/default/login");
-                    } else {
-                        Mojo.app.saveStorage("auto-mode", "false");
-                        Mojo.app.toast.show("自动模式已取消", 3000);
-                        return;
-                    }
-                }
-                setTimeout(function(){
-                    Mojo.app.toast.show2("执行超时，自动切换下一账号");
-                    Mojo.app.redirect("/default/login");
-                },300000);
-                user = JSON.parse(Mojo.app.getStorage("auto-mode-last-user"));
-                self._fn = user.fn;
-                $.each(user.fn, function(i,fnp){
-                    var fn = fnp.split("@")[0];
-                    var fn_param = fnp.split("@")[1];
-                    switch(fn){
-                        case "fuben":
-                            self.auto_fuben(fn);
-                            break;
-                        case "suipian":
-                            self.auto_force_suipian(fn,fn_param);
-                            break;
-                        case "zhufushi":
-                            self.auto_zhufushi(fn);
-                            break;
-                        case "force":
-                            self.auto_force(fn);
-                            break;
-                        case "collect":
-                            self.auto_collect(fn);
-                            break;
-                        case "biansuiweibao":
-                            self.auto_biansuiweibao(fn);
-                            break;
-                        case "mission":
-                            self.auto_mission(fn);
-                            break;
-                        default:
-                            Mojo.app.toast.show2("未知的自动任务:" + fn);
-                            self.auto_finish(fn);
-                            break;
-                    }
-                });
-            } else {
-                setTimeout(function () {
-                    Mojo.gap.bindPlayerIdToDevice(Mojo.app.data.userId);
-                }, 1500);
-                this.checkLoginGift(true);
-            }
-        },
-        checkLoginGift: function (isFromUrl) {
-            if (true === Mojo.app.__checkingLoginGift) {
-                return;
-            }
-            var self = this;
-            Mojo.app.__checkingLoginGift = true;
-            Mojo.ajax('/player/loginstatus', {}, function (result) {
-                if (result.errorCode == 0 && result.data.check_in != null) {
-                    Mojo.track.onEvent('03_010');
-                    var signIn = new Mojo.com.SignIn(result.data.check_in, {
-                        callback: function (player) {
-                            self.baseProfile.data(player);
-                        },
-                        close: function () {
-                            if (Mojo.app.isNd) {
-                                Mojo.app.data.needLoginStatus = false;
-                                self.baseProfile.sync();
-                                return;
-                            }
-                            self.loginremind({
-                                hasAward: result.data.check_in
-                            });
-                        },
-                    });
-                    setTimeout(function () {
-                        signIn.open();
-                    }, 300);
-                } else if (true === isFromUrl && result.errorCode == 0 && Mojo.utils.isNone(result.data.announcement) == false) {
-                    if (Mojo.app.isNd) {
-                        Mojo.app.data.needLoginStatus = false;
-                        self.baseProfile.sync();
-                        return;
-                    }
-                    self.loginremind();
-                } else if (true === isFromUrl) {
-                    if (Mojo.app.isNd) {
-                        Mojo.app.data.needLoginStatus = false;
-                        self.baseProfile.sync();
-                        return;
-                    }
-                    self.loginremind();
-                }
-                if (result && result.data && result.data.five_star_award) {
-                    var count = self._getMsgCount();
-                    if (count) {
-                        count += 1;
-                    } else {
-                        count = 1;
-                    }
-                    self._renderMsgCount(count);
-                }
-            });
-        },
-        _yahooPrompt: function () {
-            var self = this;
-            new Mojo.com.CommonDialog(undefined, {
-                title: self.locale('helpful hints'),
-                content: self.locale('yahoo prompt'),
-                leftBtnText: Mojo.utils.locale('weibo', 'go bind'),
-                leftBtnClick: function (that) {
-                    that.close();
-                    Mojo.app.redirect('/settings', {
-                        selected: 1
-                    }, 'event', '04_056');
+            this._footer.append(this._attackBtn.element());
+            this._footer.append((new Mojo.ui.Button('close-btn', {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    self.close();
                 },
-                rightBtnText: Mojo.utils.locale('common', 'close'),
-                rightBtnClick: function (that) {
-                    that.close();
-                }
-            }).open();
+            })).element());
         },
-        _bindSuccessPrompt: function (effectiveEvent, bindingEmail, isWeiboFollowing, isFirstWeibo, weibo) {
-            var self = this;
-            effectiveEvent = Number(effectiveEvent);
-            switch (effectiveEvent) {
-            case 1:
-                self._oldUserEmailBindSuccess(bindingEmail);
-                break;
-            case 2:
-                self._oldUserWeiboBindSuccess(effectiveEvent, isWeiboFollowing, isFirstWeibo);
-                break;
-            case 3:
-                self._oldUserWeiboBindSuccess(effectiveEvent, isWeiboFollowing, isFirstWeibo, function () {
-                    self._oldUserEmailBindSuccess(bindingEmail);
-                });
-                break;
-            case 4:
-            case 5:
-                new Mojo.com.CommonDialog(undefined, {
-                    title: Mojo.utils.locale('weibo', 'merge_prompt_tips'),
-                    content: $("<div class='paragraph word-break'>" + self.getL('weibo', 'merge_prompt_content', {
-                        weibo: weibo
-                    }) + "</div>"),
-                    leftBtnText: Mojo.utils.locale('common', 'ok'),
-                    leftBtnClick: function (that) {
-                        that.close();
-                        Mojo.ajax('/user/delayMerge', {}, function (response) {
-                            if (response.errorCode == 0) {
-                                if (response.data.status == 3) {
-                                    new Mojo.com.CommonDialog(undefined, {
-                                        title: Mojo.utils.locale('weibo', 'bind succeed'),
-                                        content: $("<div class='paragraph word-break'>" + self.getL('weibo', 'weibo bind succeed 7 day ago has card', {
-                                            weibo: weibo
-                                        }) + "</div>"),
-                                        leftBtnText: Mojo.utils.locale('common', 'need_logout'),
-                                        leftBtnClick: function (that) {
-                                            that.close();
-                                        },
-                                        close: function () {
-                                            Mojo.app.redirect('/default/logout');
-                                            if (window.localStorage) {
-                                                localStorage['chat-channel-default'] = 0;
-                                            }
-                                        }
-                                    }).open();
-                                } else if (response.data.status == 4) {
-                                    new Mojo.com.CommonDialog(undefined, {
-                                        title: Mojo.utils.locale('weibo', 'bind succeed'),
-                                        content: $("<div class='paragraph word-break'>" + self.getL('weibo', 'weibo bind succeed 7 day ago no card', {
-                                            weibo: weibo
-                                        }) + "</div>"),
-                                        leftBtnText: Mojo.utils.locale('common', 'need_logout'),
-                                        leftBtnClick: function (that) {
-                                            that.close();
-                                        },
-                                        close: function () {
-                                            Mojo.app.redirect('/default/logout');
-                                            if (window.localStorage) {
-                                                localStorage['chat-channel-default'] = 0;
-                                            }
-                                        }
-                                    }).open();
-                                } else if (response.data.status == 5) {
-                                    new Mojo.com.CommonDialog(undefined, {
-                                        title: self.getL('weibo', 'merge_faild_tips'),
-                                        content: $('<div class="paragraph wordBreak"></div>').html(self.getL('weibo', 'merge_faild_content')),
-                                        leftBtnText: self.getL('common', 'close'),
-                                        leftBtnClick: function (that) {
-                                            that.close();
-                                        }
-                                    }).open();
-                                }
-                            }
-                        }, function () {}, {
-                            showWait: true
-                        });
-                    }
-                }).open();
-                break;
-            case 6:
-                new Mojo.com.CommonDialog(undefined, {
-                    title: Mojo.utils.locale('weibo', 'merge_prompt_tips'),
-                    content: $("<div class='paragraph word-break'>" + self.getL('weibo', 'email_merge_prompt_content', {
-                        email: bindingEmail
-                    }) + "</div>"),
-                    leftBtnText: Mojo.utils.locale('common', 'ok'),
-                    leftBtnClick: function (that) {
-                        that.close();
-                        Mojo.ajax('/user/delayMerge', {}, function (response) {
-                            if (response.errorCode == 0) {
-                                new Mojo.com.CommonDialog(undefined, {
-                                    title: Mojo.utils.locale('weibo', 'Merge Succeed'),
-                                    content: $("<div class='paragraph word-break'>" + self.getL('home', 'email bind success tips', {
-                                        email: bindingEmail
-                                    }) + "</div>"),
-                                    leftBtnText: Mojo.utils.locale('common', 'need_logout'),
-                                    leftBtnClick: function (that) {
-                                        that.close();
-                                    },
-                                    close: function () {
-                                        Mojo.app.redirect('/default/logout');
-                                        if (window.localStorage) {
-                                            localStorage['chat-channel-default'] = 0;
-                                        }
-                                    }
-                                }).open();
-                            } else {
-                                new Mojo.com.CommonDialog(undefined, {
-                                    title: self.getL('common', 'friendly_tip'),
-                                    content: $('<div class="paragraph wordBreak">').html(response.errorMsg),
-                                    leftBtnText: self.getL('common', 'close'),
-                                    leftBtnClick: function (that) {
-                                        that.close();
-                                    }
-                                }).open();
-                            }
-                        }, function () {}, {
-                            showWait: true
-                        });
-                    }
-                }).open();
-                break;
-            }
-        },
-        _showCommonDialog: function (data) {
-            var self = this;
-            new Mojo.com.CommonDialog(undefined, {
-                title: Mojo.utils.locale('weibo', 'bind succeed'),
-                content: $("<div class='paragraph word-break'>" + data.message + "</div>"),
-                leftBtnText: data.leftBtnText,
-                leftBtnClick: function (that) {
-                    if (data.leftBtnClick) data.leftBtnClick(that);
-                },
-                close: function (that) {
-                    if (data.close) data.close(that);
-                }
-            }).open();
-        },
-        _oldUserWeiboBindSuccess: function (effectiveEvent, isWeiboFollowing, isFirstWeibo, callback) {
-            var self = this;
-            var content = null;
-            var contentKey = '';
-            if (isFirstWeibo) {
-                if (isWeiboFollowing) {
-                    contentKey = 'change weibo success tips0';
-                } else {
-                    contentKey = 'Bind succeed and why not to follow us';
-                }
-            } else {
-                if (isWeiboFollowing) {
-                    contentKey = 'change weibo success tips';
-                } else {
-                    contentKey = 'Bind Success Tip';
-                }
-            }
-            new Mojo.com.CommonDialog(undefined, {
-                title: Mojo.utils.locale('weibo', 'bind succeed'),
-                content: $("<div class='paragraph word-break'>" + self.getL('weibo', contentKey) + "</div>"),
-                leftBtnText: Mojo.utils.locale('weibo', 'follow'),
-                leftBtnClick: function (that) {
-                    self.getBindingBouncesBtn = true;
-                    that.close();
-                },
-                close: function () {
-                    if (self.getBindingBouncesBtn) {
-                        self.getBindingBouncesBtn = null;
-                        Mojo.ajax('/user/getBindingBounces', {
-                            need_follow: true
-                        }, function (result) {});
-                    } else {
-                        Mojo.ajax('/user/getBindingBounces', {
-                            need_follow: false
-                        }, function (result) {});
-                    }
-                    self.bindAwardDlg();
-                    if (callback) {
-                        callback();
-                    }
-                }
-            }).open();
-        },
-        _oldUserEmailBindSuccess: function (bindingEmail) {
-            var self = this;
-            new Mojo.com.CommonDialog(undefined, {
-                title: Mojo.utils.locale('weibo', 'bind succeed'),
-                content: $("<div class='paragraph word-break'>" + self.getL('home', 'Register Code Tip', {
-                    email: bindingEmail || ''
-                }) + "</div>"),
-                leftBtnText: Mojo.utils.locale('common', 'close'),
-                leftBtnClick: function (that) {
-                    that.close();
-                },
-                close: function () {
-                    Mojo.ajax('/user/getBindingBounces', {
-                        need_follow: false
-                    }, function (result) {});
-                }
-            }).open();
-        },
-        bindAwardDlg: function () {
-            var self = this;
-            var dlg = new Mojo.com.CommonDialog(undefined, {
-                title: self.getL('home', 'bind award tips'),
-                content: $('<div class="paragraph word-break"><div class="title-tips">' + self.getL('home', 'bind_rebirth_drug_content') + '</div><div class="awards"><div class="card-gift image"><div class="iphone mojo-com-entity-small"><div class="card-image-url"></div><div class="minis-flag" style="display: none;"></div></div><div class="count">10</div></div><div class="name">' + self.getL('home', 'bind_rebirth_drug') + '</div></div></div>'),
-                leftBtnText: self.getL('common', 'close'),
-                leftBtnClick: function (that1) {
-                    that1.close();
-                }
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                atackBtnText: Mojo.utils.locale('mission', 'action'),
+                title: Mojo.utils.locale('mission', 'battle result preview'),
+                type: '',
+                callback: $.noop,
+                from: ''
             });
-            dlg.element().addClass('home_award_dlg');
-            dlg.open();
         },
-        _oldAccountPrompt: function () {
-            var self = this;
-            new Mojo.com.CommonDialog(undefined, {
-                title: self.locale('helpful hints'),
-                content: $("<div class='paragraph word-break'>" + self.locale('account secrity prompt') + "</div>"),
-                leftBtnText: Mojo.utils.locale('weibo', 'go bind'),
-                leftBtnClick: function (that) {
-                    that.close();
-                    Mojo.app.redirect('/settings', {
-                        selected: 1
-                    }, 'event', '04_056');
-                },
-                rightBtnText: Mojo.utils.locale('common', 'close'),
-                rightBtnClick: function (that) {
-                    that.close();
-                }
-            }).open();
-        },
-        _getMsgCount: function () {
-            var count = $('#btn-messages > .count').html();
-            if (Mojo.utils.isNone(count)) {
-                count = 0;
-            } else {
-                count = parseInt(count);
-            }
-            return count;
-        },
-        _renderMsgCount: function (n) {
-            if (n <= 0) {
-                $('#btn-messages > .count').html(n).hide();
-            } else {
-                $('#btn-messages > .count').html(n).show();
-            }
-        },
-        _renderRankingCount: function (n) {
-            if (n <= 0) {
-                $('#btn-ranking > .count').html(n).hide();
-            } else {
-                $('#btn-ranking > .count').html(n).show();
-            }
-        },
-        debugable: function () {
-            return Mojo.utils.debug.vars.page.home;
-        },
-        _newPlayerGift: function () {
-            var self = this;
-            var newPlayerTutorial = undefined;
-            var newPlayerAwardDiv = $('<div id="new-player-award"></div>');
-            var generalList = {};
-            var chooseGeneralId = undefined;
-            var elmDiv1 = $('<div class="new-player-awards"></div>');
-            var elmDiv2 = $('<div class="new-player-awards"></div>');
-            Mojo.ajax("/bonus/NewPlayerAwardList", {}, function (response) {
-                if (response && response.errorCode === 0) {
-                    for (var index in response.data.list) {
-                        var data = response.data.list[index];
-                        var obj = new Mojo.Object(undefined, {
-                            classes: ['new-player-award-element', 'image'],
-                        });
-                        obj.element().append('<img src="' + data.small_image + '">');
-                        obj.element().append('<div class="element-border"></div>');
-                        obj.element().append('<div class="element-name">' + data.name + '</div>');
-                        obj.element().bind('click', {
-                            id: data.id
-                        }, function (evt) {
-                            for (var id in generalList) {
-                                var el = generalList[id];
-                                if (id == evt.data.id) {
-                                    el.element().find(".element-border").css("opacity", 0);
-                                    chooseGeneralId = evt.data.id;
-                                } else {
-                                    el.element().find(".element-border").css("opacity", 0.6);
-                                }
-                            }
-                        });
-                        if (parseInt(data.is_default) == 1) {
-                            obj.element().find(".element-border").css("opacity", 0);
-                            chooseGeneralId = data.id;
-                        }
-                        generalList[data.id] = obj;
-                        if (index < 2) {
-                            elmDiv1.append(obj.element());
-                        } else {
-                            elmDiv2.append(obj.element());
-                        }
-                    }
-                    elmDiv1.appendTo(newPlayerAwardDiv);
-                    elmDiv2.appendTo(newPlayerAwardDiv);
-                    (new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('home', 'go_sanguo'),
-                        special: 'button-big-red',
-                        click: function () {
-                            Mojo.ajax("/bonus/NewPlayerAward", {
-                                entity_id: chooseGeneralId
-                            }, function (response) {
-                                self._baseSlotList.reLoad();
-                                newPlayerAwardDiv.remove();
-                                newPlayerTutorial.close();
-                                Mojo.app.tutorial = new Mojo.com.Tutorial(undefined, {
-                                    tutorial: "mission",
-                                    text: Mojo.utils.locale('tutorial', 'tutorial_start'),
-                                    click: function (tutorial) {
-                                        Mojo.app.redirect('/mission', {
-                                            tutorial: 'yes'
-                                        });
-                                    }
-                                }).open();
-                            }, function () {
-                                self._baseSlotList.reLoad();
-                                newPlayerAwardDiv.remove();
-                                newPlayerTutorial.close();
-                                Mojo.app.tutorial = new Mojo.com.Tutorial(undefined, {
-                                    tutorial: "mission",
-                                    text: Mojo.utils.locale('tutorial', 'tutorial_start'),
-                                    click: function (tutorial) {
-                                        Mojo.app.redirect('/mission', {
-                                            tutorial: 'yes'
-                                        });
-                                    }
-                                }).open();
-                            });
-                        }
-                    })).element().addClass("go-sanguo").appendTo(newPlayerAwardDiv);
-                }
-            });
-            newPlayerAwardDiv.appendTo($(document.body));
-            newPlayerTutorial = (new Mojo.com.Tutorial(undefined, {
-                text: Mojo.utils.locale('tutorial', 'tutorial_new_player'),
-            })).open();
-            newPlayerTutorial.element().attr("id", "new-player-tutorial").find(".tutorial-arrow").hide();
-            newPlayerTutorial.element().append($('<div class="new-player-award-title"></div>').html(Mojo.utils.locale('home', 'new_player_gift_title')));
-        }
     });
 })(window, jQuery);
