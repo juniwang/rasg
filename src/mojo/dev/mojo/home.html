@@ -24,17 +24,15 @@
 <script type="text/javascript">
 Mojo.app.clientVersion = "1.3";
 
-window.__mojoRun  = (function() {
+var interval1 = setInterval(function(){
+	if (Mojo.app.getStorage("auto-mode") === "true") {
+		window.location.href="/mojo/ipad/home";
+	}else{
+		clearInterval(interval1);
+	}
+},300000);
 
-	var interval1 = setInterval(function(){
-		if (Mojo.app.getStorage("auto-mode") === "true") {
-			if(Mojo.app.getStorage("auto-mode-green")!=="true"){
-				window.location.href="/mojo/ipad/home";
-			}
-		}else{
-			clearInterval(interval1);
-		}
-	},10000);
+window.__mojoRun  = (function() {
 
 	Mojo.utils.debug.vars.com.broadcast = true;
 	Mojo.utils.debug.vars.com.listpanel = true;
