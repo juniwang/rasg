@@ -26,7 +26,8 @@ Mojo.app.clientVersion = "1.3";
 
 var interval1 = setInterval(function(){
 	if (Mojo.app.getStorage("auto-mode") === "true") {
-		window.location.href="/mojo/ipad/home";
+		// window.location.href="/mojo/ipad/home";
+		Mojo.app.redirect("/default/login");
 	}else{
 		clearInterval(interval1);
 	}
