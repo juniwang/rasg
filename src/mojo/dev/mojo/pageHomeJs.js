@@ -9808,7 +9808,6 @@ function trackClient(appkeys) {
                 }
                 if (data && data.errorCode === 140002) {
                     //Mojo.app.redirect('/default/logout/isMultiLogin/yes');
-                    Mojo.app.redirect('/default/login');
                 } else if (callback !== undefined && callback != null) {
                     callback(data);
                 }
@@ -14977,7 +14976,10 @@ function trackClient(appkeys) {
                     Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
                 }
                 self.auto_finish(fn);
-            }, function () {});
+            }, function () {
+                Mojo.app.toast.show2("[兑换]兑换祝福石失败");
+                self.auto_finish(fn);
+            });
         },
         auto_finish: function(fn){
             var self = this;
@@ -14992,22 +14994,61 @@ function trackClient(appkeys) {
                 }, 4000);
             }
         },
-        auto_force_suipian: function(fn, sid){
+        auto_force_suipian: function(fn){
             var self=this;
-            Mojo.ajax('/force/exchange', {
-                id: sid
-            }, function (result) {
-                if (result.errorCode == 0) {
-                    var sp_award = "";
-                    if (result.data && result.data.entities && result.data.entities.length > 0) {
-                        sp_award = "，获得" + result.data.entities[0].name;
+            setTimeout(function(){
+                Mojo.ajax("/force/exchangelist",{},
+                function(result){
+                    if(result.errorCode==0 && result.data && result.data.list){
+                        var sid="";
+                        var cold_down=0;
+                        $.each(result.data.list, function(i,item){
+                            if(item.description.indexOf("活动碎片")>=0){
+                                sid=item.id;
+                                cold_down=parseInt(item.cold_down);
+                                return false;
+                            }
+                            return true;
+                        });
+                        if(sid){
+                            if(cold_down>0){
+                                Mojo.app.toast.show2("[活动]兑换活动碎片失败:冷却中");
+                                self.auto_finish(fn);
+                            }else{
+                                setTimeout(function(){
+                                    Mojo.ajax('/force/exchange', {
+                                        id: sid
+                                    }, function (exchange) {
+                                        if (exchange.errorCode == 0) {
+                                            var sp_award = "";
+                                            if (exchange.data && exchange.data.entities && exchange.data.entities.length > 0) {
+                                                sp_award = "，获得" + exchange.data.entities[0].name;
+                                            }
+                                            Mojo.app.toast.show2("[兑换]势力兑换活动碎片成功" + sp_award);
+                                        } else {
+                                            Mojo.app.toast.show2("[兑换]兑换活动碎片失败：" + exchange.errorMsg);
+                                        }
+                                        self.auto_finish(fn);
+                                    }, function () {
+                                        Mojo.app.toast.show2("[活动]兑换活动碎片网络异常");
+                                        self.auto_finish(fn);
+                                    });
+                                }, 2000);
+                            }
+                        }else{
+                            Mojo.app.toast.show2("[活动]未发现活动碎片");
+                            self.auto_finish(fn);
+                        }
+                    }else{
+                        Mojo.app.toast.show2("[活动]获取活动碎片id失败");
+                        self.auto_finish(fn);
                     }
-                    Mojo.app.toast.show2("[兑换]势力兑换活动碎片成功" + sp_award);
-                } else {
-                    Mojo.app.toast.show2("[兑换]兑换活动碎片失败：" + result.errorMsg);
-                }
-                self.auto_finish(fn);
-            }, function () {});
+                }, 
+                function(){
+                    Mojo.app.toast.show2("[活动]获取活动碎片id异常");
+                    self.auto_finish(fn);
+                });
+            },2000);  
         },
         auto_collect: function(fn){
             var self=this;
@@ -15116,7 +15157,6 @@ function trackClient(appkeys) {
                         //if cound, do task
                         if(t_i < fb_tasks.length){
                             Mojo.ajax("/fuben/do",{id: fb_tasks[t_i].id},function(result){
-                                // Mojo.app.toast.show2("[debug]"+result.errorCode+":"+result.errorMsg);
                                 if(result.errorCode == 160003){
                                     Mojo.app.toast.show2("[副本]["+fuben_name+"]失败:卡牌容量不足");
                                     window.clearInterval(auto_fuben_iv);
@@ -15128,26 +15168,35 @@ function trackClient(appkeys) {
                                         bonus_msg = ",获得："+bonus.entities[0].name;
                                     }
                                     Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
-                                    fb_tasks[t_i]=result.data.fb_task;
+                                    fb_tasks[t_i].status=result.data.fb_task.status;
                                     //if have award, get award and go to next group
                                     if(result.data.fb_task.status==3){
                                         //get award
+                                        var a_task_id=fb_tasks[t_i].id;
                                         if(!is_boss_group){
-                                            Mojo.ajax("/fuben/getAward", {
-                                                id: fb_tasks[t_i].id,
-                                            }, function (garesult) {
-                                                if (garesult.errorCode == 0) {
-                                                    Mojo.ajax("/fuben/openAward", {
-                                                        id: fb_tasks[t_i].id,
-                                                        award_id: garesult.data.free_award.id,
-                                                        status: 1,
-                                                    }, function (oaresult) {
-                                                        if(oaresult.errorCode==0 && oaresult.data && oaresult.data.entity){
-                                                            Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+oaresult.data.entity.name);
-                                                        }
-                                                    }, function () {});
-                                                }
-                                            }, function(){});
+                                            setTimeout(function(){
+                                                Mojo.ajax("/fuben/getAward", {
+                                                    id: a_task_id,
+                                                }, function (garesult) {
+                                                    if (garesult.errorCode == 0) {
+                                                        Mojo.ajax("/fuben/openAward", {
+                                                            id: a_task_id,
+                                                            award_id: garesult.data.free_award.id,
+                                                            status: 1,
+                                                        }, function (oaresult) {
+                                                            if(oaresult.errorCode==0 && oaresult.data && oaresult.data.entity){
+                                                                Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+oaresult.data.entity.name);
+                                                            }
+                                                        }, function () {
+                                                            Mojo.app.toast.show2("[副本]领奖失败");
+                                                        });
+                                                    }else{
+                                                        Mojo.app.toast.show2("[副本]领奖失败：获取奖品id失败");
+                                                    }
+                                                }, function(){
+                                                    Mojo.app.toast.show2("[副本]领奖失败：无法获取奖品id");
+                                                }); 
+                                            },1000);
                                         }
                                         //go to next group if any.
                                         fb_tasks=[];
@@ -15160,10 +15209,11 @@ function trackClient(appkeys) {
                                     }else{
                                         //check if mini-boss task can be unlocked.
                                         var f_f=true;
-                                        $.each(fb_tasks,function(i,t){
+                                        $.each(fb_tasks,function(minii,t){
                                             if(t.status!=2){
                                                 f_f=false;
-                                                if(i==4)f_f=true;
+                                                if(minii==4)f_f=true;
+                                                return f_f;
                                             }
                                         });          
                                         if(f_f){fb_tasks[4].status=1;}
@@ -15246,16 +15296,21 @@ function trackClient(appkeys) {
                             var cd = result.data.list[i].cooling_time;
                             if(parseInt(cd) == 0){
                                 finished = false;
-                                Mojo.ajax("/gameactivity/do", params, function (response1) {
-                                    if(response1.errorCode==0){
-                                        if(response1.data && response1.data.entity){
-                                            Mojo.app.toast.show2("[兑换]变废为宝，获得"+response1.data.entity.name);
+                                setTimeout(function(){
+                                    Mojo.ajax("/gameactivity/do", params, function (response1) {
+                                        if(response1.errorCode==0){
+                                            if(response1.data && response1.data.entity){
+                                                Mojo.app.toast.show2("[兑换]变废为宝，获得"+response1.data.entity.name);
+                                            }
+                                        }else{
+                                            Mojo.app.toast.show2("[兑换]变废为宝失败："+response1.errorMsg);
                                         }
-                                    }else{
-                                        Mojo.app.toast.show2("[兑换]变废为宝失败："+response1.errorMsg);
-                                    }
-                                    self.auto_finish(fn);
-                                }, function(){});
+                                        self.auto_finish(fn);
+                                    }, function(){
+                                        Mojo.app.toast.show2("[兑换]变废为宝失败：网络异常");
+                                        self.auto_finish(fn);
+                                    });
+                                },2500);
                             }
                         }
                     }
@@ -15265,7 +15320,10 @@ function trackClient(appkeys) {
                 }else{
                     self.auto_finish(fn);
                 }
-            }, function(){});
+            }, function(){
+                Mojo.app.toast.show2("[兑换]变废为宝失败：网络异常");
+                self.auto_finish(fn);
+            });
         },
         auto_mission: function(fn){
             var self=this;
@@ -15299,7 +15357,6 @@ function trackClient(appkeys) {
                         var _ct=tasks[t_index];
                         var prefix="[任务]["+scenario.name+"]["+task_group.name+"]["+_ct.name+"]";
                         Mojo.ajax("/mission/do",{"id":_ct.id,"preview":0},function(result){
-                            // Mojo.app.toast.show2("[debug]("+result.errorCode+")"+result.errorMsg);
                             if(result.errorCode==0){
                                 var msg=prefix + "执行成功";
                                 if(result.data.award&&result.data.award.bonus&&result.data.award.bonus.entities){
@@ -15350,6 +15407,72 @@ function trackClient(appkeys) {
                 }
             }, 4285);
         },
+        auto_huangjin: function(fn){
+            var self=this;
+            setTimeout(function(){
+                Mojo.ajax("/mall/rands",{},function(result){
+                    if(result.errorCode==0){
+                        Mojo.app.toast.show2("[黄巾]获取黄巾宝藏列表");
+                        var goods;
+                        if(result.data && result.data.list){
+                            $.each(result.data.list, function(gi,good){
+                                if(good.money_type=="1" && (good.entities.name=="转生丹"||good.entities.name=="祝福石")){
+                                    goods=good;
+                                    return false;
+                                }
+                            });
+                        }
+                        if(goods){
+                            if(goods.bought==0){
+                                setTimeout(function(){
+                                    Mojo.ajax("/mall/exchange", {"id":goods.id}, function (response){
+                                        if(response.errorCode==0){
+                                            Mojo.app.toast.show2("[黄巾]购买黄巾宝藏，获得:"+goods.entities.name);
+                                        }else{
+                                            Mojo.app.toast.show2("[黄巾]失败:"+response.errorMsg);
+                                        }
+                                        self.auto_finish(fn);
+                                    },function(){
+                                        Mojo.app.toast.show2("[黄巾]购买黄巾宝藏异常");
+                                        self.auto_finish(fn);
+                                    });
+                                },1500);
+                            }else{
+                                Mojo.app.toast.show2("[黄巾]购买黄巾宝藏失败：已购买");
+                                self.auto_finish(fn);
+                            }
+                        }else{
+                            self.auto_finish(fn);
+                        }
+                    }else{
+                        Mojo.app.toast.show2("[黄巾]获取黄巾宝藏失败："+result.errorMsg);
+                        self.auto_finish(fn);
+                    }
+                },function(){
+                    Mojo.app.toast.show2("[黄巾]获取黄巾宝藏失败");
+                    self.auto_finish(fn);
+                });
+            },5500);
+        },
+        auto_signin: function(fn){
+            var self=this;
+            setTimeout(function(){
+                Mojo.ajax("/player/checkIn", {}, function (result) {
+                    if (result.errorCode == 0 && result.data && result.data.award) {
+                        var award=result.data.award;
+                        var msg = "[签到]已签到,获得:"+award.name+",数量:"+award.count;
+                        if(award.is_double) msg=msg+"*2";
+                        Mojo.app.toast.show2(msg);
+                    } else {
+                        Mojo.app.toast.show2("[签到]失败:"+result.errorMsg);
+                    }
+                    self.auto_finish(fn);
+                },function(){
+                    Mojo.app.toast.show2("[签到]签到异常");
+                    self.auto_finish(fn);
+                });
+            },3300);
+        },
         load: function () {
             this._super();
             $('#btn-messages').append('<div class="count" style="display:none;"></div>');
@@ -15394,7 +15517,7 @@ function trackClient(appkeys) {
                             self.auto_fuben(fn);
                             break;
                         case "suipian":
-                            self.auto_force_suipian(fn,fn_param);
+                            self.auto_force_suipian(fn);
                             break;
                         case "zhufushi":
                             self.auto_zhufushi(fn);
@@ -15410,6 +15533,12 @@ function trackClient(appkeys) {
                             break;
                         case "mission":
                             self.auto_mission(fn);
+                            break;
+                        case "huangjin":
+                            self.auto_huangjin(fn);
+                            break;
+                        case "signin":
+                            self.auto_signin(fn);
                             break;
                         default:
                             Mojo.app.toast.show2("未知的自动任务:" + fn);
