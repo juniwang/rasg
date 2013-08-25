@@ -39,23 +39,7 @@
     // "mission":自动任务
     // "huangjin":黄巾宝藏祝福石、转生丹
     // "signin": 自动签到
-    g.automode.accounts = {
-		
-	};	
-
-	var d = new Date().getDate();
-	var today="";
-	if(d<10 && d>1)today="Ningque0"+d;
-	else today ="Ningque"+d;
-	$.each(g.automode.accounts.users, function(i,u){
-		if(u.name == today){
-			if(!u.fn)u.fn=g.automode.common.fn;
-			u.fn.push("collect");
-			u.fn.push("fuben");
-			u.fn.push("biansuiweibao");
-			return false;
-		}
-	});
+    
 	g.automode.getNextIndex = function(name){
 		for (var i = g.automode.accounts.users.length - 1; i >= 0; i--) {
 			if(g.automode.accounts.users[i].name === name){
@@ -228,7 +212,11 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 			Mojo.app.automode.setCurrentUser(user.name);
 			Mojo.track.onEvent('02_022');	//[02][022][登陆页][账户登陆页][登陆按钮]
     		//保存登录方式为普通登录
-			Mojo.app.saveStorage('login_method', 'normal');
+			if(/\w+@\w+\.\w+/.test(user.name)){
+				Mojo.app.saveStorage('login_method', 'email');
+			}else{
+				Mojo.app.saveStorage('login_method', 'normal');
+			}
 		    //$('#mojo-default-login').submit();
 		    var params = {};
 			params["UserLoginForm[username]"] = user.name;
@@ -292,7 +280,12 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 			Mojo.app.automode.setCurrentUser(user.name);
 			Mojo.track.onEvent('02_022');	//[02][022][登陆页][账户登陆页][登陆按钮]
     		//保存登录方式为普通登录
-			Mojo.app.saveStorage('login_method', 'normal');
+			if(/\w+@\w+\.\w+/.test(user.name)){
+				Mojo.app.saveStorage('login_method', 'email');
+			}else{
+				Mojo.app.saveStorage('login_method', 'normal');
+			}
+
 			var params = {};
 			params["UserLoginForm[username]"] = user.name;
 			params["UserLoginForm[password]"] = user.pass;
