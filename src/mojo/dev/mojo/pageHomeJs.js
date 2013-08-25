@@ -14967,19 +14967,21 @@ function trackClient(appkeys) {
         },
         auto_zhufushi: function(fn){
             var self = this;
-            Mojo.ajax('/force/exchange', {
-                id: "dh0001"
-            }, function (result) {
-                if (result.errorCode == 0) {
-                    Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
-                } else {
-                    Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
-                }
-                self.auto_finish(fn);
-            }, function () {
-                Mojo.app.toast.show2("[兑换]兑换祝福石失败");
-                self.auto_finish(fn);
-            });
+            setTimeout(function(){
+                Mojo.ajax('/force/exchange', {
+                    id: "dh0001"
+                }, function (result) {
+                    if (result.errorCode == 0) {
+                        Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
+                    } else {
+                        Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
+                    }
+                    self.auto_finish(fn);
+                }, function () {
+                    Mojo.app.toast.show2("[兑换]兑换祝福石失败");
+                    self.auto_finish(fn);
+                });
+            },1300);
         },
         auto_finish: function(fn){
             var self = this;
@@ -15492,6 +15494,7 @@ function trackClient(appkeys) {
             var automode = Mojo.app.getStorage("auto-mode");
             if (automode === "true") {
                 Mojo.app.toast.show("", 10, true);
+                Mojo.app.toast.show2("自动模式已启动");
                 Mojo.app.saveStorage("auto-mode-green", "true");
                 var user_info = Mojo.app.getStorage("auto-mode-last-user");
                 if (!user_info) {
