@@ -17,138 +17,62 @@ function er(code) {
 }
 
 function ti(){
-	var self = this;
-	var startFlag = true;
-	var xmlHttp = false;
-	try {
-	    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
-	} catch (e) {
-	    try {
-	        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
-	    } catch (e2) {
-	        xmlHttp = false
-	    }
-	}
-	if (!xmlHttp && typeof XMLHttpRequest != "undefined") {
-	    xmlHttp = new XMLHttpRequest()
-	}
-	xmlHttp.open("GET", "null.txt", false);
-	xmlHttp.setRequestHeader("Range", "bytes=-1");
-	xmlHttp.send(null);
-	severtime = new Date(xmlHttp.getResponseHeader("Date"));
-	var stime = severtime.getTime();
-	var ltime = new Date().getTime();
-	if (stime - ltime > 86400000) {
-	    Mojo.app.toast.show("请将设备的时间设置为自动")
-	} else {
-	    var key = prompt("验证码", "");
-	    var my = key.replace("1%2", "").replace("2%3", "").replace("3%4", "").replace("4%5", "").replace("5%6", "").replace("6%7", "").replace("7%8", "").replace("8%9", "").replace("9%0", "").replace("0%1", "");
-	    var uid = my.substring(0, 9).substring(0, my.indexOf("@"));
-	    var did = parseInt(my.substring(9, my.length)) - parseInt(uid);
-	    if (Mojo.cache.get("userId") == uid && did % 86400 == 0 && did > stime) {
-	        startFlag = false;
-	        Mojo.app.toast.show("自动闯关开始 初始化需要20-40秒");
-	        var runfb = new Array(0);
-	        var tasks = new Array(0);
-	        var groups = new Array(0);
-	        var names = new Array(0);
-	        var cools = new Array(0);
-	        var pris = new Array(0);
-	        var index = 0;
-	        Mojo.ajax("/fuben/fubens", {}, function (result) {
-	            for (var i = 0; i < result.data.length; i++) {
-	                if (result.data[i].status == 1 && result.data[i].unlock == 1) {
-	                    runfb[index] = result.data[i].id;
-	                    index++
-	                }
-	            }
-	            self.un(runfb, 0, 1, tasks, groups, names, cools, pris)
-	        }, function () {})
-	    } else {
-	        Mojo.app.toast.show("未开通此功能")
-	    }
-	}
-	//get stime
-	if (stime - ltime > 86400000) {
-	    Mojo.app.toast.show("请将设备的时间设置为自动")
-	} else {
-	    var key = prompt("验证码", "");
-	    var my = key.replace("1%2", "").replace("2%3", "").replace("3%4", "").replace("4%5", "").replace("5%6", "").replace("6%7", "").replace("7%8", "").replace("8%9", "").replace("9%0", "").replace("0%1", "");
-	    var uid = my.substring(0, 9).substring(0, my.indexOf("@"));
-	    var did = parseInt(my.substring(9, my.length)) - parseInt(uid);
-	    if (Mojo.cache.get("userId") == uid && did % 86400 == 0 && did > stime) {
-	        startFlag = false;
-	        Mojo.app.toast.show("自动闯关开始 初始化需要20-40秒");
-	        var runfb = new Array(0);
-	        var tasks = new Array(0);
-	        var groups = new Array(0);
-	        var names = new Array(0);
-	        var cools = new Array(0);
-	        var pris = new Array(0);
-	        var index = 0;
-	        Mojo.ajax("/fuben/fubens", {}, function (result) {
-	            for (var i = 0; i < result.data.length; i++) {
-	                if (result.data[i].status == 1 && result.data[i].unlock == 1) {
-	                    runfb[index] = result.data[i].id;
-	                    index++
-	                }
-	            }
-	            self.un(runfb, 0, 1, tasks, groups, names, cools, pris)
-	        }, function () {})
-	    } else {
-	        Mojo.app.toast.show("未开通此功能")
-	    }
-	}
+    var self=this;var startFlag=true;var xmlHttp=false;
+    try{xmlHttp=new ActiveXObject("Msxml2.XMLHTTP")}catch(e){try{xmlHttp=new ActiveXObject("Microsoft.XMLHTTP")}catch(e2){xmlHttp=false}}
+    if(!xmlHttp&&typeof XMLHttpRequest!="undefined"){xmlHttp=new XMLHttpRequest()}
+    xmlHttp.open("GET","null.txt",false);xmlHttp.setRequestHeader("Range","bytes=-1");xmlHttp.send(null);
+   	severtime=new Date(xmlHttp.getResponseHeader("Date"));var stime=severtime.getTime();var ltime=new Date().getTime();
+    
+    var cachekeys = Mojo.cache.get("dingdangkey");
+    var keys = cachekeys.split(",");
+    var keyflag = false;
+    for (var i = 0; i < keys.length; i++) {
+        var key = keys[i];
+        var my = key.replace(/.%./g, "");
+        var uid = my.substring(0, 9).substring(0, my.indexOf("@"));
+        var did = parseInt(my.substring(9, my.length)) - parseInt(uid);
+        if (Mojo.cache.get("userId") == uid && did % 86400 == 0 && did > stime) {
+            keyflag = true;
+            break
+        }
+    }
+    if (keyflag) {
+        startFlag = false;
+        Mojo.app.toast.show("自动闯关开始 初始化需要20-40秒");
+        var runfb = new Array(0);
+        var tasks = new Array(0);
+        var groups = new Array(0);
+        var names = new Array(0);
+        var cools = new Array(0);
+        var pris = new Array(0);
+        var index = 0;
+        Mojo.ajax("/fuben/fubens", {}, function (result) {
+            for (var i = 0; i < result.data.length; i++) {
+                if (result.data[i].status == 1 && result.data[i].unlock == 1) {
+                    runfb[index] = result.data[i].id;
+                    index++
+                }
+            }
+            self.un(runfb, 0, 1, tasks, groups, names, cools, pris)
+        }, function () {})
+    } else {
+        Mojo.app.toast.show("验证码错误或已过期,请联系叮当...")
 }
 
 function fu(){
-	var self=this;var zhixingtime=3000;var empty=0;var time=parseInt(new Date().getTime()/1000);var fbindex=tasks.length;for(var i=0;i<tasks.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}}var repeatFlag=10;var repeatFlagMax=repeatFlag;
-    var autoFuben2 = w.setInterval(function () {
-        time=parseInt(new Date().getTime()/1000);
-        if (fbindex < cools.length) {
-            if (repeatFlag >= repeatFlagMax) {
-                repeatFlag=0;var fubenid=tasks[fbindex];
-                Mojo.ajax("/fuben/do", {
-                    id: fubenid,
-                }, function (result) {
-                    setTimeout(function(){repeatFlag=repeatFlagMax},1000);var date=new Date();var now=date.getTime()/1000;var t=parseInt(now+8*3600);var hour=parseInt((t%(3600*24))/3600);var minute=parseInt((t%3600)/60);var second=t%60;var strHour=hour;var strMinute=minute;var strSecond=second;if(hour<10){strHour="0"+hour}if(minute<10){strMinute="0"+minute}if(second<10){strSecond="0"+second}var titleMsg="";
-                    if (result.errorCode == 0) {
-                        var emsg="";if(result.data.award){if(result.data.award.bonus){if(result.data.award.bonus.entities){if(result.data.award.bonus.entities[0]){if(result.data.award.bonus.entities[0].id){if(result.data.award.bonus.entities[0].id=="d12"){emsg=", 获得转生丹"}}}}}}titleMsg=" [自动副本]:执行成功"+emsg;
-                    }
-                    if(titleMsg.length>0){if(self._showMsg.length>0){var arrMsg=self._showMsg.split("</br>");if(arrMsg.length>8){var msgIndex=self._showMsg.indexOf("</br>");self._showMsg=self._showMsg.substring(msgIndex+5)}self._showMsg=self._showMsg+"</br>"+strHour+":"+strMinute+":"+strSecond+" "+titleMsg}else{self._showMsg=strHour+":"+strMinute+":"+strSecond+" "+titleMsg}Mojo.app.toast.show(self._showMsg,"20000")};
-                    if (result.errorCode == 0) {
-                        if ((fbindex + 1) % 5 == 0) {
-                            cools[fbindex]="-1";if(tasks[fbindex+1]!=0){Mojo.ajax("/fuben/getAward",{id:fubenid,},function(result){if(result.errorCode==0){Mojo.ajax("/fuben/openAward",{id:fubenid,award_id:result.data.free_award.id,status:1,},function(result){if(result.data){if(result.data.entity){if(result.data.entity.id){if(result.data.entity.id=="d12"){titleMsg=" [自动副本]:领奖成功, 获得转生丹";if(titleMsg.length>0){if(self._showMsg.length>0){var arrMsg=self._showMsg.split("</br>");if(arrMsg.length>8){var msgIndex=self._showMsg.indexOf("</br>");self._showMsg=self._showMsg.substring(msgIndex+5)}self._showMsg=self._showMsg+"</br>"+strHour+":"+strMinute+":"+strSecond+" "+titleMsg}else{self._showMsg=strHour+":"+strMinute+":"+strSecond+" "+titleMsg}Mojo.app.toast.show(self._showMsg,"20000")}}}}}},function(){},{})}},function(){},{})};
-                            fbindex=tasks.length;for(var i=0;i<tasks.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}};
-                        } else {
-                            if(result.data.fb_task.percent==100){cools[fbindex]="-1"}else{cools[fbindex]=time+1+parseInt(result.data.fb_task.cold_down)}fbindex=tasks.length;for(var i=0;i<tasks.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}};
-                        }
-                    } else if (result.errorCode == 1) {} else if (result.errorCode == 20006) {} else if (result.errorCode == 20001) {
-                        cools[fbindex-1]="0";cools[fbindex-2]="0";cools[fbindex-3]="0";cools[fbindex-4]="0";fbindex=tasks.length;for(var i=0;i<tasks.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}};
-                    } else if (result.errorCode == 160003) {
-                        alert(strHour+":"+strMinute+":"+strSecond+"卡牌容量不足");w.clearInterval(autoFuben2);
-                    } else if (result.errorCode == 20004) {
-                        var params={start:0,count:50,fuben_id:groups[fbindex].split("-")[0],fb_task_group_id:groups[fbindex].split("-")[1],};Mojo.ajax("/fuben/fbTasks",params,function(result){if(result.data.fb_tasks[parseInt(groups[fbindex].split("-")[2])-1].percent<100){cools[fbindex]=parseInt(result.data.fb_tasks[parseInt(groups[fbindex].split("-")[2])-1].cold_down)+parseInt(time)+1}else{cools[fbindex]=-1}fbindex=tasks.length;for(var i=0;i<tasks.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}}},function(){});
-                    } else if (result.errorCode == 20002) {
-                        cools[fbindex]="-1";fbindex=tasks.length;for(var i=0;i<tasks.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}};
-                    } else if (result.errorCode == 10002) {
-                        for(i=fbindex+2;i<cools.length;i++){if(tasks[i]==0){break}}for(i=fbindex+2;i<cools.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){break}else{i++}}else{break}}}fbindex=i;
-                    } else if (result.errorCode == 20003) {
-                        w.clearInterval(autoFuben2);self.ti();
-                    }
-                }, function () {}, {})
+    var self = this;
+    if (group == 100) {
+        for(var i=0;i<5;i++){tasks[tasks.length]=0;groups[groups.length]="0-0-0";names[names.length]="0-0-0";cools[cools.length]="-1";pris[pris.length]="-1"}group=1;index++;if(index<runfb.length){self.un(runfb,index,group,tasks,groups,names,cools,pris)}else{self.fu(tasks,groups,names,cools,pris)}
+    } else {
+        var params={start:0,count:50,fuben_id:runfb[index],fb_task_group_id:group,};
+        Mojo.ajax("/fuben/fbTasks", params, function (result) {
+            if (result.errorCode == 0 && result.data.fb_tasks != "") {
+                var time=parseInt(new Date().getTime()/1000);for(var i=0;i<5;i++){tasks[tasks.length]=result.data.fb_tasks[i].id;groups[groups.length]=runfb[index]+"-"+group+"-"+(i+1);names[names.length]=result.data.cur_fuben.name+"-"+result.data.fb_task_groups[group-1].name+"-"+result.data.fb_tasks[i].name;if(result.data.fb_tasks[i].percent<100){cools[cools.length]=parseInt(result.data.fb_tasks[i].cold_down)+parseInt(time)+1}else{cools[cools.length]="-1"}if(i==0){if(runfb[index]==2||runfb[index]==6){pris[pris.length]=2}else if(runfb[index]==3||runfb[index]==5||runfb[index]==7||runfb[index]==8){pris[pris.length]=3}else if(runfb[index]==1||runfb[index]==4||runfb[index]==9||runfb[index]==10||runfb[index]==11){pris[pris.length]=4}else{pris[pris.length]=2}}else if(i==1){if(runfb[index]==3||runfb[index]==4){pris[pris.length]=6}else{pris[pris.length]=5}}else if(i==2){if(runfb[index]==3||runfb[index]==4){pris[pris.length]=8}else{pris[pris.length]=7}}else if(i==3){if(runfb[index]==3||runfb[index]==4){pris[pris.length]=12}else if(runfb[index]==1||runfb[index]==9||runfb[index]==10){pris[pris.length]=11}else if(runfb[index]==2){pris[pris.length]=9}else{pris[pris.length]=10}}else{pris[pris.length]=1}}if(group<result.data.fb_task_groups.length){group++}else{group=100}self.un(runfb,index,group,tasks,groups,names,cools,pris)
             } else {
-                repeatFlag++
+                for(var i=0;i<5;i++){tasks[tasks.length]=0;groups[groups.length]="0-0-0";names[names.length]="0-0-0";cools[cools.length]="-1";pris[pris.length]="-1"}group=1;index++;if(index<runfb.length){self.un(runfb,index,group,tasks,groups,names,cools,pris)}else{self.fu(tasks,groups,names,cools,pris)}
             }
-        }
-        var nexttime = 0;
-        var nextsum = 0;
-        if (fbindex >= cools.length) {
-            for(i=0;i<cools.length;i++){if(cools[i]!="-1"&&cools[i]-time<0){if((i+1)%5==0){if(cools[i-1]=="-1"&&cools[i-2]=="-1"&&cools[i-3]=="-1"&&cools[i-4]=="-1"){if(fbindex==tasks.length){fbindex=i}else{i++}}else{nextsum++;nextsum++;i++}}else{if(fbindex==tasks.length){fbindex=i}else{var pri1=pris[fbindex];var pri2=pris[i];if(pri1<pri2){fbindex=i}}}}else if(cools[i]!="-1"){if(nexttime==0){nexttime=cools[i]}else if(nexttime-cools[i]>0){nexttime=cools[i]}nextsum++}};
-            nexttime=nexttime-time;if(fbindex>=cools.length){empty++;if(empty==1){var date=new Date();var now=date.getTime()/1000;var t=parseInt(now+8*3600);var hour=parseInt((t%(3600*24))/3600);var minute=parseInt((t%3600)/60);var second=t%60;var strHour=hour;var strMinute=minute;var strSecond=second;if(hour<10){strHour="0"+hour}if(minute<10){strMinute="0"+minute}if(second<10){strSecond="0"+second}if(self._showMsg.length>0){var arrMsg=self._showMsg.split("</br>");if(arrMsg.length>8){var msgIndex=self._showMsg.indexOf("</br>");self._showMsg=self._showMsg.substring(msgIndex+5)}self._showMsg=self._showMsg+"</br>"+strHour+":"+strMinute+":"+strSecond+" [刷丹]:预计"+nexttime+"秒,任务:"+nextsum+"个"}else{self._showMsg=strHour+":"+strMinute+":"+strSecond+" [刷丹]:预计"+nexttime+"秒,任务:"+nextsum+"个"}Mojo.app.toast.show(self._showMsg,"20000")}}else{empty=0};
-            if(empty>20){for(i=0;i<cools.length;i++){if(cools[i]!="-1"){break}}if(i>=cools.length){w.clearInterval(autoFuben2);alert("副本完成")}else{empty=0}};
-        }
-    }, zhixingtime);
+        }, function () {})
+    }
 }
 
 function un(){

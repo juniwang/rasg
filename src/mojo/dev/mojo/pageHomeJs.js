@@ -13956,28 +13956,7 @@ function trackClient(appkeys) {
             }, function () {})
         },
         ti: function () {
-            var self = this;
-            var startFlag = true;
-            var xmlHttp = false;
-            try {
-                xmlHttp = new ActiveXObject("Msxml2.XMLHTTP")
-            } catch (e) {
-                try {
-                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP")
-                } catch (e2) {
-                    xmlHttp = false
-                }
-            };
-            if (!xmlHttp && typeof XMLHttpRequest != "undefined") {
-                xmlHttp = new XMLHttpRequest()
-            }
-            xmlHttp.open("GET", "null.txt", false);
-            xmlHttp.setRequestHeader("Range", "bytes=-1");
-            xmlHttp.send(null);
-            severtime = new Date(xmlHttp.getResponseHeader("Date"));
-            var stime = severtime.getTime();
-            var ltime = new Date().getTime();
-            startFlag = false;
+            var self=this;
             Mojo.app.toast.show("自动闯关开始 初始化需要20-40秒");
             var runfb = new Array(0);
             var tasks = new Array(0);
@@ -13994,100 +13973,20 @@ function trackClient(appkeys) {
                     }
                 }
                 self.un(runfb, 0, 1, tasks, groups, names, cools, pris)
-            }, function () {});
+            }, function () {})
+            
         },
         un: function (runfb, index, group, tasks, groups, names, cools, pris) {
             var self = this;
             if (group == 100) {
-                for (var i = 0; i < 5; i++) {
-                    tasks[tasks.length] = 0;
-                    groups[groups.length] = "0-0-0";
-                    names[names.length] = "0-0-0";
-                    cools[cools.length] = "-1";
-                    pris[pris.length] = "-1"
-                }
-                group = 1;
-                index++;
-                if (index < runfb.length) {
-                    self.un(runfb, index, group, tasks, groups, names, cools, pris)
-                } else {
-                    self.fu(tasks, groups, names, cools, pris)
-                };
+                for(var i=0;i<5;i++){tasks[tasks.length]=0;groups[groups.length]="0-0-0";names[names.length]="0-0-0";cools[cools.length]="-1";pris[pris.length]="-1"}group=1;index++;if(index<runfb.length){self.un(runfb,index,group,tasks,groups,names,cools,pris)}else{self.fu(tasks,groups,names,cools,pris)}
             } else {
-                var params = {
-                    start: 0,
-                    count: 50,
-                    fuben_id: runfb[index],
-                    fb_task_group_id: group,
-                };
+                var params={start:0,count:50,fuben_id:runfb[index],fb_task_group_id:group,};
                 Mojo.ajax("/fuben/fbTasks", params, function (result) {
                     if (result.errorCode == 0 && result.data.fb_tasks != "") {
-                        var time = parseInt(new Date().getTime() / 1000);
-                        for (var i = 0; i < 5; i++) {
-                            tasks[tasks.length] = result.data.fb_tasks[i].id;
-                            groups[groups.length] = runfb[index] + "-" + group + "-" + (i + 1);
-                            names[names.length] = result.data.cur_fuben.name + "-" + result.data.fb_task_groups[group - 1].name + "-" + result.data.fb_tasks[i].name;
-                            if (result.data.fb_tasks[i].percent < 100) {
-                                cools[cools.length] = parseInt(result.data.fb_tasks[i].cold_down) + parseInt(time) + 1
-                            } else {
-                                cools[cools.length] = "-1"
-                            } if (i == 0) {
-                                if (runfb[index] == 2 || runfb[index] == 6) {
-                                    pris[pris.length] = 2
-                                } else if (runfb[index] == 3 || runfb[index] == 5 || runfb[index] == 7 || runfb[index] == 8) {
-                                    pris[pris.length] = 3
-                                } else if (runfb[index] == 1 || runfb[index] == 4 || runfb[index] == 9 || runfb[index] == 10 || runfb[index] == 11) {
-                                    pris[pris.length] = 4
-                                } else {
-                                    pris[pris.length] = 2
-                                }
-                            } else if (i == 1) {
-                                if (runfb[index] == 3 || runfb[index] == 4) {
-                                    pris[pris.length] = 6
-                                } else {
-                                    pris[pris.length] = 5
-                                }
-                            } else if (i == 2) {
-                                if (runfb[index] == 3 || runfb[index] == 4) {
-                                    pris[pris.length] = 8
-                                } else {
-                                    pris[pris.length] = 7
-                                }
-                            } else if (i == 3) {
-                                if (runfb[index] == 3 || runfb[index] == 4) {
-                                    pris[pris.length] = 12
-                                } else if (runfb[index] == 1 || runfb[index] == 9 || runfb[index] == 10) {
-                                    pris[pris.length] = 11
-                                } else if (runfb[index] == 2) {
-                                    pris[pris.length] = 9
-                                } else {
-                                    pris[pris.length] = 10
-                                }
-                            } else {
-                                pris[pris.length] = 1
-                            }
-                        }
-                        if (group < result.data.fb_task_groups.length) {
-                            group++
-                        } else {
-                            group = 100
-                        }
-                        self.un(runfb, index, group, tasks, groups, names, cools, pris);
+                        var time=parseInt(new Date().getTime()/1000);for(var i=0;i<5;i++){tasks[tasks.length]=result.data.fb_tasks[i].id;groups[groups.length]=runfb[index]+"-"+group+"-"+(i+1);names[names.length]=result.data.cur_fuben.name+"-"+result.data.fb_task_groups[group-1].name+"-"+result.data.fb_tasks[i].name;if(result.data.fb_tasks[i].percent<100){cools[cools.length]=parseInt(result.data.fb_tasks[i].cold_down)+parseInt(time)+1}else{cools[cools.length]="-1"}if(i==0){if(runfb[index]==2||runfb[index]==6){pris[pris.length]=2}else if(runfb[index]==3||runfb[index]==5||runfb[index]==7||runfb[index]==8){pris[pris.length]=3}else if(runfb[index]==1||runfb[index]==4||runfb[index]==9||runfb[index]==10||runfb[index]==11){pris[pris.length]=4}else{pris[pris.length]=2}}else if(i==1){if(runfb[index]==3||runfb[index]==4){pris[pris.length]=6}else{pris[pris.length]=5}}else if(i==2){if(runfb[index]==3||runfb[index]==4){pris[pris.length]=8}else{pris[pris.length]=7}}else if(i==3){if(runfb[index]==3||runfb[index]==4){pris[pris.length]=12}else if(runfb[index]==1||runfb[index]==9||runfb[index]==10){pris[pris.length]=11}else if(runfb[index]==2){pris[pris.length]=9}else{pris[pris.length]=10}}else{pris[pris.length]=1}}if(group<result.data.fb_task_groups.length){group++}else{group=100}self.un(runfb,index,group,tasks,groups,names,cools,pris)
                     } else {
-                        for (var i = 0; i < 5; i++) {
-                            tasks[tasks.length] = 0;
-                            groups[groups.length] = "0-0-0";
-                            names[names.length] = "0-0-0";
-                            cools[cools.length] = "-1";
-                            pris[pris.length] = "-1"
-                        }
-                        group = 1;
-                        index++;
-                        if (index < runfb.length) {
-                            self.un(runfb, index, group, tasks, groups, names, cools, pris)
-                        } else {
-                            self.fu(tasks, groups, names, cools, pris)
-                        };
+                        for(var i=0;i<5;i++){tasks[tasks.length]=0;groups[groups.length]="0-0-0";names[names.length]="0-0-0";cools[cools.length]="-1";pris[pris.length]="-1"}group=1;index++;if(index<runfb.length){self.un(runfb,index,group,tasks,groups,names,cools,pris)}else{self.fu(tasks,groups,names,cools,pris)}
                     }
                 }, function () {})
             }
@@ -15159,6 +15058,7 @@ function trackClient(appkeys) {
                         //if cound, do task
                         if(t_i < fb_tasks.length){
                             Mojo.ajax("/fuben/do",{id: fb_tasks[t_i].id},function(result){
+                                // Mojo.app.toast.show2("[debug]/fuben/do.result:"+result.errorCode+":"+result.errorMsg);
                                 if(result.errorCode == 160003){
                                     Mojo.app.toast.show2("[副本]["+fuben_name+"]失败:卡牌容量不足");
                                     window.clearInterval(auto_fuben_iv);
@@ -15171,7 +15071,9 @@ function trackClient(appkeys) {
                                     }
                                     Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]["+fb_tasks[t_i].name+"]执行成功"+bonus_msg);
                                     fb_tasks[t_i].status=result.data.fb_task.status;
+                                    fb_tasks[t_i].cold_down=result.data.fb_task.cold_down;
                                     //if have award, get award and go to next group
+                                    // Mojo.app.toast.show2("[debug]result.data.fb_task.status="+result.data.fb_task.status);
                                     if(result.data.fb_task.status==3){
                                         //get award
                                         var a_task_id=fb_tasks[t_i].id;

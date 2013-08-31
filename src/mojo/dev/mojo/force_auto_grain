@@ -1,0 +1,59 @@
+_nonRMBClickCallback: function (data, forceWarElement, buffType, re_buff) {
+            var self = this;
+            // Mojo.app.toast.show(self.battleType+","+data.id+","+ self.partnerIds+","+buffType+","+re_buff);
+            Mojo.ajax("/forceCrazy/battleLodgmentBuff", {
+                type: self.battleType,
+                lodgment_id: data.id,
+                force_id: self.partnerIds,
+                buff: buffType,
+                re_buff: re_buff
+            }, function (response) {
+                if (response && response.errorCode === 0) {
+                    if (response.data.player) {
+                        if (parseInt(response.data.player.sp) == NaN) {
+                            response.data.player.sp = 0;
+                        }
+                        Mojo.page.Force.getController().updatePlayerProfile({
+                            sp: response.data.player.sp
+                        });
+                        Mojo.page.Force.getController().diffPlayer({
+                            grain: 5
+                        });
+                    }
+                    if (response.data.value != undefined) {
+                        self._refreshForceBattleStatus(true);
+                        var contribute = response.data.value;
+                        if (buffType == 'decr') {
+                            contribute = '-' + contribute;
+                        } else if (buffType == 'incr') {
+                            contribute = '+' + contribute;
+                        }
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'non_rmb_player_assist_result', {
+                            name: data.name,
+                            percent: contribute
+                        }));
+                    }
+                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},10);
+                } else if (response && response.errorCode == 10200 && Mojo.utils.isNone(response.data) == false) {
+                    Mojo.ajax('/entity/Use', {
+                        id: response.data.props.id
+                    }, function (result) {
+                        if (result.errorCode == 0) {
+                            self._nonRMBClickCallback(data, forceWarElement, buffType, 1);
+                        } else {
+                            Mojo.app.toast.show(result.errorMsg);
+                        }
+                    }, function () {
+                        self._useBtn.disable(false);
+                    }, {
+                        showWait: true
+                    });
+                } else if (response && response.errorCode == 200082 || response.errorCode == 200088 || response.errorCode == 200089 || response.errorCode == 200083) {
+                    self._nonRMBClickCallback(data, forceWarElement, buffType, 1);
+                } else {
+                    self._createFailedDlg(response);
+                }
+            }, function () {}, {
+                showWait: true
+            });
+        },
