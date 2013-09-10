@@ -8884,6 +8884,7 @@ function trackClient(appkeys) {
             'Friend Rejection': '好友拒絕',
             'Friend Request': '好友請求',
             'In War': '參戰',
+            'In War2': '',
             'Introduction': '簡介',
             'Leave Message': '留言',
             'Level': '難度：',
@@ -8952,6 +8953,7 @@ function trackClient(appkeys) {
             'Friend Rejection': '好友拒绝',
             'Friend Request': '好友请求',
             'In War': '参战',
+            'In War2': '战斗',
             'Introduction': '简介',
             'Leave Message': '留言',
             'Level': '难度：',
@@ -9085,6 +9087,7 @@ function trackClient(appkeys) {
             'get_wuhu_tip': '',
             'go_accept': '查收',
             'go_bless': '',
+            'go_download': '',
             'go_embed': '直接上陣',
             'go_fuben': '去闖關',
             'go_intensify': '去強化',
@@ -9300,6 +9303,7 @@ function trackClient(appkeys) {
             'get_wuhu_tip': '恭喜主公~成功招募了五虎上将【{{:wuhu}}】~',
             'go_accept': '查收',
             'go_bless': '去祝福',
+            'go_download': '去下载',
             'go_embed': '直接上阵',
             'go_fuben': '去闯关',
             'go_intensify': '去强化',
@@ -10259,6 +10263,75 @@ function trackClient(appkeys) {
             'force_apply_fail': '申請失敗',
             'force_become_slave': '',
             'force_become_slave_seize_lose': '',
+            'force_boss_challenge': '',
+            'force_boss_challenge_attack_default_msg': '',
+            'force_boss_challenge_attack_preview_cost': '',
+            'force_boss_challenge_attack_preview_header': '',
+            'force_boss_challenge_attack_preview_lose': '',
+            'force_boss_challenge_attack_preview_not': '',
+            'force_boss_challenge_attack_preview_speedup': '',
+            'force_boss_challenge_attack_preview_win': '',
+            'force_boss_challenge_attack_reattack': '',
+            'force_boss_challenge_cd': '',
+            'force_boss_challenge_detail': '',
+            'force_boss_challenge_detail_content': '',
+            'force_boss_challenge_detail_dlg': '',
+            'force_boss_challenge_exchange_answer': '',
+            'force_boss_challenge_exchange_fail': '',
+            'force_boss_challenge_exchange_reason': '',
+            'force_boss_challenge_final_des1': '',
+            'force_boss_challenge_final_des2': '',
+            'force_boss_challenge_final_des3': '',
+            'force_boss_challenge_final_des4': '',
+            'force_boss_challenge_final_des5': '',
+            'force_boss_challenge_final_goexchange': '',
+            'force_boss_challenge_final_goexchange2': '',
+            'force_boss_challenge_final_lose': '',
+            'force_boss_challenge_final_win': '',
+            'force_boss_challenge_final_win2': '',
+            'force_boss_challenge_final_win_grain': '',
+            'force_boss_challenge_help_content': '',
+            'force_boss_challenge_help_title': '',
+            'force_boss_challenge_hint_text': '',
+            'force_boss_challenge_lack_rm': '',
+            'force_boss_challenge_lack_title': '',
+            'force_boss_challenge_lack_vm': '',
+            'force_boss_challenge_limit': '',
+            'force_boss_challenge_limit2': '',
+            'force_boss_challenge_msg_content': '',
+            'force_boss_challenge_msg_content2': '',
+            'force_boss_challenge_no_right': '',
+            'force_boss_challenge_no_right2': '',
+            'force_boss_challenge_notice': '',
+            'force_boss_challenge_notice2': '',
+            'force_boss_challenge_preview_choose_niudan': '',
+            'force_boss_challenge_preview_cost': '',
+            'force_boss_challenge_preview_header': '',
+            'force_boss_challenge_preview_niudan1': '',
+            'force_boss_challenge_preview_niudan2': '',
+            'force_boss_challenge_preview_niudan3': '',
+            'force_boss_challenge_preview_niudan4': '',
+            'force_boss_challenge_preview_niudan5': '',
+            'force_boss_challenge_preview_niudan6': '',
+            'force_boss_challenge_preview_niudan7': '',
+            'force_boss_challenge_profile': '',
+            'force_boss_challenge_reward': '',
+            'force_boss_challenge_reward_des': '',
+            'force_boss_challenge_reward_des2': '',
+            'force_boss_challenge_reward_get': '',
+            'force_boss_challenge_reward_get2': '',
+            'force_boss_challenge_reward_killboss': '',
+            'force_boss_challenge_speed_fail_title': '',
+            'force_boss_challenge_start': '',
+            'force_boss_challenge_start2': '',
+            'force_boss_challenge_start3': '',
+            'force_boss_challenge_start4': '',
+            'force_boss_challenge_start5': '',
+            'force_boss_challenge_tip_content': '',
+            'force_boss_flee_time': '',
+            'force_boss_left': '',
+            'force_boss_name_level': '',
+            'force_boss_name_level2': '',
             'force_capitulate_fail': '',
             'force_contribute_not_enough': '',
             'force_create_failed': '勢力創建失敗',
@@ -10268,6 +10341,7 @@ function trackClient(appkeys) {
             'force_empty': '主公～沒有找到相關的勢力哦～',
             'force_event_alliance_notice': '',
             'force_exchange_unavailable': '主公~現在還不能兌換該物品哦~',
+            'force_exchange_unavailable_forceboss': '',
             'force_free': '',
             'force_grain': '勢力糧餉：',
             'force_invite': '邀请加入势力',
@@ -10793,6 +10867,75 @@ function trackClient(appkeys) {
             'force_apply_fail': '申请失败',
             'force_become_slave': '主公~我方势力成为了【{{:name}}】的太守！',
             'force_become_slave_seize_lose': '主公~我方势力成为了【{{:name}}】的太守！<br>对【{{:name2}}】的霸占失败！',
+            'force_boss_challenge': '挑战',
+            'force_boss_challenge_attack_default_msg': '点击【战斗】为本次挑战贡献力量吧！',
+            'force_boss_challenge_attack_preview_cost': '加速消耗：',
+            'force_boss_challenge_attack_preview_header': '主公~您还在挑战冷却时间中，是否花费元宝来加速冷却？',
+            'force_boss_challenge_attack_preview_lose': '可能击杀100~200名黄巾军，获得5~10点粮饷',
+            'force_boss_challenge_attack_preview_not': '元宝加速',
+            'force_boss_challenge_attack_preview_speedup': '加速',
+            'force_boss_challenge_attack_preview_win': '可能击杀200~300名黄巾军，获得10~15点粮饷',
+            'force_boss_challenge_attack_reattack': '重试',
+            'force_boss_challenge_cd': '冷却中：{{:time}}',
+            'force_boss_challenge_detail': '详细',
+            'force_boss_challenge_detail_content': '【开启规则】<br>•一品以上官员可以开启挑战<br>•每天可以银币挑战1次黄巾军<br>•银币挑战次数用完后可以用元宝召唤黄巾军挑战<br>•挑战黄巾军会在每天0点重置<br><br>【战斗规则】<br>•战斗时间：10分钟<br>•势力成员均可以参战<br>•势力等级越高，黄巾军等级越高<br><br>【奖励】<br>•参加战斗能获得粮饷奖励，击败黄巾军后参战成员和势力均能获得丰厚奖励<br>•每次击败黄巾军，势力全员均可在【兑换】中购买5折四星扭蛋<br>•击败高等级的黄巾军能获得更多奖励',
+            'force_boss_challenge_detail_dlg': '规则说明',
+            'force_boss_challenge_exchange_answer': '击败黄巾军',
+            'force_boss_challenge_exchange_fail': '不能兑换',
+            'force_boss_challenge_exchange_reason': '开启条件：',
+            'force_boss_challenge_final_des1': '恭喜主公，我方势力击败了{{:level}}级{{:name}}，您获得了参与奖{{:num}}粮饷！共获得：',
+            'force_boss_challenge_final_des2': '恭喜主公，我军给了{{:level}}级{{:name}}最后一击赢得了胜利！您获得了参与奖{{:num}}粮饷及击杀奖励{{:num2}}粮饷！共获得：',
+            'force_boss_challenge_final_des3': '现在前往【势力】-【兑换】可以扭5折四星扭蛋啦！',
+            'force_boss_challenge_final_des4': '主公~{{:level}}级{{:name}}已逃走，下次召集更多人来参战吧~',
+            'force_boss_challenge_final_des5': '我方势力战胜了{{:level}}级{{:name}}，势力获得了{{:num}}粮饷！现在可以前往【兑换】中购买5折扭蛋啦！',
+            'force_boss_challenge_final_goexchange': '去兑换',
+            'force_boss_challenge_final_goexchange2': '兑换',
+            'force_boss_challenge_final_lose': '挑战失败',
+            'force_boss_challenge_final_win': '成功击败黄巾军',
+            'force_boss_challenge_final_win2': '挑战胜利',
+            'force_boss_challenge_final_win_grain': '粮饷',
+            'force_boss_challenge_help_content': '号召势力成员参加势力挑战吧！',
+            'force_boss_challenge_help_title': '号召参加势力挑战',
+            'force_boss_challenge_hint_text': '齐心协力，无坚不摧！',
+            'force_boss_challenge_lack_rm': '主公~您的元宝不够啦，攒点钱再来吧！',
+            'force_boss_challenge_lack_title': '挑战失败',
+            'force_boss_challenge_lack_vm': '主公~您的银币不够啦，攒点钱再来吧！',
+            'force_boss_challenge_limit': '今日剩余银币挑战次数：{{:num}}',
+            'force_boss_challenge_limit2': '今日剩余元宝挑战次数：{{:num}}',
+            'force_boss_challenge_msg_content': '{{:name}}击杀了{{:num}}名{{:boss}}。',
+            'force_boss_challenge_msg_content2': '（{{:time}}前）',
+            'force_boss_challenge_no_right': '一品以上官员才能开始挑战哦~',
+            'force_boss_challenge_no_right2': '主公~今日挑战次数已达上限哦~',
+            'force_boss_challenge_notice': '击杀黄巾军能开启【兑换】中的5折四星扭蛋哦~',
+            'force_boss_challenge_notice2': '【战斗】一次可能击杀100~300名黄巾军，相应获得5~15粮饷哦~',
+            'force_boss_challenge_preview_choose_niudan': '请选择击败黄巾军后开启的5折扭蛋：',
+            'force_boss_challenge_preview_cost': '挑战消耗：',
+            'force_boss_challenge_preview_header': '主公~开始挑战黄巾军后，势力全员可参与战斗，是否要开始挑战？',
+            'force_boss_challenge_preview_niudan1': '四星蜀国将领扭蛋',
+            'force_boss_challenge_preview_niudan2': '四星魏国将领扭蛋',
+            'force_boss_challenge_preview_niudan3': '四星吴国将领扭蛋',
+            'force_boss_challenge_preview_niudan4': '四星群雄将领扭蛋',
+            'force_boss_challenge_preview_niudan5': '四星武器扭蛋',
+            'force_boss_challenge_preview_niudan6': '四星防具扭蛋',
+            'force_boss_challenge_preview_niudan7': '四星坐骑扭蛋',
+            'force_boss_challenge_profile': '{{:name}}存在时间：{{:time}}分钟<br>【人数】：{{:num}}<br>【防御】：{{:defencemin}}~{{:defencemax}}<br>【技能】<br>{{:skill}}',
+            'force_boss_challenge_reward': '挑战奖励',
+            'force_boss_challenge_reward_des': '恭喜主公，我军击杀了{{:num}}名{{:name}}！',
+            'force_boss_challenge_reward_des2': '恭喜主公，我军击杀了{{:level}}级{{:name}}头目赢得了胜利！您获得了丰富的击杀奖励！！',
+            'force_boss_challenge_reward_get': '获得',
+            'force_boss_challenge_reward_get2': '共获得',
+            'force_boss_challenge_reward_killboss': '击杀奖励',
+            'force_boss_challenge_speed_fail_title': '加速失败',
+            'force_boss_challenge_start': '开始挑战',
+            'force_boss_challenge_start2': '挑战',
+            'force_boss_challenge_start3': '立即战斗',
+            'force_boss_challenge_start4': '战斗',
+            'force_boss_challenge_start5': '挑战开始',
+            'force_boss_challenge_tip_content': '主公～已开始挑战【{{:opponent_force}}】，是否号召势力成员前来参战？',
+            'force_boss_flee_time': '{{:time}}后逃走',
+            'force_boss_left': '【残余人数】：{{:num}}/{{:wholenum}}',
+            'force_boss_name_level': '{{:name}}<span class="challenge-highlight">({{:level}}级)</span>',
+            'force_boss_name_level2': '{{:name}}{{:level}}级',
             'force_capitulate_fail': '不能劝降',
             'force_contribute_not_enough': '我方势力等级{{:force_level}}级，贡献值{{:contribute}}及以上的势力成员可以参战~快去做内政提高贡献吧~',
             'force_create_failed': '势力创建失败',
@@ -10802,6 +10945,7 @@ function trackClient(appkeys) {
             'force_empty': '主公～没有找到相关的势力哦～',
             'force_event_alliance_notice': '结盟后，我方势力将不能劝降、霸占、接受劝降。',
             'force_exchange_unavailable': '主公~现在还不能兑换该物品哦~',
+            'force_exchange_unavailable_forceboss': '主公~请先击败黄巾军哦~',
             'force_free': '[自由势力]',
             'force_grain': '势力粮饷：',
             'force_invite': '势力邀请',
@@ -10912,7 +11056,7 @@ function trackClient(appkeys) {
             'has_captured': '主公～我方势力已攻下该据点',
             'has_in_force': '主公~TA已经找到了归属~',
             'have_armygrain': '现有粮饷：',
-            'have_grain': '现有粮饷：',
+            'have_grain': '现有粮饷：{{:grain}}（保险粮：{{:safe_grain}}）',
             'help revenge': '帮助复仇',
             'help_defense_member_change': '协防人事变更',
             'help_defense_time_finish': '协防时间已到',
@@ -11821,6 +11965,7 @@ function trackClient(appkeys) {
         showbattleskip: function () {},
         sharescenesession: function () {},
         sharescenetimeline: function () {},
+        updateAfterLogin: function () {},
     });
     w.Mojo.gap.IOSBridge = w.Mojo.gap.Bridge.extend({
         init: function (options) {
@@ -12066,6 +12211,9 @@ function trackClient(appkeys) {
         sharescenetimeline: function (title, description, imgurl, webpageurl, callback) {
             this._execNativeCode('system', 'sharescenetimeline', [title, description, imgurl, webpageurl], callback);
         },
+        updateAfterLogin: function () {
+            Mojo.app.main.baseProfile.sync();
+        },
     });
     w.Mojo.gap.AndroidBridge = w.Mojo.gap.Bridge.extend({
         init: function (options) {
@@ -12150,6 +12298,7 @@ function trackClient(appkeys) {
         clearlogincookie: function () {},
         sharescenesession: function () {},
         sharescenetimeline: function () {},
+        updateAfterLogin: function () {},
     });
     g.init = function (params) {
         var params = $.extend(true, {
@@ -13480,13 +13629,13 @@ function trackClient(appkeys) {
                 text: 'internal',
                 index: 1,
                 refresh: 1,
+                isNew: true,
                 eventCode: '24_303'
             }, {
                 id: 'btn-foreign',
                 text: 'foreign',
                 index: 2,
                 refresh: 1,
-                isNew: true,
                 eventCode: '24_304'
             }, {
                 id: 'btn-exchange',
@@ -13676,7 +13825,6 @@ function trackClient(appkeys) {
                 if (p > 0) {
                     if (i == 1) {
                         self.TipsCount[i].show();
-                        self._everydaydo.find(".is_new .icon").hide();
                     } else if (i == 5) {
                         self.TipsCount[i].show();
                     } else {
@@ -13687,9 +13835,12 @@ function trackClient(appkeys) {
                             self.TipsCount[i].html("N");
                         }
                         self.TipsCount[i].show();
+                        if (i == 0) {
+                            self._everydaydo.find(".is_new .icon").hide();
+                        }
                     }
                 } else {
-                    if (i == 1) {
+                    if (i == 0) {
                         self._everydaydo.find(".is_new .icon").show();
                     }
                     self.TipsCount[i].hide();
@@ -13890,17 +14041,56 @@ function trackClient(appkeys) {
             this.element().addClass('mojo-com-forceinternal');
             this._playerProfile = this._options.getController().getPlayerProfile();
             this._addTabs();
-            this._createList();
-            this._addHeader();
             this._addButton();
+            this._tabs.element().find('ul > li').eq(1).append($("<div class='is_new'></div>"));
+        },
+        _createInternalPanel: function (selected) {
+            this._createList(selected);
+            this._addHeader();
             this._showBuffdlg();
             this._inRefreshing = false;
         },
+        _createForceChallengePanel: function (selected) {
+            var self = this;
+            this._challengePanel = new Mojo.com.ForceChallengePanel({
+                getController: self._options.getController
+            });
+            this._tabs.setPanel(selected, this._challengePanel);
+        },
         _addTabs: function () {
-            this._tabs = new Mojo.ui.Tabs('tabs-internal');
-            this._tabs.addTab(this.locale('internal'));
+            var self = this;
+            this._panels = [{
+                type: 1,
+                label: 'internal'
+            }, {
+                type: 2,
+                label: 'force_boss_challenge'
+            }];
+            this._tabs = new Mojo.ui.Tabs('tabs-internal', {
+                selectionChange: function (i) {
+                    if (self._challengePanel) {
+                        self._challengePanel.pause();
+                    }
+                    if (i == 0) {
+                        self._createInternalPanel(i);
+                    } else if (i == 1) {
+                        self._createForceChallengePanel(i);
+                    }
+                },
+            });
+            $.each(this._panels, function (i, p) {
+                self._tabs.addTab(self.locale(p.label));
+            });
             this.element().append(this._tabs.element());
-            this._panel = this._tabs.element().find('.panel').addClass('box-outter');
+            this._tabs.element().find('.panel').addClass('box-outter');
+            if (Mojo.app.request('index') == 1)
+                this._selected = Mojo.app.request('selected');
+            if (Mojo.utils.isNone(this._selected) == true) {
+                this._selected = 0;
+            } else {
+                this._selected = parseInt(this._selected);
+            }
+            this._tabs._select(this._selected);
         },
         _addHeader: function () {
             this._header = $("<div class='page-tips'></div>");
@@ -13923,7 +14113,7 @@ function trackClient(appkeys) {
                 self._buffheader.html(datatips);
             }
         },
-        _createList: function () {
+        _createList: function (selected) {
             var self = this;
             this._list = new Mojo.com.ForceInternalList({
                 afterDoTask: function (data, result) {
@@ -13964,13 +14154,16 @@ function trackClient(appkeys) {
                     }
                 },
             });
-            this._list.element().appendTo(this._panel);
+            this._tabs.setPanel(selected, this._list);
         },
         _addButton: function () {
             var self = this;
             this._backBtn = new Mojo.ui.Button(undefined, {
                 text: Mojo.utils.locale('common', 'back'),
                 click: function () {
+                    if (self._challengePanel) {
+                        self._challengePanel.pause();
+                    }
                     self.element().hide();
                     self._options.getController().switchToHome();
                 },
@@ -17433,6 +17626,17 @@ function trackClient(appkeys) {
                     self._hasHandledThisMsg(msgcom);
                 });
                 break;
+            case 81:
+                Mojo.app.redirect('/force', {
+                    index: 1,
+                    selected: 1
+                });
+                break;
+            case 82:
+                Mojo.app.redirect('/force', {
+                    index: 3
+                });
+                break;
             case 336:
             case 380:
                 Mojo.ajax('/force/messageHandler', {
@@ -18165,6 +18369,15 @@ function trackClient(appkeys) {
             case 604:
                 t = 'rebel_over';
                 break;
+            case 81:
+                t = 'force_boss_challenge_start';
+                break;
+            case 82:
+                t = 'force_boss_challenge_final_win2';
+                break;
+            case 83:
+                t = 'force_boss_challenge_final_lose';
+                break;
             }
             return Mojo.utils.locale('force', t);
         },
@@ -18216,7 +18429,7 @@ function trackClient(appkeys) {
             var self = this;
             var l1 = this._getBtn1Label();
             var l2 = this._getBtn2Label();
-            if (this.data.type != 200 && this.data.type != 201 && this.data.type != 202 && this.data.type != 210 && this.data.type != 211 && this.data.type != 212 && this.data.type != 220 && this.data.type != 222 && this.data.type != 217 && this.data.type != 223 && this.data.type != 224 && this.data.type != 225 && this.data.type != 300 && this.data.type != 301 && this.data.type != 302 && this.data.type != 303 && this.data.type != 304 && this.data.type != 307 && this.data.type != 308 && this.data.type != 309 && this.data.type != 310 && this.data.type != 311 && this.data.type != 312 && this.data.type != 384 && this.data.type != 314 && this.data.type != 316 && this.data.type != 319 && this.data.type != 320 && this.data.type != 321 && this.data.type != 326 && this.data.type != 327 && this.data.type != 328 && this.data.type != 330 && this.data.type != 331 && this.data.type != 332 && this.data.type != 336 && this.data.type != 382 && this.data.type != 334 && this.data.type != 393 && this.data.type != 51 && this.data.type != 52 && this.data.type != 13 && this.data.type != 10 && this._options.positionId != null && parseInt(this._options.positionId) > 5 || this.data.status == 3) {
+            if (this.data.type != 200 && this.data.type != 201 && this.data.type != 202 && this.data.type != 210 && this.data.type != 211 && this.data.type != 212 && this.data.type != 220 && this.data.type != 222 && this.data.type != 217 && this.data.type != 223 && this.data.type != 224 && this.data.type != 225 && this.data.type != 300 && this.data.type != 301 && this.data.type != 302 && this.data.type != 303 && this.data.type != 304 && this.data.type != 307 && this.data.type != 308 && this.data.type != 309 && this.data.type != 310 && this.data.type != 311 && this.data.type != 312 && this.data.type != 384 && this.data.type != 314 && this.data.type != 316 && this.data.type != 319 && this.data.type != 320 && this.data.type != 321 && this.data.type != 326 && this.data.type != 327 && this.data.type != 328 && this.data.type != 330 && this.data.type != 331 && this.data.type != 332 && this.data.type != 336 && this.data.type != 382 && this.data.type != 334 && this.data.type != 393 && this.data.type != 51 && this.data.type != 52 && this.data.type != 13 && this.data.type != 10 && this.data.type != 81 && this.data.type != 82 && this._options.positionId != null && parseInt(this._options.positionId) > 5 || this.data.status == 3) {
                 l1 = null;
                 l2 = null;
                 if (this.data.type == 0) {
@@ -18420,6 +18633,10 @@ function trackClient(appkeys) {
                 return Mojo.utils.locale('force', 'response');
             case 382:
                 return Mojo.utils.locale('force', 'in_war');
+            case 81:
+                return Mojo.utils.locale('ui', 'In War2');
+            case 82:
+                return Mojo.utils.locale('force', 'force_boss_challenge_final_goexchange2');
             }
             return null;
         },
@@ -20678,7 +20895,8 @@ function trackClient(appkeys) {
                 }
             }
             var param = $.extend(true, self._options.param, {
-                search: this._input.val()
+                search: this._input.val(),
+                with_ranking: self._options.with_ranking
             });
             Mojo.ajax(self._options.url, param, function (response) {
                 self._options.onSearch(response, self._input.val());
@@ -20689,6 +20907,7 @@ function trackClient(appkeys) {
                 onSearch: $.noop,
                 url: '/force/search',
                 param: {},
+                with_ranking: 0,
                 noinput: function () {
                     return false;
                 }
@@ -20807,7 +21026,9 @@ function trackClient(appkeys) {
                     _iflose.append(loseContent);
                 }
             }
-            $("<div class='paragraph'></div>").html(Mojo.utils.locale('force', 'force_war_tip')).appendTo(this._content);
+            if (this._options.showtip == undefined) {
+                $("<div class='paragraph'></div>").html(Mojo.utils.locale('force', 'force_war_tip')).appendTo(this._content);
+            }
         },
         _addHandleButtons: function () {
             var self = this;
@@ -21492,7 +21713,7 @@ function trackClient(appkeys) {
             var self = this;
             return new Mojo.com.ForceElement(data, {
                 type: self._options.type,
-                showRank: self._options.type == 'rank',
+                showRank: self._options.type == 'rank' || self._options.showRank == true,
                 showBtn: self._options.showBtn,
                 showForceRest: self._options.showForceRest,
                 btnText: self._options.btnText,
@@ -21724,6 +21945,25 @@ function trackClient(appkeys) {
                         }
                     });
                     dlg.open();
+                } else if (t == 81) {
+                    var dlg = new Mojo.com.CommonDialog(undefined, {
+                        classes: ['mojo-com-forcemsgdlg'],
+                        title: evt.header,
+                        content: $('<div class="paragraph"></div>').html(evt.content),
+                        leftBtnText: Mojo.utils.locale('ui', 'In War2'),
+                        leftBtnClick: function (that) {
+                            that.close();
+                            Mojo.app.redirect('/force', {
+                                index: 1,
+                                selected: 1
+                            });
+                        },
+                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnClick: function (that) {
+                            that.close();
+                        }
+                    });
+                    dlg.open();
                 }
             }
             return {
@@ -21837,7 +22077,10 @@ function trackClient(appkeys) {
             this._addLabel('profile_level', this._force.level);
             var update = parseInt(this._force.grain_for_next_level);
             this._addLabel('update_grain', update != 0 ? this._force.grain_for_next_level : Mojo.utils.locale('force', 'level_full'));
-            this._addLabel('have_grain', this._force.grain);
+            this._addLabel('have_grain', {
+                grain: self._force.grain,
+                safe_grain: self._force.grain_protected
+            });
             this._addLabel('count_member', this._force.member_num + "/" + this._force.member_num_limit);
             this._addLabel('force_owner', this._force.owner.name);
             if (this._force.vice_owner != null && this._force.vice_owner != undefined) {
@@ -21931,8 +22174,14 @@ function trackClient(appkeys) {
         },
         _addLabel: function (name, value) {
             var self = this;
+            var disp_text = undefined;
+            if (typeof value == "object") {
+                disp_text = Mojo.utils.locale('force', name, value);
+            } else {
+                disp_text = Mojo.utils.locale('force', name) + value;
+            }
             new Mojo.ui.Label(undefined, {
-                text: Mojo.utils.locale('force', name) + value
+                text: disp_text,
             }).element().appendTo(this._paragraph);
         },
         _addButtons: function () {
@@ -22835,6 +23084,7 @@ function trackClient(appkeys) {
             this._levelInfo = options.levelInfo;
             this.hasColdDown = options.hasColdDown;
             this._coldDownWarning = options.coldDownWarning;
+            this._forceBossWarning = options.forceBossWarning;
             this._exchangeClass = (options.exchangeClass != undefined ? options.exchangeClass : 'go-buy-btn');
             this._card = undefined;
             this.element().append('<div class="goods-detail"></div>');
@@ -22895,17 +23145,29 @@ function trackClient(appkeys) {
                         }
                     },
                     disableClick: function () {
-                        if (self.hasColdDown && self.cd && self.cd > 0) {
-                            Mojo.app.toast.show(self._coldDownWarning);
-                        } else if (self._levelInfo) {
-                            Mojo.app.toast.show(self._levelInfo.warning);
+                        var status = parseInt(self._data.status || Mojo.utils.getSomething("gstatus"));
+                        if (status == 5) {
+                            Mojo.app.toast.show(self._forceBossWarning);
+                        } else {
+                            if (self.hasColdDown && self.cd && self.cd > 0) {
+                                Mojo.app.toast.show(self._coldDownWarning);
+                            } else if (self._levelInfo) {
+                                Mojo.app.toast.show(self._levelInfo.warning);
+                            }
                         }
                     },
                     special: self._exchangeClass
                 });
                 this.element().append(this._goButton.element());
-                if (this._levelInfo && this._levelInfo.level < this._levelInfo.unlockLevel) {
-                    this._goButton.disable(true);
+                var status = parseInt(self._data.status || Mojo.utils.getSomething("gstatus"));
+                if (status == 5) {
+                    if (parseInt(this._data.cold_down) < 　0) {
+                        this._goButton.disable(true);
+                    }
+                } else {
+                    if (this._levelInfo && this._levelInfo.level < this._levelInfo.unlockLevel) {
+                        this._goButton.disable(true);
+                    }
                 }
             }
             this._setCard();
@@ -22969,6 +23231,9 @@ function trackClient(appkeys) {
                 }
             }, 1000);
         },
+        disableButton: function () {
+            this._goButton.disable(true);
+        },
         _formatCDTime: function (sec) {
             var str = '';
             var dd = parseInt(sec / 86400);
@@ -22997,6 +23262,11 @@ function trackClient(appkeys) {
                 advertisingStyle = "hot-goods-flag";
                 advertising = Mojo.utils.locale("mall", 'hot_goods_flag');
             } else if (status == 3 && parseInt(this._data.discount) < 100) {
+                advertisingStyle = "discount-goods-flag";
+                advertising = Mojo.utils.locale("mall", 'discount_goods_flag_new', {
+                    discount: parseInt(this._data.discount) / 10
+                });
+            } else if (status == 5 && parseInt(this._data.discount) < 100) {
                 advertisingStyle = "discount-goods-flag";
                 advertising = Mojo.utils.locale("mall", 'discount_goods_flag_new', {
                     discount: parseInt(this._data.discount) / 10
@@ -23481,13 +23751,14 @@ function trackClient(appkeys) {
                         buyButtonLabelKey: 'sure_exchange',
                         priceTitle: (data.rm != undefined && parseInt(data.rm) != 0) ? Mojo.utils.locale('force', 'cost_rm') : Mojo.utils.locale('force', 'cost_grain'),
                         levelInfo: {
-                            title: self.locale('require_force_level'),
-                            unlockLevel: data.unlock_level,
+                            title: (data.status != undefined && parseInt(data.status) == 5) ? Mojo.utils.locale('force', 'force_boss_challenge_exchange_reason') : self.locale('require_force_level'),
+                            unlockLevel: (data.status != undefined && parseInt(data.status) == 5) ? Mojo.utils.locale('force', 'force_boss_challenge_exchange_answer') : data.unlock_level,
                             level: self._level,
                             warning: self.locale('force_level_too_low')
                         },
-                        hasColdDown: true,
+                        hasColdDown: (data.status != undefined && parseInt(data.status) == 5) ? false : true,
                         coldDownWarning: self.locale('force_exchange_unavailable'),
+                        forceBossWarning: self.locale('force_exchange_unavailable_forceboss'),
                         exchangeClass: 'go-exchange-btn',
                         onBuy: function () {
                             self._buyGoods(data);
@@ -23508,10 +23779,14 @@ function trackClient(appkeys) {
                                     entityDialog.close();
                                 },
                                 disableClick: function () {
-                                    if (goods.hasColdDown && goods.cd && goods.cd > 0) {
-                                        Mojo.app.toast.show(self.locale('force_exchange_unavailable'));
-                                    } else if (goods._levelInfo) {
-                                        Mojo.app.toast.show(self.locale('force_level_too_low'));
+                                    if (data.status == 5) {
+                                        Mojo.app.toast.show(self.locale('force_exchange_unavailable_forceboss'));
+                                    } else {
+                                        if (goods.hasColdDown && goods.cd && goods.cd > 0) {
+                                            Mojo.app.toast.show(self.locale('force_exchange_unavailable'));
+                                        } else if (goods._levelInfo) {
+                                            Mojo.app.toast.show(self.locale('force_level_too_low'));
+                                        }
                                     }
                                 }
                             });
@@ -23525,6 +23800,9 @@ function trackClient(appkeys) {
                             });
                             closeBtn.element().appendTo(entityDialog._footer);
                             if (self._level < data.unlock_level || goods.hasColdDown && goods.cd > 0) {
+                                exchangeBtn.disable(true);
+                            }
+                            if ((data.status == 5 && data.cold_down < 0) || (data.status == 5 && goods.cd < 0)) {
                                 exchangeBtn.disable(true);
                             }
                             entityDialog.open();
@@ -23689,6 +23967,15 @@ function trackClient(appkeys) {
                                 goodsItem.showCd();
                             }
                         }
+                    } else if (data.cold_down && data.cold_down < 0) {
+                        var goodsList = self._list.children();
+                        for (var i = 0; i < goodsList.length; i++) {
+                            var goodsItem = goodsList[i];
+                            if (goodsItem.getDataId() == goods.id) {
+                                goodsItem.cd = data.cold_down;
+                                goodsItem.disableButton();
+                            }
+                        }
                     }
                 } else if (response.errorCode == 130038) {
                     var exchangeFailedDialog = new Mojo.ui.Dialog(undefined, {
@@ -23743,6 +24030,19 @@ function trackClient(appkeys) {
                         }
                     }).element().appendTo(FailedDialog._footer);
                     FailedDialog.open();
+                } else if (response.errorCode == 130110) {
+                    var t = Mojo.utils.locale('force', 'force_boss_challenge_exchange_fail');
+                    if (response.data != undefined && response.data.title != undefined) {
+                        t = response.data.title;
+                    }
+                    (new Mojo.com.CommonDialog(undefined, {
+                        title: t,
+                        content: $('<div class="tip"></div>').html(response.errorMsg),
+                        leftBtnText: Mojo.utils.locale('common', 'close'),
+                        leftBtnClick: function (that) {
+                            that.close();
+                        }
+                    })).open();
                 }
             }, function (response) {
                 self._refreshGrainBar();
@@ -25582,7 +25882,6 @@ function trackClient(appkeys) {
         },
         _nonRMBClickCallback: function (data, forceWarElement, buffType, re_buff) {
             var self = this;
-            // Mojo.app.toast.show(self.battleType+","+data.id+","+ self.partnerIds+","+buffType+","+re_buff);
             Mojo.ajax("/forceCrazy/battleLodgmentBuff", {
                 type: self.battleType,
                 lodgment_id: data.id,
@@ -25615,7 +25914,7 @@ function trackClient(appkeys) {
                             percent: contribute
                         }));
                     }
-                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},10);
+                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},200);
                 } else if (response && response.errorCode == 10200 && Mojo.utils.isNone(response.data) == false) {
                     Mojo.ajax('/entity/Use', {
                         id: response.data.props.id
@@ -28080,7 +28379,10 @@ function trackClient(appkeys) {
             } else {
                 this.element().addClass(Mojo.utils.getSomething("advertising") || this._options.advertising.status);
             }
-            if (this._data.sub_id && (('' + this._data.sub_id).indexOf('month_ticket') >= 0 || this._data.sub_id.toString().indexOf('vip_recharge') >= 0)) {
+            if (this._data.sub_id && (('' + this._data.sub_id).indexOf('month_ticket') >= 0)) {
+                this.element().addClass('vip-recharge month-ticket-recharge');
+            }
+            if (this._data.sub_id && (this._data.sub_id.toString().indexOf('vip_recharge') >= 0)) {
                 this.element().addClass('vip-recharge');
             }
             this._nameDiv = $('<div class="name"></div>').appendTo(this.element());
@@ -28145,7 +28447,7 @@ function trackClient(appkeys) {
                     }
                 },
                 disableClick: function () {
-                    if ('month_ticket' == self._data.sub_id && parseInt(self._data.player_ticket.buy_status) == 4) {
+                    if (('' + self._data.sub_id).indexOf('month_ticket') >= 0 && parseInt(self._data.player_ticket.buy_status) == 4) {
                         Mojo.app.toast.show(Mojo.utils.locale('mall', 'month_ticket_has_buy', {
                             '__default__': '主公~再过{{:days}}天才能再次购买这个东东哦~',
                             'days': self._data.player_ticket.buy_days
@@ -28265,5 +28567,1343 @@ function trackClient(appkeys) {
                 })
             });
         }
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceChallengePanel = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.ForceChallengePanel";
+        },
+        init: function (options) {
+            this._super('com-force-challenge-panel', options);
+            this.element().addClass('com-force-challenge-panel');
+            var self = this;
+            this._playerProfile = this._options.getController().getPlayerProfile();
+            this._forceProfile = this._options.getController().getForceProfile();
+            this._elementsList = [];
+            this._PRE_CHALLENGE_CODE = 230001;
+            this._IN_CHALLENGE_CODE = 230002;
+            this._CHALLENGE_FINISH_CODE = 230300;
+            this._createChallengePanel();
+        },
+        pause: function () {
+            var self = this;
+            clearTimeout(self._forceBattleHandle);
+        },
+        _createChallengePanel: function () {
+            var self = this;
+            self._forceWarAjax("/forceBoss/index", {
+                msgid: 0
+            }, function (response) {
+                if (response && response.errorCode == self._PRE_CHALLENGE_CODE) {
+                    self._data = response.data;
+                    self._createPreChallengePanel();
+                } else if (response && response.errorCode == self._IN_CHALLENGE_CODE) {
+                    self._data = response.data;
+                    self._persistenceData = response.data;
+                    self._createInChallengePanel();
+                }
+            }, function () {});
+        },
+        _addHeader: function () {
+            this._header = $("<div class='page-tips'></div>");
+            this._header.appendTo(this._content._header);
+        },
+        _createPreChallengePanel: function () {
+            var self = this;
+            if (this._content != undefined) {
+                this._content.element().remove();
+            }
+            this._content = new Mojo.Object(undefined, {
+                classes: ['pre-challenge-panel']
+            });
+            this._content._header = $('<div class="header"></div>').appendTo(this._content.element());
+            this.element().append(this._content.element());
+            this._addHeader();
+            if (parseInt(self._data.challenge.free) > 0) {
+                this._header.html(Mojo.utils.locale('force', 'force_boss_challenge_limit', {
+                    num: self._data.challenge.free
+                }));
+            } else {
+                this._header.html(Mojo.utils.locale('force', 'force_boss_challenge_limit2', {
+                    num: self._data.limit
+                }));
+            }
+            var preContent = $('<div class="mojo-com-forceboss-challenge-pre-content"></div>').appendTo(this._content.element());
+            this._bossNameAndLevel = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-name']
+            });
+            this._bossNameAndLevel.element().html(Mojo.utils.locale('force', 'force_boss_name_level', {
+                name: self._data.boss.name,
+                level: self._data.boss.level
+            }));
+            preContent.append(this._bossNameAndLevel.element());
+            this._detailButton = new Mojo.ui.Button('detail-btn', {
+                text: Mojo.utils.locale('force', 'force_boss_challenge_detail'),
+                click: function () {
+                    new Mojo.com.ForceBossChallengeDetailDialog({
+                        "detail": Mojo.utils.locale('force', 'force_boss_challenge_detail_content'),
+                    }).open();
+                },
+            });
+            preContent.append(this._detailButton.element());
+            this._bossImage = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-img']
+            });
+            $('<img />').addClass("card-image-url").bind("load", function () {
+                self._bossImage.element().find(".card-image-url").show();
+            }).hide().appendTo(this._bossImage.element()).attr({
+                src: self._data.boss.image
+            });
+            $('<img />').bind("load", function () {}).hide().appendTo(this._bossImage.element()).attr({
+                src: self._data.boss.large_image
+            });
+            preContent.append(this._bossImage.element());
+            this._bossInformation = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-information']
+            });
+            this._bossInformation.element().html(Mojo.utils.locale('force', 'force_boss_challenge_profile', {
+                name: self._data.boss.name,
+                time: self._data.duration,
+                num: self._data.boss.life,
+                defencemin: self._data.boss.defence.min,
+                defencemax: self._data.boss.defence.max,
+                skill: self._data.boss.skill
+            }));
+            preContent.append(this._bossInformation.element());
+            this._challengeButton = new Mojo.ui.Button('challenge-btn', {
+                text: Mojo.utils.locale('force', 'force_boss_challenge_start'),
+                special: 'button-big-red',
+                click: function () {
+                    var dlg = new Mojo.com.ForceBossChallengePreviewDialog({
+                        challenge_num: self._data.challenge.free,
+                        challenge_rm: self._data.challenge.rm,
+                        challenge_vm: self._data.challenge.vm,
+                        niudanlist: self._data.rewards,
+                        niudanId: self._data.rewards[0].id,
+                        callback: function (niudanId) {
+                            if ((self._data.challenge.free > 0 && 　parseInt(self._playerProfile.vm) < parseInt(self._data.challenge.vm)) || (self._data.challenge.free == 0 && parseInt(self._playerProfile.rm) < parseInt(self._data.challenge.rm))) {
+                                var failDialog = new Mojo.ui.Dialog(undefined, {
+                                    title: Mojo.utils.locale('force', "force_boss_challenge_lack_title")
+                                });
+                                if (self._data.challenge.free > 0) {
+                                    $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_vm")).appendTo(failDialog._content);
+                                    new Mojo.ui.Button(undefined, {
+                                        text: Mojo.utils.locale('mall', 'go_vm'),
+                                        special: "button-big-red",
+                                        click: function () {
+                                            failDialog.close();
+                                            Mojo.app.redirect("/mall", {
+                                                selected: 2
+                                            });
+                                        }
+                                    }).element().appendTo(failDialog._footer);
+                                } else if (self._data.challenge.free == 0) {
+                                    $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_rm")).appendTo(failDialog._content);
+                                    new Mojo.ui.Button(undefined, {
+                                        text: Mojo.utils.locale('mall', 'go_payment'),
+                                        special: "button-big-red",
+                                        click: function () {
+                                            failDialog.close();
+                                            Mojo.app.redirect("/mall", {
+                                                selected: 4
+                                            });
+                                        }
+                                    }).element().appendTo(failDialog._footer);
+                                }
+                                new Mojo.ui.Button(undefined, {
+                                    text: Mojo.utils.locale('common', 'close'),
+                                    special: "button-big-blue",
+                                    click: function () {
+                                        failDialog.close();
+                                    }
+                                }).element().appendTo(failDialog._footer);
+                                failDialog.open();
+                                return;
+                            }
+                            var skip_cd = 0;
+                            if (self._data.challenge.free == 0) {
+                                skip_cd = 1;
+                            }
+                            self._forceWarAjax("/forceBoss/challenge", {
+                                niudan_id: niudanId,
+                                skip_cd: skip_cd
+                            }, function (response) {
+                                if (response && response.errorCode === 0) {
+                                    self._createChallengePanel();
+                                    new Mojo.com.CommonDialog(undefined, {
+                                        title: Mojo.utils.locale('force', 'force_boss_challenge_start5'),
+                                        content: $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_tip_content').replace('{{:opponent_force}}', self._data.boss.name)),
+                                        leftBtnText: Mojo.utils.locale('force', 'usurp_war_help'),
+                                        leftBtnClick: function (that) {
+                                            that.close();
+                                            new Mojo.com.ForceNoticeDialog({}, {
+                                                title: Mojo.utils.locale('force', 'force_boss_challenge_start5'),
+                                                hasDefaultMsg: true,
+                                                hintText: Mojo.utils.locale('force', 'force_boss_challenge_hint_text'),
+                                                okBtnClick: function (that) {
+                                                    that.close();
+                                                    Mojo.ajax("/forceBoss/callingMember", {
+                                                        content: that.getContent()
+                                                    }, function (response) {
+                                                        Mojo.app.toast.show(Mojo.utils.locale('common', 'suggestion_has_send'));
+                                                    });
+                                                }
+                                            }).open();
+                                        },
+                                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                                        rightBtnClick: function (that) {
+                                            that.close();
+                                        },
+                                    }).open();
+                                    self._options.getController().getProfile().sync();
+                                } else {
+                                    if (response.errorCode == 230201) {
+                                        var t = Mojo.utils.locale('force', 'forcewar_tip_title');
+                                        if (response.data != undefined && response.data.title != undefined) {
+                                            t = response.data.title;
+                                        }
+                                        (new Mojo.com.CommonDialog(undefined, {
+                                            title: t,
+                                            content: $('<div class="tip"></div>').html(response.errorMsg),
+                                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                            leftBtnClick: function (that) {
+                                                that.close();
+                                                Mojo.app.redirect('/force', {
+                                                    index: 1,
+                                                    selected: 1
+                                                });
+                                            }
+                                        })).open();
+                                    } else {
+                                        if (Mojo.utils.isNone(response.errorMsg) || response.errorMsg == '') {
+                                            response.errorMsg = Mojo.utils.locale('common', 'action_error');
+                                        }
+                                        (new Mojo.com.CommonDialog(undefined, {
+                                            title: response.data ? response.data.title : Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                            content: $('<div class="tip"></div>').html(response.errorMsg),
+                                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                            leftBtnClick: function (that) {
+                                                that.close();
+                                            }
+                                        })).open();
+                                    }
+                                }
+                            });
+                        }
+                    });
+                    dlg.open();
+                },
+                disableClick: function () {
+                    if (parseInt(self._playerProfile.position_id) > 3) {
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'force_boss_challenge_no_right'));
+                    } else if (self._data.limit == 0) {
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'force_boss_challenge_no_right2'));
+                    }
+                }
+            });
+            preContent.append(this._challengeButton.element());
+            this._rm = new Mojo.ui.Label(undefined, {
+                classes: ['rm'],
+                text: '0',
+            });
+            this._rm.text(self._data.challenge.rm);
+            if (parseInt(self._data.challenge.free) == 0 && self._data.limit > 0) {
+                this._challengeButton.element().append(this._rm.element());
+                if (parseInt(self._data.challenge.rm) < 10) {
+                    this._challengeButton.element().addClass("challenge-button-with-rm1");
+                } else if (parseInt(self._data.challenge.rm) < 100) {
+                    this._challengeButton.element().addClass("challenge-button-with-rm2");
+                } else if (parseInt(self._data.challenge.rm) < 1000) {
+                    this._challengeButton.element().addClass("challenge-button-with-rm3");
+                } else if (parseInt(self._data.challenge.rm) < 10000) {
+                    this._challengeButton.element().addClass("challenge-button-with-rm4");
+                } else if (parseInt(self._data.challenge.rm) < 100000) {
+                    this._challengeButton.element().addClass("challenge-button-with-rm5");
+                } else {
+                    this._challengeButton.element().addClass("challenge-button-with-rm");
+                }
+            }
+            if (parseInt(self._playerProfile.position_id) > 3 || self._data.limit == 0) {
+                self._challengeButton.disable(true);
+            }
+        },
+        _createInChallengePanel: function () {
+            var self = this;
+            if (this._content != undefined) {
+                this._content.element().remove();
+            }
+            this._content = new Mojo.Object(undefined, {
+                classes: ['in-challenge-panel']
+            });
+            this._content._header = $('<div class="header"></div>').appendTo(this._content.element());
+            this.element().append(this._content.element());
+            this._addHeader();
+            if (parseInt(self._data.challenge.free) > 0) {
+                this._header.html(Mojo.utils.locale('force', 'force_boss_challenge_limit', {
+                    num: self._data.challenge.free
+                }));
+            } else {
+                this._header.html(Mojo.utils.locale('force', 'force_boss_challenge_limit2', {
+                    num: self._data.limit
+                }));
+            }
+            this._bossImage = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-img']
+            });
+            this._content.element().append(this._bossImage.element());
+            this._bossNameAndLevel = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-name']
+            });
+            this._bossNameAndLevel.element().html(Mojo.utils.locale('force', 'force_boss_name_level2', {
+                name: self._data.boss.name,
+                level: self._data.boss.level
+            }));
+            this._bossImage.element().append(this._bossNameAndLevel.element());
+            this._bossLeft = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-left']
+            });
+            this._bossLeft.element().html(Mojo.utils.locale('force', 'force_boss_left', {
+                num: self._data.battle.left,
+                wholenum: self._data.boss.life
+            }));
+            this._bossImage.element().append(this._bossLeft.element());
+            this._bossFleeTime = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-flee-time']
+            });
+            this._bossImage.element().append(this._bossFleeTime.element());
+            this._challengeProgress = new Mojo.ui.Progress(undefined, {
+                classes: ['xp'],
+                labelTemplate: '#{divide}',
+            });
+            this._challengeProgress.element().appendTo(this._bossImage.element());
+            $('<div class="challenge-progress-border"></div>').appendTo(this._bossImage.element());
+            this._channel = new Mojo.com.ForceBossMsgChannel('force_boss_msg_channel', {
+                bossName: self._data.boss.name
+            });
+            this._content.element().append(this._channel.element());
+            this._channel.appendChatMessages(this._data.list, this._data.time);
+            var c = this._channel.getLatestChat();
+            if (c == null) {
+                this._defaultMsg = $('<div class="challenge-default-msg"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_attack_default_msg')).appendTo(this._channel.element());
+            }
+            this._bossAttackCD = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-attack-cd']
+            });
+            this._content.element().append(this._bossAttackCD.element());
+            this._challengeButton = new Mojo.ui.Button('challenge-btn', {
+                text: Mojo.utils.locale('force', 'force_boss_challenge_start4'),
+                special: 'button-big-red',
+                click: function () {
+                    if (self._cd > 0) {
+                        var content = $('<div class="paragraph"></div>');
+                        $('<div class="mojo-com-forceboss-attack-preview-header"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_attack_preview_header')).appendTo(content);
+                        $('<div class="mojo-com-forceboss-attack-preview-cost"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_attack_preview_cost')).appendTo(content);
+                        this._rm = new Mojo.ui.Label(undefined, {
+                            classes: ['rm'],
+                            text: '0',
+                        });
+                        this._rm.text(self._data.battle.attack.cost);
+                        this._rm.element().appendTo(content);
+                        var dlg = new Mojo.com.CommonDialog(undefined, {
+                            title: Mojo.utils.locale('force', 'force_boss_challenge_attack_preview_not'),
+                            content: content,
+                            classes: ['force-boss-challenge-dlg-with-label'],
+                            leftBtnText: Mojo.utils.locale('force', 'force_boss_challenge_attack_preview_speedup'),
+                            leftBtnClick: function (that) {
+                                that.close();
+                                if (parseInt(self._playerProfile.rm) < parseInt(self._data.battle.attack.cost)) {
+                                    var failDialog = new Mojo.ui.Dialog(undefined, {
+                                        title: Mojo.utils.locale('force', "force_boss_challenge_speed_fail_title")
+                                    });
+                                    $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_rm")).appendTo(failDialog._content);
+                                    new Mojo.ui.Button(undefined, {
+                                        text: Mojo.utils.locale('mall', 'go_payment'),
+                                        special: "button-big-red",
+                                        click: function () {
+                                            failDialog.close();
+                                            Mojo.app.redirect("/mall", {
+                                                selected: 4
+                                            });
+                                        }
+                                    }).element().appendTo(failDialog._footer);
+                                    failDialog.open();
+                                } else {
+                                    self._attackBoss(1, 1);
+                                }
+                            },
+                            rightBtnText: Mojo.utils.locale('common', 'close'),
+                            rightBtnClick: function (that) {
+                                that.close();
+                            },
+                        });
+                        dlg.open();
+                    } else {
+                        self._attackBoss(1, 0);
+                    }
+                }
+            });
+            this._content.element().append(this._challengeButton.element());
+            this._refreshForceBossStatus();
+        },
+        _attackBoss: function (is_preview, is_skip_cd) {
+            var self = this;
+            self._forceWarAjax("/forceBoss/attack", {
+                preview: is_preview,
+                skip_cd: is_skip_cd
+            }, function (response) {
+                if (response && response.errorCode === 0) {
+                    response.data.opponent_army = ['huangjinjun.png'];
+                    var capturedPreviewDialog = new Mojo.com.ForceWarPreviewDialog(undefined, {
+                        attackBtnText: Mojo.utils.locale('force', 'force_boss_challenge_start4'),
+                        title: Mojo.utils.locale('force', 'forcewar_battle_preview'),
+                        attackerName: self._options.getController().getPlayerProfile().name,
+                        defenderName: self._persistenceData.boss.name,
+                        showtip: false,
+                        actionCallback: function (that) {
+                            that.close();
+                            var c = self._channel.getLatestChat();
+                            var mid = 0;
+                            if (c != null) {
+                                mid = c.id;
+                            }
+                            var bossflag = confirm("是否开启自动boss战模式?");
+                            if (bossflag) {
+                                var bossAtt = w.setInterval(function () {
+                                    Mojo.ajax("/forceBoss/attack", {
+                                        preview: 0,
+                                        msgid: mid,
+                                        skip_cd: is_skip_cd
+                                    }, function (result) {
+                                        if (result && result.errorCode === 0) {
+                                            var resultDlg = undefined;
+                                            if (result.data.rewards.entity != undefined) {
+                                                resultDlg = "转生丹"
+                                            } else {
+                                                resultDlg = "粮草"
+                                            } if (result.data.status == 1) {
+                                                Mojo.app.toast.show("[Boss战]战斗胜利,获得奖励:" + resultDlg, "40000")
+                                            } else if (result.data.status == 2) {
+                                                Mojo.app.toast.show("[Boss战]战斗失败,获得奖励:" + resultDlg, "40000")
+                                            }
+                                        } else if (result.errorCode === self._CHALLENGE_FINISH_CODE) {
+                                            w.clearInterval(bossAtt)
+                                        }
+                                    }, function () {}, {})
+                                }, 1000)
+                            } else {
+                                Mojo.ajax("/forceBoss/attack", {
+                                    preview: 0,
+                                    msgid: mid,
+                                    skip_cd: is_skip_cd
+                                }, function (result) {
+                                    Mojo.gap.showbattleskip();
+                                    if (result && result.errorCode === 0) {
+                                        var resultTitle = "";
+                                        var resultTip = "";
+                                        if (result.data.player) {
+                                            if (parseInt(result.data.player.sp) == NaN) {
+                                                result.data.player.sp = 0;
+                                            }
+                                            Mojo.page.Force.getController().updatePlayerProfile({
+                                                sp: result.data.player.sp,
+                                                rm: result.data.player.rm
+                                            });
+                                            Mojo.page.Force.getController().diffPlayer({
+                                                grain: result.data.rewards.grain
+                                            });
+                                        }
+                                        self._refreshForceBossStatus(true);
+                                        var resultDlg = undefined;
+                                        if (result.data.rewards.entity != undefined) {
+                                            resultDlg = self._showAwardResult(result);
+                                        } else {
+                                            resultDlg = self._showGrainAwardResult(result);
+                                        }
+                                        var dlgtitle = '';
+                                        if (result.data.status == 1) {
+                                            dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_win');
+                                        } else if (result.data.status == 2) {
+                                            dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_lose');
+                                        }
+                                        setTimeout(function () {
+                                            Mojo.ajax('/battle/Detail', {}, function (res) {
+                                                if (res.errorCode == 0) {
+                                                    res.data.defender.player.level = self._persistenceData.boss.level;
+                                                    (new Mojo.com.BattleDetailDialog(res.data, {
+                                                        title: dlgtitle,
+                                                        pid: self._options.opponent_id,
+                                                        pkMode: true,
+                                                        vm: '+0',
+                                                        xp: '+0',
+                                                        show_detail_first: true,
+                                                        entity: null,
+                                                        non_show_base_def: true,
+                                                    })).open();
+                                                    resultDlg.open();
+                                                } else {}
+                                            }, function () {}, {
+                                                showWait: true
+                                            });
+                                        }, 500);
+                                    } else if (result.errorCode === self._CHALLENGE_FINISH_CODE) {
+                                        clearTimeout(self._forceBattleHandle);
+                                        var resultDlg2 = self._showForceWarResultDialog(result, function () {
+                                            Mojo.app.redirect('/force', {
+                                                index: 1,
+                                                selected: 1
+                                            });
+                                        });
+                                        var dlgtitle = '';
+                                        if (result.data.status == 1) {
+                                            dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_win');
+                                        } else if (result.data.status == 2) {
+                                            dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_lose');
+                                        }
+                                        setTimeout(function () {
+                                            Mojo.ajax('/battle/Detail', {}, function (res) {
+                                                if (res.errorCode == 0) {
+                                                    res.data.defender.player.level = self._persistenceData.boss.level;
+                                                    (new Mojo.com.BattleDetailDialog(res.data, {
+                                                        title: dlgtitle,
+                                                        pid: self._options.opponent_id,
+                                                        pkMode: true,
+                                                        vm: '+0',
+                                                        xp: '+0',
+                                                        show_detail_first: true,
+                                                        entity: null,
+                                                        non_show_base_def: true,
+                                                    })).open();
+                                                    resultDlg2.open();
+                                                } else {}
+                                            }, function () {}, {
+                                                showWait: true
+                                            });
+                                        }, 500);
+                                    } else if (result.errorCode === 230202) {
+                                        var t = Mojo.utils.locale('force', 'forcewar_tip_title');
+                                        if (result.data != undefined && result.data.title != undefined) {
+                                            t = result.data.title;
+                                        }
+                                        (new Mojo.com.CommonDialog(undefined, {
+                                            title: t,
+                                            content: $('<div class="tip"></div>').html(result.errorMsg),
+                                            leftBtnText: Mojo.utils.locale('force', 'force_boss_challenge_attack_reattack'),
+                                            leftBtnClick: function (that) {
+                                                that.close();
+                                                self._attackBoss(1, 1);
+                                            },
+                                            rightBtnText: Mojo.utils.locale('common', 'close'),
+                                            rightBtnClick: function (that) {
+                                                that.close();
+                                            }
+                                        })).open();
+                                    } else {
+                                        var t = Mojo.utils.locale('force', 'forcewar_tip_title');
+                                        if (result.data != undefined && result.data.title != undefined) {
+                                            t = result.data.title;
+                                        }
+                                        (new Mojo.com.CommonDialog(undefined, {
+                                            title: t,
+                                            content: $('<div class="tip"></div>').html(result.errorMsg),
+                                            leftBtnText: Mojo.utils.locale('common', 'close'),
+                                            leftBtnClick: function (that) {
+                                                that.close();
+                                            }
+                                        })).open();
+                                    }
+                                }, function () {}, {
+                                    showWait: true
+                                });
+                            }
+                            Mojo.track.onEvent('24_703');
+                        }
+                    });
+                    var winContent = $('<div><div class="win-time">' + Mojo.utils.locale('force', 'force_boss_challenge_attack_preview_win') + '</div></div>');
+                    var loseContent = $('<div><div class="lose-time">' + Mojo.utils.locale('force', 'force_boss_challenge_attack_preview_lose') + '</div></div>');
+                    capturedPreviewDialog.setWinContents(winContent);
+                    capturedPreviewDialog.setLoseContents(loseContent);
+                    capturedPreviewDialog.open();
+                } else if (response && response.errorCode == 10003 && Mojo.utils.isNone(response.data) == false) {
+                    (new Mojo.com.NeedBuyDialog(undefined, {
+                        title: Mojo.utils.locale('force', 'forcewar_tip_title'),
+                        goods: response.data.props,
+                        stamina: response.data.stamina,
+                        restoreCount: response.data.sp,
+                        allRestoreText: Mojo.utils.locale('common', 'time for all sp'),
+                        allRestoreTime: response.data.sp_restore_pp,
+                        nextRestoreText: Mojo.utils.locale('common', 'time for next sp'),
+                        nextRestoreTime: response.data.sp_second,
+                        restoreText: response.errorMsg,
+                        needBuyTip: response.errorMsg,
+                        useBtnClick: function (that, result) {
+                            that.close();
+                            if (result && result.errorCode === 0) {
+                                Mojo.page.Force.getController().updatePlayerProfile({
+                                    sp: result.data.player.sp
+                                });
+                                Mojo.app.toast.show(Mojo.utils.locale('common', 'add_sp', {
+                                    name: that._options.goods.goods_name,
+                                    value: result.data.value
+                                }));
+                            }
+                        },
+                        buyBtnClick: function (that, result) {
+                            Mojo.page.Force.getController().updatePlayerProfile({
+                                rm: result.data.player.rm,
+                                vm: result.data.player.vm
+                            });
+                        }
+                    })).open();
+                } else {
+                    var t = Mojo.utils.locale('force', 'forcewar_tip_title');
+                    if (response.data != undefined && response.data.title != undefined) {
+                        t = response.data.title;
+                    }
+                    (new Mojo.com.CommonDialog(undefined, {
+                        title: t,
+                        content: $('<div class="tip"></div>').html(response.errorMsg),
+                        leftBtnText: Mojo.utils.locale('common', 'close'),
+                        leftBtnClick: function (that) {
+                            that.close();
+                        }
+                    })).open();
+                }
+            }, function () {}, true);
+        },
+        _showAwardResult: function (result) {
+            var self = this;
+            var resultDlg = undefined;
+            if (result && result.errorCode === 0) {
+                var entity = result.data.rewards.entity;
+                resultDlg = new Mojo.ui.Dialog(undefined, {
+                    title: Mojo.utils.locale('force', 'force_boss_challenge_reward'),
+                    content: (new Mojo.com.LargeEntity(entity)).element(),
+                    classes: ['force-boss-challenge-dlg-with-label']
+                });
+                var tip = $('<div></div>').addClass('tip').appendTo(resultDlg._content);
+                tip.html(Mojo.utils.locale('force', 'force_boss_challenge_reward_des', {
+                    num: result.data.killed,
+                    name: self._persistenceData.boss.name
+                }));
+                var tip2 = $('<div></div>').addClass('tip').appendTo(resultDlg._content);
+                tip2.html(Mojo.utils.locale('force', 'force_boss_challenge_reward_get'));
+                this._grain = new Mojo.ui.Label(undefined, {
+                    classes: ['grain'],
+                    text: '0',
+                });
+                this._grain.text(result.data.rewards.grain);
+                this._grain.element().appendTo(tip2);
+                new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('common', 'ok'),
+                    click: function () {
+                        resultDlg.close();
+                    },
+                    special: 'button-big-red',
+                }).element().appendTo(resultDlg._footer);
+            }
+            return resultDlg;
+        },
+        _showGrainAwardResult: function (result) {
+            var self = this;
+            var resultDlg = undefined;
+            if (result && result.errorCode === 0) {
+                var content = $('<div class="tip"></div>');
+                var title = Mojo.utils.locale('force', 'force_boss_challenge_reward');
+                var temp = $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_reward_des', {
+                    num: result.data.killed,
+                    name: self._persistenceData.boss.name
+                })).appendTo(content);
+                if (result.data.killer == 1) {
+                    title = Mojo.utils.locale('force', 'force_boss_challenge_reward_killboss');
+                    temp.html(Mojo.utils.locale('force', 'force_boss_challenge_reward_des2', {
+                        level: self._persistenceData.boss.level,
+                        name: self._persistenceData.boss.name
+                    }));
+                }
+                var tip2 = $('<div></div>').addClass('tip').appendTo(content);
+                tip2.html(Mojo.utils.locale('force', 'force_boss_challenge_reward_get'));
+                this._grain = new Mojo.ui.Label(undefined, {
+                    classes: ['grain'],
+                    text: '0',
+                });
+                this._grain.text(result.data.rewards.grain);
+                this._grain.element().appendTo(tip2);
+                resultDlg = new Mojo.com.CommonDialog(undefined, {
+                    title: title,
+                    content: content,
+                    classes: ['force-boss-challenge-dlg-with-label'],
+                    rightBtnText: Mojo.utils.locale('common', 'close'),
+                    rightBtnClick: function (that) {
+                        that.close();
+                    },
+                });
+            }
+            return resultDlg;
+        },
+        _refreshForceBossStatus: function (forceUpdate) {
+            var self = this;
+            if (self._forceBattleTime != undefined) {
+                self._forceBattleTime -= 1;
+            }
+            if (self._cd != undefined) {
+                self._cd -= 1;
+            }
+            var c = self._channel.getLatestChat();
+            var mid = 0;
+            if (c != null) {
+                mid = c.id;
+            }
+            if (forceUpdate == true || self._forceBattleTime == undefined || self._cd == undefined || self._forceBattleTime % self._options.interval == 0) {
+                self._forceWarAjax("/forceBoss/index", {
+                    msgid: mid
+                }, function (response) {
+                    if (response && response.errorCode === self._IN_CHALLENGE_CODE) {
+                        if (Mojo.utils.isNone(response.data) == false) {
+                            self._data = response.data;
+                            self._forceBattleTime = self._data.battle.timeout;
+                            self._cd = self._data.battle.attack.timeout;
+                            self._bossLeft.element().html(Mojo.utils.locale('force', 'force_boss_left', {
+                                num: self._data.battle.left,
+                                wholenum: self._persistenceData.boss.life
+                            }));
+                            self._challengeProgress.value({
+                                value: self._data.battle.left,
+                                max: self._persistenceData.boss.life
+                            });
+                            if (self._forceBattleTime != undefined) {
+                                self._bossFleeTime.element().html(Mojo.utils.locale('force', 'force_boss_flee_time', {
+                                    time: self._formatCDTime(self._forceBattleTime)
+                                }));
+                            } else {
+                                clearTimeout(self._forceBattleHandle);
+                                self._createChallengePanel();
+                            }
+                            if (self._cd != undefined && self._cd > 0) {
+                                self._bossAttackCD.element().html(Mojo.utils.locale('force', 'force_boss_challenge_cd', {
+                                    time: self._formatCDTime(self._cd)
+                                }));
+                                if (self._rm == undefined) {
+                                    self._rm = new Mojo.ui.Label(undefined, {
+                                        classes: ['rm'],
+                                        text: '0',
+                                    });
+                                }
+                                self._rm.text(self._data.battle.attack.cost);
+                                self._challengeButton.text(Mojo.utils.locale('force', 'force_boss_challenge_start3'));
+                                self._challengeButton.element().append(self._rm.element());
+                                if (parseInt(self._data.battle.attack.cost) < 10) {
+                                    self._challengeButton.element().addClass("challenge-button-with-rm1");
+                                } else if (parseInt(self._data.battle.attack.cost) < 100) {
+                                    self._challengeButton.element().addClass("challenge-button-with-rm2");
+                                } else if (parseInt(self._data.battle.attack.cost) < 1000) {
+                                    self._challengeButton.element().addClass("challenge-button-with-rm3");
+                                } else if (parseInt(self._data.battle.attack.cost) < 10000) {
+                                    self._challengeButton.element().addClass("challenge-button-with-rm4");
+                                } else if (parseInt(self._data.battle.attack.cost) < 100000) {
+                                    self._challengeButton.element().addClass("challenge-button-with-rm5");
+                                } else {
+                                    self._challengeButton.element().addClass("challenge-button-with-rm");
+                                }
+                            } else {
+                                self._bossAttackCD.element().html('');
+                                if (self._rm != undefined) {
+                                    self._rm.element().remove();
+                                }
+                                self._challengeButton.text(Mojo.utils.locale('force', 'force_boss_challenge_start4'));
+                                self._challengeButton.element().removeClass("challenge-button-with-rm");
+                                self._challengeButton.element().removeClass("challenge-button-with-rm1");
+                                self._challengeButton.element().removeClass("challenge-button-with-rm2");
+                                self._challengeButton.element().removeClass("challenge-button-with-rm3");
+                                self._challengeButton.element().removeClass("challenge-button-with-rm4");
+                                self._challengeButton.element().removeClass("challenge-button-with-rm5");
+                            }
+                            var d = self._channel.getLatestChat();
+                            var mid2 = 0;
+                            if (d != null) {
+                                mid2 = d.id;
+                            }
+                            if (mid == mid2) {
+                                self._channel.appendChatMessages(self._data.list, self._data.time);
+                            }
+                            var e = self._channel.getLatestChat();
+                            if (e != null && self._defaultMsg != undefined) {
+                                self._defaultMsg.remove();
+                                self._defaultMsg = undefined;
+                            }
+                        } else {
+                            clearTimeout(self._forceBattleHandle);
+                            self._createChallengePanel();
+                        }
+                    }
+                }, function () {
+                    clearTimeout(self._forceBattleHandle);
+                    self._createChallengePanel();
+                });
+            }
+            if (self._forceBattleTime != undefined) {
+                self._bossFleeTime.element().html(Mojo.utils.locale('force', 'force_boss_flee_time', {
+                    time: self._formatCDTime(self._forceBattleTime)
+                }));
+            }
+            if (self._cd != undefined && self._cd > 0) {
+                self._bossAttackCD.element().html(Mojo.utils.locale('force', 'force_boss_challenge_cd', {
+                    time: self._formatCDTime(self._cd)
+                }));
+            } else {
+                self._bossAttackCD.element().html('');
+                if (self._rm != undefined) {
+                    self._rm.element().remove();
+                }
+                self._challengeButton.text(Mojo.utils.locale('force', 'force_boss_challenge_start4'));
+                self._challengeButton.element().removeClass("challenge-button-with-rm");
+                self._challengeButton.element().removeClass("challenge-button-with-rm1");
+                self._challengeButton.element().removeClass("challenge-button-with-rm2");
+                self._challengeButton.element().removeClass("challenge-button-with-rm3");
+                self._challengeButton.element().removeClass("challenge-button-with-rm4");
+                self._challengeButton.element().removeClass("challenge-button-with-rm5");
+            }
+            if (forceUpdate != true) {
+                self._forceBattleHandle = setTimeout(function () {
+                    self._refreshForceBossStatus();
+                }, 1000);
+            }
+        },
+        _forceWarAjax: function (url, params, success, fail, ashowWait) {
+            var self = this;
+            if (ashowWait == undefined) {
+                ashowWait = false;
+            }
+            Mojo.ajax(url, params, function (response) {
+                if (response.errorCode === self._CHALLENGE_FINISH_CODE) {
+                    clearTimeout(self._forceBattleHandle);
+                    self._showForceWarResultDialog(response, function () {
+                        Mojo.app.redirect('/force', {
+                            index: 1,
+                            selected: 1
+                        });
+                    }, true);
+                } else {
+                    if (success instanceof Function) {
+                        success(response);
+                    }
+                }
+            }, function () {
+                if (fail instanceof Function) {
+                    fail();
+                }
+            }, {
+                showWait: ashowWait
+            });
+        },
+        _showForceWarResultDialog: function (result, callback, isopen) {
+            var self = this;
+            var resultDlg = undefined;
+            var content = $('<div class="tip"></div>');
+            var title = "";
+            if (result.data.status == 1) {
+                if (result.data.rewards != undefined) {
+                    title = Mojo.utils.locale('force', 'force_boss_challenge_final_win');
+                    var temp = $('<div class="paragraph"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_final_des1', {
+                        level: result.data.boss.level,
+                        name: result.data.boss.name,
+                        num: result.data.rewards.grain.a
+                    })).appendTo(content);
+                    if (result.data.killer == 1) {
+                        temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des2', {
+                            level: result.data.boss.level,
+                            name: result.data.boss.name,
+                            num: result.data.rewards.grain.a,
+                            num2: result.data.rewards.grain.k
+                        }));
+                    }
+                    var sumgrain = 0;
+                    if (result.data.rewards.grain.k != undefined) {
+                        sumgrain = parseInt(result.data.rewards.grain.a) + parseInt(result.data.rewards.grain.k);
+                    } else {
+                        sumgrain = result.data.rewards.grain.a;
+                    }
+                    var grainObj = {
+                        id: "d08",
+                        name: Mojo.utils.locale('force', 'force_boss_challenge_final_win_grain'),
+                        count: sumgrain,
+                        small_image: "\/mojo\/resources\/classic\/mobile\/image\/entity\/23\/small\/player_grain.png"
+                    };
+                    if (Array.isArray(result.data.rewards.entities)) {
+                        for (var i = result.data.rewards.entities.length; i > 0; i--) {
+                            result.data.rewards.entities[i] = result.data.rewards.entities[i - 1];
+                        }
+                        result.data.rewards.entities[0] = grainObj;
+                    } else {
+                        result.data.rewards.entities = [];
+                        result.data.rewards.entities[0] = grainObj;
+                    }
+                    if (result.data.rewards.entities != undefined) {
+                        var _award = $('<div class="awards"></div>');
+                        _award.appendTo(content);
+                        var _award2 = undefined;
+                        if (result.data.rewards.entities.length > 4) {
+                            _award.addClass("awards1");
+                            _award2 = $('<div class="awards2"></div>');
+                            _award2.appendTo(content);
+                        }
+                        var _card = undefined;
+                        $.each(result.data.rewards.entities, function (i, a) {
+                            if (result.data.rewards.entities > 4 && i < Math.floor(result.data.rewards.entities.length / 2)) {
+                                _card = $('<div class="card-gift image"></div>');
+                                _card.appendTo(_award);
+                            } else if (result.data.rewards.entities.length > 4 && i >= Math.floor(result.data.rewards.entities.length / 2)) {
+                                _card = $('<div class="card-gift image"></div>');
+                                _card.appendTo(_award2);
+                            } else if (result.data.rewards.entities.length <= 4) {
+                                _card = $('<div class="card-gift image"></div>');
+                                _card.appendTo(_award);
+                            }
+                            if (a.rarity_id != undefined) {
+                                if (parseInt(a.rarity_id + "") == 1)
+                                    $('<div class = "tip">' + Mojo.utils.locale('illustration', 'rarity_notice') + '</div>').appendTo(_card);
+                                if (parseInt(a.rarity_id + "") == 2)
+                                    $('<div class = "tip">' + Mojo.utils.locale('illustration', 'rarity_notice2') + '</div>').appendTo(_card);
+                                if (parseInt(a.rarity_id + "") == 3)
+                                    $('<div class = "tip">' + Mojo.utils.locale('illustration', 'rarity_notice3') + '</div>').appendTo(_card);
+                                if (parseInt(a.rarity_id + "") == 4)
+                                    $('<div class = "tip">' + Mojo.utils.locale('illustration', 'rarity_notice4') + '</div>').appendTo(_card);
+                            }
+                            self._setCard(a, _card);
+                            if (a.count > 1) {
+                                _card.append('<div class="count">' + a.count + '</div>');
+                            }
+                            _card.append('<div class="name">' + a.name + '</div>');
+                        });
+                    }
+                    $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_final_des3')).appendTo(content);
+                    resultDlg = new Mojo.com.CommonDialog(undefined, {
+                        title: title,
+                        content: content,
+                        classes: ['force-boss-challenge-dlg-with-label'],
+                        close: function () {
+                            if (callback instanceof Function) {
+                                callback();
+                            }
+                        },
+                        leftBtnText: Mojo.utils.locale('force', 'force_boss_challenge_final_goexchange'),
+                        leftBtnClick: function (that) {
+                            Mojo.app.redirect('/force', {
+                                index: 3
+                            });
+                        },
+                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnClick: function (that) {
+                            that.close();
+                        },
+                    });
+                } else {
+                    title = Mojo.utils.locale('force', 'force_boss_challenge_final_win');
+                    var temp = $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_final_des5', {
+                        level: result.data.boss.level,
+                        name: result.data.boss.name,
+                        num: result.data.grain
+                    })).appendTo(content);
+                    resultDlg = new Mojo.com.CommonDialog(undefined, {
+                        title: title,
+                        content: content,
+                        classes: ['force-boss-challenge-dlg-with-label'],
+                        close: function () {
+                            if (callback instanceof Function) {
+                                callback();
+                            }
+                        },
+                        leftBtnText: Mojo.utils.locale('force', 'force_boss_challenge_final_goexchange'),
+                        leftBtnClick: function (that) {
+                            Mojo.app.redirect('/force', {
+                                index: 3
+                            });
+                        },
+                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnClick: function (that) {
+                            that.close();
+                        },
+                    });
+                }
+            } else {
+                title = Mojo.utils.locale('force', 'force_boss_challenge_final_lose');
+                var temp = $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_final_des4', {
+                    level: result.data.boss.level,
+                    name: result.data.boss.name
+                })).appendTo(content);
+                resultDlg = new Mojo.com.CommonDialog(undefined, {
+                    title: title,
+                    content: content,
+                    close: function () {
+                        if (callback instanceof Function) {
+                            callback();
+                        }
+                    },
+                    rightBtnText: Mojo.utils.locale('common', 'close'),
+                    rightBtnClick: function (that) {
+                        that.close();
+                    },
+                });
+            }
+            if (isopen == true) {
+                resultDlg.open();
+            }
+            return resultDlg;
+        },
+        _setCard: function (item, _car) {
+            var self = this;
+            var se = new Mojo.com.SmallEntity(item, {
+                callback: function (card) {
+                    _car.append(card.element());
+                },
+                click: function () {}
+            });
+            return se;
+        },
+        _getDefaultOptions: function () {
+            return {
+                backCallback: $.noop,
+                interval: 10
+            };
+        },
+        _formatCDTime: function (sec) {
+            var str = '';
+            var dd = parseInt(sec / 86400);
+            var hh = parseInt((sec % 86400) / 3600);
+            var mm = parseInt((sec % 3600) / 60);
+            var ss = sec % 60;
+            if (dd > 0) {
+                str = dd + Mojo.utils.locale('common', 'day') + hh + Mojo.utils.locale('common', 'hour');
+            } else if (hh > 0) {
+                str = hh + Mojo.utils.locale('common', 'hour') + mm + Mojo.utils.locale('common', 'minute');
+            } else if (mm > 0) {
+                str = mm + Mojo.utils.locale('common', 'minute') + ss + Mojo.utils.locale('common', 'second');
+            } else {
+                str = ss + Mojo.utils.locale('common', 'second');
+            }
+            return str;
+        },
+        localeCat: function () {
+            return 'force';
+        }
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossChallengeDetailDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.ElectionDetailDlg";
+        },
+        init: function (options) {
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-forceboss-challenge-detail-dlg');
+            var self = this;
+            this._initContent();
+            this._addButtons();
+        },
+        open: function (force) {
+            this._super(force);
+            this._panel.resize();
+        },
+        _initContent: function () {
+            var self = this;
+            this._panel = new Mojo.ui.ListPanel('mojo-com-forceboss-challenge-detail-listpanel', {
+                scrollable: true,
+                showMore: false,
+                pageSize: 20,
+                loadFunc: function (count, pagesize, params) {
+                    setTimeout(function () {
+                        self._panel.appendData(self._options.detail);
+                    }, 100);
+                },
+                drawFunc: function (data) {
+                    return (new Mojo.com.ForceBossChallengeDetail(data, {
+                        that: self,
+                    }));
+                }
+            });
+            this._panel.element().appendTo(this._content);
+        },
+        _addButtons: function () {
+            var self = this;
+            this._footer.append((new Mojo.ui.Button('close-btn', {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    self.close();
+                },
+            })).element());
+        },
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('force', 'force_boss_challenge_detail_dlg'),
+                detail: undefined,
+            });
+        }
+    });
+})(window, jQuery);
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossChallengeDetail = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.ForceBossChallengeDetail";
+        },
+        init: function (data, options) {
+            this._data = data;
+            this._super(undefined, options);
+            this.element().addClass("mojo-com-forceboss-challenge-detail");
+            this._contentDiv = $('<div></div>').addClass("mojo-com-forceboss-challenge-detail-content").appendTo(this.element());
+            this.refresh();
+        },
+        refresh: function (data) {
+            if (data === undefined) {
+                data = this._data;
+            }
+            this.setContent(data);
+        },
+        setContent: function (data) {
+            this._contentDiv.html(data);
+        }
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossChallengePreviewDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.ForceBossChallengePreviewDialog";
+        },
+        init: function (options) {
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-forceboss-challenge-preview-dlg');
+            var self = this;
+            this._initContent();
+            this._addButtons();
+        },
+        open: function (force) {
+            this._super(force);
+            this._niudanScroll.refresh();
+        },
+        _initContent: function () {
+            var self = this;
+            $('<div class="mojo-com-forceboss-challenge-preview-header"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_preview_header')).appendTo(this._content);
+            $('<div class="mojo-com-forceboss-challenge-preview-cost"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_preview_cost')).appendTo(this._content);
+            if (parseInt(self._options.challenge_num) == 0) {
+                this._rm = new Mojo.ui.Label(undefined, {
+                    classes: ['rm'],
+                    text: '0',
+                });
+                this._rm.text(self._options.challenge_rm);
+                this._rm.element().appendTo(this._content);
+            } else {
+                this._vm = new Mojo.ui.Label(undefined, {
+                    classes: ['vm'],
+                    text: '0',
+                });
+                this._vm.text(self._options.challenge_vm);
+                this._vm.element().appendTo(this._content);
+            }
+            var chooseDiv = $('<div class="mojo-com-forceboss-challenge-preview-choose"></div>').appendTo(this._content);
+            $('<div class="mojo-com-forceboss-challenge-preview-choose-niudan"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_preview_choose_niudan')).appendTo(chooseDiv);
+            this._niudanList = $('<div class="mojo-com-forceboss-challenge-preview-choose-niudan-list"></div>');
+            this._niudanScroll = new Mojo.ui.Scroll(undefined, this._niudanList, {
+                direction: 2
+            });
+            this._niudanScroll.element().appendTo(chooseDiv);
+            for (var k in self._options.niudanlist) {
+                self._filter = $('<div></div>').attr("id", "order-" + self._options.niudanlist[k].id).addClass("niudanElement").addClass("box-inner").appendTo(self._niudanList).data({
+                    id: self._options.niudanlist[k].id
+                }).html('<div class="radio"></div>' + self._options.niudanlist[k].name).click(function () {
+                    self._niudanElements = self._niudanList.find(".niudanElement");
+                    self._niudanElements.removeClass("filterSelected").eq($(this).index()).addClass("filterSelected");
+                    self._niudanElements.find('.radio').removeClass('radio-selected-class');
+                    $(this).find('.radio').addClass('radio-selected-class');
+                    self._options.niudanSelected = $(this).data('id');
+                });
+                if (self._options.niudanId == self._options.niudanlist[k].id) {
+                    self._filter.addClass("filterSelected");
+                    self._filter.find('.radio').addClass('radio-selected-class');
+                    self._options.niudanSelected = self._options.niudanlist[k].id;
+                }
+            }
+        },
+        _addButtons: function () {
+            var self = this;
+            this._footer.append((new Mojo.ui.Button('challenge-btn', {
+                text: Mojo.utils.locale('force', 'force_boss_challenge_start2'),
+                special: 'button-big-red',
+                click: function () {
+                    self.close();
+                    self._options.callback(self._options.niudanSelected);
+                },
+            })).element());
+            this._footer.append((new Mojo.ui.Button('close-btn', {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    self.close();
+                },
+            })).element());
+        },
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('force', 'force_boss_challenge_start'),
+                detail: undefined,
+            });
+        }
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossMsgChannel = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.ChatChannel";
+        },
+        init: function (id, options) {
+            this._super(id, options);
+            this.element().addClass('mojo-com-chat-channel');
+            this._list = $('<div class="list"></div>');
+            this._scroller = new Mojo.ui.Scroll(undefined, this._list, {
+                direction: 2
+            });
+            this.element().append(this._scroller.element());
+            this._chatList = [];
+            this._lastSend = this._localLastSend();
+        },
+        _localLastSend: function (time) {
+            var key = 'chat-channel-cold-' + this._options.channelId;
+            if (time == undefined || time == null) {
+                if (sessionStorage[key] != undefined) {
+                    return sessionStorage[key];
+                }
+                return 0;
+            }
+            sessionStorage[key] = time;
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return $.extend(true, this._super(), {
+                cold: 1000,
+                channelId: 0,
+                max: 1000,
+            });
+        },
+        getLatestChat: function () {
+            if (this._chatList.length == 0) {
+                return null;
+            }
+            return this._chatList[this._chatList.length - 1];
+        },
+        _addChatMessage: function (data) {
+            this._chatList.push(data);
+            this._list.append((this._createChat(data)).element());
+            if (this._chatList.length > this._options.max) {
+                this._chatList.shift();
+                this._list.children().eq(0).remove();
+            }
+            this._scroller.refresh();
+        },
+        _refreshTime: function (nowtime) {
+            var self = this;
+            $.each(this.element().find(".mojo-com-chat-message"), function (i, e) {
+                var timestamp = $(e).find(".send-timestamp").text();
+                var distance = parseInt(nowtime) - parseInt(timestamp);
+                if (distance < 0) distance = 1;
+                $(e).find(".send-time1").html(Mojo.utils.locale('force', 'force_boss_challenge_msg_content2', {
+                    time: self._formatCDTime(distance)
+                }));
+            });
+        },
+        _formatCDTime: function (sec) {
+            var str = '';
+            var dd = parseInt(sec / 86400);
+            var hh = parseInt((sec % 86400) / 3600);
+            var mm = parseInt((sec % 3600) / 60);
+            var ss = sec % 60;
+            if (dd > 0) {
+                str = dd + Mojo.utils.locale('common', 'day');
+            } else if (hh > 0) {
+                str = hh + Mojo.utils.locale('common', 'hour');
+            } else if (mm > 0) {
+                str = mm + Mojo.utils.locale('common', 'minute');
+            } else {
+                str = ss + Mojo.utils.locale('common', 'second');
+            }
+            return str;
+        },
+        _createChat: function (data) {
+            var self = this;
+            return new Mojo.com.ForceBossMessage(data, {
+                callback: function (uid) {},
+                channelId: self._options.channelId
+            });
+        },
+        appendChatMessages: function (data, nowtime) {
+            if (Array.isArray(data)) {
+                for (var i = data.length - 1; i >= 0; i--) {
+                    data[i].boss = this._options.bossName;
+                    this._addChatMessage(data[i]);
+                }
+                if (data.length > 0) {
+                    this._scroller.scrollTo(0, this._list.height());
+                }
+            } else {
+                this._addChat(data);
+                this._scroller.scrollTo(0, this._list.height());
+            }
+            this._refreshTime(nowtime);
+            this._scroller.refresh();
+        },
+        notifySend: function () {
+            this._lastSend = Date.now();
+            this._localLastSend(this._lastSend);
+        }
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossMessage = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.ForceBossMessage";
+        },
+        init: function (data, options) {
+            this.data = data;
+            this._super(undefined, options);
+            var self = this;
+            this.element().addClass('mojo-com-chat-message');
+            var type = "default";
+            if (data.type != undefined) {
+                type = data.type;
+            }
+            var honor = '';
+            if (data.forceTitle != undefined && data.forceTitle != '') {
+                honor = '[<span class="official">' + data.forceTitle + '</span>]';
+            }
+            this.element().html('<span class="send-timestamp"></span>' + '<span class="send-content">' + Mojo.utils.locale('force', 'force_boss_challenge_msg_content', {
+                name: honor + data.player,
+                boss: data.boss,
+                num: data.killed
+            }) + '</span><span class="send-time1"></span>');
+            this.element().find('.send-timestamp').html(data.time).hide();
+        },
+        _getSendTime: function (time) {
+            var d = new Date(time);
+            var year = d.getFullYear();
+            var month = d.getMonth() + 1;
+            var date = d.getDate();
+            var hours = d.getHours();
+            var minutes = d.getMinutes();
+            return year + '-' + month + '-' + date + ' ' + (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes);
+        },
+        _getDefaultOptions: function () {
+            return {
+                callback: $.noop,
+                channelId: 0
+            };
+        },
     });
 })(window, jQuery);

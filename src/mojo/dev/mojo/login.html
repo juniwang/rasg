@@ -253,69 +253,6 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 	// 	$("<div />").html(JSON.stringify(show)).appendTo($("#page-default-login"));
 	// }, function(){});
 
-            Mojo.ajax("/forceCrazy/battleLodgmentBuff", {
-                type: "defence",
-                lodgment_id: 1,
-                force_id: 4602,
-                buff: "incr",
-                re_buff: 0
-            }, function (response) {
-                if (response && response.errorCode === 0) {
-                } else if (response && response.errorCode == 10200 && Mojo.utils.isNone(response.data) == false) {
-                    (new Mojo.com.NeedBuyDialog(undefined, {
-                        title: Mojo.utils.locale('force', 'forcewar_tip_title'),
-                        goods: response.data.props,
-                        stamina: response.data.stamina,
-                        restoreCount: response.data.sp,
-                        allRestoreText: Mojo.utils.locale('common', 'time for all sp'),
-                        allRestoreTime: response.data.sp_restore_pp,
-                        nextRestoreText: Mojo.utils.locale('common', 'time for next sp'),
-                        nextRestoreTime: response.data.sp_second,
-                        restoreText: response.errorMsg,
-                        needBuyTip: response.errorMsg,
-                        useBtnClick: function (that, result) {
-                            that.close();
-                            if (result && result.errorCode === 0) {
-                                Mojo.page.Force.getController().updatePlayerProfile({
-                                    sp: result.data.player.sp
-                                });
-                                Mojo.app.toast.show(Mojo.utils.locale('common', 'add_sp', {
-                                    name: that._options.goods.goods_name,
-                                    value: result.data.value
-                                }));
-                            }
-                        },
-                        buyBtnClick: function (that, result) {
-                            Mojo.page.Force.getController().updatePlayerProfile({
-                                rm: result.data.player.rm,
-                                vm: result.data.player.vm
-                            });
-                        }
-                    })).open();
-                } else if (response && response.errorCode == 200082 || response.errorCode == 200088 || response.errorCode == 200089 || response.errorCode == 200083) {
-                    var lBtnTxt = Mojo.utils.locale('common', 'ok');
-                    var lBtnClkFun = function (that) {
-                        that.close();
-                        self._nonRMBClickCallback(data, forceWarElement, buffType, 1);
-                    };
-                    var dlg = new Mojo.com.CommonDialog(undefined, {
-                        title: response.data ? response.data.title : Mojo.utils.locale('force', 'forcewar_tip_title'),
-                        content: $("<div class='tip'></div>").html(response.errorMsg),
-                        leftBtnText: lBtnTxt,
-                        leftBtnClick: lBtnClkFun,
-                        rightBtnText: Mojo.utils.locale('common', 'close'),
-                        rightBtnClick: function (that) {
-                            that.close();
-                        },
-                    });
-                    dlg.open();
-                } else {
-                    self._createFailedDlg(response);
-                }
-            }, function () {}, {
-                showWait: true
-            });
-
 	if(Mojo.app.automode.isAuto()){
 		var user = Mojo.app.automode.getNextUser();
 		$("<div/>").html("<br/>当前为自动登录模式，<span id='splogins'>5</span>秒后自动登陆:" + user.name).appendTo($("#mojo-default-login"));
