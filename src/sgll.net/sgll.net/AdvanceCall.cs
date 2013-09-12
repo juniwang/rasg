@@ -63,7 +63,7 @@ namespace sgll.net
 
             if (CurTimes >= MaxTimes)
             {
-                timer.Stop(); 
+                timer.Stop();
                 timer.Dispose();
                 timer = null;
             }
@@ -74,17 +74,12 @@ namespace sgll.net
             string url = this.textBoxUrl.Text.Trim();
             string paras = this.textBoxParameters.Text.Trim();
 
-            Dictionary<string, string> output = new Dictionary<string, string>();
             this.textBoxResult.AppendText(DateTime.Now.ToString() + " 开始执行第" + CurTimes + "次执行......");
             textBoxResult.AppendText(Environment.NewLine);
-            UpCall.SGLL.Client.AjaxPost(url, paras, UpCall.LoginInfo.Cookie, output);
-            if (output.ContainsKey(SR.Keys.Response))
+            var result = UpCall.SGLL.Client.Post(url, paras, UpCall.LoginInfo.Cookie);
+            if (result.Item1)
             {
-                this.textBoxResult.AppendText(output[SR.Keys.Response]);
-            }
-            else if (output.ContainsKey(SR.Keys.Exception))
-            {
-                textBoxResult.AppendText(output[SR.Keys.Exception]);
+                this.textBoxResult.AppendText(result.Item2);
             }
             this.textBoxResult.AppendText(Environment.NewLine);
             this.textBoxResult.AppendText(Environment.NewLine);

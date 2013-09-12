@@ -21,18 +21,7 @@ namespace sgll.net
 
         public void Display()
         {
-            if (PlayerInfo == null)
-            {
-                this.labelNickname.Text = "----";
-                this.labelGrain.Text = "粮食：--";
-                this.labelVM.Text = "银币：--";
-                this.labelRM.Text = "元宝：--";
-                this.labelEnergy.Text = "精力：--/--";
-                this.labelaExp.Text = "经验：--/--";
-                this.labelStamima.Text = "体力：--/--";
-                this.labelLevel.Text = "等级：--";
-            }
-            else
+            if (PlayerInfo != null)
             {
                 this.labelNickname.Text = PlayerInfo.NickName;
                 this.labelGrain.Text = "粮食：" + PlayerInfo.Grain;

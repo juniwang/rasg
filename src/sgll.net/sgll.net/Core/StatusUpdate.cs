@@ -11,6 +11,9 @@ namespace sgll.net.Core
         None = 0,
         Profile = 0x1,
         ForceTask = 0x2,
+        HuangjinTreasure = 0x4,
+        ForceProfile = 0x8,
+        ForceZhufushi = 0x10,
         All = 0xffff
     }
 

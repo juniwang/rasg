@@ -72,11 +72,32 @@
     <Compile Include="AdvanceCall.Designer.cs">
       <DependentUpon>AdvanceCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Entieies\MojoForceZhufushiInfo.cs" />
+    <Compile Include="Core\Queue\ForceZhufushiQueue.cs" />
+    <Compile Include="DockingPanel\ForceProfilePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\ForceProfilePanel.Designer.cs">
+      <DependentUpon>ForceProfilePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockingPanel\ForceZhufushiPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\ForceZhufushiPanel.Designer.cs">
+      <DependentUpon>ForceZhufushiPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ForceProfileLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ForceProfileLabel.Designer.cs">
+      <DependentUpon>ForceProfileLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Core\ActionQueue.cs" />
     <Compile Include="Core\Bridge\AutoSig.cs" />
     <Compile Include="Core\Bridge\IBridge.cs" />
     <Compile Include="Core\Bridge\IPadBridge.cs" />
     <Compile Include="Core\Data\AccountsLoader.cs" />
+    <Compile Include="Core\Entieies\MojoForceInfo.cs" />
     <Compile Include="Core\Entieies\MojoForceTask.cs" />
     <Compile Include="Core\Entieies\MojoHuangjinItem.cs" />
     <Compile Include="Core\Entieies\MojoPlayer.cs" />
@@ -84,12 +105,19 @@
     <Compile Include="Core\Entieies\LoginUser.cs" />
     <Compile Include="Core\Queue\AbstractQueue.cs" />
     <Compile Include="Core\Queue\BasicProfileQueue.cs" />
+    <Compile Include="Core\Queue\ForceProfileQueue.cs" />
     <Compile Include="Core\Queue\ForceTaskQueue.cs" />
     <Compile Include="Core\Queue\HuangjinTreasureQueue.cs" />
     <Compile Include="Core\Queue\IQueue.cs" />
     <Compile Include="Core\LogArgs.cs" />
     <Compile Include="Core\SR.cs" />
     <Compile Include="Core\StatusUpdate.cs" />
+    <Compile Include="DockingPanel\BuyHuangjinTreasure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\BuyHuangjinTreasure.Designer.cs">
+      <DependentUpon>BuyHuangjinTreasure.cs</DependentUpon>
+    </Compile>
     <Compile Include="DockingPanel\ForceTasks.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,6 +169,18 @@
     </Compile>
     <EmbeddedResource Include="AdvanceCall.resx">
       <DependentUpon>AdvanceCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\ForceProfilePanel.resx">
+      <DependentUpon>ForceProfilePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\ForceZhufushiPanel.resx">
+      <DependentUpon>ForceZhufushiPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForceProfileLabel.resx">
+      <DependentUpon>ForceProfileLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\BuyHuangjinTreasure.resx">
+      <DependentUpon>BuyHuangjinTreasure.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\ForceTasks.resx">
       <DependentUpon>ForceTasks.cs</DependentUpon>

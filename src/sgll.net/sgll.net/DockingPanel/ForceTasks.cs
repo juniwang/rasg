@@ -20,12 +20,6 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
-        private void ListView_Refresh()
-        { }
-
-        private void ListView_ReBind()
-        { }
-
         public void Display()
         {
             this.buttonStart.Enabled = true;
@@ -37,6 +31,7 @@ namespace sgll.net.DockingPanel
                 {
                     this.buttonStart.Enabled = false;
                     this.buttonStop.Enabled = true;
+                    this.Text = feature.Enabled ? "内政[自动中]" : "内政";
                 }
             }
 
@@ -52,7 +47,6 @@ namespace sgll.net.DockingPanel
                 else if (force.Tasks != null)
                 {
                     this.Enabled = true;
-                    this.Text = "内政";
 
                     if (this.listViewEx1.Items.Count == 0)
                     {
@@ -68,14 +62,14 @@ namespace sgll.net.DockingPanel
                             listViewEx1.AddEmbeddedControl(pb, 1, i);
                             if (task.UnlockLevel > force.ForceLevel)
                             {
-                                lvi.SubItems[2].Text = "--:--:--";
+                                lvi.SubItems[2].Text = SR.Display.ColdDownZero;
                                 lvi.BackColor = Color.LightGray;
                             }
                             else if (task.Count < task.SumCount)
                                 lvi.BackColor = Color.White;
                             else
                             {
-                                lvi.SubItems[2].Text = "--:--:--";
+                                lvi.SubItems[2].Text = SR.Display.ColdDownZero;
                                 lvi.BackColor = Color.LightGreen;
                             }
                         }
@@ -93,13 +87,13 @@ namespace sgll.net.DockingPanel
                             if (task.UnlockLevel > force.ForceLevel)
                             {
                                 lvi.BackColor = Color.LightGray;
-                                lvi.SubItems[2].Text = "--:--:--";
+                                lvi.SubItems[2].Text = SR.Display.ColdDownZero;
                             }
                             else if (task.Count < task.SumCount)
                                 lvi.BackColor = Color.White;
                             else
                             {
-                                lvi.SubItems[2].Text = "--:--:--"; 
+                                lvi.SubItems[2].Text = SR.Display.ColdDownZero; 
                                 lvi.BackColor = Color.LightGreen;
                             }
                         }
@@ -117,6 +111,7 @@ namespace sgll.net.DockingPanel
             dic.Add(SR.QueueParameterKeys.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
             UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceTaskQueue, dic);
 
+            this.listViewEx1.Items.Clear();
             Display();
         }
 

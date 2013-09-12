@@ -17,7 +17,19 @@ namespace sgll.net.Core
 
         public struct QueueParameterKeys
         {
+            /// <summary>
+            /// 是否自动接受官员刷新
+            /// </summary>
             public static readonly string AutoAcceptRefresh = "auto_accept_refresh";
+            /// <summary>
+            /// 银币不足时，是否自动使用钱袋、钱箱。用于购买黄巾宝藏时
+            /// </summary>
+            public static readonly string AutoUseVMBoxForTreasure = "auto_use_vmbox";
+        }
+
+        public struct Display
+        {
+            public static readonly string ColdDownZero = "--:--:--";
         }
     }
 }

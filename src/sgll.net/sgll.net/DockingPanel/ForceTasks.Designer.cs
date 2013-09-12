@@ -32,11 +32,11 @@
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelTip = new System.Windows.Forms.Label();
             this.listViewEx1 = new ListViewEmbeddedControls.ListViewEx();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.labelTip = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,6 +65,7 @@
             // 
             // buttonStop
             // 
+            this.buttonStop.Enabled = false;
             this.buttonStop.Location = new System.Drawing.Point(101, 38);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(75, 23);
@@ -85,6 +86,17 @@
             this.groupBox1.Size = new System.Drawing.Size(314, 66);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
+            // 
+            // labelTip
+            // 
+            this.labelTip.AutoSize = true;
+            this.labelTip.ForeColor = System.Drawing.Color.Red;
+            this.labelTip.Location = new System.Drawing.Point(136, 17);
+            this.labelTip.Name = "labelTip";
+            this.labelTip.Size = new System.Drawing.Size(101, 12);
+            this.labelTip.TabIndex = 9;
+            this.labelTip.Text = "提示：官员已刷新";
+            this.labelTip.Visible = false;
             // 
             // listViewEx1
             // 
@@ -117,17 +129,6 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "冷却时间";
-            // 
-            // labelTip
-            // 
-            this.labelTip.AutoSize = true;
-            this.labelTip.ForeColor = System.Drawing.Color.Red;
-            this.labelTip.Location = new System.Drawing.Point(136, 17);
-            this.labelTip.Name = "labelTip";
-            this.labelTip.Size = new System.Drawing.Size(101, 12);
-            this.labelTip.TabIndex = 9;
-            this.labelTip.Text = "提示：官员已刷新";
-            this.labelTip.Visible = false;
             // 
             // ForceTasks
             // 

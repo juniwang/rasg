@@ -23,11 +23,10 @@ namespace sgll.net.Core.Queue
         public override void Action()
         {
             _nextSyncTime = DateTime.Now.AddMinutes(10).AddSeconds(new Random().Next(10, 60));
-            var output = new Dictionary<string, string>();
-            UpCall.Client.AjaxPost("/player/profile", string.Empty, UpCall.Data.LoginUser.Cookie, output);
-            if (output.ContainsKey(SR.Keys.Response))
+            var resp = UpCall.Client.Post("/player/profile", string.Empty, UpCall.Data.LoginUser.Cookie);
+            if (resp.Item1)
             {
-                dynamic profile = JObject.Parse(output[SR.Keys.Response]);
+                dynamic profile = JObject.Parse(resp.Item2);
                 if (profile.errorCode == 0 && profile.data != null)
                 {
                     if (UpCall.Data.PlayerInfo == null)

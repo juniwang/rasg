@@ -93,7 +93,7 @@ namespace sgll.net.Core.Bridge
             }
         }
 
-        public void AjaxPost(string url, string contents, string cookie, Dictionary<string, string> output)
+        public Tuple<bool, string> Post(string url, string contents, string cookie)
         {
             EnsureSignature();
 
@@ -137,15 +137,14 @@ namespace sgll.net.Core.Bridge
                     var sr = new StreamReader(resp.GetResponseStream());
                     var target = sr.ReadToEnd();
                     target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
-                    output.Add(SR.Keys.Response, target);
-                    sr.Close();
+                    return new Tuple<bool, string>(true, target);
                 }
                 resp.Close();
+                return new Tuple<bool, string>(false, resp.StatusDescription);
             }
             catch (Exception e)
             {
-                output.Add(SR.Keys.Exception, e.Message);
-                output.Add(SR.Keys.StackTrack, e.StackTrace);
+                return new Tuple<bool, string>(false, e.Message);
             }
             finally
             {

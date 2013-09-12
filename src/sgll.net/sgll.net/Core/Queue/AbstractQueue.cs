@@ -33,5 +33,14 @@ namespace sgll.net.Core.Queue
             get;
             set;
         }
+
+        protected bool MatchParam(string key, string targetValue, bool def)
+        {
+            if (Parameters == null)
+                return def;
+            if (!Parameters.Keys.Contains(key))
+                return def;
+            return Parameters[key] == targetValue;
+        }
     }
 }

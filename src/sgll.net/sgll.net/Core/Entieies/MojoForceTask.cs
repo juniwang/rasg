@@ -45,7 +45,7 @@ namespace sgll.net.Core.Entieies
                 }
                 else
                     cd = (int)(tg - DateTime.Now).TotalSeconds;
-                return new TimeSpan(0, 0, cd).ToString(); ;
+                return new TimeSpan(0, 0, cd).ToString();
             }
         }
         public DateTime LastSyncTime { get; set; }

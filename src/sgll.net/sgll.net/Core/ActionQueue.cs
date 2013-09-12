@@ -15,6 +15,8 @@ namespace sgll.net.Core
             public static readonly int BasicProfileQueue = 0;
             public static readonly int ForceTaskQueue = 1;
             public static readonly int HuangjinTreasureQueue = 2;
+            public static readonly int ForceProfileQueue = 3;
+            public static readonly int ForceZhufushiQueue = 4;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
@@ -24,6 +26,8 @@ namespace sgll.net.Core
             QueueTitles.Add(0, "个人资料");
             QueueTitles.Add(1, "内政");
             QueueTitles.Add(2, "黄巾宝藏");
+            QueueTitles.Add(3, "势力资料");
+            QueueTitles.Add(4, "势力兑换祝福石");
         }
 
         private List<IQueue> Queues = new List<IQueue>();
@@ -31,7 +35,11 @@ namespace sgll.net.Core
         public void InitializeQueues()
         {
             Queues.Add(new BasicProfileQueue { UpCall = this, Enabled = true });
+            Queues.Add(new ForceProfileQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceTaskQueue { UpCall = this, Enabled = false });
+            Queues.Add(new HuangjinTreasureQueue { UpCall = this, Enabled = false });
+            Queues.Add(new ForceZhufushiQueue { UpCall = this, Enabled = false });
+            
 
             if (Data.LoginUser.Features != null)
             {
@@ -111,7 +119,7 @@ namespace sgll.net.Core
                 {
                     LogError(e);
                 }
-                
+
             }
         }
 

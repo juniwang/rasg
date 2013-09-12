@@ -28,6 +28,9 @@ namespace sgll.net
 
         private PlayerStatus m_playerStatus = new PlayerStatus();
         private ForceTasks m_forceTasks = new ForceTasks();
+        private BuyHuangjinTreasure m_huangjinTreansure = new BuyHuangjinTreasure();
+        private ForceProfilePanel m_forceProfile = new ForceProfilePanel();
+        private ForceZhufushiPanel m_forceZhufushi = new ForceZhufushiPanel();
 
         public MainFrame(LoginUser loginInfo)
         {
@@ -86,6 +89,18 @@ namespace sgll.net
             if ((type & ChangedType.ForceTask) == ChangedType.ForceTask)
             {
                 m_forceTasks.Display();
+            }
+            if ((type & ChangedType.HuangjinTreasure) == ChangedType.HuangjinTreasure)
+            {
+                m_huangjinTreansure.Display();
+            }
+            if ((type & ChangedType.ForceProfile) == ChangedType.ForceProfile)
+            {
+                m_forceProfile.Display();
+            }
+            if ((type & ChangedType.ForceZhufushi) == ChangedType.ForceZhufushi)
+            {
+                m_forceZhufushi.Display();
             }
         }
 
@@ -150,7 +165,8 @@ namespace sgll.net
         {
             this.textBoxLog.ContextMenuStrip = contextMenuStrip1;
 
-            m_playerStatus.UpCall = m_forceTasks.UpCall = this.advanceCall1.UpCall = this;
+            m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall
+                = m_forceTasks.UpCall = m_forceZhufushi.UpCall = this.advanceCall1.UpCall = this;
 
             string fn = GetStyleFilename();
             if (!File.Exists(fn))
@@ -163,6 +179,9 @@ namespace sgll.net
             {
                 m_playerStatus.Show(dockPanel1);
                 m_forceTasks.Show(dockPanel1);
+                m_huangjinTreansure.Show(dockPanel1);
+                m_forceProfile.Show(dockPanel1);
+                m_forceZhufushi.Show(dockPanel1);
             }
             m_forceTasks.Activate();
             ResumeLayout();
@@ -176,7 +195,8 @@ namespace sgll.net
 
         private IDockContent FindDocument(string text)
         {
-            foreach (var x in new DockContent[] { m_forceTasks, m_playerStatus })
+            foreach (var x in new DockContent[] { m_forceZhufushi, m_forceProfile, m_forceTasks, m_playerStatus
+                , m_huangjinTreansure })
             {
                 if (text == x.GetType().ToString())
                     return x;
@@ -188,6 +208,8 @@ namespace sgll.net
         {
             this.textBoxLog.AppendText(DateTime.Now.ToString() + ": " + message);
             this.textBoxLog.AppendText(Environment.NewLine);
+            this.textBoxLog.SelectionStart = this.textBoxLog.Text.Length;
+            this.textBoxLog.SelectionLength = 0;
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)

@@ -39,7 +39,7 @@ namespace sgll.net.Core.Queue
                 if (completed)
                 {
                     //官员刷新
-                    if (UpCall.Data.ForceTasks.HasRefresh == 1 && AutoAcceptRefresh())
+                    if (UpCall.Data.ForceTasks.HasRefresh == 1 && IsAutoAcceptRefresh())
                     {
                         return 0;
                     }
@@ -52,12 +52,9 @@ namespace sgll.net.Core.Queue
             }
         }
 
-        private bool AutoAcceptRefresh()
+        private bool IsAutoAcceptRefresh()
         {
-            return Parameters != null
-                && Parameters.ContainsKey(SR.QueueParameterKeys.AutoAcceptRefresh)
-                && Parameters[SR.QueueParameterKeys.AutoAcceptRefresh] == "true";
-
+            return MatchParam(SR.QueueParameterKeys.AutoAcceptRefresh, "true", true);
         }
 
         private MojoForceTaskItem GetExecutableTask()
@@ -93,14 +90,12 @@ namespace sgll.net.Core.Queue
             var task = GetExecutableTask();
             if (task != null)
             {
-                var cookie = UpCall.Data.LoginUser.Cookie;
-                var dic = new Dictionary<string, string>();
                 try
                 {
-                    UpCall.Client.AjaxPost("/force/doTask", "id=" + task.Id, cookie, dic);
-                    if (dic.ContainsKey(SR.Keys.Response))
+                    var result = UpCall.Client.Post("/force/doTask", "id=" + task.Id, UpCall.Data.LoginUser.Cookie);
+                    if (result.Item1)
                     {
-                        dynamic resp = JObject.Parse(dic[SR.Keys.Response]);
+                        dynamic resp = JObject.Parse(result.Item2);
                         if (resp.errorCode == 0)
                         {
                             UpCall.LogInfo(this.Title, "执行：" + task.Name);
@@ -116,6 +111,12 @@ namespace sgll.net.Core.Queue
                                 UpCall.Data.PlayerInfo.VM = player.vm;
                                 UpCall.Data.PlayerInfo.Grain = player.grain;
                                 UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                            }
+                            if (resp.data.force != null && UpCall.Data.ForceProfile != null)
+                            {
+                                UpCall.Data.ForceProfile.Grain = resp.data.force.grain;
+                                UpCall.Data.ForceProfile.GrainProtected = resp.data.force.grain_protected;
+                                UpCall.CallStatusUpdate(this, ChangedType.ForceProfile);
                             }
                         }
                         else if (resp.errorcode == 20002)
@@ -139,7 +140,7 @@ namespace sgll.net.Core.Queue
                         else
                         {
                             //error in memory data. need to re-initialize
-                            UpCall.LogDebug(Title, task.Name + "执行出错:" + dic[SR.Keys.Response]);
+                            UpCall.LogDebug(Title, task.Name + "执行出错:" + result.Item2);
                             UpCall.Data.ForceTasks.Tasks = null;
                             _nextSystemRefreshTime = DateTime.Now.AddSeconds(5);
                         }
@@ -160,7 +161,7 @@ namespace sgll.net.Core.Queue
             if (completed)
             {
                 //官员刷新
-                if (UpCall.Data.ForceTasks.HasRefresh == 1 && this.Parameters[SR.QueueParameterKeys.AutoAcceptRefresh] == "true")
+                if (UpCall.Data.ForceTasks.HasRefresh == 1 && IsAutoAcceptRefresh())
                 {
                     DoOfficialRefresh();
                 }
@@ -174,13 +175,11 @@ namespace sgll.net.Core.Queue
 
         private void DoSystemRefresh()
         {
-            var cookie = UpCall.Data.LoginUser.Cookie;
-            var dic = new Dictionary<string, string>();
-            UpCall.Client.AjaxPost("/force/playerTasks", "", cookie, dic);
-            if (dic.ContainsKey(SR.Keys.Response))
+            var result = UpCall.Client.Post("/force/playerTasks", "", UpCall.Data.LoginUser.Cookie);
+            if (result.Item1)
             {
-                dynamic resp = JObject.Parse(dic[SR.Keys.Response].ToLower());
-                if (resp.errorcode == 0)
+                dynamic resp = JObject.Parse(result.Item2);
+                if (resp.errorCode == 0)
                 {
                     UpCall.LogInfo(Title, "重新加载内政信息");
                     var tasks = new List<MojoForceTaskItem>();
@@ -208,7 +207,7 @@ namespace sgll.net.Core.Queue
                     };
                     UpCall.Data.ForceTasks = force;
                 }
-                else if (resp.errorcode == 130019)
+                else if (resp.errorCode == 130019)
                 {
                     //no force
                     UpCall.Data.ForceTasks = new MojoForceTask
@@ -222,12 +221,10 @@ namespace sgll.net.Core.Queue
 
         private void DoOfficialRefresh()
         {
-            var cookie = UpCall.Data.LoginUser.Cookie;
-            var dic = new Dictionary<string, string>();
-            UpCall.Client.AjaxPost("/force/acceptRefreshTask", "", cookie, dic);
-            if (dic.ContainsKey(SR.Keys.Response))
+            var dic = UpCall.Client.Post("/force/acceptRefreshTask", "", UpCall.Data.LoginUser.Cookie);
+            if (dic.Item1)
             {
-                dynamic resp = JObject.Parse(dic[SR.Keys.Response].ToLower());
+                dynamic resp = JObject.Parse(dic.Item2.ToLower());
                 if (resp.errorcode == 0)
                 {
                     UpCall.LogInfo(Title, "自动接受官员刷新");
