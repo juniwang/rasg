@@ -31,6 +31,8 @@ namespace sgll.net
         private BuyHuangjinTreasure m_huangjinTreansure = new BuyHuangjinTreasure();
         private ForceProfilePanel m_forceProfile = new ForceProfilePanel();
         private ForceZhufushiPanel m_forceZhufushi = new ForceZhufushiPanel();
+        private CollectPanel m_collect = new CollectPanel();
+        private FubenPanel m_fuben = new FubenPanel();
 
         public MainFrame(LoginUser loginInfo)
         {
@@ -102,6 +104,14 @@ namespace sgll.net
             {
                 m_forceZhufushi.Display();
             }
+            if ((type & ChangedType.Collect) == ChangedType.Collect)
+            {
+                m_collect.Display();
+            }
+            if ((type & ChangedType.Fuben) == ChangedType.Fuben)
+            {
+                m_fuben.Display();
+            }
         }
 
         void SGLL_StatusUpdate(object sender, StatusChangedArgs e)
@@ -165,7 +175,7 @@ namespace sgll.net
         {
             this.textBoxLog.ContextMenuStrip = contextMenuStrip1;
 
-            m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall
+            m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall = m_fuben.UpCall
                 = m_forceTasks.UpCall = m_forceZhufushi.UpCall = this.advanceCall1.UpCall = this;
 
             string fn = GetStyleFilename();
@@ -178,9 +188,11 @@ namespace sgll.net
             else
             {
                 m_playerStatus.Show(dockPanel1);
-                m_forceTasks.Show(dockPanel1);
-                m_huangjinTreansure.Show(dockPanel1);
                 m_forceProfile.Show(dockPanel1);
+                m_forceTasks.Show(dockPanel1);
+                m_collect.Show(dockPanel1);
+                m_fuben.Show(dockPanel1);
+                m_huangjinTreansure.Show(dockPanel1);
                 m_forceZhufushi.Show(dockPanel1);
             }
             m_forceTasks.Activate();
@@ -195,8 +207,8 @@ namespace sgll.net
 
         private IDockContent FindDocument(string text)
         {
-            foreach (var x in new DockContent[] { m_forceZhufushi, m_forceProfile, m_forceTasks, m_playerStatus
-                , m_huangjinTreansure })
+            foreach (var x in new DockContent[] { m_forceZhufushi, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, 
+                m_huangjinTreansure, m_fuben })
             {
                 if (text == x.GetType().ToString())
                     return x;
@@ -220,7 +232,7 @@ namespace sgll.net
         private void saveToFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFileDialog1.InitialDirectory = Application.ExecutablePath;
-            saveFileDialog1.Filter = "word Files(*.doc)|*.doc|All Files(*.*)|*.*";
+            saveFileDialog1.Filter = "text Files(*.txt)|*.txt|All Files(*.*)|*.*";
             saveFileDialog1.OverwritePrompt = true;
             saveFileDialog1.ShowDialog();
             var theFile = saveFileDialog1.FileName;

@@ -45,7 +45,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(206, 264);
+            this.CloseButton = false;
+            this.CloseButtonVisible = false;
+            this.ControlBox = false;
             this.Controls.Add(this.forceProfileLabel1);
+            this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "ForceProfilePanel";
             this.ShowIcon = false;
             this.Text = "势力信息";

@@ -23,19 +23,7 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
-            this.buttonStart.Enabled = true;
-            this.buttonStop.Enabled = false;
-            if (UpCall.Data.LoginUser.Features != null)
-            {
-                var feature = UpCall.Data.LoginUser.Features.SingleOrDefault(p => p.TaskId == SGLLController.QueueGUID.ForceZhufushiQueue);
-                if (feature != null && feature.Enabled == true)
-                {
-                    this.buttonStart.Enabled = false;
-                    this.buttonStop.Enabled = true;
-                    this.Text = feature.Enabled ? "祝福石兑换[自动中]" : "祝福石兑换";
-                }
-            }
-
+            this.startStop1.Display();
             if (UpCall.Data.ForceZhufushi != null)
             {
                 var t = UpCall.Data.ForceZhufushi;
@@ -44,17 +32,17 @@ namespace sgll.net.DockingPanel
                 this.labelColdDown.Text = new TimeSpan(0, 0, cd2).ToString();
             }
         }
-
-        private void buttonStart_Click(object sender, EventArgs e)
+        
+        private void ForceZhufushiPanel_Load(object sender, EventArgs e)
         {
-            UpCall.SGLL.StartQueue(SGLLController.QueueGUID.ForceZhufushiQueue);
-            Display();
+            InitStartStop();
         }
 
-        private void buttonStop_Click(object sender, EventArgs e)
+        private void InitStartStop()
         {
-            UpCall.SGLL.StopQueue(SGLLController.QueueGUID.ForceZhufushiQueue);
-            Display();
+            this.startStop1.SGLL = UpCall.SGLL;
+            this.startStop1.Qid = SGLLController.QueueGUID.ForceZhufushiQueue;
+            this.startStop1.StatusUpdate = ChangedType.ForceZhufushi;
         }
     }
 }

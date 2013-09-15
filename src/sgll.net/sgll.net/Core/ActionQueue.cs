@@ -17,6 +17,9 @@ namespace sgll.net.Core
             public static readonly int HuangjinTreasureQueue = 2;
             public static readonly int ForceProfileQueue = 3;
             public static readonly int ForceZhufushiQueue = 4;
+            public static readonly int CollectQueue = 5;
+            public static readonly int FubenQueue = 6;
+            public static readonly int FubenAwardQueue = 7;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
@@ -28,6 +31,9 @@ namespace sgll.net.Core
             QueueTitles.Add(2, "黄巾宝藏");
             QueueTitles.Add(3, "势力资料");
             QueueTitles.Add(4, "势力兑换祝福石");
+            QueueTitles.Add(5, "收宝");
+            QueueTitles.Add(6, "副本");
+            QueueTitles.Add(7, "副本领奖");
         }
 
         private List<IQueue> Queues = new List<IQueue>();
@@ -37,8 +43,11 @@ namespace sgll.net.Core
             Queues.Add(new BasicProfileQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceProfileQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceTaskQueue { UpCall = this, Enabled = false });
+            Queues.Add(new CollectQueue { UpCall = this, Enabled = false });
             Queues.Add(new HuangjinTreasureQueue { UpCall = this, Enabled = false });
             Queues.Add(new ForceZhufushiQueue { UpCall = this, Enabled = false });
+            Queues.Add(new FubenQueue { UpCall = this, Enabled = false });
+            Queues.Add(new FubenAwardQueue { UpCall = this, Enabled = true });
             
 
             if (Data.LoginUser.Features != null)
@@ -53,6 +62,10 @@ namespace sgll.net.Core
                     }
                 }
             }
+        }
+
+        public IQueue QueryQueue(int Qid) {
+            return Queues.SingleOrDefault(p => p.QueueGUID == Qid);        
         }
 
         public void SetQueueParameters(int Qid, Dictionary<string, string> parameters)

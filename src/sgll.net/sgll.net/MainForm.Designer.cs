@@ -146,7 +146,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(824, 529);
+            this.tabControl1.Size = new System.Drawing.Size(933, 591);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -156,7 +156,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(816, 503);
+            this.tabPage1.Size = new System.Drawing.Size(925, 565);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "账号管理";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -168,7 +168,7 @@
             this.textLog.Multiline = true;
             this.textLog.Name = "textLog";
             this.textLog.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textLog.Size = new System.Drawing.Size(309, 497);
+            this.textLog.Size = new System.Drawing.Size(418, 559);
             this.textLog.TabIndex = 1;
             // 
             // listViewUsers
@@ -185,7 +185,7 @@
             this.listViewUsers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewUsers.Location = new System.Drawing.Point(3, 3);
             this.listViewUsers.Name = "listViewUsers";
-            this.listViewUsers.Size = new System.Drawing.Size(501, 497);
+            this.listViewUsers.Size = new System.Drawing.Size(501, 559);
             this.listViewUsers.TabIndex = 0;
             this.listViewUsers.UseCompatibleStateImageBehavior = false;
             this.listViewUsers.View = System.Windows.Forms.View.Details;
@@ -224,10 +224,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 529);
+            this.ClientSize = new System.Drawing.Size(933, 591);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

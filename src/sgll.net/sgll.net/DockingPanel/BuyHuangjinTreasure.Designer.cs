@@ -31,12 +31,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.checkBoxUseBox = new System.Windows.Forms.CheckBox();
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
             this.labelStatus = new System.Windows.Forms.Label();
             this.labelToBuy = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.startStop1 = new sgll.net.StartStop();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -76,27 +75,6 @@
             this.checkBoxUseBox.UseVisualStyleBackColor = true;
             this.checkBoxUseBox.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
-            // buttonStop
-            // 
-            this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(99, 41);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(75, 23);
-            this.buttonStop.TabIndex = 10;
-            this.buttonStop.Text = "停止";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
-            // 
-            // buttonStart
-            // 
-            this.buttonStart.Location = new System.Drawing.Point(7, 41);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 9;
-            this.buttonStart.Text = "开始";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
-            // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
@@ -133,13 +111,25 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.buttonStop);
+            this.panel1.Controls.Add(this.startStop1);
             this.panel1.Controls.Add(this.checkBoxUseBox);
-            this.panel1.Controls.Add(this.buttonStart);
             this.panel1.Location = new System.Drawing.Point(13, 137);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(200, 75);
             this.panel1.TabIndex = 13;
+            // 
+            // startStop1
+            // 
+            this.startStop1.Location = new System.Drawing.Point(7, 33);
+            this.startStop1.Name = "startStop1";
+            this.startStop1.OnStart = null;
+            this.startStop1.OnStop = null;
+            this.startStop1.Qid = 0;
+            this.startStop1.SGLL = null;
+            this.startStop1.Size = new System.Drawing.Size(175, 29);
+            this.startStop1.StatusUpdate = sgll.net.Core.ChangedType.None;
+            this.startStop1.TabIndex = 5;
+            this.startStop1.TextControl = null;
             // 
             // groupBox3
             // 
@@ -187,11 +177,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(246, 226);
+            this.CloseButton = false;
+            this.CloseButtonVisible = false;
+            this.ControlBox = false;
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "BuyHuangjinTreasure";
             this.ShowIcon = false;
             this.Text = "黄巾宝藏";
+            this.Load += new System.EventHandler(this.BuyHuangjinTreasure_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -207,8 +201,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBoxUseBox;
-        private System.Windows.Forms.Button buttonStop;
-        private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label labelToBuy;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -217,5 +209,6 @@
         private System.Windows.Forms.Label labelExpire;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox3;
+        private StartStop startStop1;
     }
 }

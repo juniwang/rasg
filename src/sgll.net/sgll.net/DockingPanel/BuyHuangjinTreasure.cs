@@ -21,6 +21,20 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
+        private void InitStartStop()
+        {
+            this.startStop1.SGLL = UpCall.SGLL;
+            this.startStop1.Qid = SGLLController.QueueGUID.HuangjinTreasureQueue;
+            this.startStop1.StatusUpdate = ChangedType.HuangjinTreasure;
+            this.startStop1.TextControl = this;
+            this.startStop1.OnStart = () =>
+            {
+                var dic = new Dictionary<string, string>();
+                dic.Add(SR.QueueParameterKeys.AutoUseVMBoxForTreasure, this.checkBoxUseBox.Checked.ToString().ToLower());
+                UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.HuangjinTreasureQueue, dic);
+            };
+        }
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
@@ -28,17 +42,14 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
+            this.startStop1.Display();
             if (UpCall.Data.LoginUser.Features != null)
             {
                 var feature = UpCall.Data.LoginUser.Features.SingleOrDefault(p => p.TaskId == SGLLController.QueueGUID.HuangjinTreasureQueue);
                 if (feature != null)
                 {
-                    this.Text = feature.Enabled ? "黄巾宝藏[自动中]" : "黄巾宝藏";
                     if (feature.Enabled)
                     {
-                        this.buttonStart.Enabled = false;
-                        this.buttonStop.Enabled = true;
-
                         if (UpCall.Data.HuangjinTreasure != null)
                         {
                             var t = UpCall.Data.HuangjinTreasure;
@@ -75,21 +86,9 @@ namespace sgll.net.DockingPanel
             }
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
+        private void BuyHuangjinTreasure_Load(object sender, EventArgs e)
         {
-            UpCall.SGLL.StartQueue(SGLLController.QueueGUID.HuangjinTreasureQueue);
-            var dic = new Dictionary<string, string>();
-            dic.Add(SR.QueueParameterKeys.AutoUseVMBoxForTreasure, this.checkBoxUseBox.Checked.ToString().ToLower());
-            UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.HuangjinTreasureQueue, dic);
-
-            Display();
-        }
-
-        private void buttonStop_Click(object sender, EventArgs e)
-        {
-            UpCall.SGLL.StopQueue(SGLLController.QueueGUID.HuangjinTreasureQueue);
-
-            Display();
+            InitStartStop();
         }
     }
 }

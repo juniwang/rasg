@@ -22,19 +22,7 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
-            this.buttonStart.Enabled = true;
-            this.buttonStop.Enabled = false;
-            if (UpCall.Data.LoginUser.Features != null)
-            {
-                var feature = UpCall.Data.LoginUser.Features.SingleOrDefault(p => p.TaskId == SGLLController.QueueGUID.ForceTaskQueue);
-                if (feature != null && feature.Enabled == true)
-                {
-                    this.buttonStart.Enabled = false;
-                    this.buttonStop.Enabled = true;
-                    this.Text = feature.Enabled ? "内政[自动中]" : "内政";
-                }
-            }
-
+            this.startStop1.Display();
             var force = UpCall.Data.ForceTasks;
             if (force != null)
             {
@@ -104,24 +92,6 @@ namespace sgll.net.DockingPanel
             }
         }
 
-        private void buttonStart_Click(object sender, EventArgs e)
-        {
-            UpCall.SGLL.StartQueue(SGLLController.QueueGUID.ForceTaskQueue);
-            var dic = new Dictionary<string, string>();
-            dic.Add(SR.QueueParameterKeys.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
-            UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceTaskQueue, dic);
-
-            this.listViewEx1.Items.Clear();
-            Display();
-        }
-
-        private void buttonStop_Click(object sender, EventArgs e)
-        {
-            UpCall.SGLL.StopQueue(SGLLController.QueueGUID.ForceTaskQueue);
-
-            Display();
-        }
-
         private void checkBoxRefresh_CheckedChanged(object sender, EventArgs e)
         {
             var dic = new Dictionary<string, string>();
@@ -129,6 +99,25 @@ namespace sgll.net.DockingPanel
             UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceTaskQueue, dic);
 
             Display();
+        }
+
+        private void ForceTasks_Load(object sender, EventArgs e)
+        {
+            InitStartStop();
+        }
+
+        private void InitStartStop()
+        {
+            this.startStop1.SGLL = UpCall.SGLL;
+            this.startStop1.Qid = SGLLController.QueueGUID.ForceTaskQueue;
+            this.startStop1.StatusUpdate = ChangedType.ForceTask;
+            this.startStop1.TextControl = this;
+            this.startStop1.OnStart = () =>
+            {
+                var dic = new Dictionary<string, string>();
+                dic.Add(SR.QueueParameterKeys.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
+                UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceTaskQueue, dic);
+            };
         }
     }
 }

@@ -14,6 +14,8 @@ namespace sgll.net.Core
         HuangjinTreasure = 0x4,
         ForceProfile = 0x8,
         ForceZhufushi = 0x10,
+        Collect = 0x20,
+        Fuben = 0x40,
         All = 0xffff
     }
 

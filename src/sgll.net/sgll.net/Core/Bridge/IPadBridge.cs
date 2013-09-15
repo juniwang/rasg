@@ -93,6 +93,124 @@ namespace sgll.net.Core.Bridge
             }
         }
 
+        public Tuple<bool, string> SwitchAccount(string cookie, string token, out string token2)
+        {
+            token2 = "";
+            EnsureSignature();
+            var url = AjaxBase + "/system/switchAccount";
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "post";
+            req.Timeout = 15000;
+            req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
+            req.Accept = "application/json, text/javascript, */*; q=0.01";
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.Referer = "http://wsa.sg21.redatoms.com";
+            req.Headers.Add("gamelanguage", "zh_cn");
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            req.Headers.Add("Signature", AutoSig.Signature);
+            req.Headers.Add("Mojo-A-T", token);
+
+            if (!string.IsNullOrWhiteSpace(cookie))
+            {
+                var cks = cookie.Split('=');
+                var ckk = new Cookie(cks[0], cks[1]);
+                ckk.Domain = MojoDomain;
+                req.CookieContainer = new CookieContainer();
+                req.CookieContainer.Add(ckk);
+            }
+            req.AllowAutoRedirect = false;
+            var contents = "playerId=1916726&accessToken=";
+            var bytes = Encoding.UTF8.GetBytes(contents);
+            req.GetRequestStream().Write(bytes, 0, bytes.Length);
+
+            HttpWebResponse resp = null;
+            try
+            {
+                resp = (HttpWebResponse)req.GetResponse();
+                if (resp.StatusCode == HttpStatusCode.OK)
+                {
+                    token2 = resp.Headers["MOJO_A_T"];
+
+                    var sr = new StreamReader(resp.GetResponseStream());
+                    var target = sr.ReadToEnd();
+                    target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
+                    return new Tuple<bool, string>(true, target);
+                }
+                resp.Close();
+                return new Tuple<bool, string>(false, resp.StatusDescription);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<bool, string>(false, e.Message);
+            }
+            finally
+            {
+                if (resp != null)
+                    resp.Close();
+            }
+        }
+
+        public Tuple<bool, string> PostWithAT(string url, string contents, string cookie, string at)
+        {
+            EnsureSignature();
+
+            if (!url.StartsWith(AjaxBase))
+            {
+                url = AjaxBase + "/" + url.TrimStart('/');
+            }
+
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "post";
+            req.Timeout = 15000;
+            req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
+            req.Accept = "application/json, text/javascript, */*; q=0.01";
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.Referer = "http://wsa.sg21.redatoms.com";
+            req.Headers.Add("gamelanguage", "zh_cn");
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            req.Headers.Add("Signature", AutoSig.Signature);
+            req.Headers.Add("Mojo-A-T", at);
+
+            if (!string.IsNullOrWhiteSpace(cookie))
+            {
+                var cks = cookie.Split('=');
+                var ckk = new Cookie(cks[0], cks[1]);
+                ckk.Domain = MojoDomain;
+                req.CookieContainer = new CookieContainer();
+                req.CookieContainer.Add(ckk);
+            }
+            req.AllowAutoRedirect = false;
+            if (!string.IsNullOrWhiteSpace(contents))
+            {
+                var bytes = Encoding.UTF8.GetBytes(contents);
+                req.GetRequestStream().Write(bytes, 0, bytes.Length);
+            }
+
+            HttpWebResponse resp = null;
+            try
+            {
+                resp = (HttpWebResponse)req.GetResponse();
+                if (resp.StatusCode == HttpStatusCode.OK)
+                {
+                    var sr = new StreamReader(resp.GetResponseStream());
+                    var target = sr.ReadToEnd();
+                    target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
+                    return new Tuple<bool, string>(true, target);
+                }
+                resp.Close();
+                return new Tuple<bool, string>(false, resp.StatusDescription);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<bool, string>(false, e.Message);
+            }
+            finally
+            {
+                if (resp != null)
+                    resp.Close();
+            }
+        }
+
         public Tuple<bool, string> Post(string url, string contents, string cookie)
         {
             EnsureSignature();
@@ -104,6 +222,68 @@ namespace sgll.net.Core.Bridge
 
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "post";
+            req.Timeout = 15000;
+            req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
+            req.Accept = "application/json, text/javascript, */*; q=0.01";
+            req.ContentType = "application/x-www-form-urlencoded";
+            req.Referer = "http://wsa.sg21.redatoms.com";
+            req.Headers.Add("gamelanguage", "zh_cn");
+            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
+            req.Headers.Add("Signature", AutoSig.Signature);
+
+            if (!string.IsNullOrWhiteSpace(cookie))
+            {
+                var cks = cookie.Split('=');
+                var ckk = new Cookie(cks[0], cks[1]);
+                ckk.Domain = MojoDomain;
+                req.CookieContainer = new CookieContainer();
+                req.CookieContainer.Add(ckk);
+            }
+            req.AllowAutoRedirect = false;
+            if (!string.IsNullOrWhiteSpace(contents))
+            {
+                var bytes = Encoding.UTF8.GetBytes(contents);
+                req.GetRequestStream().Write(bytes, 0, bytes.Length);
+            }
+
+            HttpWebResponse resp = null;
+            try
+            {
+                resp = (HttpWebResponse)req.GetResponse();
+                if (resp.StatusCode == HttpStatusCode.OK)
+                {
+                    var sr = new StreamReader(resp.GetResponseStream());
+                    var target = sr.ReadToEnd();
+                    target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
+                    if (string.IsNullOrWhiteSpace(target))
+                        return new Tuple<bool, string>(false, "no response");
+                    return new Tuple<bool, string>(true, target);
+                }
+                resp.Close();
+                return new Tuple<bool, string>(false, resp.StatusDescription);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<bool, string>(false, e.Message);
+            }
+            finally
+            {
+                if (resp != null)
+                    resp.Close();
+            }
+        }
+
+        public Tuple<bool, string> Get(string url, string contents, string cookie)
+        {
+            EnsureSignature();
+
+            //if (!url.StartsWith(AjaxBase))
+            //{
+            //    url = AjaxBase + "/" + url.TrimStart('/');
+            //}
+
+            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
+            req.Method = "get";
             req.Timeout = 15000;
             req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
             req.Accept = "application/json, text/javascript, */*; q=0.01";

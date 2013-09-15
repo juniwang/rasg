@@ -29,8 +29,8 @@ namespace sgll.net
                 this.labelGrainProtected.Text = "保护粮食：" + ForceProfile.GrainProtected;
                 this.labelMember.Text = string.Format("会员：{0}/{1}", ForceProfile.MemberNum, ForceProfile.MemberNumLimit);
                 this.labelaChallange.Text = string.Format("挑战书：{0}/{1}", ForceProfile.Challenge, ForceProfile.ChallengeLimit);
-                this.labelViceOwner.Text = "势力主：" + ForceProfile.ViceOwnerName;
-                this.labelOwner.Text = "副势力主：" + ForceProfile.OwnerName;
+                this.labelOwner.Text = "势力主：" + ForceProfile.OwnerName;
+                this.labelViceOwner.Text = "副势力主：" + ForceProfile.ViceOwnerName;
             }
         }
     }

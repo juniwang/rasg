@@ -28,35 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonStop = new System.Windows.Forms.Button();
-            this.buttonStart = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.labelColdDown = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.startStop1 = new sgll.net.StartStop();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // buttonStop
-            // 
-            this.buttonStop.Enabled = false;
-            this.buttonStop.Location = new System.Drawing.Point(106, 94);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(75, 23);
-            this.buttonStop.TabIndex = 10;
-            this.buttonStop.Text = "停止";
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
-            // 
-            // buttonStart
-            // 
-            this.buttonStart.Location = new System.Drawing.Point(22, 94);
-            this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(75, 23);
-            this.buttonStart.TabIndex = 9;
-            this.buttonStart.Text = "开始";
-            this.buttonStart.UseVisualStyleBackColor = true;
-            this.buttonStart.Click += new System.EventHandler(this.buttonStart_Click);
             // 
             // label1
             // 
@@ -77,15 +55,6 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 21);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 12);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "冷却时间：";
-            // 
             // labelColdDown
             // 
             this.labelColdDown.AutoSize = true;
@@ -97,18 +66,44 @@
             this.labelColdDown.TabIndex = 13;
             this.labelColdDown.Text = "--:--:--";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "冷却时间：";
+            // 
+            // startStop1
+            // 
+            this.startStop1.Location = new System.Drawing.Point(22, 86);
+            this.startStop1.Name = "startStop1";
+            this.startStop1.OnStart = null;
+            this.startStop1.OnStop = null;
+            this.startStop1.Qid = 0;
+            this.startStop1.SGLL = null;
+            this.startStop1.Size = new System.Drawing.Size(171, 28);
+            this.startStop1.StatusUpdate = sgll.net.Core.ChangedType.None;
+            this.startStop1.TabIndex = 13;
+            this.startStop1.TextControl = null;
+            // 
             // ForceZhufushiPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(240, 129);
+            this.CloseButton = false;
+            this.CloseButtonVisible = false;
+            this.ControlBox = false;
+            this.Controls.Add(this.startStop1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonStop);
-            this.Controls.Add(this.buttonStart);
+            this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "ForceZhufushiPanel";
             this.ShowIcon = false;
             this.Text = "祝福石兑换";
+            this.Load += new System.EventHandler(this.ForceZhufushiPanel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -118,11 +113,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonStop;
-        private System.Windows.Forms.Button buttonStart;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelColdDown;
+        private StartStop startStop1;
     }
 }
