@@ -87,19 +87,19 @@ namespace sgll.net.Core.Queue
                 if (dyn.errorCode == 0)
                 {
                     toBuy.Bought = 1;
-                    UpCall.LogInfo(Title, "黄巾宝藏购买成功，获得：" + toBuy.EntityName);
+                    LogWarn("黄巾宝藏购买成功，获得：" + toBuy.EntityName);
                     UpCall.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
                 }
                 else if (dyn.errorCode == 22005)
                 {
                     //重复购买
                     toBuy.Bought = 1;
-                    UpCall.LogInfo(Title, "黄巾宝藏购买失败：" + dyn.errorMsg);
+                    LogError("黄巾宝藏购买失败：" + dyn.errorMsg);
                     UpCall.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
                 }
                 else
                 {
-                    UpCall.LogInfo(Title, "黄巾宝藏购买失败:(" + dyn.errorCode + ")" + dyn.errorMsg);
+                    LogError("黄巾宝藏购买失败:(" + dyn.errorCode + ")" + dyn.errorMsg);
                     UpCall.Data.HuangjinTreasure = null;
                 }
             }
@@ -113,7 +113,7 @@ namespace sgll.net.Core.Queue
                 dynamic dyn = JObject.Parse(result.Item2);
                 if (dyn.errorCode == 0 && dyn.data != null)
                 {
-                    UpCall.LogInfo(Title, "获取黄巾宝藏列表");
+                    LogF("获取黄巾宝藏列表");
                     var tis = new List<MojoHuangjinItem>();
                     foreach (var item in dyn.data.list)
                     {

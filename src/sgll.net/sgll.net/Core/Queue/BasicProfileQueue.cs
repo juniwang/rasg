@@ -22,13 +22,15 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            _nextSyncTime = DateTime.Now.AddMinutes(10).AddSeconds(new Random().Next(10, 60));
+            _nextSyncTime = DateTime.Now.AddMinutes(15).AddSeconds(random.Next(10, 60));
             var resp = UpCall.Client.Post("/player/profile", string.Empty, UpCall.Data.LoginUser.Cookie);
+            LogDebug(resp.ToLogString());
             if (resp.Item1)
             {
                 dynamic profile = JObject.Parse(resp.Item2);
                 if (profile.errorCode == 0 && profile.data != null)
                 {
+                    LogF("刷新个人资料");
                     if (UpCall.Data.PlayerInfo == null)
                         UpCall.Data.PlayerInfo = new Entieies.MojoPlayer();
                     UpCall.Data.PlayerInfo.Energy = profile.data.energy;

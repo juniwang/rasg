@@ -29,7 +29,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (AwardsPre.Count > 0 || Awards.Count == 0)
+                if (AwardsPre.Count > 0 || Awards.Count > 0)
                     return 0;
                 return 1;
             }
@@ -55,6 +55,7 @@ namespace sgll.net.Core.Queue
             var awardInfo = Awards[task_id];
             var contents = string.Format("id={0}&award_id={1}&status=1", task_id, awardInfo.AwardId);
             var call = UpCall.Client.Post("/fuben/openAward", contents, UpCall.Data.LoginUser.Cookie);
+            LogDebug(call.ToLogString());
             if (call.Item1)
             {
                 dynamic resp = JObject.Parse(call.Item2);
@@ -65,16 +66,12 @@ namespace sgll.net.Core.Queue
                     {
                         msg += ",获得:" + resp.data.entity.name;
                     }
-                    UpCall.LogInfo(this.Title, msg);
+                    LogWarn(msg);
                 }
                 else
                 {
-                    UpCall.LogDebug(this.Title, call.Item2);
+                    LogWarn("领奖失败;" + call.Item2);
                 }
-            }
-            else
-            {
-                UpCall.LogInfo(this.Title, call.Item2);
             }
             Awards.Remove(task_id);
         }
@@ -83,6 +80,7 @@ namespace sgll.net.Core.Queue
         {
             var task_id = AwardsPre.Keys.First();
             var call = UpCall.Client.Post("/fuben/getAward", "id=" + task_id, UpCall.Data.LoginUser.Cookie);
+            LogDebug(call.ToLogString());
             if (call.Item1)
             {
                 dynamic resp = JObject.Parse(call.Item2);
@@ -93,12 +91,8 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    UpCall.LogDebug(this.Title, call.Item2);
+                    LogWarn("领奖失败：" + call.Item2);
                 }
-            }
-            else
-            {
-                UpCall.LogInfo(this.Title, call.Item2);
             }
             AwardsPre.Remove(task_id);
         }

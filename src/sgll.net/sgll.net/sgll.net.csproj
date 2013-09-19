@@ -82,6 +82,7 @@
     <Compile Include="Core\Queue\ForceZhufushiQueue.cs" />
     <Compile Include="Core\Queue\FubenAwardQueue.cs" />
     <Compile Include="Core\Queue\FubenQueue.cs" />
+    <Compile Include="Core\SGLLLog.cs" />
     <Compile Include="DockingPanel\CollectPanel.cs">
       <SubType>Form</SubType>
     </Compile>

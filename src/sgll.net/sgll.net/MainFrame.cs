@@ -34,6 +34,8 @@ namespace sgll.net
         private CollectPanel m_collect = new CollectPanel();
         private FubenPanel m_fuben = new FubenPanel();
 
+        private List<string> LogShowText = new List<string> { "Debug", "Info", "Warn" };
+
         public MainFrame(LoginUser loginInfo)
         {
             LoginInfo = loginInfo;
@@ -141,39 +143,19 @@ namespace sgll.net
 
         private void WriteLog(TDebugInfo DB)
         {
-            switch (DB.Level)
-            {
-                case DebugLevel.Debug:
-                    if (checkBoxShowDebug.Checked)
-                    {
-                        string str = string.Format("[{0,-3}]{1,22}@{2,-12}:{3,-4} {4}",
-                            DB.Level.ToString(),
-                            DB.MethodName,
-                            Path.GetFileNameWithoutExtension(DB.Filename),
-                            DB.Line,
-                            DB.Text);
-                        Log(str);
-                    }
-                    break;
-                case DebugLevel.Info:
-                    Log(string.Format("[{0,-3}] {1}", DB.Level.ToString(), DB.Text));
-                    break;
-                case DebugLevel.Error:
-                    if (checkBoxShowDebug.Checked)
-                    {
-                        Log(string.Format("[{0,-3}] {1}",
-                            DB.Level.ToString(),
-                            DB.Text));
-                    }
-                    break;
-                default:
-                    break;
-            }
+            WriteLog(DB.Text, DB.Level);
+        }
+
+        private void InitLogLevelComboBox()
+        {
+            comboBox1.Items.Clear();
+            LogShowText.ForEach(p => comboBox1.Items.Add(p));
+            comboBox1.SelectedItem = LogShowText.Last();
         }
 
         private void MainFrame_Load(object sender, EventArgs e)
         {
-            this.textBoxLog.ContextMenuStrip = contextMenuStrip1;
+            InitLogLevelComboBox();
 
             m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall = m_fuben.UpCall
                 = m_forceTasks.UpCall = m_forceZhufushi.UpCall = this.advanceCall1.UpCall = this;
@@ -216,17 +198,46 @@ namespace sgll.net
             return null;
         }
 
-        private void Log(string message)
+        private LogLevel GetLogShowLevel()
         {
-            this.textBoxLog.AppendText(DateTime.Now.ToString() + ": " + message);
-            this.textBoxLog.AppendText(Environment.NewLine);
-            this.textBoxLog.SelectionStart = this.textBoxLog.Text.Length;
-            this.textBoxLog.SelectionLength = 0;
+            var index = this.comboBox1.SelectedIndex;
+            if (index == 0) return LogLevel.Debug;
+            else if (index == 1) return LogLevel.Info;
+            else return LogLevel.Warn;
+        }
+
+        private Color LogShowColor(LogLevel level)
+        {
+            switch (level)
+            {
+                //case LogLevel.All:
+                //    break;
+                case LogLevel.Debug:
+                    return Color.Orange;
+                //case LogLevel.Info:
+                //    break;
+                case LogLevel.Warn:
+                    return Color.Blue;
+                case LogLevel.Error:
+                    return Color.Red;
+                default:
+                    return Color.Blue;
+            }
+        }
+
+        private void WriteLog(string message, LogLevel level)
+        {
+            if (level >= GetLogShowLevel())
+            {
+                this.richTextBoxLog.SelectionColor = LogShowColor(level);
+                this.richTextBoxLog.AppendText(DateTime.Now.ToString() + ":" + message);
+                this.richTextBoxLog.AppendText(Environment.NewLine);
+            }
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.textBoxLog.Text = "";
+            this.richTextBoxLog.Text = "";
         }
 
         private void saveToFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -240,7 +251,7 @@ namespace sgll.net
             try
             {
                 writer = new StreamWriter(theFile, false);
-                writer.Write(textBoxLog.Text);
+                writer.Write(this.richTextBoxLog.Text);
                 writer.Close();
             }
             catch (Exception excep)
@@ -270,9 +281,9 @@ namespace sgll.net
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (textBoxLog.Text.Length > 1024 * 1024)
+            if (richTextBoxLog.Text.Length > 1024 * 1024)
             {
-                textBoxLog.Text = textBoxLog.Text.Substring(textBoxLog.Text.Length - 1024);
+                richTextBoxLog.Text = richTextBoxLog.Text.Substring(richTextBoxLog.Text.Length - 1024);
             }
             RefreshDisplay(ChangedType.All);
         }

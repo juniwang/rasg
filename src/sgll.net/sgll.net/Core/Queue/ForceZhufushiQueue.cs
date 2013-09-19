@@ -32,12 +32,13 @@ namespace sgll.net.Core.Queue
         public override void Action()
         {
             var call = UpCall.Client.Post("/force/exchange", "id=dh0001", UpCall.Data.LoginUser.Cookie);
+            LogDebug(call.ToLogString());
             if (call.Item1)
             {
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    UpCall.LogInfo(this.Title, "兑换祝福石成功");
+                    LogWarn("兑换祝福石成功");
                     UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
                     {
                         ColdDown = resp.data.cold_down,
@@ -46,7 +47,7 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    UpCall.LogInfo(this.Title, "兑换祝福石失败：" + resp.errorMsg);
+                    LogWarn("兑换祝福石失败：" + resp.errorMsg);
                     UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
                     {
                         ColdDown = 10000 + new Random().Next(0, 2000),
@@ -56,7 +57,7 @@ namespace sgll.net.Core.Queue
             }
             else
             {
-                UpCall.LogInfo(this.Title, "兑换祝福石失败：" + call.Item2);
+                LogWarn("兑换祝福石失败：" + call.Item2);
                 UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
                 {
                     ColdDown = 300,

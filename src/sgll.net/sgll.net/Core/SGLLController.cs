@@ -26,11 +26,11 @@ namespace sgll.net.Core
             if (output.ContainsKey(SR.Keys.Cookie))
             {
                 Data.LoginUser.Cookie = output[SR.Keys.Cookie];
-                LogInfo("登录", "成功:" + Data.LoginUser.Username);
+                Log("登录", "成功:" + Data.LoginUser.Username, LogLevel.Warn);
                 return true;
             }
 
-            LogInfo("登录", "失败:" + Data.LoginUser.Username);
+            Log("登录", "失败:" + Data.LoginUser.Username, LogLevel.Error);
             string text = Data.LoginUser.Username + "登录失败";
             if (output.ContainsKey(SR.Keys.Exception))
             {
@@ -40,72 +40,8 @@ namespace sgll.net.Core
             {
                 text += ":" + output[SR.Keys.StackTrack];
             }
-            LogDebug(text);
+            Log("登录", text, LogLevel.Debug);
             return false;
-        }
-
-        public void LogInfo(string type, string text)
-        {
-            LogInfo(string.Format("[{0}]{1}", type, text));
-        }
-
-        public void LogInfo(string Text)
-        {
-            TDebugInfo db = new TDebugInfo()
-            {
-                Level = DebugLevel.Info,
-                Text = Text,
-            };
-            if (this.OnLog != null)
-            {
-                OnLog(this, new LogArgs() { DebugInfo = db });
-            }
-        }
-
-        public void LogDebug(string type, string text)
-        {
-            LogInfo(string.Format("[{0}]{1}", type, text));
-        }
-
-        public void LogDebug(string Text)
-        {
-            StackFrame x = new StackTrace(true).GetFrame(1);
-            string MethodName = x.GetMethod().Name;
-            string Filename = x.GetFileName();
-            int Line = x.GetFileLineNumber();
-            TDebugInfo db = new TDebugInfo()
-            {
-                Filename = Filename,
-                Level = DebugLevel.Debug,
-                Line = Line,
-                MethodName = MethodName,
-                Text = Text,
-            };
-
-            if (this.OnLog != null)
-            {
-                OnLog(this, new LogArgs() { DebugInfo = db });
-            }
-        }
-
-        public void LogError(Exception e)
-        {
-            StackFrame x = new StackTrace(e).GetFrame(0);
-            string MethodName = x.GetMethod().Name;
-            string Filename = x.GetFileName();
-            int Line = x.GetFileLineNumber();
-            TDebugInfo db = new TDebugInfo()
-            {
-                Filename = Filename,
-                Level = DebugLevel.Error,
-                Line = Line,
-                MethodName = MethodName,
-                Text = e.Message + Environment.NewLine + e.StackTrace,
-            };
-            if (this.OnLog != null)
-            {
-                OnLog(this, new LogArgs() { DebugInfo = db });
-            }
         }
     }
 }

@@ -82,7 +82,7 @@ namespace sgll.net.Core.Queue
             if (UpCall.Data.ForceTasks == null || UpCall.Data.ForceTasks.Tasks == null)
             {
                 DoSystemRefresh();
-                _nextSystemRefreshTime = DateTime.Now.AddMinutes(10);
+                _nextSystemRefreshTime = DateTime.Now.AddMinutes(10).AddSeconds(random.Next(0, 120));
                 return;
             }
 
@@ -93,12 +93,14 @@ namespace sgll.net.Core.Queue
                 try
                 {
                     var result = UpCall.Client.Post("/force/doTask", "id=" + task.Id, UpCall.Data.LoginUser.Cookie);
+                    LogDebug(result.ToLogString());
+
                     if (result.Item1)
                     {
                         dynamic resp = JObject.Parse(result.Item2);
                         if (resp.errorCode == 0)
                         {
-                            UpCall.LogInfo(this.Title, "执行：" + task.Name);
+                            LogWarn("执行：" + task.Name);
                             task.Count = resp.data.task.count;
                             task.Status = resp.data.task.status;
                             task.ColdDownSecond = resp.data.task.cold_down;
@@ -127,20 +129,20 @@ namespace sgll.net.Core.Queue
                         else if (resp.errorCode == 160003)
                         {
                             //卡牌容量不足
-                            UpCall.LogInfo(this.Title, "卡牌容量不足");
+                            LogError("卡牌容量不足");
                             this.Enabled = false;
                         }
                         else if (resp.errorCode == 130019)
                         {
                             //未加入势力
-                            UpCall.LogInfo(this.Title, "无法内政：未加入势力");
+                            LogWarn("无法内政：未加入势力");
                             UpCall.Data.ForceTasks.NoForce = true;
                             UpCall.Data.ForceTasks.Tasks = null;
                         }
                         else
                         {
                             //error in memory data. need to re-initialize
-                            UpCall.LogDebug(Title, task.Name + "执行出错:" + result.Item2);
+                            LogWarn(task.Name + "执行出错:" + result.Item2);
                             UpCall.Data.ForceTasks.Tasks = null;
                             _nextSystemRefreshTime = DateTime.Now.AddSeconds(5);
                         }
@@ -148,7 +150,7 @@ namespace sgll.net.Core.Queue
                 }
                 catch (Exception e)
                 {
-                    UpCall.LogError(e);
+                    LogError(e);
                     UpCall.Data.ForceTasks.Tasks = null;
                     _nextSystemRefreshTime = DateTime.Now;
                 }
@@ -173,15 +175,18 @@ namespace sgll.net.Core.Queue
             }
         }
 
+        #region 系统刷新
         private void DoSystemRefresh()
         {
             var result = UpCall.Client.Post("/force/playerTasks", "", UpCall.Data.LoginUser.Cookie);
+            LogDebug(result.ToLogString());
+
             if (result.Item1)
             {
                 dynamic resp = JObject.Parse(result.Item2);
                 if (resp.errorCode == 0)
                 {
-                    UpCall.LogInfo(Title, "重新加载内政信息");
+                    LogF("重新加载内政信息");
                     var tasks = new List<MojoForceTaskItem>();
                     foreach (var item in resp.data.task.tasks)
                     {
@@ -218,16 +223,20 @@ namespace sgll.net.Core.Queue
                 UpCall.CallStatusUpdate(this, ChangedType.ForceTask);
             }
         }
+        #endregion
 
+        #region 官员刷新
         private void DoOfficialRefresh()
         {
             var dic = UpCall.Client.Post("/force/acceptRefreshTask", "", UpCall.Data.LoginUser.Cookie);
+            LogDebug(dic.ToLogString());
+
             if (dic.Item1)
             {
                 dynamic resp = JObject.Parse(dic.Item2.ToLower());
                 if (resp.errorcode == 0)
                 {
-                    UpCall.LogInfo(Title, "自动接受官员刷新");
+                    LogWarn("自动接受官员刷新");
                     var tasks = new List<MojoForceTaskItem>();
                     foreach (var item in resp.data)
                     {
@@ -255,6 +264,7 @@ namespace sgll.net.Core.Queue
                 UpCall.CallStatusUpdate(this, ChangedType.ForceTask);
             }
         }
+        #endregion
 
         public override int QueueGUID
         {

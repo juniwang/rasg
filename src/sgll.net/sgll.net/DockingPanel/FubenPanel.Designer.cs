@@ -34,6 +34,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
@@ -69,7 +70,8 @@
             this.listViewEx1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader2});
             this.listViewEx1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewEx1.GridLines = true;
             this.listViewEx1.Location = new System.Drawing.Point(3, 3);
@@ -90,6 +92,11 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "当前小关";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "剩余时间";
+            this.columnHeader2.Width = 84;
             // 
             // tabControl1
             // 
@@ -125,7 +132,7 @@
             this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "FubenPanel";
             this.ShowIcon = false;
-            this.Text = "闯关";
+            this.Text = "副本";
             this.Load += new System.EventHandler(this.FubenPanel_Load);
             this.groupBox1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
@@ -144,5 +151,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }

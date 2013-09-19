@@ -12,16 +12,15 @@ namespace sgll.net.Core
 
     public class TDebugInfo
     {
-        public string MethodName { get; set; }
-        public string Filename { get; set; }
-        public int Line { get; set; }
-        public DebugLevel Level { get; set; }
+        public LogLevel Level { get; set; }
         public string Text { get; set; }
     }
-    public enum DebugLevel
+    public enum LogLevel
     {
-        Debug,
-        Info,
-        Error,
+        All = 0,
+        Debug = 1,
+        Info = 2,
+        Warn = 3,
+        Error = 4,
     }
 }

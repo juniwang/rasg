@@ -35,6 +35,8 @@ namespace sgll.net.DockingPanel
                         var lvi = listViewEx1.Items.Add(item.Name);
                         lvi.SubItems.Add(item.StatusDisplay);
                         lvi.SubItems.Add(item.CurrentGroup == null ? "" : item.CurrentGroup.Name);
+                        lvi.SubItems.Add(item.ColdDownDisplay);
+                        lvi.BackColor = item.StatusColor;
                     }
                 }
 
@@ -44,6 +46,8 @@ namespace sgll.net.DockingPanel
                     var item = UpCall.Data.FubenData.Fubens[i];
                     lvi.SubItems[1].Text = item.StatusDisplay;
                     lvi.SubItems[2].Text = item.CurrentGroup == null ? "" : item.CurrentGroup.Name;
+                    lvi.SubItems[3].Text = item.ColdDownDisplay;
+                    lvi.BackColor = item.StatusColor;
                 }
 
                 //details
@@ -60,7 +64,6 @@ namespace sgll.net.DockingPanel
         private void HideFubenDetail(MojoFuben fuben)
         {
             TabPage tp = null;
-            // check if repeat login
             for (int i = 1; i < tabControl1.TabCount; i++)
             {
                 if (!(tabControl1.TabPages[i].Controls[0] is FubenStatus))
@@ -88,6 +91,7 @@ namespace sgll.net.DockingPanel
                 FubenStatus mf = tabControl1.TabPages[i].Controls[0] as FubenStatus;
                 if (mf.Fuben.Name == fuben.Name)
                 {
+                    mf.Fuben = fuben;
                     mf.Display();
                     return;
                 }
@@ -99,6 +103,7 @@ namespace sgll.net.DockingPanel
             uc1.Dock = DockStyle.Fill;
             tp.Controls.Add(uc1);
             tabControl1.TabPages.Add(tp);
+            uc1.Fuben = fuben;
             uc1.Display();
         }
 

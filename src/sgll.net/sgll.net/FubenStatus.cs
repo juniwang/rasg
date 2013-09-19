@@ -23,9 +23,11 @@ namespace sgll.net
 
         public void Display()
         {
-            this.fubenGroupStatus1.Display();
             if (Fuben != null && Fuben.Groups != null && Fuben.CurrentGroup != null)
             {
+                this.fubenGroupStatus1.Fuben = Fuben;
+                this.fubenGroupStatus1.Display();
+
                 bool init = this.listViewEx1.Items.Count == 0;
                 for (int i = 0; i < Fuben.Groups.Count; i++)
                 {

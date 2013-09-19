@@ -29,12 +29,14 @@ namespace sgll.net.Core.Queue
         public override void Action()
         {
             var resp = UpCall.Client.Post("/force/index", string.Empty, UpCall.Data.LoginUser.Cookie);
+            LogDebug(resp.ToLogString());
+
             if (resp.Item1)
             {
                 dynamic profile = JObject.Parse(resp.Item2);
                 if (profile.errorCode == 0 && profile.data != null)
                 {
-                    UpCall.LogInfo(Title, "刷新势力信息");
+                    LogF("刷新势力信息");
                     _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSec);
                     var fi = profile.data.force_info;
                     var local = new MojoForceInfo
@@ -61,7 +63,8 @@ namespace sgll.net.Core.Queue
                     UpCall.Data.ForceProfile = local;
                     UpCall.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.ForceProfile });
                 }
-                else {
+                else
+                {
                     _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSecNoForce);
                 }
             }

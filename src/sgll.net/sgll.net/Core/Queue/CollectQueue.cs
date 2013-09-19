@@ -84,15 +84,18 @@ namespace sgll.net.Core.Queue
             }
         }
 
+        #region 收宝
         private void Collect(MojoCollectItem item)
         {
             var call = UpCall.Client.Post("/collect/composite", "id=" + item.Id, UpCall.Data.LoginUser.Cookie);
+            LogDebug(call.ToLogString());
+
             if (call.Item1)
             {
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    UpCall.LogInfo(this.Title, "收宝成功，获得：" + item.Name);
+                    LogWarn("收宝成功，获得：" + item.Name);
                     item.Count = item.Count + 1;
                     item.LastSyncTime = DateTime.Now;
                     item.AwayTime = 0;
@@ -111,21 +114,23 @@ namespace sgll.net.Core.Queue
                     item.AwayTime = 0;
                     item.Fragments = null;
                     item.LastSyncTime = DateTime.Now.AddMinutes(-30);
-                    UpCall.LogDebug(this.Title, resp.errorMsg);
                 }
             }
         }
+        #endregion
 
+        #region 合成
         private void CollectStart(MojoCollectItem item)
         {
             var call = UpCall.Client.Post("/collect/compositestart", "id=" + item.Id, UpCall.Data.LoginUser.Cookie);
+            LogDebug(call.ToLogString());
+
             if (call.Item1)
             {
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    UpCall.LogInfo(this.Title, "开始合成：" + item.Name);
-                    item.Count = resp.data.props.count;
+                    LogWarn("开始合成：" + item.Name);
                     item.LastSyncTime = DateTime.Now;
                     item.AwayTime = 3600;
                     UpCall.CallStatusUpdate(this, ChangedType.Collect);
@@ -136,20 +141,23 @@ namespace sgll.net.Core.Queue
                     item.AwayTime = 0;
                     item.Fragments = null;
                     item.LastSyncTime = DateTime.Now.AddMinutes(-30);
-                    UpCall.LogDebug(this.Title, resp.errorMsg);
                 }
             }
         }
+        #endregion
 
+        #region 刷新碎片
         private void RefreshCollectData()
         {
             var call = UpCall.Client.Post("/collect", "start=0&count=10&msgid=", UpCall.Data.LoginUser.Cookie);
+            LogDebug(call.ToLogString());
+
             if (call.Item1)
             {
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    UpCall.LogInfo(this.Title, "刷新宝物碎片信息");
+                    LogF("刷新宝物碎片信息");
                     var items = new List<MojoCollectItem>();
                     #region construct items
                     foreach (var en in resp.data.entities)
@@ -195,6 +203,7 @@ namespace sgll.net.Core.Queue
                     UpCall.CallStatusUpdate(this, ChangedType.Collect);
                 }
             }
-        }
+        } 
+        #endregion
     }
 }

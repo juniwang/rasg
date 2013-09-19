@@ -30,9 +30,7 @@ namespace sgll.net
                         var item = Fuben.Tasks[i];
                         var lvi = listViewEx1.Items.Add(item.Name);
                         lvi.SubItems.Add("");
-                        var ts = (int)(item.LastSyncTime.AddSeconds(item.ColdDown) - DateTime.Now).TotalSeconds;
-                        if (ts < 0) ts = 0;
-                        lvi.SubItems.Add(new TimeSpan(0, 0, ts).ToString());
+                        lvi.SubItems.Add(item.ColdDownDisplay);
 
                         ProgressBar pb = new ProgressBar();
                         pb.Maximum = item.SumCount;
@@ -46,10 +44,7 @@ namespace sgll.net
                     {
                         var item = Fuben.Tasks[i];
                         var lvi = listViewEx1.Items[i];
-
-                        var ts = (int)(item.LastSyncTime.AddSeconds(item.ColdDown) - DateTime.Now).TotalSeconds;
-                        if (ts < 0) ts = 0;
-                        lvi.SubItems[2].Text = new TimeSpan(0, 0, ts).ToString();
+                        lvi.SubItems[2].Text = item.ColdDownDisplay;
 
                         ProgressBar pb = (ProgressBar)listViewEx1.GetEmbeddedControl(1, i);
                         if (pb.Value != item.Count) pb.Value = item.Count;

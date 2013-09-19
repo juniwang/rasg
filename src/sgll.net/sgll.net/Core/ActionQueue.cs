@@ -42,13 +42,13 @@ namespace sgll.net.Core
         {
             Queues.Add(new BasicProfileQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceProfileQueue { UpCall = this, Enabled = true });
+            Queues.Add(new FubenAwardQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceTaskQueue { UpCall = this, Enabled = false });
             Queues.Add(new CollectQueue { UpCall = this, Enabled = false });
             Queues.Add(new HuangjinTreasureQueue { UpCall = this, Enabled = false });
             Queues.Add(new ForceZhufushiQueue { UpCall = this, Enabled = false });
             Queues.Add(new FubenQueue { UpCall = this, Enabled = false });
-            Queues.Add(new FubenAwardQueue { UpCall = this, Enabled = true });
-            
+
 
             if (Data.LoginUser.Features != null)
             {
@@ -64,8 +64,9 @@ namespace sgll.net.Core
             }
         }
 
-        public IQueue QueryQueue(int Qid) {
-            return Queues.SingleOrDefault(p => p.QueueGUID == Qid);        
+        internal IQueue QueryQueue(int Qid)
+        {
+            return Queues.SingleOrDefault(p => p.QueueGUID == Qid);
         }
 
         public void SetQueueParameters(int Qid, Dictionary<string, string> parameters)
@@ -130,7 +131,7 @@ namespace sgll.net.Core
                 }
                 catch (Exception e)
                 {
-                    LogError(e);
+                    LogError("系统", "队列执行异常", e);
                 }
 
             }
