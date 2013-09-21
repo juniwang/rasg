@@ -164,11 +164,11 @@
             // textLog
             // 
             this.textLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textLog.Location = new System.Drawing.Point(504, 3);
+            this.textLog.Location = new System.Drawing.Point(654, 3);
             this.textLog.Multiline = true;
             this.textLog.Name = "textLog";
             this.textLog.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textLog.Size = new System.Drawing.Size(418, 559);
+            this.textLog.Size = new System.Drawing.Size(268, 559);
             this.textLog.TabIndex = 1;
             // 
             // listViewUsers
@@ -185,7 +185,7 @@
             this.listViewUsers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewUsers.Location = new System.Drawing.Point(3, 3);
             this.listViewUsers.Name = "listViewUsers";
-            this.listViewUsers.Size = new System.Drawing.Size(501, 559);
+            this.listViewUsers.Size = new System.Drawing.Size(651, 559);
             this.listViewUsers.TabIndex = 0;
             this.listViewUsers.UseCompatibleStateImageBehavior = false;
             this.listViewUsers.View = System.Windows.Forms.View.Details;
@@ -212,7 +212,7 @@
             // 
             this.columnHeader4.Tag = "features";
             this.columnHeader4.Text = "任务";
-            this.columnHeader4.Width = 173;
+            this.columnHeader4.Width = 316;
             // 
             // notifyIcon1
             // 
@@ -229,6 +229,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

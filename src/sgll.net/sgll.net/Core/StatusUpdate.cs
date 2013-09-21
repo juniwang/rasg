@@ -16,6 +16,7 @@ namespace sgll.net.Core
         ForceZhufushi = 0x10,
         Collect = 0x20,
         Fuben = 0x40,
+        Mission = 0x80,
         All = 0xffff
     }
 

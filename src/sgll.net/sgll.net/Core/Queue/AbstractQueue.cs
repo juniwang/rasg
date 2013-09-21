@@ -60,6 +60,11 @@ namespace sgll.net.Core.Queue
             UpCall.Log(this.Title, message, LogLevel.Info);
         }
 
+        protected void LogDebug(Tuple<bool, string> callResult)
+        {
+            LogDebug(callResult.ToLogString());
+        }
+
         protected void LogDebug(string message)
         {
             UpCall.Log(this.Title, message, LogLevel.Debug);
@@ -97,6 +102,11 @@ namespace sgll.net.Core.Queue
         {
             if (tuple == null) return "";
             return "[" + tuple.Item1 + "]:" + tuple.Item2;
+        }
+
+        public static bool IsSuccess(this Tuple<bool, string> tuple)
+        {
+            return tuple.Item1;
         }
     }
 }

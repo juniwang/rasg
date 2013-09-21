@@ -21,5 +21,6 @@ namespace sgll.net.Core
         public MojoForceZhufushiInfo ForceZhufushi { get; set; }
         public MojoCollectData CollectData { get; set; }
         public MojoFubenData FubenData { get; set; }
+        public MojoMissionData MissionData { get; set; }
     }
 }

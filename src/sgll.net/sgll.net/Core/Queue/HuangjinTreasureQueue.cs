@@ -9,7 +9,7 @@ namespace sgll.net.Core.Queue
 {
     public class HuangjinTreasureQueue : AbstractQueue
     {
-        public static readonly string[] toBuy = new string[] { "转生丹", "祝福石", "钱箱" };
+        public static readonly string[] toBuy = new string[] { "转生丹", "祝福石", "钱箱", "钱袋" };
 
         public override int CountDown
         {
