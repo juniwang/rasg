@@ -78,10 +78,12 @@
     <Compile Include="Core\Entieies\MojoCollectData.cs" />
     <Compile Include="Core\Entieies\MojoForceZhufushiInfo.cs" />
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
+    <Compile Include="Core\Entieies\MojoMissionData.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\ForceZhufushiQueue.cs" />
     <Compile Include="Core\Queue\FubenAwardQueue.cs" />
     <Compile Include="Core\Queue\FubenQueue.cs" />
+    <Compile Include="Core\Queue\MissionQueue.cs" />
     <Compile Include="Core\SGLLLog.cs" />
     <Compile Include="DockingPanel\CollectPanel.cs">
       <SubType>Form</SubType>
@@ -106,6 +108,12 @@
     </Compile>
     <Compile Include="DockingPanel\FubenPanel.Designer.cs">
       <DependentUpon>FubenPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockingPanel\MissionPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\MissionPanel.Designer.cs">
+      <DependentUpon>MissionPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="ForceProfileLabel.cs">
       <SubType>UserControl</SubType>
@@ -220,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\FubenPanel.resx">
       <DependentUpon>FubenPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\MissionPanel.resx">
+      <DependentUpon>MissionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ForceProfileLabel.resx">
       <DependentUpon>ForceProfileLabel.cs</DependentUpon>
