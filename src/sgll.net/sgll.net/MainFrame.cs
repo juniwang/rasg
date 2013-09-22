@@ -171,7 +171,10 @@ namespace sgll.net
             SuspendLayout();
 
             if (File.Exists(fn))
-                dockPanel1.LoadFromXml(fn, new DeserializeDockContent(FindDocument));
+            {
+                if (!dockPanel1.Contains(m_playerStatus))
+                    dockPanel1.LoadFromXml(fn, new DeserializeDockContent(FindDocument));
+            }
             else
             {
                 m_playerStatus.Show(dockPanel1);
@@ -183,7 +186,7 @@ namespace sgll.net
                 m_forceZhufushi.Show(dockPanel1);
                 m_mission.Show(dockPanel1);
             }
-            m_forceTasks.Activate();
+            m_playerStatus.Activate();
             ResumeLayout();
         }
 

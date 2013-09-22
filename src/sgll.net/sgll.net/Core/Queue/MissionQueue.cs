@@ -29,7 +29,16 @@ namespace sgll.net.Core.Queue
                     return 0;
 
                 if ((double)UpCall.Data.PlayerInfo.EP / (double)UpCall.Data.PlayerInfo.Energy >= 0.3)
-                    return 0;
+                {
+                    var task = md.Tasks.Where(p => p.Unlock == 1).Where(p => p.Status == 0 || p.Status == 1).FirstOrDefault();
+                    if (task != null)
+                        return 0;
+                    else
+                    {
+                        md.Tasks = null;
+                        return 0;
+                    }
+                }
                 return 1;
             }
         }
@@ -96,9 +105,38 @@ namespace sgll.net.Core.Queue
 
                         UpCall.CallStatusUpdate(this, ChangedType.Profile);
                     }
+
+                    if (task.Status == 2)
+                    {
+                        if (UpCall.Data.MissionData.Tasks.All(p => p.Status == 2))
+                        {
+                            UpCall.Data.MissionData.Tasks = null;
+                        }
+                        else
+                        {
+                            var unlock = true;
+                            for (int i = 0; i < UpCall.Data.MissionData.Tasks.Count - 1; i++)
+                            {
+                                if (UpCall.Data.MissionData.Tasks[i].Status != 2)
+                                {
+                                    unlock = false;
+                                    break;
+                                }
+                            }
+                            if (unlock)
+                            {
+                                UpCall.Data.MissionData.Tasks.Last().Unlock = 1;
+                                UpCall.Data.MissionData.Tasks.Last().Status = 0;
+                            }
+                        }
+                    }
+                }
+                else if (resp.errorCode == 20010)
+                {
+                    LogError((string)resp.errorMsg);
                 }
             }
-        } 
+        }
         #endregion
 
         #region GetMissionData
@@ -142,7 +180,7 @@ namespace sgll.net.Core.Queue
                     }
 
                     var tasks = new List<MojoMissionTask>();
-                    foreach (var t in resp.data.task_groups)
+                    foreach (var t in resp.data.tasks)
                     {
                         var new_t = new MojoMissionTask
                         {

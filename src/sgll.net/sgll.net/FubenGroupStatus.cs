@@ -44,6 +44,7 @@ namespace sgll.net
                     {
                         var item = Fuben.Tasks[i];
                         var lvi = listViewEx1.Items[i];
+                        lvi.SubItems[0].Text = item.Name;
                         lvi.SubItems[2].Text = item.ColdDownDisplay;
 
                         ProgressBar pb = (ProgressBar)listViewEx1.GetEmbeddedControl(1, i);

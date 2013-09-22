@@ -236,7 +236,7 @@ namespace sgll.net
         {
             if (this.WindowState == FormWindowState.Minimized)
             {
-                this.Hide();
+                this.Visible = false;
                 this.ShowInTaskbar = false;
                 this.notifyIcon1.Visible = true;
             } 
@@ -244,14 +244,16 @@ namespace sgll.net
 
         private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Show();
+            this.Visible = true;
             this.WindowState = FormWindowState.Maximized;
+            this.ShowInTaskbar = true;
             this.Activate();
         }
 
         private void HideToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Visible = false;
+            this.ShowInTaskbar = false;
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)

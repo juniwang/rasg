@@ -142,14 +142,7 @@ namespace sgll.net.Core
 
         private IQueue GetQueueByGuid(int Qid)
         {
-            foreach (var queue in Queues)
-            {
-                if (queue.QueueGUID == Qid)
-                {
-                    return queue;
-                }
-            }
-            return null;
+            return Queues.SingleOrDefault(p => p.QueueGUID == Qid);
         }
 
         private SFeature GetOrCreateFeature(int Qid)
@@ -157,15 +150,7 @@ namespace sgll.net.Core
             if (this.Data.LoginUser.Features == null)
                 this.Data.LoginUser.Features = new List<SFeature>();
 
-            SFeature feature = null;
-            foreach (var f in Data.LoginUser.Features)
-            {
-                if (f.TaskId == Qid)
-                {
-                    feature = f;
-                    break;
-                }
-            }
+            SFeature feature = Data.LoginUser.Features.SingleOrDefault(p => p.TaskId == Qid);
             if (feature == null)
             {
                 feature = new SFeature(Qid);

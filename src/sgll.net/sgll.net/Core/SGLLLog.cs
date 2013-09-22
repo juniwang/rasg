@@ -11,7 +11,7 @@ namespace sgll.net.Core
         public void Log(string type, string message, LogLevel level)
         {
             string msg = message;
-            if (!string.IsNullOrWhiteSpace(type)) message = string.Format("[{0}]{1}", type, message);
+            if (!string.IsNullOrWhiteSpace(type)) msg = string.Format("[{0}]{1}", type, message);
             if (level == LogLevel.Debug)
             {
                 StackFrame x = new StackTrace(true).GetFrame(1);
