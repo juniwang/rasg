@@ -49,9 +49,15 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ShowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -67,13 +73,13 @@
             this.MoveUpToolStripMenuItem,
             this.MoveDownToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(189, 170);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 170);
             // 
             // LoginToolStripMenuItem
             // 
             this.LoginToolStripMenuItem.Name = "LoginToolStripMenuItem";
             this.LoginToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.LoginToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.LoginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.LoginToolStripMenuItem.Tag = "login";
             this.LoginToolStripMenuItem.Text = "&L.  登录";
             this.LoginToolStripMenuItem.Click += new System.EventHandler(this.LoginToolStripMenuItem_Click);
@@ -82,20 +88,20 @@
             // 
             this.LoginAllToolStripMenuItem.Name = "LoginAllToolStripMenuItem";
             this.LoginAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.LoginAllToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.LoginAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.LoginAllToolStripMenuItem.Text = "&O. 全部登录";
             this.LoginAllToolStripMenuItem.Click += new System.EventHandler(this.LoginAllToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // AddUserToolStripMenuItem
             // 
             this.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem";
             this.AddUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.AddUserToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.AddUserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.AddUserToolStripMenuItem.Text = "&A. 添加账号";
             this.AddUserToolStripMenuItem.Click += new System.EventHandler(this.AddUserToolStripMenuItem_Click);
             // 
@@ -103,7 +109,7 @@
             // 
             this.EditUsertoolStripMenuItem.Name = "EditUsertoolStripMenuItem";
             this.EditUsertoolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.EditUsertoolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.EditUsertoolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.EditUsertoolStripMenuItem.Text = "&E. 编辑账号";
             this.EditUsertoolStripMenuItem.Click += new System.EventHandler(this.EditUsertoolStripMenuItem_Click);
             // 
@@ -111,20 +117,20 @@
             // 
             this.DeleteUserToolStripMenuItem.Name = "DeleteUserToolStripMenuItem";
             this.DeleteUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.DeleteUserToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.DeleteUserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.DeleteUserToolStripMenuItem.Text = "&D. 删除账户";
             this.DeleteUserToolStripMenuItem.Click += new System.EventHandler(this.DeleteUserToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // MoveUpToolStripMenuItem
             // 
             this.MoveUpToolStripMenuItem.Name = "MoveUpToolStripMenuItem";
             this.MoveUpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.MoveUpToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.MoveUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.MoveUpToolStripMenuItem.Tag = "moveup";
             this.MoveUpToolStripMenuItem.Text = "上移";
             this.MoveUpToolStripMenuItem.Click += new System.EventHandler(this.MoveUpToolStripMenuItem_Click);
@@ -133,7 +139,7 @@
             // 
             this.MoveDownToolStripMenuItem.Name = "MoveDownToolStripMenuItem";
             this.MoveDownToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.MoveDownToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.MoveDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.MoveDownToolStripMenuItem.Tag = "movedown";
             this.MoveDownToolStripMenuItem.Text = "下移";
             this.MoveDownToolStripMenuItem.Click += new System.EventHandler(this.MoveDownToolStripMenuItem_Click);
@@ -146,7 +152,7 @@
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(933, 591);
+            this.tabControl1.Size = new System.Drawing.Size(933, 640);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -156,7 +162,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(925, 565);
+            this.tabPage1.Size = new System.Drawing.Size(925, 614);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "账号管理";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -168,7 +174,7 @@
             this.textLog.Multiline = true;
             this.textLog.Name = "textLog";
             this.textLog.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textLog.Size = new System.Drawing.Size(268, 559);
+            this.textLog.Size = new System.Drawing.Size(268, 608);
             this.textLog.TabIndex = 1;
             // 
             // listViewUsers
@@ -185,7 +191,7 @@
             this.listViewUsers.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewUsers.Location = new System.Drawing.Point(3, 3);
             this.listViewUsers.Name = "listViewUsers";
-            this.listViewUsers.Size = new System.Drawing.Size(651, 559);
+            this.listViewUsers.Size = new System.Drawing.Size(651, 608);
             this.listViewUsers.TabIndex = 0;
             this.listViewUsers.UseCompatibleStateImageBehavior = false;
             this.listViewUsers.View = System.Windows.Forms.View.Details;
@@ -216,25 +222,65 @@
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip2;
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ShowToolStripMenuItem,
+            this.HideToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.ExitToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(102, 76);
+            // 
+            // ShowToolStripMenuItem
+            // 
+            this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.ShowToolStripMenuItem.Text = "显示";
+            this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
+            // 
+            // HideToolStripMenuItem
+            // 
+            this.HideToolStripMenuItem.Name = "HideToolStripMenuItem";
+            this.HideToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.HideToolStripMenuItem.Text = "隐藏";
+            this.HideToolStripMenuItem.Click += new System.EventHandler(this.HideToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(98, 6);
+            // 
+            // ExitToolStripMenuItem
+            // 
+            this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.ExitToolStripMenuItem.Text = "退出 ";
+            this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(933, 591);
+            this.ClientSize = new System.Drawing.Size(933, 640);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.contextMenuStrip1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -260,6 +306,11 @@
         private System.Windows.Forms.ToolStripMenuItem MoveUpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MoveDownToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem ShowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem HideToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
     }
 }
 

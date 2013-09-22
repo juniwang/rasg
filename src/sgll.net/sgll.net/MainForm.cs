@@ -113,13 +113,14 @@ namespace sgll.net
                 if (WindowState == FormWindowState.Minimized)
                 {
                     Visible = true;
-                    WindowState = FormWindowState.Normal;
+                    WindowState = FormWindowState.Maximized;
                     ShowInTaskbar = true;
                 }
                 else
                 {
                     WindowState = FormWindowState.Minimized;
                     Visible = false;
+                    ShowInTaskbar = false;
                 }
         }
 
@@ -229,6 +230,33 @@ namespace sgll.net
         private void timer1_Tick(object sender, EventArgs e)
         {
             listView1_Refresh();
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Hide();
+                this.ShowInTaskbar = false;
+                this.notifyIcon1.Visible = true;
+            } 
+        }
+
+        private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Maximized;
+            this.Activate();
+        }
+
+        private void HideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

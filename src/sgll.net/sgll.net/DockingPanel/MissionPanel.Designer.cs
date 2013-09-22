@@ -31,15 +31,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelScenario = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.startStop1 = new sgll.net.StartStop();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.listViewEx1 = new ListViewEmbeddedControls.ListViewEx();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewEx2 = new ListViewEmbeddedControls.ListViewEx();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewEx1 = new ListViewEmbeddedControls.ListViewEx();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.startStop1 = new sgll.net.StartStop();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -77,20 +77,6 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
-            // startStop1
-            // 
-            this.startStop1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.startStop1.Location = new System.Drawing.Point(3, 17);
-            this.startStop1.Name = "startStop1";
-            this.startStop1.OnStart = null;
-            this.startStop1.OnStop = null;
-            this.startStop1.Qid = 0;
-            this.startStop1.SGLL = null;
-            this.startStop1.Size = new System.Drawing.Size(369, 34);
-            this.startStop1.StatusUpdate = sgll.net.Core.ChangedType.None;
-            this.startStop1.TabIndex = 0;
-            this.startStop1.TextControl = null;
-            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.listViewEx2);
@@ -103,29 +89,6 @@
             this.groupBox3.Size = new System.Drawing.Size(375, 202);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
-            // 
-            // listViewEx1
-            // 
-            this.listViewEx1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listViewEx1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.listViewEx1.GridLines = true;
-            this.listViewEx1.Location = new System.Drawing.Point(0, 14);
-            this.listViewEx1.Name = "listViewEx1";
-            this.listViewEx1.Size = new System.Drawing.Size(153, 188);
-            this.listViewEx1.TabIndex = 0;
-            this.listViewEx1.UseCompatibleStateImageBehavior = false;
-            this.listViewEx1.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "关卡";
-            this.columnHeader1.Width = 85;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "难度";
             // 
             // listViewEx2
             // 
@@ -156,6 +119,43 @@
             // 
             this.columnHeader5.Text = "进度";
             // 
+            // listViewEx1
+            // 
+            this.listViewEx1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
+            this.listViewEx1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listViewEx1.GridLines = true;
+            this.listViewEx1.Location = new System.Drawing.Point(0, 14);
+            this.listViewEx1.Name = "listViewEx1";
+            this.listViewEx1.Size = new System.Drawing.Size(153, 188);
+            this.listViewEx1.TabIndex = 0;
+            this.listViewEx1.UseCompatibleStateImageBehavior = false;
+            this.listViewEx1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "关卡";
+            this.columnHeader1.Width = 85;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "难度";
+            // 
+            // startStop1
+            // 
+            this.startStop1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.startStop1.Location = new System.Drawing.Point(3, 17);
+            this.startStop1.Name = "startStop1";
+            this.startStop1.OnStart = null;
+            this.startStop1.OnStop = null;
+            this.startStop1.Qid = 0;
+            this.startStop1.SGLL = null;
+            this.startStop1.Size = new System.Drawing.Size(369, 34);
+            this.startStop1.StatusUpdate = sgll.net.Core.ChangedType.None;
+            this.startStop1.TabIndex = 0;
+            this.startStop1.TextControl = null;
+            // 
             // MissionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -169,6 +169,7 @@
             this.Name = "MissionPanel";
             this.ShowIcon = false;
             this.Text = "任务";
+            this.Load += new System.EventHandler(this.MissionPanel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
