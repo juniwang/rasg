@@ -48,7 +48,7 @@
             this.playInfoLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playInfoLabel1.Location = new System.Drawing.Point(0, 0);
             this.playInfoLabel1.Name = "playInfoLabel1";
-            this.playInfoLabel1.PlayerInfo = null;
+            this.playInfoLabel1.Data = null;
             this.playInfoLabel1.Size = new System.Drawing.Size(227, 161);
             this.playInfoLabel1.TabIndex = 0;
             // 

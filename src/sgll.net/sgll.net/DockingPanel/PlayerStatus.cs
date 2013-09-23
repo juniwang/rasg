@@ -28,7 +28,7 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
-            this.playInfoLabel1.PlayerInfo = UpCall.Data.PlayerInfo;
+            this.playInfoLabel1.Data = UpCall.Data;
             this.playInfoLabel1.Display();
         }
 

@@ -34,7 +34,7 @@
             // forceProfileLabel1
             // 
             this.forceProfileLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.forceProfileLabel1.ForceProfile = null;
+            this.forceProfileLabel1.Data = null;
             this.forceProfileLabel1.Location = new System.Drawing.Point(0, 0);
             this.forceProfileLabel1.Name = "forceProfileLabel1";
             this.forceProfileLabel1.Size = new System.Drawing.Size(206, 264);

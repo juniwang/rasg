@@ -21,7 +21,7 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
-            this.forceProfileLabel1.ForceProfile = UpCall.Data.ForceProfile;
+            this.forceProfileLabel1.Data = UpCall.Data;
             this.forceProfileLabel1.Display();
         }
     }

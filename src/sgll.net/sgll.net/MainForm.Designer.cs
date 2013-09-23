@@ -73,13 +73,13 @@
             this.MoveUpToolStripMenuItem,
             this.MoveDownToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 170);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(189, 170);
             // 
             // LoginToolStripMenuItem
             // 
             this.LoginToolStripMenuItem.Name = "LoginToolStripMenuItem";
             this.LoginToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.LoginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LoginToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.LoginToolStripMenuItem.Tag = "login";
             this.LoginToolStripMenuItem.Text = "&L.  登录";
             this.LoginToolStripMenuItem.Click += new System.EventHandler(this.LoginToolStripMenuItem_Click);
@@ -88,20 +88,20 @@
             // 
             this.LoginAllToolStripMenuItem.Name = "LoginAllToolStripMenuItem";
             this.LoginAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.LoginAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.LoginAllToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.LoginAllToolStripMenuItem.Text = "&O. 全部登录";
             this.LoginAllToolStripMenuItem.Click += new System.EventHandler(this.LoginAllToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(185, 6);
             // 
             // AddUserToolStripMenuItem
             // 
             this.AddUserToolStripMenuItem.Name = "AddUserToolStripMenuItem";
             this.AddUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.AddUserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.AddUserToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.AddUserToolStripMenuItem.Text = "&A. 添加账号";
             this.AddUserToolStripMenuItem.Click += new System.EventHandler(this.AddUserToolStripMenuItem_Click);
             // 
@@ -109,7 +109,7 @@
             // 
             this.EditUsertoolStripMenuItem.Name = "EditUsertoolStripMenuItem";
             this.EditUsertoolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.EditUsertoolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.EditUsertoolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.EditUsertoolStripMenuItem.Text = "&E. 编辑账号";
             this.EditUsertoolStripMenuItem.Click += new System.EventHandler(this.EditUsertoolStripMenuItem_Click);
             // 
@@ -117,20 +117,20 @@
             // 
             this.DeleteUserToolStripMenuItem.Name = "DeleteUserToolStripMenuItem";
             this.DeleteUserToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.DeleteUserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.DeleteUserToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.DeleteUserToolStripMenuItem.Text = "&D. 删除账户";
             this.DeleteUserToolStripMenuItem.Click += new System.EventHandler(this.DeleteUserToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
             // 
             // MoveUpToolStripMenuItem
             // 
             this.MoveUpToolStripMenuItem.Name = "MoveUpToolStripMenuItem";
             this.MoveUpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.MoveUpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MoveUpToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.MoveUpToolStripMenuItem.Tag = "moveup";
             this.MoveUpToolStripMenuItem.Text = "上移";
             this.MoveUpToolStripMenuItem.Click += new System.EventHandler(this.MoveUpToolStripMenuItem_Click);
@@ -139,7 +139,7 @@
             // 
             this.MoveDownToolStripMenuItem.Name = "MoveDownToolStripMenuItem";
             this.MoveDownToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.MoveDownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MoveDownToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.MoveDownToolStripMenuItem.Tag = "movedown";
             this.MoveDownToolStripMenuItem.Text = "下移";
             this.MoveDownToolStripMenuItem.Click += new System.EventHandler(this.MoveDownToolStripMenuItem_Click);
@@ -225,7 +225,6 @@
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip2;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "notifyIcon1";
-            this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseClick);
             // 
             // contextMenuStrip2
@@ -236,31 +235,31 @@
             this.toolStripSeparator3,
             this.ExitToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(102, 76);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(105, 76);
             // 
             // ShowToolStripMenuItem
             // 
             this.ShowToolStripMenuItem.Name = "ShowToolStripMenuItem";
-            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.ShowToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.ShowToolStripMenuItem.Text = "显示";
             this.ShowToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
             // HideToolStripMenuItem
             // 
             this.HideToolStripMenuItem.Name = "HideToolStripMenuItem";
-            this.HideToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.HideToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.HideToolStripMenuItem.Text = "隐藏";
             this.HideToolStripMenuItem.Click += new System.EventHandler(this.HideToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(98, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(101, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.ExitToolStripMenuItem.Text = "退出 ";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 

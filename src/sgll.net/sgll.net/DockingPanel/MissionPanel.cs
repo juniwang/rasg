@@ -87,7 +87,10 @@ namespace sgll.net.DockingPanel
                             lvi.SubItems[1].Text = t.EP.ToString();
                             ProgressBar pb = (ProgressBar)listViewEx2.GetEmbeddedControl(2, i);
                             if (pb != null && pb.Value != t.Count)
+                            {
+                                pb.Maximum = t.SumCount;
                                 pb.Value = t.Count;
+                            }
                         }
                     }
                 }

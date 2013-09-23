@@ -7,12 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using sgll.net.Core.Entieies;
+using sgll.net.Core;
 
 namespace sgll.net
 {
     public partial class PlayInfoLabel : UserControl
     {
-        public MojoPlayer PlayerInfo { get; set; }
+        public SGLLData Data { get; set; }
 
         public PlayInfoLabel()
         {
@@ -21,16 +22,21 @@ namespace sgll.net
 
         public void Display()
         {
-            if (PlayerInfo != null)
+            var player = Data.PlayerInfo;
+            if (player != null)
             {
-                this.labelNickname.Text = PlayerInfo.NickName;
-                this.labelGrain.Text = "粮食：" + PlayerInfo.Grain;
-                this.labelVM.Text = "银币：" + PlayerInfo.VM;
-                this.labelRM.Text = "元宝：" + PlayerInfo.RM;
-                this.labelEnergy.Text = string.Format("精力：{0}/{1}", PlayerInfo.EP, PlayerInfo.Energy);
-                this.labelaExp.Text = string.Format("经验：{0}/{1}", PlayerInfo.Exp, PlayerInfo.LevelExp);
-                this.labelStamima.Text = string.Format("体力：{0}/{1}", PlayerInfo.SP, PlayerInfo.Stamima);
-                this.labelLevel.Text = "等级：" + PlayerInfo.Level;
+                this.labelNickname.Text = player.NickName;
+                this.labelGrain.Text = "粮食：" + player.Grain;
+                this.labelVM.Text = "银币：" + player.VM;
+                this.labelRM.Text = "元宝：" + player.RM;
+                this.labelEnergy.Text = string.Format("精力：{0}/{1}", player.EP, player.Energy);
+                this.labelaExp.Text = string.Format("经验：{0}/{1}", player.Exp, player.LevelExp);
+                this.labelStamima.Text = string.Format("体力：{0}/{1}", player.SP, player.Stamima);
+                this.labelLevel.Text = "等级：" + player.Level;
+                if (player.CardIndex != null)
+                {
+                    this.labelCard.Text = string.Format("卡片：{0}/{1}", player.CardIndex.CardCount, player.CardIndex.CardCapacity);
+                }
             }
         }
     }
