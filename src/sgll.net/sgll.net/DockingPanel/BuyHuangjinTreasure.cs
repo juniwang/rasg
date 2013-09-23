@@ -67,7 +67,7 @@ namespace sgll.net.DockingPanel
                                 {
                                     this.labelStatus.ForeColor = Color.LightGreen;
                                     this.labelStatus.Text = "已购买";
-                                    this.labelToBuy.Text = SR.Display.ColdDownZero;
+                                    this.labelToBuy.Text = SR.Display.ColdDownDisable;
                                 }
                                 else
                                 {

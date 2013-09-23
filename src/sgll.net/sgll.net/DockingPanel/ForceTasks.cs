@@ -50,14 +50,14 @@ namespace sgll.net.DockingPanel
                             listViewEx1.AddEmbeddedControl(pb, 1, i);
                             if (task.UnlockLevel > force.ForceLevel)
                             {
-                                lvi.SubItems[2].Text = SR.Display.ColdDownZero;
+                                lvi.SubItems[2].Text = SR.Display.ColdDownDisable;
                                 lvi.BackColor = Color.LightGray;
                             }
                             else if (task.Count < task.SumCount)
                                 lvi.BackColor = Color.White;
                             else
                             {
-                                lvi.SubItems[2].Text = SR.Display.ColdDownZero;
+                                lvi.SubItems[2].Text = SR.Display.ColdDownDisable;
                                 lvi.BackColor = Color.LightGreen;
                             }
                         }
@@ -75,13 +75,13 @@ namespace sgll.net.DockingPanel
                             if (task.UnlockLevel > force.ForceLevel)
                             {
                                 lvi.BackColor = Color.LightGray;
-                                lvi.SubItems[2].Text = SR.Display.ColdDownZero;
+                                lvi.SubItems[2].Text = SR.Display.ColdDownDisable;
                             }
                             else if (task.Count < task.SumCount)
                                 lvi.BackColor = Color.White;
                             else
                             {
-                                lvi.SubItems[2].Text = SR.Display.ColdDownZero; 
+                                lvi.SubItems[2].Text = SR.Display.ColdDownDisable; 
                                 lvi.BackColor = Color.LightGreen;
                             }
                         }

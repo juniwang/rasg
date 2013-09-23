@@ -29,7 +29,7 @@ namespace sgll.net.Core
 
         public struct Display
         {
-            public static readonly string ColdDownZero = "--:--:--";
+            public static readonly string ColdDownDisable = "--:--:--";
         }
     }
 }

@@ -53,9 +53,6 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="sgll.net, Version=1.1.5006.14433, Culture=neutral, PublicKeyToken=null">
-      <ExecutableExtension>.exe</ExecutableExtension>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -75,6 +72,7 @@
     <Compile Include="AdvanceCall.Designer.cs">
       <DependentUpon>AdvanceCall.cs</DependentUpon>
     </Compile>
+    <Compile Include="Core\Entieies\AbstractMojoEntity.cs" />
     <Compile Include="Core\Entieies\MojoCollectData.cs" />
     <Compile Include="Core\Entieies\MojoForceZhufushiInfo.cs" />
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
