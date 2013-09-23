@@ -157,7 +157,7 @@ namespace sgll.net.Core.Queue
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    LogF("刷新宝物碎片信息");
+                    LogInfo("刷新宝物碎片信息");
                     var items = new List<MojoCollectItem>();
                     #region construct items
                     foreach (var en in resp.data.entities)

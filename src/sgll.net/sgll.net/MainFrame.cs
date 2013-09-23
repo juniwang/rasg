@@ -35,7 +35,7 @@ namespace sgll.net
         private FubenPanel m_fuben = new FubenPanel();
         private MissionPanel m_mission = new MissionPanel();
 
-        private List<string> LogShowText = new List<string> { "Debug", "Info", "Warn" };
+        private List<string> LogShowText = new List<string> { "调试", "详细", "简略" };
 
         public MainFrame(LoginUser loginInfo)
         {
@@ -223,8 +223,8 @@ namespace sgll.net
                 //    break;
                 case LogLevel.Debug:
                     return Color.Orange;
-                //case LogLevel.Info:
-                //    break;
+                case LogLevel.Info:
+                    return Color.Purple;
                 case LogLevel.Warn:
                     return Color.Blue;
                 case LogLevel.Error:
@@ -239,8 +239,7 @@ namespace sgll.net
             if (level >= GetLogShowLevel())
             {
                 this.richTextBoxLog.SelectionColor = LogShowColor(level);
-                this.richTextBoxLog.AppendText(DateTime.Now.ToString() + ":" + message);
-                this.richTextBoxLog.AppendText(Environment.NewLine);
+                this.richTextBoxLog.AppendText(DateTime.Now.ToString() + ":" + message + Environment.NewLine);
             }
         }
 

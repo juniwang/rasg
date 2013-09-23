@@ -149,7 +149,7 @@ namespace sgll.net.Core.Queue
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    LogF("刷新任务信息");
+                    LogInfo("刷新任务信息");
                     var scenario = new MojoMissionScenario
                     {
                         Name = resp.data.cur_scenario.name,

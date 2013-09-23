@@ -16,6 +16,7 @@ namespace sgll.net.Core.Queue
             {
                 if (_nextSyncTime <= DateTime.Now)
                     return 0;
+
                 return (int)(_nextSyncTime - DateTime.Now).TotalSeconds;
             }
         }
@@ -30,7 +31,7 @@ namespace sgll.net.Core.Queue
                 dynamic profile = JObject.Parse(resp.Item2);
                 if (profile.errorCode == 0 && profile.data != null)
                 {
-                    LogF("刷新个人资料");
+                    LogInfo("刷新个人资料");
                     if (UpCall.Data.PlayerInfo == null)
                         UpCall.Data.PlayerInfo = new Entieies.MojoPlayer();
                     UpCall.Data.PlayerInfo.Energy = profile.data.energy;

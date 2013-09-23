@@ -30,7 +30,7 @@ namespace sgll.net.Core.Data
                     StreamReader reader = new StreamReader(UserDataFile, Encoding.UTF8);
                     string content = reader.ReadToEnd();
                     reader.Close();
-                    return JsonConvert.DeserializeObject<List<LoginUser>>(content).ToList();
+                    return JsonConvert.DeserializeObject<List<LoginUser>>(content);
                 }
                 catch (Exception)
                 {

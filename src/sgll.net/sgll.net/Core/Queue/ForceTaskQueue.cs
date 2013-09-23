@@ -135,14 +135,14 @@ namespace sgll.net.Core.Queue
                         else if (resp.errorCode == 130019)
                         {
                             //未加入势力
-                            LogWarn("无法内政：未加入势力");
+                            LogError("无法内政：未加入势力");
                             UpCall.Data.ForceTasks.NoForce = true;
                             UpCall.Data.ForceTasks.Tasks = null;
                         }
                         else
                         {
                             //error in memory data. need to re-initialize
-                            LogWarn(task.Name + "执行出错:" + result.Item2);
+                            LogError(task.Name + "执行出错:" + result.Item2);
                             UpCall.Data.ForceTasks.Tasks = null;
                             _nextSystemRefreshTime = DateTime.Now.AddSeconds(5);
                         }
@@ -186,7 +186,7 @@ namespace sgll.net.Core.Queue
                 dynamic resp = JObject.Parse(result.Item2);
                 if (resp.errorCode == 0)
                 {
-                    LogF("重新加载内政信息");
+                    LogInfo("重新加载内政信息");
                     var tasks = new List<MojoForceTaskItem>();
                     foreach (var item in resp.data.task.tasks)
                     {

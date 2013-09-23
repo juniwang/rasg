@@ -47,14 +47,6 @@ namespace sgll.net.Core.Queue
         }
 
         #region Log methods for queue execution
-        protected void LogF(string message)
-        {
-            if (logFlag++ % 100 == 0)
-                LogWarn(message);
-            else
-                LogInfo(message);
-        }
-
         protected void LogInfo(string message)
         {
             UpCall.Log(this.Title, message, LogLevel.Info);

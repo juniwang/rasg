@@ -207,7 +207,7 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    LogWarn(fubenName + "失败:(" + resp.errorCode + ")" + resp.errorMsg);
+                    LogError(fubenName + "失败:(" + resp.errorCode + ")" + resp.errorMsg);
                     fuben.CurrentGroup = null;
                     fuben.Groups = null;
                     fuben.Tasks = null;
@@ -296,6 +296,7 @@ namespace sgll.net.Core.Queue
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
+                    LogInfo("获取副本信息");
                     var fubens = new List<MojoFuben>();
                     foreach (var fuben in resp.data)
                     {
@@ -314,7 +315,7 @@ namespace sgll.net.Core.Queue
                     UpCall.Data.FubenData = new MojoFubenData
                     {
                         Fubens = fubens,
-                        NextSyncTime = DateTime.Now.AddHours(2).AddMinutes(new Random().Next(0, 30)),
+                        NextSyncTime = DateTime.Now.AddHours(1).AddMinutes(new Random().Next(0, 30)),
                     };
                     UpCall.CallStatusUpdate(this, ChangedType.Fuben);
                 }

@@ -113,7 +113,7 @@ namespace sgll.net.Core.Queue
                 dynamic dyn = JObject.Parse(result.Item2);
                 if (dyn.errorCode == 0 && dyn.data != null)
                 {
-                    LogF("获取黄巾宝藏列表");
+                    LogInfo("获取黄巾宝藏列表");
                     var tis = new List<MojoHuangjinItem>();
                     foreach (var item in dyn.data.list)
                     {

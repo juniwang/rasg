@@ -70,7 +70,7 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    LogWarn("领奖失败;" + call.Item2);
+                    LogError("领奖失败;" + call.Item2);
                 }
             }
             Awards.Remove(task_id);
@@ -91,7 +91,7 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    LogWarn("领奖失败：" + call.Item2);
+                    LogError("领奖失败：" + call.Item2);
                 }
             }
             AwardsPre.Remove(task_id);

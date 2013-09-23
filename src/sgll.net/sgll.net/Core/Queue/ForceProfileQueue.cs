@@ -36,7 +36,7 @@ namespace sgll.net.Core.Queue
                 dynamic profile = JObject.Parse(resp.Item2);
                 if (profile.errorCode == 0 && profile.data != null)
                 {
-                    LogF("刷新势力信息");
+                    LogInfo("刷新势力信息");
                     _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSec);
                     var fi = profile.data.force_info;
                     var local = new MojoForceInfo

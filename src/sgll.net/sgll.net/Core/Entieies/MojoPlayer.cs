@@ -33,5 +33,14 @@ namespace sgll.net.Core.Entieies
         public int Stamima { get; set; }
 
         public int Grain { get; set; }
+
+        public MojoCardIndex CardIndex { get; set; }
+    }
+
+    public class MojoCardIndex
+    {
+        public DateTime LastSyncTime { get; set; }
+        public int CardCount { get; set; }
+        public int CardCapacity { get; set; }
     }
 }

@@ -47,7 +47,7 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    LogWarn("兑换祝福石失败：" + resp.errorMsg);
+                    LogError("兑换祝福石失败：" + resp.errorMsg);
                     UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
                     {
                         ColdDown = 10000 + new Random().Next(0, 2000),
@@ -57,7 +57,7 @@ namespace sgll.net.Core.Queue
             }
             else
             {
-                LogWarn("兑换祝福石失败：" + call.Item2);
+                LogError("兑换祝福石失败：" + call.Item2);
                 UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
                 {
                     ColdDown = 300,
