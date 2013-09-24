@@ -10,12 +10,14 @@ namespace sgll.net.Core.Entieies
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class SFeature
     {
+        [JsonIgnore]
         public string Name { get; set; }
         public bool Enabled { get; set; }
         public int TaskId { get; set; }

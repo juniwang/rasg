@@ -78,6 +78,7 @@
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
+    <Compile Include="Core\Queue\ForceBossQueue.cs" />
     <Compile Include="Core\Queue\ForceZhufushiQueue.cs" />
     <Compile Include="Core\Queue\FubenAwardQueue.cs" />
     <Compile Include="Core\Queue\FubenQueue.cs" />
