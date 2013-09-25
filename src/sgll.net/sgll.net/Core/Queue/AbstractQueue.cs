@@ -43,7 +43,7 @@ namespace sgll.net.Core.Queue
                 return def;
             if (!Parameters.Keys.Contains(key))
                 return def;
-            return Parameters[key] == targetValue;
+            return Parameters[key].Equals(targetValue, StringComparison.OrdinalIgnoreCase);
         }
 
         #region Log methods for queue execution
@@ -85,6 +85,16 @@ namespace sgll.net.Core.Queue
         {
             UpCall.LogError(this.Title, message, e);
         }
+        #endregion
+
+        #region common methods
+        protected bool HasDaoju(string name)
+        {
+            return UpCall.Data.Daoju != null && UpCall.Data.Daoju.Get(name) != null;
+        }
+
+        protected void UseEntity(string name)
+        { }
         #endregion
     }
 

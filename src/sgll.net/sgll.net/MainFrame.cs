@@ -34,6 +34,7 @@ namespace sgll.net
         private CollectPanel m_collect = new CollectPanel();
         private FubenPanel m_fuben = new FubenPanel();
         private MissionPanel m_mission = new MissionPanel();
+        private ForceBossPanel m_forceBoss = new ForceBossPanel();
 
         private List<string> LogShowText = new List<string> { "调试", "详细", "简略" };
 
@@ -119,6 +120,10 @@ namespace sgll.net
             {
                 m_mission.Display();
             }
+            if ((type & ChangedType.ForceBoss) == ChangedType.ForceBoss)
+            {
+                m_forceBoss.Display();
+            }
         }
 
         void SGLL_StatusUpdate(object sender, StatusChangedArgs e)
@@ -163,7 +168,7 @@ namespace sgll.net
             InitLogLevelComboBox();
 
             m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall = m_fuben.UpCall
-               = m_mission.UpCall = m_forceTasks.UpCall = m_forceZhufushi.UpCall = this.advanceCall1.UpCall = this;
+               = m_mission.UpCall = m_forceTasks.UpCall = m_forceZhufushi.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = this;
 
             string fn = GetStyleFilename();
             if (!File.Exists(fn))
@@ -185,6 +190,7 @@ namespace sgll.net
                 m_huangjinTreansure.Show(dockPanel1);
                 m_forceZhufushi.Show(dockPanel1);
                 m_mission.Show(dockPanel1);
+                m_forceBoss.Show(dockPanel1);
             }
             m_playerStatus.Activate();
             ResumeLayout();
@@ -199,7 +205,7 @@ namespace sgll.net
         private IDockContent FindDocument(string text)
         {
             foreach (var x in new DockContent[] { m_forceZhufushi, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, 
-                m_huangjinTreansure, m_fuben ,m_mission})
+                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss})
             {
                 if (text == x.GetType().ToString())
                     return x;

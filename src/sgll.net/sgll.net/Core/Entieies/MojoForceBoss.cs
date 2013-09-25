@@ -26,6 +26,7 @@ namespace sgll.net.Core.Entieies
         public int BossTimeout { get; set; }
         public int AttackFree { get; set; }
         public int AttackTimeout { get; set; }
+        public DateTime LastAttackTime { get; set; }
         public int AttackRMCost { get; set; }
     }
 }

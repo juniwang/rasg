@@ -29,8 +29,15 @@ namespace sgll.net.Core.Queue
                 if (UpCall.Data.ForceBoss.IsInChallange && UpCall.Data.ForceBoss.Battle != null)
                 {
                     var battle = UpCall.Data.ForceBoss.Battle;
-                    if (battle.AttackFree > 0 && battle.AttackRMCost == 0)
-                        return 0;
+                    if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
+                    {
+                        if (UpCall.Data.PlayerInfo.SP > 0 || (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju("体力大还丹")))
+                        {
+                            return 0;
+                        }
+                        else
+                            return 1;
+                    }
                 }
 
                 return 1;
@@ -48,15 +55,74 @@ namespace sgll.net.Core.Queue
             if (UpCall.Data.ForceBoss.IsInChallange)
             {
                 var battle = UpCall.Data.ForceBoss.Battle;
-                if (battle.AttackFree > 0 && battle.AttackRMCost == 0)
+                if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
                 {
-                    AttackBossFree();
+                    if (UpCall.Data.PlayerInfo.SP == 0)
+                    {
+                        if (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju("体力大还丹"))
+                        {
+                            UseEntity("体力大还丹");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        AttackBossFree();
+                    }
                 }
             }
         }
 
         private void AttackBossFree()
-        { }
+        {
+            var call = UpCall.Client.Post("/forceBoss/attack", "preview=0&skip_cd=0", UpCall.Data.LoginUser.Cookie);
+            LogDebug(call);
+            if (call.IsSuccess())
+            {
+                try
+                {
+                    dynamic resp = JObject.Parse(call.Item2);
+                    if (resp.errorCode == 0)
+                    {
+                        LogWarn("攻击boss成功");
+                        UpCall.Data.ForceBoss.Battle = new MojoForceBossBattle
+                        {
+                            Left = resp.data.battle.left,
+                            BossTimeout = resp.data.battle.timeout,
+                            AttackFree = resp.data.battle.attack.free,
+                            AttackRMCost = resp.data.battle.attack.cost,
+                            AttackTimeout = resp.data.battle.attack.timeout,
+                            LastAttackTime = DateTime.Now,
+                        };
+                        UpCall.Data.ForceBoss.Battle.AttackTimeout += 2;
+                    }
+                    else
+                    {
+                        LogWarn(resp.errorMsg);
+                        if (resp.errorCode == 230403)
+                        {
+                            UpCall.Data.ForceBoss.Battle.AttackTimeout = 12;
+                            UpCall.Data.ForceBoss.Battle.LastAttackTime = DateTime.Now;
+                        }
+                        else if (resp.errorCode == 10003)
+                        {
+                            //体力不足
+                            UpCall.Data.PlayerInfo.SP = 0;
+                        }
+                        else
+                        {
+                            UpCall.Data.ForceBoss = null;
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogError(e);
+                    UpCall.Data.ForceBoss = null;
+                }
+                UpCall.CallStatusUpdate(this, ChangedType.ForceBoss);
+            }
+        }
 
         private void SyncForceBoss()
         {
@@ -68,14 +134,21 @@ namespace sgll.net.Core.Queue
                 if (resp.errorCode == IN_CHALLENGE_CODE)
                 {
                     LogWarn("刷新势力boss信息：挑战中");
-                    MojoForceBossBattle battle = null;
                     //TODO battle info
                     var boss = new MojoForceBoss
                     {
                         IsInChallange = true,
                         LastSyncTime = DateTime.Now,
                         SyncIntervalSec = 1000 + random.Next(0, 60),
-                        Battle = battle,
+                        Battle = new MojoForceBossBattle
+                        {
+                            Left = resp.data.battle.left,
+                            BossTimeout = resp.data.battle.timeout,
+                            AttackFree = resp.data.battle.attack.free,
+                            AttackRMCost = resp.data.battle.attack.cost,
+                            AttackTimeout = resp.data.battle.attack.timeout,
+                            LastAttackTime = DateTime.Now,
+                        },
                     };
                     UpCall.Data.ForceBoss = boss;
                 }

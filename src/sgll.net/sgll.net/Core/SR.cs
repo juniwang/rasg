@@ -25,6 +25,10 @@ namespace sgll.net.Core
             /// 银币不足时，是否自动使用钱袋、钱箱。用于购买黄巾宝藏时
             /// </summary>
             public static readonly string AutoUseVMBoxForTreasure = "auto_use_vmbox";
+            /// <summary>
+            /// 势力boss，体力不足时自动吃体力丹
+            /// </summary>
+            public static readonly string AutoForceBossSP = "auto_force_boss_sp";
         }
 
         public struct Display

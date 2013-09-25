@@ -77,6 +77,7 @@
     <Compile Include="Core\Entieies\MojoForceBoss.cs" />
     <Compile Include="Core\Entieies\MojoForceZhufushiInfo.cs" />
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
+    <Compile Include="Core\Entieies\MojoMallDaoju.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\ForceBossQueue.cs" />
@@ -90,6 +91,12 @@
     </Compile>
     <Compile Include="DockingPanel\CollectPanel.Designer.cs">
       <DependentUpon>CollectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockingPanel\ForceBossPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\ForceBossPanel.Designer.cs">
+      <DependentUpon>ForceBossPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="DockingPanel\ForceProfilePanel.cs">
       <SubType>Form</SubType>
@@ -219,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\CollectPanel.resx">
       <DependentUpon>CollectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\ForceBossPanel.resx">
+      <DependentUpon>ForceBossPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\ForceProfilePanel.resx">
       <DependentUpon>ForceProfilePanel.cs</DependentUpon>

@@ -15,6 +15,7 @@ namespace sgll.net.Core
 
         public LoginUser LoginUser { get; private set; }
         public MojoPlayer PlayerInfo { get; set; }
+        public MojoMallDaoju Daoju { get; set; }
         public MojoForceTask ForceTasks { get; set; }
         public MojoHuangjinItemList HuangjinTreasure { get; set; }
         public MojoForceInfo ForceProfile { get; set; }
