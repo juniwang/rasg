@@ -22,5 +22,6 @@ namespace sgll.net.Core
         public MojoCollectData CollectData { get; set; }
         public MojoFubenData FubenData { get; set; }
         public MojoMissionData MissionData { get; set; }
+        public MojoForceBoss ForceBoss { get; set; }
     }
 }

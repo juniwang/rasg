@@ -208,6 +208,7 @@ namespace sgll.net.Core.Queue
                     };
                 }
             }
+            UpCall.CallStatusUpdate(this, ChangedType.Mission);
         }
         #endregion
     }

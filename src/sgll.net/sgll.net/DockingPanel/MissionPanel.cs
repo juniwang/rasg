@@ -49,6 +49,9 @@ namespace sgll.net.DockingPanel
                             ListViewItem lvi = listViewEx1.Items.Add(g.Name);
                             lvi.SubItems.Add(g.Level.ToString());
                         }
+                        else
+                            listViewEx1.Items[i].Text = g.Level.ToString();
+
                         if (md.CurTaskGroup != null && md.CurTaskGroup.TaskGroupId == g.TaskGroupId)
                         {
                             listViewEx1.Items[i].BackColor = Color.LightGreen;

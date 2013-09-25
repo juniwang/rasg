@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Core\Entieies\AbstractMojoEntity.cs" />
     <Compile Include="Core\Entieies\MojoCollectData.cs" />
+    <Compile Include="Core\Entieies\MojoForceBoss.cs" />
     <Compile Include="Core\Entieies\MojoForceZhufushiInfo.cs" />
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />

@@ -17,6 +17,7 @@ namespace sgll.net.Core
         Collect = 0x20,
         Fuben = 0x40,
         Mission = 0x80,
+        ForceBoss = 0x100,
         All = 0xffff
     }
 
