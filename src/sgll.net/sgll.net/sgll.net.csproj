@@ -80,6 +80,7 @@
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
     <Compile Include="Core\Entieies\MojoMallDaoju.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />
+    <Compile Include="Core\Entieies\MojoSigninData.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\DaojuQueue.cs" />
     <Compile Include="Core\Queue\ForceBossQueue.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Core\Queue\FubenAwardQueue.cs" />
     <Compile Include="Core\Queue\FubenQueue.cs" />
     <Compile Include="Core\Queue\MissionQueue.cs" />
+    <Compile Include="Core\Queue\SigninQueue.cs" />
     <Compile Include="Core\SConfig.cs" />
     <Compile Include="Core\SGLLLog.cs" />
     <Compile Include="DockingPanel\CollectPanel.cs">
