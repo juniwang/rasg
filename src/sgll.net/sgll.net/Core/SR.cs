@@ -35,5 +35,10 @@ namespace sgll.net.Core
         {
             public static readonly string ColdDownDisable = "--:--:--";
         }
+
+        public struct Daoju
+        {
+            public static readonly string TiliBig = "体力大还丹";
+        }
     }
 }

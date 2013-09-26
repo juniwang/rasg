@@ -43,6 +43,16 @@ namespace sgll.net.DockingPanel
                     this.labelFree.Text = battle.AttackFree.ToString();
                     this.labelLeft.Text = battle.Left.ToString();
                 }
+
+                labelTiliLeft.Text = "";
+                if (UpCall.Data.Daoju != null && UpCall.Data.Daoju.Items != null)
+                {
+                    var tili = UpCall.Data.Daoju.Items.FirstOrDefault(p => p.Name == SR.Daoju.TiliBig);
+                    if (tili != null)
+                    {
+                        labelTiliLeft.Text = string.Format("【{0}数量：{1}】", SR.Daoju.TiliBig, tili.Count);
+                    }
+                }
             }
         }
 
@@ -57,11 +67,23 @@ namespace sgll.net.DockingPanel
             this.startStop1.Qid = SGLLController.QueueGUID.ForceBossQueue;
             this.startStop1.StatusUpdate = ChangedType.ForceBoss;
             this.startStop1.TextControl = this;
+            this.startStop1.OnStart = () =>
+            {
+                SaveParameters();
+            };
+        }
+
+        private void SaveParameters()
+        {
+            var dic = new Dictionary<string, string>();
+            dic.Add(SR.QueueParameterKeys.AutoForceBossSP, this.checkBoxUse.Checked.ToString().ToLower());
+            UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceBossQueue, dic);
         }
 
         private void checkBoxUse_CheckedChanged(object sender, EventArgs e)
         {
-
+            SaveParameters();
+            Display();
         }
     }
 }

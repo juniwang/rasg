@@ -12,6 +12,7 @@ using sgll.net.Core.Entieies;
 using sgll.net.Core.Data;
 using sgll.net.Core.Bridge;
 using System.Threading;
+using sgll.net.Core;
 
 namespace sgll.net
 {
@@ -109,19 +110,24 @@ namespace sgll.net
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
-            //if (e.Button == MouseButtons.Left)
-            //    if (WindowState == FormWindowState.Minimized)
-            //    {
-            //        Visible = true;
-            //        WindowState = FormWindowState.Maximized;
-            //        ShowInTaskbar = true;
-            //    }
-            //    else
-            //    {
-            //        WindowState = FormWindowState.Minimized;
-            //        Visible = false;
-            //        ShowInTaskbar = false;
-            //    }
+            if (!SConfig.GetAppConfig("NotifyIcon", false))
+            {
+                return;
+            }
+
+            if (e.Button == MouseButtons.Left)
+                if (WindowState == FormWindowState.Minimized)
+                {
+                    Visible = true;
+                    WindowState = FormWindowState.Maximized;
+                    ShowInTaskbar = true;
+                }
+                else
+                {
+                    WindowState = FormWindowState.Minimized;
+                    Visible = false;
+                    ShowInTaskbar = false;
+                }
         }
 
         private void AddUserToolStripMenuItem_Click(object sender, EventArgs e)
@@ -234,31 +240,46 @@ namespace sgll.net
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            //if (this.WindowState == FormWindowState.Minimized)
-            //{
-            //    this.Visible = false;
-            //    this.ShowInTaskbar = false;
-            //    this.notifyIcon1.Visible = true;
-            //} 
+            if (!SConfig.GetAppConfig("NotifyIcon", false))
+            {
+                return;
+            }
+
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Visible = false;
+                this.ShowInTaskbar = false;
+                this.notifyIcon1.Visible = true;
+            } 
         }
 
         private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //this.Visible = true;
-            //this.WindowState = FormWindowState.Maximized;
-            //this.ShowInTaskbar = true;
-            //this.Activate();
+            if (!SConfig.GetAppConfig("NotifyIcon", false))
+            {
+                return;
+            }
+
+            this.Visible = true;
+            this.WindowState = FormWindowState.Maximized;
+            this.ShowInTaskbar = true;
+            this.Activate();
         }
 
         private void HideToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //this.Visible = false;
-            //this.ShowInTaskbar = false;
+            if (!SConfig.GetAppConfig("NotifyIcon", false))
+            {
+                return;
+            }
+
+            this.Visible = false;
+            this.ShowInTaskbar = false;
         }
 
         private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //this.Close();
+            this.Close();
         }
     }
 }

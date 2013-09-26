@@ -31,7 +31,7 @@ namespace sgll.net.Core.Queue
                     var battle = UpCall.Data.ForceBoss.Battle;
                     if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
                     {
-                        if (UpCall.Data.PlayerInfo.SP > 0 || (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju("体力大还丹")))
+                        if (UpCall.Data.PlayerInfo.SP > 0 || (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig)))
                         {
                             return 0;
                         }
@@ -59,9 +59,10 @@ namespace sgll.net.Core.Queue
                 {
                     if (UpCall.Data.PlayerInfo.SP == 0)
                     {
-                        if (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju("体力大还丹"))
+                        if (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig))
                         {
-                            UseEntity("体力大还丹");
+                            UseEntity(SR.Daoju.TiliBig);
+                            UpCall.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
                             return;
                         }
                     }
@@ -95,6 +96,12 @@ namespace sgll.net.Core.Queue
                             LastAttackTime = DateTime.Now,
                         };
                         UpCall.Data.ForceBoss.Battle.AttackTimeout += 2;
+                        if (resp.data.player != null)
+                        {
+                            UpCall.Data.PlayerInfo.SP = resp.data.player.sp;
+                            UpCall.Data.PlayerInfo.RM = resp.data.player.rm;
+                            UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                        }
                     }
                     else
                     {

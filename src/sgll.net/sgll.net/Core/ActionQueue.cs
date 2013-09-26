@@ -22,6 +22,7 @@ namespace sgll.net.Core
             public static readonly int FubenAwardQueue = 7;
             public static readonly int MissionQueue = 8;
             public static readonly int ForceBossQueue = 9;
+            public static readonly int DaojuQueue = 10;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
@@ -38,6 +39,7 @@ namespace sgll.net.Core
             QueueTitles.Add(7, "副本领奖");
             QueueTitles.Add(8, "任务");
             QueueTitles.Add(9, "势力Boss");
+            QueueTitles.Add(10, "道具");
         }
 
         private List<IQueue> Queues = new List<IQueue>();
@@ -46,6 +48,7 @@ namespace sgll.net.Core
         {
             Queues.Add(new BasicProfileQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceProfileQueue { UpCall = this, Enabled = true });
+            Queues.Add(new DaojuQueue { UpCall = this, Enabled = true });
             Queues.Add(new FubenAwardQueue { UpCall = this, Enabled = true });
             Queues.Add(new ForceBossQueue { UpCall = this, Enabled = false });
             Queues.Add(new ForceTaskQueue { UpCall = this, Enabled = false });
