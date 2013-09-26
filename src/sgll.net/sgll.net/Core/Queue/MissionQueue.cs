@@ -28,7 +28,7 @@ namespace sgll.net.Core.Queue
                 if (md.CurScenario == null || md.CurTaskGroup == null || md.TaskGroups == null || md.Tasks == null)
                     return 0;
 
-                if ((double)UpCall.Data.PlayerInfo.EP / (double)UpCall.Data.PlayerInfo.Energy >= 0.3)
+                if ((double)UpCall.Data.PlayerInfo.EP / (double)UpCall.Data.PlayerInfo.Energy >= 0.4)
                 {
                     var task = md.Tasks.Where(p => p.Unlock == 1).Where(p => p.Status == 0 || p.Status == 1).FirstOrDefault();
                     if (task != null)

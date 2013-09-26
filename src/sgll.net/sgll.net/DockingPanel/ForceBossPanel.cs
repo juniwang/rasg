@@ -38,8 +38,11 @@ namespace sgll.net.DockingPanel
                 if (UpCall.Data.ForceBoss.Battle != null)
                 {
                     var battle = UpCall.Data.ForceBoss.Battle;
-                    this.labelAttackTimeout.Text = new TimeSpan(0, 0, battle.AttackTimeout).ToString();
-                    this.labelBossTimeOut.Text = new TimeSpan(0, 0, battle.BossTimeout).ToString();
+                    int interval = (int)(DateTime.Now - battle.LastAttackTime).TotalSeconds;
+                    int a_t = battle.AttackTimeout <= interval ? 0 : battle.AttackTimeout - interval;
+                    int b_t = battle.BossTimeout <= interval ? 0 : battle.BossTimeout - interval;
+                    this.labelAttackTimeout.Text = new TimeSpan(0, 0, a_t).ToString();
+                    this.labelBossTimeOut.Text = new TimeSpan(0, 0, b_t).ToString();
                     this.labelFree.Text = battle.AttackFree.ToString();
                     this.labelLeft.Text = battle.Left.ToString();
                 }

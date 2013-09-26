@@ -115,6 +115,7 @@ namespace sgll.net.Core.Queue
                     if (resp.data.player != null)
                     {
                         UpCall.Data.PlayerInfo.EP = resp.data.player.ep;
+                        UpCall.Data.PlayerInfo.SP = resp.data.player.sp;
                         UpCall.Data.PlayerInfo.VM = resp.data.player.vm;
                         UpCall.Data.PlayerInfo.RM = resp.data.player.rm;
                         UpCall.Data.PlayerInfo.Exp = resp.data.player.xp;

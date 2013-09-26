@@ -40,6 +40,7 @@ namespace sgll.net.Core
             QueueTitles.Add(7, "副本领奖");
             QueueTitles.Add(8, "任务");
             QueueTitles.Add(9, "势力Boss");
+            QueueTitles.Add(10, "道具");
             QueueTitles.Add(11, "签到");
         }
 

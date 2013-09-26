@@ -40,9 +40,9 @@
             this.labelLeft = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.labelTiliLeft = new System.Windows.Forms.Label();
             this.checkBoxUse = new System.Windows.Forms.CheckBox();
             this.startStop1 = new sgll.net.StartStop();
-            this.labelTiliLeft = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -178,11 +178,21 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             // 
+            // labelTiliLeft
+            // 
+            this.labelTiliLeft.AutoSize = true;
+            this.labelTiliLeft.ForeColor = System.Drawing.Color.OrangeRed;
+            this.labelTiliLeft.Location = new System.Drawing.Point(121, 22);
+            this.labelTiliLeft.Name = "labelTiliLeft";
+            this.labelTiliLeft.Size = new System.Drawing.Size(0, 12);
+            this.labelTiliLeft.TabIndex = 2;
+            // 
             // checkBoxUse
             // 
             this.checkBoxUse.AutoSize = true;
             this.checkBoxUse.Checked = true;
             this.checkBoxUse.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxUse.ForeColor = System.Drawing.SystemColors.ControlText;
             this.checkBoxUse.Location = new System.Drawing.Point(7, 21);
             this.checkBoxUse.Name = "checkBoxUse";
             this.checkBoxUse.Size = new System.Drawing.Size(108, 16);
@@ -203,15 +213,6 @@
             this.startStop1.StatusUpdate = sgll.net.Core.ChangedType.None;
             this.startStop1.TabIndex = 0;
             this.startStop1.TextControl = null;
-            // 
-            // labelTiliLeft
-            // 
-            this.labelTiliLeft.AutoSize = true;
-            this.labelTiliLeft.ForeColor = System.Drawing.Color.LightPink;
-            this.labelTiliLeft.Location = new System.Drawing.Point(121, 22);
-            this.labelTiliLeft.Name = "labelTiliLeft";
-            this.labelTiliLeft.Size = new System.Drawing.Size(0, 12);
-            this.labelTiliLeft.TabIndex = 2;
             // 
             // ForceBossPanel
             // 
