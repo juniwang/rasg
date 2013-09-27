@@ -162,7 +162,6 @@ namespace sgll.net.Core
             if (feature == null)
             {
                 feature = new SFeature(Qid);
-                feature.Name = SGLLController.QueueTitles[Qid];
                 Data.LoginUser.Features.Add(feature);
             }
             return feature;

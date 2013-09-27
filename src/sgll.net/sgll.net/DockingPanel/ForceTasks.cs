@@ -13,6 +13,7 @@ namespace sgll.net.DockingPanel
 {
     public partial class ForceTasks : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
 
         public ForceTasks()
@@ -20,9 +21,21 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
+        }
+
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
+            this.checkBoxRefresh.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.ForceTaskQueue, SR.QueueParameterKeys.AutoAcceptRefresh, "true"));
+
             var force = UpCall.Data.ForceTasks;
             if (force != null)
             {
@@ -81,7 +94,7 @@ namespace sgll.net.DockingPanel
                                 lvi.BackColor = Color.White;
                             else
                             {
-                                lvi.SubItems[2].Text = SR.Display.ColdDownDisable; 
+                                lvi.SubItems[2].Text = SR.Display.ColdDownDisable;
                                 lvi.BackColor = Color.LightGreen;
                             }
                         }
@@ -103,7 +116,7 @@ namespace sgll.net.DockingPanel
 
         private void ForceTasks_Load(object sender, EventArgs e)
         {
-            InitStartStop();
+            DisplayStartStop();
         }
 
         private void InitStartStop()

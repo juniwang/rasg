@@ -14,6 +14,7 @@ namespace sgll.net.DockingPanel
 {
     public partial class ForceZhufushiPanel : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
 
         public ForceZhufushiPanel()
@@ -21,9 +22,19 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
+        }
+
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
             if (UpCall.Data.ForceZhufushi != null)
             {
                 var t = UpCall.Data.ForceZhufushi;
@@ -35,7 +46,7 @@ namespace sgll.net.DockingPanel
         
         private void ForceZhufushiPanel_Load(object sender, EventArgs e)
         {
-            InitStartStop();
+            DisplayStartStop();
         }
 
         private void InitStartStop()

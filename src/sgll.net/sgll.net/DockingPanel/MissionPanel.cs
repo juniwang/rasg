@@ -14,6 +14,7 @@ namespace sgll.net.DockingPanel
 {
     public partial class MissionPanel : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
         private MojoMissionScenario scenario = null;
         private MojoMissionTaskGroup group = null;
@@ -23,9 +24,19 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
+        }
+
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
 
             if (UpCall.Data != null && UpCall.Data.MissionData != null)
             {
@@ -102,7 +113,7 @@ namespace sgll.net.DockingPanel
 
         private void MissionPanel_Load(object sender, EventArgs e)
         {
-            InitStartStop();
+            DisplayStartStop();
         }
 
         private void InitStartStop()

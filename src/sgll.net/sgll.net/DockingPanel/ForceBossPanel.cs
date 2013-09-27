@@ -13,6 +13,7 @@ namespace sgll.net.DockingPanel
 {
     public partial class ForceBossPanel : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
 
         public ForceBossPanel()
@@ -20,9 +21,33 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
+        private void InitStartStop()
+        {
+            this.startStop1.SGLL = UpCall.SGLL;
+            this.startStop1.Qid = SGLLController.QueueGUID.ForceBossQueue;
+            this.startStop1.StatusUpdate = ChangedType.ForceBoss;
+            this.startStop1.TextControl = this;
+            this.startStop1.OnStart = () =>
+            {
+                SaveParameters();
+            };
+        }
+
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
+        }
+
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
+            this.checkBoxUse.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.ForceBossQueue, SR.QueueParameterKeys.AutoForceBossSP, "true"));
+
             if (UpCall.Data.ForceBoss == null || !UpCall.Data.ForceBoss.IsInChallange)
             {
                 this.groupBox1.Visible = true;
@@ -61,19 +86,7 @@ namespace sgll.net.DockingPanel
 
         private void ForceBossPanel_Load(object sender, EventArgs e)
         {
-            InitStartStop();
-        }
-
-        private void InitStartStop()
-        {
-            this.startStop1.SGLL = UpCall.SGLL;
-            this.startStop1.Qid = SGLLController.QueueGUID.ForceBossQueue;
-            this.startStop1.StatusUpdate = ChangedType.ForceBoss;
-            this.startStop1.TextControl = this;
-            this.startStop1.OnStart = () =>
-            {
-                SaveParameters();
-            };
+            DisplayStartStop();
         }
 
         private void SaveParameters()

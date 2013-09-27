@@ -14,7 +14,18 @@ namespace sgll.net.DockingPanel
 {
     public partial class FubenPanel : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
+
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
+        }
 
         public FubenPanel()
         {
@@ -23,7 +34,7 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
             //总览
             if (UpCall.Data.FubenData != null && UpCall.Data.FubenData.Fubens != null)
             {
@@ -109,7 +120,7 @@ namespace sgll.net.DockingPanel
 
         private void FubenPanel_Load(object sender, EventArgs e)
         {
-            InitStartStop();
+            DisplayStartStop();
         }
 
         private void InitStartStop()

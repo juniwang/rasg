@@ -14,11 +14,22 @@ namespace sgll.net.DockingPanel
 {
     public partial class BuyHuangjinTreasure : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
 
         public BuyHuangjinTreasure()
         {
             InitializeComponent();
+        }
+
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
         }
 
         private void InitStartStop()
@@ -42,7 +53,7 @@ namespace sgll.net.DockingPanel
 
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
             if (UpCall.Data.LoginUser.Features != null)
             {
                 var feature = UpCall.Data.LoginUser.Features.SingleOrDefault(p => p.TaskId == SGLLController.QueueGUID.HuangjinTreasureQueue);
@@ -88,7 +99,7 @@ namespace sgll.net.DockingPanel
 
         private void BuyHuangjinTreasure_Load(object sender, EventArgs e)
         {
-            InitStartStop();
+            DisplayStartStop();
         }
     }
 }

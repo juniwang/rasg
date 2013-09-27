@@ -18,7 +18,13 @@ namespace sgll.net.Core.Entieies
     public class SFeature
     {
         [JsonIgnore]
-        public string Name { get; set; }
+        public string Name
+        {
+            get
+            {
+                return SGLLController.QueueTitles[TaskId];
+            }
+        }
         public bool Enabled { get; set; }
         public int TaskId { get; set; }
         public Dictionary<string, string> Parameters { get; set; }

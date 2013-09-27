@@ -13,6 +13,7 @@ namespace sgll.net.DockingPanel
 {
     public partial class CollectPanel : DockContent
     {
+        private bool startStopInited = false;
         public MainFrame UpCall { get; set; }
 
         public CollectPanel()
@@ -20,9 +21,19 @@ namespace sgll.net.DockingPanel
             InitializeComponent();
         }
 
+        private void DisplayStartStop()
+        {
+            if (!startStopInited)
+            {
+                InitStartStop();
+                startStopInited = true;
+            }
+            this.startStop1.Display();
+        }
+
         public void Display()
         {
-            this.startStop1.Display();
+            DisplayStartStop();
             if (UpCall.Data.CollectData != null && UpCall.Data.CollectData.Items != null)
             {
                 if (this.listViewEx1.Items.Count == 0)
@@ -71,7 +82,7 @@ namespace sgll.net.DockingPanel
 
         private void CollectPanel_Load(object sender, EventArgs e)
         {
-            InitStartStop();
+            DisplayStartStop();
         }
 
         private void InitStartStop()

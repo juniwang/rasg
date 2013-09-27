@@ -64,9 +64,9 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(77, 12);
+            this.label1.Size = new System.Drawing.Size(83, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "未进行势力战";
+            this.label1.Text = "未开启boss战 ";
             // 
             // groupBox2
             // 

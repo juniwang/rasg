@@ -35,5 +35,22 @@ namespace sgll.net.Core.Entieies
             }
             return str;
         }
+
+        public SFeature GetFeature(int id)
+        {
+            if (Features == null)
+                return null;
+            return Features.FirstOrDefault(p => p.TaskId == id);
+        }
+
+        public string GetParameter(int id, string key, string def)
+        {
+            var feature = GetFeature(id);
+            if (feature != null && feature.Parameters != null && feature.Parameters.ContainsKey(key))
+            {
+                return feature.Parameters[key];
+            }
+            return def;
+        }
     }
 }
