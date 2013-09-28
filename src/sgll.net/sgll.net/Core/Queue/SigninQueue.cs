@@ -109,12 +109,13 @@ namespace sgll.net.Core.Queue
             if (resp != null && resp.errorCode == 0)
             {
                 LogWarn("查询签到状态");
-                SGLL.Data.SignInData = new MojoSigninData
-                {
-                    LastSyncTime = DateTime.Now,
-                    SyncIntervalSec = 6 * 60 * 60 + random.Next(0, 3600),
-                    Status = resp.data.check_in != null ? SignStatus.NeedSignin : SignStatus.Completed,
-                };
+                if (Data.SignInData == null)
+                    Data.SignInData = new MojoSigninData();
+
+                Data.SignInData.LastSyncTime = DateTime.Now;
+                Data.SignInData.SyncIntervalSec = 6 * 60 * 60 + random.Next(0, 3600);
+                Data.SignInData.Status = resp.data.check_in != null ? SignStatus.NeedSignin : SignStatus.Completed;
+
                 SGLL.CallStatusUpdate(this, ChangedType.SignIn);
             }
         }
