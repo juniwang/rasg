@@ -22,10 +22,10 @@ namespace sgll.net.Core.Queue
             get
             {
                 //初始化
-                if (UpCall.Data.CollectData == null || UpCall.Data.CollectData.Items == null)
+                if (SGLL.Data.CollectData == null || SGLL.Data.CollectData.Items == null)
                     return 0;
 
-                foreach (var item in UpCall.Data.CollectData.Items)
+                foreach (var item in SGLL.Data.CollectData.Items)
                 {
                     if (item.IsCollecting)
                     {
@@ -51,13 +51,13 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (UpCall.Data.CollectData == null || UpCall.Data.CollectData.Items == null)
+            if (SGLL.Data.CollectData == null || SGLL.Data.CollectData.Items == null)
             {
                 RefreshCollectData();
                 return;
             }
 
-            foreach (var item in UpCall.Data.CollectData.Items)
+            foreach (var item in SGLL.Data.CollectData.Items)
             {
                 if (item.IsCollecting)
                 {
@@ -87,7 +87,7 @@ namespace sgll.net.Core.Queue
         #region 收宝
         private void Collect(MojoCollectItem item)
         {
-            var call = UpCall.Client.Post("/collect/composite", "id=" + item.Id, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/collect/composite", "id=" + item.Id, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
 
             if (call.Item1)
@@ -106,7 +106,7 @@ namespace sgll.net.Core.Queue
                         frags.Add(new_f);
                     }
                     item.Fragments = frags;
-                    UpCall.CallStatusUpdate(this, ChangedType.Collect);
+                    SGLL.CallStatusUpdate(this, ChangedType.Collect);
                 }
                 else
                 {
@@ -122,7 +122,7 @@ namespace sgll.net.Core.Queue
         #region 合成
         private void CollectStart(MojoCollectItem item)
         {
-            var call = UpCall.Client.Post("/collect/compositestart", "id=" + item.Id, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/collect/compositestart", "id=" + item.Id, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
 
             if (call.Item1)
@@ -133,7 +133,7 @@ namespace sgll.net.Core.Queue
                     LogWarn("开始合成：" + item.Name);
                     item.LastSyncTime = DateTime.Now;
                     item.AwayTime = 3600;
-                    UpCall.CallStatusUpdate(this, ChangedType.Collect);
+                    SGLL.CallStatusUpdate(this, ChangedType.Collect);
                 }
                 else
                 {
@@ -149,7 +149,7 @@ namespace sgll.net.Core.Queue
         #region 刷新碎片
         private void RefreshCollectData()
         {
-            var call = UpCall.Client.Post("/collect", "start=0&count=10&msgid=", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/collect", "start=0&count=10&msgid=", SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
 
             if (call.Item1)
@@ -196,11 +196,11 @@ namespace sgll.net.Core.Queue
                     }
                     #endregion
 
-                    UpCall.Data.CollectData = new MojoCollectData
+                    SGLL.Data.CollectData = new MojoCollectData
                     {
                         Items = items,
                     };
-                    UpCall.CallStatusUpdate(this, ChangedType.Collect);
+                    SGLL.CallStatusUpdate(this, ChangedType.Collect);
                 }
             }
         } 

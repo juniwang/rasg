@@ -19,12 +19,12 @@ namespace sgll.net.Core.Queue
             get
             {
                 //初始化副本列表
-                if (UpCall.Data.FubenData == null || UpCall.Data.FubenData.Fubens == null || DateTime.Now > UpCall.Data.FubenData.NextSyncTime)
+                if (SGLL.Data.FubenData == null || SGLL.Data.FubenData.Fubens == null || DateTime.Now > SGLL.Data.FubenData.NextSyncTime)
                 {
                     return 0;
                 }
 
-                var fubens = UpCall.Data.FubenData.Fubens;
+                var fubens = SGLL.Data.FubenData.Fubens;
                 foreach (var fuben in fubens)
                 {
                     //等级不足，副本锁定中
@@ -72,13 +72,13 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (UpCall.Data.FubenData == null || UpCall.Data.FubenData.Fubens == null || DateTime.Now > UpCall.Data.FubenData.NextSyncTime)
+            if (SGLL.Data.FubenData == null || SGLL.Data.FubenData.Fubens == null || DateTime.Now > SGLL.Data.FubenData.NextSyncTime)
             {
                 RefreshFubenList();
                 return;
             }
 
-            foreach (var fb in UpCall.Data.FubenData.Fubens)
+            foreach (var fb in SGLL.Data.FubenData.Fubens)
             {
                 if (fb.Unlock == 0) continue;
                 if (fb.Status == 0)
@@ -121,7 +121,7 @@ namespace sgll.net.Core.Queue
         private void DoTask(MojoFuben fuben, MojoFubenTask task)
         {
             string fubenName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, task.Name);
-            var call = UpCall.Client.Post("/fuben/do", "id=" + task.Id, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/fuben/do", "id=" + task.Id, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -148,7 +148,7 @@ namespace sgll.net.Core.Queue
                         //关底大boss不领奖
                         if (fuben.CurrentGroup.Order != fuben.Groups.Count)
                         {
-                            var queue = UpCall.QueryQueue(SGLLController.QueueGUID.FubenAwardQueue) as FubenAwardQueue;
+                            var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenAwardQueue) as FubenAwardQueue;
                             if (queue != null)
                                 queue.AwardsPre.Add(task.Id, fubenName);
                         }
@@ -175,23 +175,23 @@ namespace sgll.net.Core.Queue
                             fuben.Tasks[4].Status = 1;
                         }
                     }
-                    UpCall.CallStatusUpdate(this, ChangedType.Fuben);
+                    SGLL.CallStatusUpdate(this, ChangedType.Fuben);
 
                     //更新用户
                     if (resp.data.player != null)
                     {
                         try
                         {
-                            UpCall.Data.PlayerInfo.EP = resp.data.player.ep;
-                            UpCall.Data.PlayerInfo.SP = resp.data.player.sp;
-                            UpCall.Data.PlayerInfo.VM = resp.data.player.vm;
-                            UpCall.Data.PlayerInfo.RM = resp.data.player.rm;
-                            UpCall.Data.PlayerInfo.Exp = resp.data.player.xp;
-                            UpCall.Data.PlayerInfo.Level = resp.data.player.level;
-                            UpCall.Data.PlayerInfo.Energy = resp.data.player.energy;
-                            UpCall.Data.PlayerInfo.Stamima = resp.data.player.stamina;
-                            UpCall.Data.PlayerInfo.Grain = resp.data.player.grain;
-                            UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                            SGLL.Data.PlayerInfo.EP = resp.data.player.ep;
+                            SGLL.Data.PlayerInfo.SP = resp.data.player.sp;
+                            SGLL.Data.PlayerInfo.VM = resp.data.player.vm;
+                            SGLL.Data.PlayerInfo.RM = resp.data.player.rm;
+                            SGLL.Data.PlayerInfo.Exp = resp.data.player.xp;
+                            SGLL.Data.PlayerInfo.Level = resp.data.player.level;
+                            SGLL.Data.PlayerInfo.Energy = resp.data.player.energy;
+                            SGLL.Data.PlayerInfo.Stamima = resp.data.player.stamina;
+                            SGLL.Data.PlayerInfo.Grain = resp.data.player.grain;
+                            SGLL.CallStatusUpdate(this, ChangedType.Profile);
                         }
                         catch (Exception eee)
                         {
@@ -202,7 +202,7 @@ namespace sgll.net.Core.Queue
                 else if (resp.errorCode == 160003)
                 {
                     LogError(fubenName + "失败：卡牌容量不足");
-                    var queue = UpCall.QueryQueue(SGLLController.QueueGUID.FubenQueue);
+                    var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenQueue);
                     if (queue != null) queue.Enabled = false;
                 }
                 else
@@ -217,7 +217,7 @@ namespace sgll.net.Core.Queue
 
         private void RefreshTasks(MojoFuben fuben)
         {
-            var call = UpCall.Client.Post("/fuben/fbTasks", "fuben_id=" + fuben.Id, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/fuben/fbTasks", "fuben_id=" + fuben.Id, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -263,7 +263,7 @@ namespace sgll.net.Core.Queue
                         tasks.Add(new_t);
                     }
                     fuben.Tasks = tasks;
-                    UpCall.CallStatusUpdate(this, ChangedType.Fuben);
+                    SGLL.CallStatusUpdate(this, ChangedType.Fuben);
                 }
             }
         }
@@ -272,7 +272,7 @@ namespace sgll.net.Core.Queue
         private void ResetFuben(MojoFuben fuben)
         {
             var contents = string.Format("fuben_id={0}&fuben_refresh=1", fuben.Id);
-            var call = UpCall.Client.Post("/fuben/fbTasks", contents, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/fuben/fbTasks", contents, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -281,7 +281,7 @@ namespace sgll.net.Core.Queue
                 {
                     LogWarn(fuben.Name + "重置成功");
                     fuben.Status = 1;
-                    UpCall.CallStatusUpdate(this, ChangedType.Fuben);
+                    SGLL.CallStatusUpdate(this, ChangedType.Fuben);
                 }
             }
         }
@@ -289,7 +289,7 @@ namespace sgll.net.Core.Queue
 
         private void RefreshFubenList()
         {
-            var call = UpCall.Client.Post("/fuben/fubens", "", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/fuben/fubens", "", SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -312,12 +312,12 @@ namespace sgll.net.Core.Queue
                         };
                         fubens.Add(fd);
                     }
-                    UpCall.Data.FubenData = new MojoFubenData
+                    SGLL.Data.FubenData = new MojoFubenData
                     {
                         Fubens = fubens,
                         NextSyncTime = DateTime.Now.AddHours(1).AddMinutes(new Random().Next(0, 30)),
                     };
-                    UpCall.CallStatusUpdate(this, ChangedType.Fuben);
+                    SGLL.CallStatusUpdate(this, ChangedType.Fuben);
                 }
             }
         }

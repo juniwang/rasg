@@ -23,15 +23,15 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (UpCall.Data.ForceBoss == null || UpCall.Data.ForceBoss.NeedSync)
+                if (SGLL.Data.ForceBoss == null || SGLL.Data.ForceBoss.NeedSync)
                     return 0;
 
-                if (UpCall.Data.ForceBoss.IsInChallange && UpCall.Data.ForceBoss.Battle != null)
+                if (SGLL.Data.ForceBoss.IsInChallange && SGLL.Data.ForceBoss.Battle != null)
                 {
-                    var battle = UpCall.Data.ForceBoss.Battle;
+                    var battle = SGLL.Data.ForceBoss.Battle;
                     if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
                     {
-                        if (UpCall.Data.PlayerInfo.SP > 0 || (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig)))
+                        if (SGLL.Data.PlayerInfo.SP > 0 || (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig)))
                         {
                             return 0;
                         }
@@ -46,23 +46,23 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (UpCall.Data.ForceBoss == null || UpCall.Data.ForceBoss.NeedSync)
+            if (SGLL.Data.ForceBoss == null || SGLL.Data.ForceBoss.NeedSync)
             {
                 SyncForceBoss();
                 return;
             }
 
-            if (UpCall.Data.ForceBoss.IsInChallange)
+            if (SGLL.Data.ForceBoss.IsInChallange)
             {
-                var battle = UpCall.Data.ForceBoss.Battle;
+                var battle = SGLL.Data.ForceBoss.Battle;
                 if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
                 {
-                    if (UpCall.Data.PlayerInfo.SP == 0)
+                    if (SGLL.Data.PlayerInfo.SP == 0)
                     {
                         if (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig))
                         {
                             UseEntity(SR.Daoju.TiliBig);
-                            UpCall.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
+                            SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
                             return;
                         }
                     }
@@ -76,7 +76,7 @@ namespace sgll.net.Core.Queue
 
         private void AttackBossFree()
         {
-            var call = UpCall.Client.Post("/forceBoss/attack", "preview=0&skip_cd=0", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/forceBoss/attack", "preview=0&skip_cd=0", SGLL.Data.LoginUser.Cookie);
             LogDebug(call);
             if (call.IsSuccess())
             {
@@ -86,7 +86,7 @@ namespace sgll.net.Core.Queue
                     if (resp.errorCode == 0)
                     {
                         LogWarn("攻击boss成功");
-                        UpCall.Data.ForceBoss.Battle = new MojoForceBossBattle
+                        SGLL.Data.ForceBoss.Battle = new MojoForceBossBattle
                         {
                             Left = resp.data.battle.left,
                             BossTimeout = resp.data.battle.timeout,
@@ -95,45 +95,46 @@ namespace sgll.net.Core.Queue
                             AttackTimeout = resp.data.battle.attack.timeout,
                             LastAttackTime = DateTime.Now,
                         };
-                        UpCall.Data.ForceBoss.Battle.AttackTimeout += 2;
+                        SGLL.Data.ForceBoss.Battle.AttackTimeout += 2;
+                        SGLL.Data.ForceBoss.LastSyncTime = DateTime.Now;
                         if (resp.data.player != null)
                         {
-                            UpCall.Data.PlayerInfo.SP = resp.data.player.sp;
-                            UpCall.Data.PlayerInfo.RM = resp.data.player.rm;
-                            UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                            SGLL.Data.PlayerInfo.SP = resp.data.player.sp;
+                            SGLL.Data.PlayerInfo.RM = resp.data.player.rm;
+                            SGLL.CallStatusUpdate(this, ChangedType.Profile);
                         }
                     }
                     else
                     {
-                        LogWarn(resp.errorMsg);
+                        LogWarn((string)resp.errorMsg);
                         if (resp.errorCode == 230403)
                         {
-                            UpCall.Data.ForceBoss.Battle.AttackTimeout = 12;
-                            UpCall.Data.ForceBoss.Battle.LastAttackTime = DateTime.Now;
+                            SGLL.Data.ForceBoss.Battle.AttackTimeout = 12;
+                            SGLL.Data.ForceBoss.Battle.LastAttackTime = DateTime.Now;
                         }
                         else if (resp.errorCode == 10003)
                         {
                             //体力不足
-                            UpCall.Data.PlayerInfo.SP = 0;
+                            SGLL.Data.PlayerInfo.SP = 0;
                         }
                         else
                         {
-                            UpCall.Data.ForceBoss = null;
+                            SGLL.Data.ForceBoss = null;
                         }
                     }
                 }
                 catch (Exception e)
                 {
                     LogError(e);
-                    UpCall.Data.ForceBoss = null;
+                    SGLL.Data.ForceBoss = null;
                 }
-                UpCall.CallStatusUpdate(this, ChangedType.ForceBoss);
+                SGLL.CallStatusUpdate(this, ChangedType.ForceBoss);
             }
         }
 
         private void SyncForceBoss()
         {
-            var call = UpCall.Client.Post("/forceBoss/index", "", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/forceBoss/index", "", SGLL.Data.LoginUser.Cookie);
             LogDebug(call);
             if (call.IsSuccess())
             {
@@ -146,7 +147,7 @@ namespace sgll.net.Core.Queue
                     {
                         IsInChallange = true,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 1000 + random.Next(0, 60),
+                        SyncIntervalSec = 60,
                         Battle = new MojoForceBossBattle
                         {
                             Left = resp.data.battle.left,
@@ -157,7 +158,7 @@ namespace sgll.net.Core.Queue
                             LastAttackTime = DateTime.Now,
                         },
                     };
-                    UpCall.Data.ForceBoss = boss;
+                    SGLL.Data.ForceBoss = boss;
                 }
                 else
                 {
@@ -166,12 +167,12 @@ namespace sgll.net.Core.Queue
                     {
                         IsInChallange = false,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 300 + random.Next(0, 60),
+                        SyncIntervalSec = 600 + random.Next(0, 60),
                         Battle = null,
                     };
-                    UpCall.Data.ForceBoss = boss;
+                    SGLL.Data.ForceBoss = boss;
                 }
-                UpCall.CallStatusUpdate(this, ChangedType.ForceBoss);
+                SGLL.CallStatusUpdate(this, ChangedType.ForceBoss);
             }
         }
     }

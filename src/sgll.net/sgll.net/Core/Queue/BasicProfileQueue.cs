@@ -13,10 +13,10 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (UpCall.Data.PlayerInfo == null || UpCall.Data.PlayerInfo.CardIndex == null)
+                if (SGLL.Data.PlayerInfo == null || SGLL.Data.PlayerInfo.CardIndex == null)
                     return 0;
 
-                var p = UpCall.Data.PlayerInfo;
+                var p = SGLL.Data.PlayerInfo;
                 if (p.NeedSync || p.CardIndex.NeedSync)
                     return 0;
 
@@ -26,7 +26,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            var p = UpCall.Data.PlayerInfo;
+            var p = SGLL.Data.PlayerInfo;
             if (p == null || p.NeedSync)
             {
                 SyncPlayerInfo();
@@ -43,7 +43,7 @@ namespace sgll.net.Core.Queue
             /*
              * {"errorCode":0,"errorMsg":"","data":{"entityCardCount":647,"entityMaxCapacity":900}}
              */
-            var call = UpCall.Client.Post("/entity/index", "", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/entity/index", "", SGLL.Data.LoginUser.Cookie);
             LogDebug(call);
             if (call.IsSuccess())
             {
@@ -57,15 +57,15 @@ namespace sgll.net.Core.Queue
                         CardCapacity = resp.data.entityMaxCapacity,
                         LastSyncTime = DateTime.Now,
                     };
-                    UpCall.Data.PlayerInfo.CardIndex = new_ci;
-                    UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                    SGLL.Data.PlayerInfo.CardIndex = new_ci;
+                    SGLL.CallStatusUpdate(this, ChangedType.Profile);
                 }
             }
         }
 
         private void SyncPlayerInfo()
         {
-            var resp = UpCall.Client.Post("/player/profile", string.Empty, UpCall.Data.LoginUser.Cookie);
+            var resp = SGLL.Client.Post("/player/profile", string.Empty, SGLL.Data.LoginUser.Cookie);
             LogDebug(resp.ToLogString());
             if (resp.IsSuccess())
             {
@@ -82,7 +82,7 @@ namespace sgll.net.Core.Queue
                         Level = profile.data.level,
                         LevelExp = profile.data.next_xp,
                         NickName = profile.data.name,
-                        Name = UpCall.Data.LoginUser.Username,
+                        Name = SGLL.Data.LoginUser.Username,
                         RM = profile.data.rm,
                         SP = profile.data.sp,
                         Stamima = profile.data.stamina,
@@ -90,9 +90,9 @@ namespace sgll.net.Core.Queue
                         LastSyncTime = DateTime.Now,
                         SyncIntervalSec = 900 + random.Next(0, 60),
                     };
-                    UpCall.Data.PlayerInfo = new_p;
+                    SGLL.Data.PlayerInfo = new_p;
 
-                    UpCall.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.Profile });
+                    SGLL.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.Profile });
                 }
             }
         }

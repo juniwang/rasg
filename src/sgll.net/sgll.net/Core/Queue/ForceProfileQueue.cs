@@ -28,7 +28,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            var resp = UpCall.Client.Post("/force/index", string.Empty, UpCall.Data.LoginUser.Cookie);
+            var resp = SGLL.Client.Post("/force/index", string.Empty, SGLL.Data.LoginUser.Cookie);
             LogDebug(resp.ToLogString());
 
             if (resp.Item1)
@@ -60,8 +60,8 @@ namespace sgll.net.Core.Queue
                         third_class_officer_num = fi.third_class_officer_num,
                         third_class_officer_num_limit = fi.third_class_officer_num_limit,
                     };
-                    UpCall.Data.ForceProfile = local;
-                    UpCall.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.ForceProfile });
+                    SGLL.Data.ForceProfile = local;
+                    SGLL.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.ForceProfile });
                 }
                 else
                 {

@@ -10,7 +10,7 @@ namespace sgll.net.Core.Queue
         /// <summary>
         /// UpCall for callback
         /// </summary>
-        SGLLController UpCall { get; set; }
+        SGLLController SGLL { get; set; }
 
         /// <summary>
         /// If this queue should be delete

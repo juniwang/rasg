@@ -54,7 +54,7 @@ namespace sgll.net.Core.Queue
             var task_id = Awards.Keys.First();
             var awardInfo = Awards[task_id];
             var contents = string.Format("id={0}&award_id={1}&status=1", task_id, awardInfo.AwardId);
-            var call = UpCall.Client.Post("/fuben/openAward", contents, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/fuben/openAward", contents, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -79,7 +79,7 @@ namespace sgll.net.Core.Queue
         private void GetAwardPre()
         {
             var task_id = AwardsPre.Keys.First();
-            var call = UpCall.Client.Post("/fuben/getAward", "id=" + task_id, UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/fuben/getAward", "id=" + task_id, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {

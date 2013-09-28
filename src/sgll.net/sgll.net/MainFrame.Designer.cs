@@ -174,6 +174,7 @@
             // 
             // richTextBoxLog
             // 
+            this.richTextBoxLog.ContextMenuStrip = this.contextMenuStrip1;
             this.richTextBoxLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxLog.HideSelection = false;
             this.richTextBoxLog.Location = new System.Drawing.Point(3, 46);

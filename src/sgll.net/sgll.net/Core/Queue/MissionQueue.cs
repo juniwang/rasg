@@ -18,17 +18,17 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (UpCall.Data.MissionData == null)
+                if (SGLL.Data.MissionData == null)
                     return 0;
 
-                if (UpCall.Data.PlayerInfo == null)
+                if (SGLL.Data.PlayerInfo == null)
                     return 1;
 
-                var md = UpCall.Data.MissionData;
+                var md = SGLL.Data.MissionData;
                 if (md.CurScenario == null || md.CurTaskGroup == null || md.TaskGroups == null || md.Tasks == null)
                     return 0;
 
-                if ((double)UpCall.Data.PlayerInfo.EP / (double)UpCall.Data.PlayerInfo.Energy >= 0.4)
+                if ((double)SGLL.Data.PlayerInfo.EP / (double)SGLL.Data.PlayerInfo.Energy >= 0.4)
                 {
                     var task = md.Tasks.Where(p => p.Unlock == 1).Where(p => p.Status == 0 || p.Status == 1).FirstOrDefault();
                     if (task != null)
@@ -45,13 +45,13 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (UpCall.Data.MissionData == null)
+            if (SGLL.Data.MissionData == null)
             {
                 GetMissionData();
                 return;
             }
 
-            var md = UpCall.Data.MissionData;
+            var md = SGLL.Data.MissionData;
             if (md.CurScenario == null || md.CurTaskGroup == null || md.TaskGroups == null || md.Tasks == null)
             {
                 GetMissionData();
@@ -59,21 +59,21 @@ namespace sgll.net.Core.Queue
             }
 
             var task = md.Tasks.Where(p => p.Unlock == 1).Where(p => p.Status == 0 || p.Status == 1).FirstOrDefault();
-            if (task != null && task.EP <= UpCall.Data.PlayerInfo.EP)
+            if (task != null && task.EP <= SGLL.Data.PlayerInfo.EP)
                 DoMission(task);
         }
 
         #region DoMission
         private void DoMission(MojoMissionTask task)
         {
-            var call = UpCall.Client.Post("/mission/do", string.Format("id={0}&preview=0", task.Id), UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/mission/do", string.Format("id={0}&preview=0", task.Id), SGLL.Data.LoginUser.Cookie);
             LogDebug(call);
             if (call.IsSuccess())
             {
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    string msg = "任务" + task.Name + "执行成功";
+                    string msg = "任务[" + task.Name + "]执行成功";
                     if (resp.data.award != null && resp.data.award.bonus != null && resp.data.award.bonus.entities != null)
                     {
                         msg += ",获得：";
@@ -87,37 +87,37 @@ namespace sgll.net.Core.Queue
 
                     task.Count = resp.data.task.count;
                     task.Status = resp.data.task.status;
-                    UpCall.CallStatusUpdate(this, ChangedType.Mission);
+                    SGLL.CallStatusUpdate(this, ChangedType.Mission);
 
                     var player = resp.data.player;
-                    if (player != null && UpCall.Data.PlayerInfo != null)
+                    if (player != null && SGLL.Data.PlayerInfo != null)
                     {
-                        UpCall.Data.PlayerInfo.EP = player.ep;
-                        UpCall.Data.PlayerInfo.SP = player.sp;
-                        UpCall.Data.PlayerInfo.VM = player.vm;
-                        UpCall.Data.PlayerInfo.RM = player.rm;
-                        UpCall.Data.PlayerInfo.Exp = player.xp;
-                        UpCall.Data.PlayerInfo.LevelExp = player.next_xp;
-                        UpCall.Data.PlayerInfo.Level = player.level;
-                        UpCall.Data.PlayerInfo.Energy = player.energy;
-                        UpCall.Data.PlayerInfo.Stamima = player.stamina;
-                        UpCall.Data.PlayerInfo.Grain = player.grain;
+                        SGLL.Data.PlayerInfo.EP = player.ep;
+                        SGLL.Data.PlayerInfo.SP = player.sp;
+                        SGLL.Data.PlayerInfo.VM = player.vm;
+                        SGLL.Data.PlayerInfo.RM = player.rm;
+                        SGLL.Data.PlayerInfo.Exp = player.xp;
+                        SGLL.Data.PlayerInfo.LevelExp = player.next_xp;
+                        SGLL.Data.PlayerInfo.Level = player.level;
+                        SGLL.Data.PlayerInfo.Energy = player.energy;
+                        SGLL.Data.PlayerInfo.Stamima = player.stamina;
+                        SGLL.Data.PlayerInfo.Grain = player.grain;
 
-                        UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                        SGLL.CallStatusUpdate(this, ChangedType.Profile);
                     }
 
                     if (task.Status == 2)
                     {
-                        if (UpCall.Data.MissionData.Tasks.All(p => p.Status == 2))
+                        if (SGLL.Data.MissionData.Tasks.All(p => p.Status == 2))
                         {
-                            UpCall.Data.MissionData.Tasks = null;
+                            SGLL.Data.MissionData.Tasks = null;
                         }
                         else
                         {
                             var unlock = true;
-                            for (int i = 0; i < UpCall.Data.MissionData.Tasks.Count - 1; i++)
+                            for (int i = 0; i < SGLL.Data.MissionData.Tasks.Count - 1; i++)
                             {
-                                if (UpCall.Data.MissionData.Tasks[i].Status != 2)
+                                if (SGLL.Data.MissionData.Tasks[i].Status != 2)
                                 {
                                     unlock = false;
                                     break;
@@ -125,8 +125,8 @@ namespace sgll.net.Core.Queue
                             }
                             if (unlock)
                             {
-                                UpCall.Data.MissionData.Tasks.Last().Unlock = 1;
-                                UpCall.Data.MissionData.Tasks.Last().Status = 0;
+                                SGLL.Data.MissionData.Tasks.Last().Unlock = 1;
+                                SGLL.Data.MissionData.Tasks.Last().Status = 0;
                             }
                         }
                     }
@@ -142,7 +142,7 @@ namespace sgll.net.Core.Queue
         #region GetMissionData
         private void GetMissionData()
         {
-            var call = UpCall.Client.Post("/mission", "", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/mission", "", SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -199,7 +199,7 @@ namespace sgll.net.Core.Queue
                         tasks.Add(new_t);
                     }
 
-                    UpCall.Data.MissionData = new MojoMissionData
+                    SGLL.Data.MissionData = new MojoMissionData
                     {
                         Tasks = tasks,
                         TaskGroups = groups,
@@ -208,7 +208,7 @@ namespace sgll.net.Core.Queue
                     };
                 }
             }
-            UpCall.CallStatusUpdate(this, ChangedType.Mission);
+            SGLL.CallStatusUpdate(this, ChangedType.Mission);
         }
         #endregion
     }

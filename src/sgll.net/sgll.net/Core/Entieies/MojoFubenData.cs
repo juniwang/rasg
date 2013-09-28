@@ -87,9 +87,12 @@ namespace sgll.net.Core.Entieies
         {
             get
             {
+                if (Status == 2)
+                    return SR.Display.ColdDownDisable;
+
                 int cd = 0;
                 if (DateTime.Now < LastSyncTime.AddSeconds(ColdDown)) cd = (int)(LastSyncTime.AddSeconds(ColdDown) - DateTime.Now).TotalSeconds;
-                return cd == 0 ? SR.Display.ColdDownDisable : new TimeSpan(0, 0, cd).ToString();
+                return new TimeSpan(0, 0, cd).ToString();
             }
         }
     }

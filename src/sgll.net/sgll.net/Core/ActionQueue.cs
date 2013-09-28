@@ -24,6 +24,7 @@ namespace sgll.net.Core
             public static readonly int ForceBossQueue = 9;
             public static readonly int DaojuQueue = 10;
             public static readonly int SigninQueue = 11;
+            public static readonly int SigninQueryQueue = 12;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
@@ -42,24 +43,27 @@ namespace sgll.net.Core
             QueueTitles.Add(9, "势力Boss");
             QueueTitles.Add(10, "道具");
             QueueTitles.Add(11, "签到");
+            QueueTitles.Add(12, "签到");
         }
 
         private List<IQueue> Queues = new List<IQueue>();
 
         public void InitializeQueues()
         {
-            Queues.Add(new BasicProfileQueue { UpCall = this, Enabled = true });
-            Queues.Add(new ForceProfileQueue { UpCall = this, Enabled = true });
-            Queues.Add(new DaojuQueue { UpCall = this, Enabled = true });
-            Queues.Add(new FubenAwardQueue { UpCall = this, Enabled = true });
-            Queues.Add(new ForceBossQueue { UpCall = this, Enabled = false });
-            Queues.Add(new ForceTaskQueue { UpCall = this, Enabled = false });
-            Queues.Add(new CollectQueue { UpCall = this, Enabled = false });
-            Queues.Add(new HuangjinTreasureQueue { UpCall = this, Enabled = false });
-            Queues.Add(new ForceZhufushiQueue { UpCall = this, Enabled = false });
-            Queues.Add(new FubenQueue { UpCall = this, Enabled = false });
-            Queues.Add(new MissionQueue { UpCall = this, Enabled = false });
-            Queues.Add(new SigninQueue { UpCall = this, Enabled = false });
+            Queues.Add(new BasicProfileQueue { SGLL = this, Enabled = true });
+            Queues.Add(new ForceProfileQueue { SGLL = this, Enabled = true });
+            Queues.Add(new DaojuQueue { SGLL = this, Enabled = true });
+            Queues.Add(new FubenAwardQueue { SGLL = this, Enabled = true });
+            Queues.Add(new SigninQueryQueue { SGLL = this, Enabled = true });
+
+            Queues.Add(new ForceBossQueue { SGLL = this, Enabled = false });
+            Queues.Add(new ForceTaskQueue { SGLL = this, Enabled = false });
+            Queues.Add(new CollectQueue { SGLL = this, Enabled = false });
+            Queues.Add(new HuangjinTreasureQueue { SGLL = this, Enabled = false });
+            Queues.Add(new ForceZhufushiQueue { SGLL = this, Enabled = false });
+            Queues.Add(new FubenQueue { SGLL = this, Enabled = false });
+            Queues.Add(new MissionQueue { SGLL = this, Enabled = false });
+            Queues.Add(new SigninQueue { SGLL = this, Enabled = false });
 
             if (Data.LoginUser.Features != null)
             {

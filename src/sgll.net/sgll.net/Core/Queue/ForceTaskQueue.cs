@@ -15,7 +15,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (UpCall.Data.ForceTasks == null || UpCall.Data.ForceTasks.Tasks == null)
+                if (SGLL.Data.ForceTasks == null || SGLL.Data.ForceTasks.Tasks == null)
                 {
                     //初始化
                     if (_nextSystemRefreshTime <= DateTime.Now)
@@ -28,18 +28,18 @@ namespace sgll.net.Core.Queue
                     return 0;
 
                 //是否有冷却中的内政
-                var colddown = UpCall.Data.ForceTasks.Tasks.Where(p => p.Status == 1 && p.ColdDownWithDelay > 0);
+                var colddown = SGLL.Data.ForceTasks.Tasks.Where(p => p.Status == 1 && p.ColdDownWithDelay > 0);
                 if (colddown.Count() > 0)
                 {
                     return colddown.Min(p => p.ColdDownWithDelay);
                 }
 
                 //检查是否全部完成
-                bool completed = UpCall.Data.ForceTasks.Tasks.All(p => p.UnlockLevel > UpCall.Data.ForceTasks.ForceLevel || p.Status == 2);
+                bool completed = SGLL.Data.ForceTasks.Tasks.All(p => p.UnlockLevel > SGLL.Data.ForceTasks.ForceLevel || p.Status == 2);
                 if (completed)
                 {
                     //官员刷新
-                    if (UpCall.Data.ForceTasks.HasRefresh == 1 && IsAutoAcceptRefresh())
+                    if (SGLL.Data.ForceTasks.HasRefresh == 1 && IsAutoAcceptRefresh())
                     {
                         return 0;
                     }
@@ -59,11 +59,11 @@ namespace sgll.net.Core.Queue
 
         private MojoForceTaskItem GetExecutableTask()
         {
-            if (UpCall.Data.ForceTasks != null && UpCall.Data.ForceTasks.Tasks != null)
+            if (SGLL.Data.ForceTasks != null && SGLL.Data.ForceTasks.Tasks != null)
             {
-                foreach (var task in UpCall.Data.ForceTasks.Tasks)
+                foreach (var task in SGLL.Data.ForceTasks.Tasks)
                 {
-                    if (task.UnlockLevel <= UpCall.Data.ForceTasks.ForceLevel)
+                    if (task.UnlockLevel <= SGLL.Data.ForceTasks.ForceLevel)
                     {
                         if (task.LastSyncTime.AddSeconds(task.ColdDownWithDelay) < DateTime.Now)
                         {
@@ -79,7 +79,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (UpCall.Data.ForceTasks == null || UpCall.Data.ForceTasks.Tasks == null)
+            if (SGLL.Data.ForceTasks == null || SGLL.Data.ForceTasks.Tasks == null)
             {
                 DoSystemRefresh();
                 _nextSystemRefreshTime = DateTime.Now.AddMinutes(10).AddSeconds(random.Next(0, 120));
@@ -92,7 +92,7 @@ namespace sgll.net.Core.Queue
             {
                 try
                 {
-                    var result = UpCall.Client.Post("/force/doTask", "id=" + task.Id, UpCall.Data.LoginUser.Cookie);
+                    var result = SGLL.Client.Post("/force/doTask", "id=" + task.Id, SGLL.Data.LoginUser.Cookie);
                     LogDebug(result.ToLogString());
 
                     if (result.Item1)
@@ -105,20 +105,20 @@ namespace sgll.net.Core.Queue
                             task.Status = resp.data.task.status;
                             task.ColdDownSecond = resp.data.task.cold_down;
                             task.LastSyncTime = DateTime.Now;
-                            UpCall.CallStatusUpdate(this, ChangedType.ForceTask);
+                            SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
 
                             var player = resp.data.player;
                             if (player != null)
                             {
-                                UpCall.Data.PlayerInfo.VM = player.vm;
-                                UpCall.Data.PlayerInfo.Grain = player.grain;
-                                UpCall.CallStatusUpdate(this, ChangedType.Profile);
+                                SGLL.Data.PlayerInfo.VM = player.vm;
+                                SGLL.Data.PlayerInfo.Grain = player.grain;
+                                SGLL.CallStatusUpdate(this, ChangedType.Profile);
                             }
-                            if (resp.data.force != null && UpCall.Data.ForceProfile != null)
+                            if (resp.data.force != null && SGLL.Data.ForceProfile != null)
                             {
-                                UpCall.Data.ForceProfile.Grain = resp.data.force.grain;
-                                UpCall.Data.ForceProfile.GrainProtected = resp.data.force.grain_protected;
-                                UpCall.CallStatusUpdate(this, ChangedType.ForceProfile);
+                                SGLL.Data.ForceProfile.Grain = resp.data.force.grain;
+                                SGLL.Data.ForceProfile.GrainProtected = resp.data.force.grain_protected;
+                                SGLL.CallStatusUpdate(this, ChangedType.ForceProfile);
                             }
                         }
                         else if (resp.errorcode == 20002)
@@ -136,14 +136,14 @@ namespace sgll.net.Core.Queue
                         {
                             //未加入势力
                             LogError("无法内政：未加入势力");
-                            UpCall.Data.ForceTasks.NoForce = true;
-                            UpCall.Data.ForceTasks.Tasks = null;
+                            SGLL.Data.ForceTasks.NoForce = true;
+                            SGLL.Data.ForceTasks.Tasks = null;
                         }
                         else
                         {
                             //error in memory data. need to re-initialize
                             LogError(task.Name + "执行出错:" + result.Item2);
-                            UpCall.Data.ForceTasks.Tasks = null;
+                            SGLL.Data.ForceTasks.Tasks = null;
                             _nextSystemRefreshTime = DateTime.Now.AddSeconds(5);
                         }
                     }
@@ -151,7 +151,7 @@ namespace sgll.net.Core.Queue
                 catch (Exception e)
                 {
                     LogError(e);
-                    UpCall.Data.ForceTasks.Tasks = null;
+                    SGLL.Data.ForceTasks.Tasks = null;
                     _nextSystemRefreshTime = DateTime.Now;
                 }
 
@@ -159,11 +159,11 @@ namespace sgll.net.Core.Queue
             }
 
             // accept official refresh
-            bool completed = UpCall.Data.ForceTasks.Tasks.All(p => p.UnlockLevel > UpCall.Data.ForceTasks.ForceLevel || p.Status == 2);
+            bool completed = SGLL.Data.ForceTasks.Tasks.All(p => p.UnlockLevel > SGLL.Data.ForceTasks.ForceLevel || p.Status == 2);
             if (completed)
             {
                 //官员刷新
-                if (UpCall.Data.ForceTasks.HasRefresh == 1 && IsAutoAcceptRefresh())
+                if (SGLL.Data.ForceTasks.HasRefresh == 1 && IsAutoAcceptRefresh())
                 {
                     DoOfficialRefresh();
                 }
@@ -178,7 +178,7 @@ namespace sgll.net.Core.Queue
         #region 系统刷新
         private void DoSystemRefresh()
         {
-            var result = UpCall.Client.Post("/force/playerTasks", "", UpCall.Data.LoginUser.Cookie);
+            var result = SGLL.Client.Post("/force/playerTasks", "", SGLL.Data.LoginUser.Cookie);
             LogDebug(result.ToLogString());
 
             if (result.Item1)
@@ -210,17 +210,17 @@ namespace sgll.net.Core.Queue
                         NoForce = false,
                         Tasks = tasks,
                     };
-                    UpCall.Data.ForceTasks = force;
+                    SGLL.Data.ForceTasks = force;
                 }
                 else if (resp.errorCode == 130019)
                 {
                     //no force
-                    UpCall.Data.ForceTasks = new MojoForceTask
+                    SGLL.Data.ForceTasks = new MojoForceTask
                     {
                         NoForce = true
                     };
                 }
-                UpCall.CallStatusUpdate(this, ChangedType.ForceTask);
+                SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
             }
         }
         #endregion
@@ -228,7 +228,7 @@ namespace sgll.net.Core.Queue
         #region 官员刷新
         private void DoOfficialRefresh()
         {
-            var dic = UpCall.Client.Post("/force/acceptRefreshTask", "", UpCall.Data.LoginUser.Cookie);
+            var dic = SGLL.Client.Post("/force/acceptRefreshTask", "", SGLL.Data.LoginUser.Cookie);
             LogDebug(dic.ToLogString());
 
             if (dic.Item1)
@@ -253,15 +253,15 @@ namespace sgll.net.Core.Queue
                         };
                         tasks.Add(t);
                     }
-                    UpCall.Data.ForceTasks.HasRefresh = 0;
-                    UpCall.Data.ForceTasks.Tasks = tasks;
+                    SGLL.Data.ForceTasks.HasRefresh = 0;
+                    SGLL.Data.ForceTasks.Tasks = tasks;
                 }
                 else
                 {
                     //重新初始化
-                    UpCall.Data.ForceTasks = null;
+                    SGLL.Data.ForceTasks = null;
                 }
-                UpCall.CallStatusUpdate(this, ChangedType.ForceTask);
+                SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
             }
         }
         #endregion

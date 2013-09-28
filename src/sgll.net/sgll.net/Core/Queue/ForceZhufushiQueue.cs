@@ -18,7 +18,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                var zhufushi = UpCall.Data.ForceZhufushi;
+                var zhufushi = SGLL.Data.ForceZhufushi;
                 if (zhufushi == null)
                     return 0;
 
@@ -31,7 +31,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            var call = UpCall.Client.Post("/force/exchange", "id=dh0001", UpCall.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post("/force/exchange", "id=dh0001", SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
             {
@@ -39,7 +39,7 @@ namespace sgll.net.Core.Queue
                 if (resp.errorCode == 0)
                 {
                     LogWarn("兑换祝福石成功");
-                    UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
+                    SGLL.Data.ForceZhufushi = new MojoForceZhufushiInfo
                     {
                         ColdDown = resp.data.cold_down,
                         LastSyncTime = DateTime.Now
@@ -48,7 +48,7 @@ namespace sgll.net.Core.Queue
                 else
                 {
                     LogError("兑换祝福石失败：" + resp.errorMsg);
-                    UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
+                    SGLL.Data.ForceZhufushi = new MojoForceZhufushiInfo
                     {
                         ColdDown = 10000 + new Random().Next(0, 2000),
                         LastSyncTime = DateTime.Now
@@ -58,13 +58,13 @@ namespace sgll.net.Core.Queue
             else
             {
                 LogError("兑换祝福石失败：" + call.Item2);
-                UpCall.Data.ForceZhufushi = new MojoForceZhufushiInfo
+                SGLL.Data.ForceZhufushi = new MojoForceZhufushiInfo
                 {
                     ColdDown = 300,
                     LastSyncTime = DateTime.Now
                 };
             }
-            UpCall.CallStatusUpdate(this, ChangedType.ForceZhufushi);
+            SGLL.CallStatusUpdate(this, ChangedType.ForceZhufushi);
         }
 
     }

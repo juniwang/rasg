@@ -15,14 +15,14 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                var treasure = UpCall.Data.HuangjinTreasure;
+                var treasure = SGLL.Data.HuangjinTreasure;
                 if (treasure == null || treasure.Items == null)
                     return 0;
 
                 var ts = treasure.LastSyncTime.AddSeconds(treasure.ExpireSecond);
                 if (ts <= DateTime.Now)
                 {
-                    UpCall.Data.HuangjinTreasure = null;
+                    SGLL.Data.HuangjinTreasure = null;
                     return 0;
                 }
 
@@ -32,13 +32,13 @@ namespace sgll.net.Core.Queue
 
         private MojoHuangjinItem GetItemToBuy()
         {
-            foreach (var item in UpCall.Data.HuangjinTreasure.Items)
+            foreach (var item in SGLL.Data.HuangjinTreasure.Items)
             {
                 if (toBuy.Contains(item.EntityName) && item.Bought == 0)
                 {
-                    if (UpCall.Data.HuangjinTreasure.LastSyncTime.AddSeconds(UpCall.Data.HuangjinTreasure.BuyDelay) <= DateTime.Now)
+                    if (SGLL.Data.HuangjinTreasure.LastSyncTime.AddSeconds(SGLL.Data.HuangjinTreasure.BuyDelay) <= DateTime.Now)
                     {
-                        if (UpCall.Data.PlayerInfo.VM >= item.PriceWithDiscount)
+                        if (SGLL.Data.PlayerInfo.VM >= item.PriceWithDiscount)
                         {
                             return item;
                         }
@@ -55,17 +55,17 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (UpCall.Data.HuangjinTreasure == null || UpCall.Data.HuangjinTreasure.Items == null)
+            if (SGLL.Data.HuangjinTreasure == null || SGLL.Data.HuangjinTreasure.Items == null)
             {
                 RefreshData();
             }
             else
             {
-                foreach (var item in UpCall.Data.HuangjinTreasure.Items)
+                foreach (var item in SGLL.Data.HuangjinTreasure.Items)
                 {
                     if (toBuy.Contains(item.EntityName) && item.Bought == 0)
                     {
-                        if (UpCall.Data.PlayerInfo.VM >= item.PriceWithDiscount)
+                        if (SGLL.Data.PlayerInfo.VM >= item.PriceWithDiscount)
                         {
                             BuyItem(item);
                         }
@@ -80,7 +80,7 @@ namespace sgll.net.Core.Queue
 
         private void BuyItem(MojoHuangjinItem toBuy)
         {
-            var buy = UpCall.Client.Post("/mall/exchange", "id=" + toBuy.Id, UpCall.Data.LoginUser.Cookie);
+            var buy = SGLL.Client.Post("/mall/exchange", "id=" + toBuy.Id, SGLL.Data.LoginUser.Cookie);
             if (buy.Item1)
             {
                 dynamic dyn = JObject.Parse(buy.Item2);
@@ -88,26 +88,26 @@ namespace sgll.net.Core.Queue
                 {
                     toBuy.Bought = 1;
                     LogWarn("黄巾宝藏购买成功，获得：" + toBuy.EntityName);
-                    UpCall.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
+                    SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
                 }
                 else if (dyn.errorCode == 22005)
                 {
                     //重复购买
                     toBuy.Bought = 1;
                     LogError("黄巾宝藏购买失败：" + dyn.errorMsg);
-                    UpCall.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
+                    SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
                 }
                 else
                 {
                     LogError("黄巾宝藏购买失败:(" + dyn.errorCode + ")" + dyn.errorMsg);
-                    UpCall.Data.HuangjinTreasure = null;
+                    SGLL.Data.HuangjinTreasure = null;
                 }
             }
         }
 
         private void RefreshData()
         {
-            var result = UpCall.Client.Post("/mall/rands", "", UpCall.Data.LoginUser.Cookie);
+            var result = SGLL.Client.Post("/mall/rands", "", SGLL.Data.LoginUser.Cookie);
             if (result.Item1)
             {
                 dynamic dyn = JObject.Parse(result.Item2);
@@ -139,8 +139,8 @@ namespace sgll.net.Core.Queue
                         NoBox = false,
                     };
                     treasure.BuyDelay = new Random().Next(300, treasure.ExpireSecond > 700 ? treasure.ExpireSecond / 3 : 350);
-                    UpCall.Data.HuangjinTreasure = treasure;
-                    UpCall.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
+                    SGLL.Data.HuangjinTreasure = treasure;
+                    SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
                 }
             }
         }

@@ -61,7 +61,7 @@ namespace sgll.net.DockingPanel
                             lvi.SubItems.Add(g.Level.ToString());
                         }
                         else
-                            listViewEx1.Items[i].Text = g.Level.ToString();
+                            listViewEx1.Items[i].SubItems[1].Text = g.Level.ToString();
 
                         if (md.CurTaskGroup != null && md.CurTaskGroup.TaskGroupId == g.TaskGroupId)
                         {

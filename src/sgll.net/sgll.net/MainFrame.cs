@@ -35,6 +35,7 @@ namespace sgll.net
         private FubenPanel m_fuben = new FubenPanel();
         private MissionPanel m_mission = new MissionPanel();
         private ForceBossPanel m_forceBoss = new ForceBossPanel();
+        private SigninPanel m_signin = new SigninPanel();
 
         private List<string> LogShowText = new List<string> { "调试", "详细", "简略" };
 
@@ -124,6 +125,10 @@ namespace sgll.net
             {
                 m_forceBoss.Display();
             }
+            if ((type & ChangedType.SignIn) == ChangedType.SignIn)
+            {
+                m_signin.Display();
+            }
         }
 
         void SGLL_StatusUpdate(object sender, StatusChangedArgs e)
@@ -167,7 +172,7 @@ namespace sgll.net
         {
             InitLogLevelComboBox();
 
-            m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall = m_fuben.UpCall
+            m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall = m_fuben.UpCall = m_signin.UpCall
                = m_mission.UpCall = m_forceTasks.UpCall = m_forceZhufushi.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = this;
 
             string fn = GetStyleFilename();
@@ -187,9 +192,10 @@ namespace sgll.net
                 m_forceTasks.Show(dockPanel1);
                 m_collect.Show(dockPanel1);
                 m_fuben.Show(dockPanel1);
+                m_mission.Show(dockPanel1);
+                m_signin.Show(dockPanel1);
                 m_huangjinTreansure.Show(dockPanel1);
                 m_forceZhufushi.Show(dockPanel1);
-                m_mission.Show(dockPanel1);
                 m_forceBoss.Show(dockPanel1);
             }
             m_playerStatus.Activate();
@@ -205,7 +211,7 @@ namespace sgll.net
         private IDockContent FindDocument(string text)
         {
             foreach (var x in new DockContent[] { m_forceZhufushi, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, 
-                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss})
+                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss, m_signin})
             {
                 if (text == x.GetType().ToString())
                     return x;

@@ -16,7 +16,14 @@ namespace sgll.net.Core.Entieies
     /// </summary>
     public class MojoSigninData : AbstractMojoEntity
     {
-        public bool NeedSignIn { get; set; }
+        public SignStatus Status { get; set; }
         public string AwardToday { get; set; }
+    }
+
+    public enum SignStatus
+    {
+        Unknown,
+        NeedSignin,
+        Completed
     }
 }

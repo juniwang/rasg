@@ -26,7 +26,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (UpCall.Data.Daoju == null || UpCall.Data.Daoju.Items == null || UpCall.Data.Daoju.NeedSync)
+                if (SGLL.Data.Daoju == null || SGLL.Data.Daoju.Items == null || SGLL.Data.Daoju.NeedSync)
                     return 0;
 
                 return 1;
@@ -70,7 +70,7 @@ namespace sgll.net.Core.Queue
                             items.Add(new_i);
                         }
                     }
-                    UpCall.Data.Daoju = new MojoMallDaoju
+                    SGLL.Data.Daoju = new MojoMallDaoju
                     {
                         Items = items,
                         LastSyncTime = DateTime.Now,
@@ -80,19 +80,19 @@ namespace sgll.net.Core.Queue
                     //player info
                     if (resp.data.player != null)
                     {
-                        UpCall.Data.PlayerInfo.EP = resp.data.player.ep;
-                        UpCall.Data.PlayerInfo.VM = resp.data.player.vm;
-                        UpCall.Data.PlayerInfo.RM = resp.data.player.rm;
-                        UpCall.Data.PlayerInfo.Exp = resp.data.player.xp;
-                        UpCall.Data.PlayerInfo.LevelExp = resp.data.player.next_xp;
-                        UpCall.Data.PlayerInfo.Level = resp.data.player.level;
-                        UpCall.Data.PlayerInfo.Energy = resp.data.player.energy;
-                        UpCall.Data.PlayerInfo.Stamima = resp.data.player.stamina;
-                        UpCall.Data.PlayerInfo.Grain = resp.data.player.grain;
-                        UpCall.Data.PlayerInfo.LastSyncTime = DateTime.Now;
+                        SGLL.Data.PlayerInfo.EP = resp.data.player.ep;
+                        SGLL.Data.PlayerInfo.VM = resp.data.player.vm;
+                        SGLL.Data.PlayerInfo.RM = resp.data.player.rm;
+                        SGLL.Data.PlayerInfo.Exp = resp.data.player.xp;
+                        SGLL.Data.PlayerInfo.LevelExp = resp.data.player.next_xp;
+                        SGLL.Data.PlayerInfo.Level = resp.data.player.level;
+                        SGLL.Data.PlayerInfo.Energy = resp.data.player.energy;
+                        SGLL.Data.PlayerInfo.Stamima = resp.data.player.stamina;
+                        SGLL.Data.PlayerInfo.Grain = resp.data.player.grain;
+                        SGLL.Data.PlayerInfo.LastSyncTime = DateTime.Now;
                     }
 
-                    UpCall.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
+                    SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
                 }
             }
         }

@@ -18,6 +18,7 @@ namespace sgll.net.Core
         Fuben = 0x40,
         Mission = 0x80,
         ForceBoss = 0x100,
+        SignIn = 0x200,
         All = 0xffff
     }
 

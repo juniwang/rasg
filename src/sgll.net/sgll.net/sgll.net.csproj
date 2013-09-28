@@ -127,6 +127,12 @@
     <Compile Include="DockingPanel\MissionPanel.Designer.cs">
       <DependentUpon>MissionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DockingPanel\SigninPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\SigninPanel.Designer.cs">
+      <DependentUpon>SigninPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="ForceProfileLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -246,6 +252,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\MissionPanel.resx">
       <DependentUpon>MissionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\SigninPanel.resx">
+      <DependentUpon>SigninPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ForceProfileLabel.resx">
       <DependentUpon>ForceProfileLabel.cs</DependentUpon>
