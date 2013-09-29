@@ -47,7 +47,7 @@ namespace sgll.net.Core.Queue
                 if (resp.data.award != null)
                 {
                     string at = "获得：" + (string)resp.data.award.name + ",数量:" + (string)resp.data.award.count;
-                    if ((bool)resp.data.award.is_double) at += "*2";
+                    // if ((bool)resp.data.award.is_double) at += "*2";
 
                     msg += "," + at;
                     Data.SignInData.AwardToday = at;

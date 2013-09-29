@@ -36,6 +36,11 @@ namespace sgll.net
                 if (player.CardIndex != null)
                 {
                     this.labelCard.Text = string.Format("卡片：{0}/{1}", player.CardIndex.CardCount, player.CardIndex.CardCapacity);
+                    this.labelCard.ForeColor = Color.Black;
+                    if ((double)player.CardIndex.CardCount / (double)player.CardIndex.CardCapacity >= 0.9)
+                    {
+                        this.labelCard.ForeColor = Color.Red;
+                    }
                 }
             }
         }
