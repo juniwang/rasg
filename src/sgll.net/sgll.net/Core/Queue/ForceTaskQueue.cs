@@ -54,7 +54,7 @@ namespace sgll.net.Core.Queue
 
         private bool IsAutoAcceptRefresh()
         {
-            return MatchParam(SR.QueueParameterKeys.AutoAcceptRefresh, "true", true);
+            return MatchParam(SR.ParaKey.AutoAcceptRefresh, "true", true);
         }
 
         private MojoForceTaskItem GetExecutableTask()

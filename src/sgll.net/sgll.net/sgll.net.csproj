@@ -81,6 +81,7 @@
     <Compile Include="Core\Entieies\MojoMallDaoju.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />
     <Compile Include="Core\Entieies\MojoSigninData.cs" />
+    <Compile Include="Core\MultipleUserCtl.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\DaojuQueue.cs" />
     <Compile Include="Core\Queue\ForceBossQueue.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Core\Queue\FubenAwardQueue.cs" />
     <Compile Include="Core\Queue\FubenQueue.cs" />
     <Compile Include="Core\Queue\MissionQueue.cs" />
+    <Compile Include="Core\Queue\MoneyMonitorQueue.cs" />
     <Compile Include="Core\Queue\SigninQueue.cs" />
     <Compile Include="Core\SConfig.cs" />
     <Compile Include="Core\SGLLLog.cs" />
@@ -198,6 +200,12 @@
     <Compile Include="ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="MutipleControlPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MutipleControlPanel.Designer.cs">
+      <DependentUpon>MutipleControlPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlayInfoLabel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -288,6 +296,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FubenStatus.resx">
       <DependentUpon>FubenStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MutipleControlPanel.resx">
+      <DependentUpon>MutipleControlPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayInfoLabel.resx">
       <DependentUpon>PlayInfoLabel.cs</DependentUpon>

@@ -145,12 +145,17 @@ namespace sgll.net.Core.Queue
                     //领奖
                     if (task.Status == 3)
                     {
-                        //关底大boss不领奖
+                        //小关自动领奖
                         if (fuben.CurrentGroup.Order != fuben.Groups.Count)
                         {
-                            var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenAwardQueue) as FubenAwardQueue;
-                            if (queue != null)
-                                queue.AwardsPre.Add(task.Id, fubenName);
+                            OpenAward(task, fubenName);
+                        }
+                        else {
+                            //关底boss是否领奖
+                            if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
+                            {
+                                OpenAward(task, fubenName);
+                            }
                         }
                         //解锁下一关
                         if (fuben.CurrentGroup.Order == fuben.Groups.Count) { fuben.Status = 2; }
@@ -213,6 +218,13 @@ namespace sgll.net.Core.Queue
                     fuben.Tasks = null;
                 }
             }
+        }
+
+        private void OpenAward(MojoFubenTask task, string fubenName)
+        {
+            var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenAwardQueue) as FubenAwardQueue;
+            if (queue != null)
+                queue.AwardsPre.Add(task.Id, fubenName);
         }
 
         private void RefreshTasks(MojoFuben fuben)

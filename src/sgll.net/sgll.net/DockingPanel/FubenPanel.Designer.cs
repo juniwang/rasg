@@ -37,6 +37,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBoxBoss = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -44,17 +45,18 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxBoss);
             this.groupBox1.Controls.Add(this.startStop1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(3, 271);
+            this.groupBox1.Location = new System.Drawing.Point(3, 237);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(470, 42);
+            this.groupBox1.Size = new System.Drawing.Size(470, 76);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
             // startStop1
             // 
-            this.startStop1.Location = new System.Drawing.Point(0, 9);
+            this.startStop1.Location = new System.Drawing.Point(3, 43);
             this.startStop1.Name = "startStop1";
             this.startStop1.OnStart = null;
             this.startStop1.OnStop = null;
@@ -76,7 +78,7 @@
             this.listViewEx1.GridLines = true;
             this.listViewEx1.Location = new System.Drawing.Point(3, 3);
             this.listViewEx1.Name = "listViewEx1";
-            this.listViewEx1.Size = new System.Drawing.Size(470, 268);
+            this.listViewEx1.Size = new System.Drawing.Size(470, 234);
             this.listViewEx1.TabIndex = 1;
             this.listViewEx1.UseCompatibleStateImageBehavior = false;
             this.listViewEx1.View = System.Windows.Forms.View.Details;
@@ -120,6 +122,17 @@
             this.tabPage1.Text = "总览";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // checkBoxBoss
+            // 
+            this.checkBoxBoss.AutoSize = true;
+            this.checkBoxBoss.Location = new System.Drawing.Point(6, 20);
+            this.checkBoxBoss.Name = "checkBoxBoss";
+            this.checkBoxBoss.Size = new System.Drawing.Size(264, 16);
+            this.checkBoxBoss.TabIndex = 1;
+            this.checkBoxBoss.Text = "关底boss自动领奖。要开晋国蛋的不要勾选。";
+            this.checkBoxBoss.UseVisualStyleBackColor = true;
+            this.checkBoxBoss.CheckedChanged += new System.EventHandler(this.checkBoxBoss_CheckedChanged);
+            // 
             // FubenPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -135,6 +148,7 @@
             this.Text = "副本";
             this.Load += new System.EventHandler(this.FubenPanel_Load);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -152,5 +166,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.CheckBox checkBoxBoss;
     }
 }

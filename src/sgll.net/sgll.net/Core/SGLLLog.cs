@@ -23,7 +23,7 @@ namespace sgll.net.Core
                                MethodName,
                                Filename,
                                Line,
-                               message);
+                               msg);
             }
 
             TDebugInfo db = new TDebugInfo()

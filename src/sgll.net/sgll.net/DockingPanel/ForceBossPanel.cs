@@ -46,7 +46,7 @@ namespace sgll.net.DockingPanel
         public void Display()
         {
             DisplayStartStop();
-            this.checkBoxUse.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.ForceBossQueue, SR.QueueParameterKeys.AutoForceBossSP, "true"));
+            this.checkBoxUse.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.ForceBossQueue, SR.ParaKey.AutoForceBossSP, "true"));
 
             if (UpCall.Data.ForceBoss == null || !UpCall.Data.ForceBoss.IsInChallange)
             {
@@ -92,7 +92,7 @@ namespace sgll.net.DockingPanel
         private void SaveParameters()
         {
             var dic = new Dictionary<string, string>();
-            dic.Add(SR.QueueParameterKeys.AutoForceBossSP, this.checkBoxUse.Checked.ToString().ToLower());
+            dic.Add(SR.ParaKey.AutoForceBossSP, this.checkBoxUse.Checked.ToString().ToLower());
             UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceBossQueue, dic);
         }
 

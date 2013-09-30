@@ -25,12 +25,15 @@ namespace sgll.net.Core
             public static readonly int DaojuQueue = 10;
             public static readonly int SigninQueue = 11;
             public static readonly int SigninQueryQueue = 12;
+            public static readonly int MoneyMonitorQueue = 13;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
+        public static Dictionary<string, int> QueueShowItems = new Dictionary<string, int>();
 
         static SGLLController()
         {
+            // internal use
             QueueTitles.Add(0, "个人资料");
             QueueTitles.Add(1, "内政");
             QueueTitles.Add(2, "黄巾宝藏");
@@ -44,6 +47,18 @@ namespace sgll.net.Core
             QueueTitles.Add(10, "道具");
             QueueTitles.Add(11, "签到");
             QueueTitles.Add(12, "签到");
+            QueueTitles.Add(13, "银币管理");
+
+            // for display
+            QueueShowItems.Add("内政", 1);
+            QueueShowItems.Add("黄巾宝藏", 2);
+            QueueShowItems.Add("势力兑换", 4);
+            QueueShowItems.Add("收宝", 5);
+            QueueShowItems.Add("副本", 6);
+            QueueShowItems.Add("任务", 8);
+            QueueShowItems.Add("势力Boss", 9);
+            QueueShowItems.Add("签到", 11);
+            QueueShowItems.Add("银币管理", 13);
         }
 
         private List<IQueue> Queues = new List<IQueue>();
@@ -64,6 +79,7 @@ namespace sgll.net.Core
             Queues.Add(new FubenQueue { SGLL = this, Enabled = false });
             Queues.Add(new MissionQueue { SGLL = this, Enabled = false });
             Queues.Add(new SigninQueue { SGLL = this, Enabled = false });
+            Queues.Add(new MoneyMonitorQueue { SGLL = this, Enabled = false });
 
             if (Data.LoginUser.Features != null)
             {

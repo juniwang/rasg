@@ -223,13 +223,16 @@ namespace sgll.net.Core.Bridge
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "post";
             req.Timeout = 15000;
-            req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
+            //req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
+            req.UserAgent = "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25";
             req.Accept = "application/json, text/javascript, */*; q=0.01";
             req.ContentType = "application/x-www-form-urlencoded";
+            //req.ContentType = "application/json";
             req.Referer = "http://wsa.sg21.redatoms.com";
             req.Headers.Add("gamelanguage", "zh_cn");
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
             req.Headers.Add("Signature", AutoSig.Signature);
+            req.Headers.Add("Mojo-A-T", "");
 
             if (!string.IsNullOrWhiteSpace(cookie))
             {

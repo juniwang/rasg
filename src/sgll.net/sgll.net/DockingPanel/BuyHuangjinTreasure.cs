@@ -41,7 +41,7 @@ namespace sgll.net.DockingPanel
             this.startStop1.OnStart = () =>
             {
                 var dic = new Dictionary<string, string>();
-                dic.Add(SR.QueueParameterKeys.AutoUseVMBoxForTreasure, this.checkBoxUseBox.Checked.ToString().ToLower());
+                dic.Add(SR.ParaKey.AutoUseVMBoxForTreasure, this.checkBoxUseBox.Checked.ToString().ToLower());
                 UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.HuangjinTreasureQueue, dic);
             };
         }

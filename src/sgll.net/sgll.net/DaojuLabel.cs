@@ -34,11 +34,11 @@ namespace sgll.net
                 {
                     for (int i = 0; i < Data.Daoju.Items.Count; i += 3)
                     {
-                        var d1 = Data.Daoju.Items[i];
-                        var d2 = i + 1 < Data.Daoju.Items.Count ? Data.Daoju.Items[i + 1] : null;
-                        var d3 = i + 2 < Data.Daoju.Items.Count ? Data.Daoju.Items[i + 2] : null;
-                        var lvi = this.listViewEx1.Items.Add(d1.Name);
-                        lvi.SubItems.AddRange(new string[] { d1.Count.ToString(), d1 == null ? "" : d1.Name, d1 == null ? "" : d1.Count.ToString(), d2 == null ? "" : d2.Name, d2 == null ? "" : d2.Count.ToString() });
+                        var d0 = Data.Daoju.Items[i];
+                        var d1 = i + 1 < Data.Daoju.Items.Count ? Data.Daoju.Items[i + 1] : null;
+                        var d2 = i + 2 < Data.Daoju.Items.Count ? Data.Daoju.Items[i + 2] : null;
+                        var lvi = this.listViewEx1.Items.Add(d0.Name);
+                        lvi.SubItems.AddRange(new string[] { d0.Count.ToString(), d1 == null ? "" : d1.Name, d1 == null ? "" : d1.Count.ToString(), d2 == null ? "" : d2.Name, d2 == null ? "" : d2.Count.ToString() });
                     }
                 }
                 else

@@ -69,7 +69,7 @@ namespace sgll.net.Core.Queue
                         {
                             BuyItem(item);
                         }
-                        else if (MatchParam(SR.QueueParameterKeys.AutoUseVMBoxForTreasure, "true", false))
+                        else if (MatchParam(SR.ParaKey.AutoUseVMBoxForTreasure, "true", false))
                         {
                             //TODO use box
                         }

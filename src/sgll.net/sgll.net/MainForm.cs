@@ -292,5 +292,14 @@ namespace sgll.net
         {
             this.Close();
         }
+
+        private void MultipleUserCtlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MutipleControlPanel na = new MutipleControlPanel();
+            if (na.ShowDialog() == DialogResult.OK)
+            {
+                listView1_Refresh();
+            }
+        }
     }
 }

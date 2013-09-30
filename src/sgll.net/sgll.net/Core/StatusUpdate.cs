@@ -20,6 +20,7 @@ namespace sgll.net.Core
         ForceBoss = 0x100,
         SignIn = 0x200,
         Daoju = 0x400,
+        MoneyMonitor = 0x800,
         All = 0xffff
     }
 

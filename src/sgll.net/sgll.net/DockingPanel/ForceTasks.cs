@@ -34,7 +34,7 @@ namespace sgll.net.DockingPanel
         public void Display()
         {
             DisplayStartStop();
-            this.checkBoxRefresh.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.ForceTaskQueue, SR.QueueParameterKeys.AutoAcceptRefresh, "true"));
+            this.checkBoxRefresh.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.ForceTaskQueue, SR.ParaKey.AutoAcceptRefresh, "true"));
 
             var force = UpCall.Data.ForceTasks;
             if (force != null)
@@ -108,7 +108,7 @@ namespace sgll.net.DockingPanel
         private void checkBoxRefresh_CheckedChanged(object sender, EventArgs e)
         {
             var dic = new Dictionary<string, string>();
-            dic.Add(SR.QueueParameterKeys.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
+            dic.Add(SR.ParaKey.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
             UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceTaskQueue, dic);
 
             Display();
@@ -128,7 +128,7 @@ namespace sgll.net.DockingPanel
             this.startStop1.OnStart = () =>
             {
                 var dic = new Dictionary<string, string>();
-                dic.Add(SR.QueueParameterKeys.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
+                dic.Add(SR.ParaKey.AutoAcceptRefresh, this.checkBoxRefresh.Checked.ToString().ToLower());
                 UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceTaskQueue, dic);
             };
         }

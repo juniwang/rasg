@@ -35,6 +35,8 @@ namespace sgll.net.DockingPanel
         public void Display()
         {
             DisplayStartStop();
+            this.checkBoxBoss.Checked = bool.Parse(UpCall.LoginInfo.GetParameter(SGLLController.QueueGUID.FubenQueue, SR.ParaKey.AutoBossAward, "false"));
+
             //总览
             if (UpCall.Data.FubenData != null && UpCall.Data.FubenData.Fubens != null)
             {
@@ -129,6 +131,23 @@ namespace sgll.net.DockingPanel
             this.startStop1.Qid = SGLLController.QueueGUID.FubenQueue;
             this.startStop1.StatusUpdate = ChangedType.Fuben;
             this.startStop1.TextControl = this;
+            this.startStop1.OnStart = () =>
+            {
+                ResetParameters();
+            };
+        }
+
+        private void ResetParameters()
+        {
+            var dic = new Dictionary<string, string>();
+            dic.Add(SR.ParaKey.AutoBossAward, this.checkBoxBoss.Checked.ToString().ToLower());
+            UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.FubenQueue, dic);
+        }
+
+        private void checkBoxBoss_CheckedChanged(object sender, EventArgs e)
+        {
+            ResetParameters();
+            Display();
         }
     }
 }
