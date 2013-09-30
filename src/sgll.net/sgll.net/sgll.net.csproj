@@ -91,11 +91,23 @@
     <Compile Include="Core\Queue\SigninQueue.cs" />
     <Compile Include="Core\SConfig.cs" />
     <Compile Include="Core\SGLLLog.cs" />
+    <Compile Include="DaojuLabel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DaojuLabel.Designer.cs">
+      <DependentUpon>DaojuLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="DockingPanel\CollectPanel.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DockingPanel\CollectPanel.Designer.cs">
       <DependentUpon>CollectPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockingPanel\DaojuPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\DaojuPanel.Designer.cs">
+      <DependentUpon>DaojuPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="DockingPanel\ForceBossPanel.cs">
       <SubType>Form</SubType>
@@ -235,8 +247,14 @@
     <EmbeddedResource Include="AdvanceCall.resx">
       <DependentUpon>AdvanceCall.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DaojuLabel.resx">
+      <DependentUpon>DaojuLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\CollectPanel.resx">
       <DependentUpon>CollectPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\DaojuPanel.resx">
+      <DependentUpon>DaojuPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\ForceBossPanel.resx">
       <DependentUpon>ForceBossPanel.cs</DependentUpon>
@@ -303,6 +321,9 @@
       <DependentUpon>StartStop.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
+    <None Include="TIPS">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

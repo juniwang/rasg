@@ -19,6 +19,7 @@ namespace sgll.net.Core
         Mission = 0x80,
         ForceBoss = 0x100,
         SignIn = 0x200,
+        Daoju = 0x400,
         All = 0xffff
     }
 

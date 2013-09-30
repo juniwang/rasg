@@ -59,6 +59,17 @@ namespace sgll.net
                     sr.Close();
                 }
 
+                //tips
+                //release notes
+                if (File.Exists("TIPS"))
+                {
+                    FileStream fs = new FileStream("TIPS", FileMode.Open, FileAccess.Read);
+                    StreamReader sr = new StreamReader(fs, Encoding.UTF8);
+                    this.textBoxTips.AppendText(sr.ReadToEnd());
+                    textLog.AppendText(Environment.NewLine);
+                    sr.Close();
+                }
+
                 Thread t = new Thread(() => { AutoSig.GetSig(); });
                 t.Start();
             }
@@ -250,7 +261,7 @@ namespace sgll.net
                 this.Visible = false;
                 this.ShowInTaskbar = false;
                 this.notifyIcon1.Visible = true;
-            } 
+            }
         }
 
         private void ShowToolStripMenuItem_Click(object sender, EventArgs e)

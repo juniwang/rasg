@@ -62,7 +62,7 @@ namespace sgll.net.Core.Queue
                         if (MatchParam(SR.QueueParameterKeys.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig))
                         {
                             UseEntity(SR.Daoju.TiliBig);
-                            SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
+                            SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile | ChangedType.Daoju);
                             return;
                         }
                     }
@@ -167,7 +167,7 @@ namespace sgll.net.Core.Queue
                     {
                         IsInChallange = false,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 600 + random.Next(0, 60),
+                        SyncIntervalSec = 300 + random.Next(0, 60),
                         Battle = null,
                     };
                     SGLL.Data.ForceBoss = boss;

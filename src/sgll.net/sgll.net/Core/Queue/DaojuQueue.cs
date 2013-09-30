@@ -92,7 +92,7 @@ namespace sgll.net.Core.Queue
                         SGLL.Data.PlayerInfo.LastSyncTime = DateTime.Now;
                     }
 
-                    SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile);
+                    SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile | ChangedType.Daoju);
                 }
             }
         }
