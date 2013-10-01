@@ -142,6 +142,12 @@
     <Compile Include="DockingPanel\MissionPanel.Designer.cs">
       <DependentUpon>MissionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="DockingPanel\MoneyMonitorPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\MoneyMonitorPanel.Designer.cs">
+      <DependentUpon>MoneyMonitorPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="DockingPanel\SigninPanel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\MissionPanel.resx">
       <DependentUpon>MissionPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\MoneyMonitorPanel.resx">
+      <DependentUpon>MoneyMonitorPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\SigninPanel.resx">
       <DependentUpon>SigninPanel.cs</DependentUpon>

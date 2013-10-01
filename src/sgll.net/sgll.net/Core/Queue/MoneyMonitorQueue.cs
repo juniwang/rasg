@@ -26,8 +26,27 @@ namespace sgll.net.Core.Queue
                 }
 
                 // buy
+                if (CanSubMoney())
+                {
+                    return 0;
+                }
+
                 return 1;
             }
+        }
+
+        private bool CanSubMoney()
+        {
+            if (Parameters.ContainsKey(SR.ParaKey.MoneySubLine) && Parameters.ContainsKey(SR.ParaKey.MoneySubItem))
+            {
+                int sLine = -1;
+                if (int.TryParse(Parameters[SR.ParaKey.MoneySubLine], out sLine)
+                    && Data.PlayerInfo.VM > sLine)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool CanAddMoney()
@@ -52,6 +71,16 @@ namespace sgll.net.Core.Queue
             if (CanAddMoney())
             {
                 UseEntity(Parameters[SR.ParaKey.MoneyAddItem]);
+                SGLL.CallStatusUpdate(this, ChangedType.Profile | ChangedType.MoneyMonitor | ChangedType.Daoju);
+                return;
+            }
+
+            if (CanSubMoney())
+            {
+                string dj=Parameters[SR.ParaKey.MoneySubItem];
+                BuyDaoju(dj);
+                if (Data.Daoju.Get(dj) != null)
+                    Data.Daoju.Get(dj).Count++;
                 SGLL.CallStatusUpdate(this, ChangedType.Profile | ChangedType.MoneyMonitor | ChangedType.Daoju);
             }
         }

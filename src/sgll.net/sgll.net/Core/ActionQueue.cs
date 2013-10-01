@@ -30,6 +30,7 @@ namespace sgll.net.Core
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
         public static Dictionary<string, int> QueueShowItems = new Dictionary<string, int>();
+        public static Dictionary<string, string> MallItemsToBuy = new Dictionary<string, string>();
 
         static SGLLController()
         {
@@ -59,6 +60,10 @@ namespace sgll.net.Core
             QueueShowItems.Add("势力Boss", 9);
             QueueShowItems.Add("签到", 11);
             QueueShowItems.Add("银币管理", 13);
+
+            // mall items to buy
+            MallItemsToBuy.Add("超级蒋干", "sp1111");
+            MallItemsToBuy.Add("超级蒙古马", "sp2222");
         }
 
         private List<IQueue> Queues = new List<IQueue>();
@@ -72,6 +77,7 @@ namespace sgll.net.Core
             Queues.Add(new SigninQueryQueue { SGLL = this, Enabled = true });
 
             Queues.Add(new ForceBossQueue { SGLL = this, Enabled = false });
+            Queues.Add(new MoneyMonitorQueue { SGLL = this, Enabled = false }); 
             Queues.Add(new ForceTaskQueue { SGLL = this, Enabled = false });
             Queues.Add(new CollectQueue { SGLL = this, Enabled = false });
             Queues.Add(new HuangjinTreasureQueue { SGLL = this, Enabled = false });
@@ -79,7 +85,6 @@ namespace sgll.net.Core
             Queues.Add(new FubenQueue { SGLL = this, Enabled = false });
             Queues.Add(new MissionQueue { SGLL = this, Enabled = false });
             Queues.Add(new SigninQueue { SGLL = this, Enabled = false });
-            Queues.Add(new MoneyMonitorQueue { SGLL = this, Enabled = false });
 
             if (Data.LoginUser.Features != null)
             {

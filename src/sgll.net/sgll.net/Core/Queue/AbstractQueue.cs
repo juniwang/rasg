@@ -108,6 +108,30 @@ namespace sgll.net.Core.Queue
             return false;
         }
 
+        protected void BuyDaoju(string name)
+        {
+            var dj = Data.Daoju.Get(name);
+            string id = "";
+            if (dj != null)
+                id = dj.GoodsId;
+            else if (SGLLController.MallItemsToBuy.ContainsKey(name))
+                id = SGLLController.MallItemsToBuy[name];
+
+            if (!string.IsNullOrWhiteSpace(id))
+            {
+                dynamic resp = Post("/mall/buy", "id=" + id);
+                if (resp != null && resp.errorCode == 0)
+                {
+                    LogWarn("购买成功，获得：" + name);
+                    if (resp.data != null && resp.data.player != null)
+                    {
+                        SGLL.Data.PlayerInfo.VM = resp.data.player.vm;
+                        SGLL.Data.PlayerInfo.RM = resp.data.player.rm;
+                    }
+                }
+            }
+        }
+
         protected void UseEntity(string name)
         {
             /*{"errorCode":0,"errorMsg":"","data":{"player":{"id":"1568875","name":"Ningque10","hp":"0","ep":"64","sp":3,"vm":4501,"rm":"44","xp":"319","next_xp":"768","level":"29","health":"0","energy":"64","stamina":"3","hp_percent":"0","ep_percent":"4","sp_percent":"24","hp_second":-1,"ep_second":-1,"sp_second":-1,"hp_restore_pp":null,"ep_restore_pp":288,"sp_restore_pp":5472,"avoid_war_time":0,"grain":6253},"value":3,"challenge":null,"use_rule":"2"}}*/
