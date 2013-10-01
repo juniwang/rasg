@@ -14,7 +14,7 @@ namespace sgll.net.Core.Entieies
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class MojoForceBoss : AbstractMojoEntity
+    public class MojoForceBoss : AbstractMojoColdDown
     {
         public bool IsInChallange { get; set; }
         public MojoForceBossBattle Battle { get; set; }

@@ -56,7 +56,7 @@ namespace sgll.net.DockingPanel
                             var task = UpCall.Data.ForceTasks.Tasks[i];
                             var lvi = listViewEx1.Items.Add(task.Name);
                             lvi.SubItems.Add("");
-                            lvi.SubItems.Add(task.ColdDownText);
+                            lvi.SubItems.Add(task.ColdDownDisplay);
                             ProgressBar pb = new ProgressBar();
                             pb.Maximum = task.SumCount;
                             pb.Value = task.Count;
@@ -84,7 +84,7 @@ namespace sgll.net.DockingPanel
                             if (pb.Value != task.Count)
                                 pb.Value = task.Count;
                             var lvi = listViewEx1.Items[i];
-                            lvi.SubItems[2].Text = task.ColdDownText;
+                            lvi.SubItems[2].Text = task.ColdDownDisplay;
                             if (task.UnlockLevel > force.ForceLevel)
                             {
                                 lvi.BackColor = Color.LightGray;

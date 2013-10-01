@@ -17,7 +17,7 @@ namespace sgll.net.Core.Queue
                     return 0;
 
                 var p = SGLL.Data.PlayerInfo;
-                if (p.NeedSync || p.CardIndex.NeedSync)
+                if (p.CDFinished || p.CardIndex.CDFinished)
                     return 0;
 
                 return 1;
@@ -27,12 +27,12 @@ namespace sgll.net.Core.Queue
         public override void Action()
         {
             var p = SGLL.Data.PlayerInfo;
-            if (p == null || p.NeedSync)
+            if (p == null || p.CDFinished)
             {
                 SyncPlayerInfo();
                 return;
             }
-            if (p.CardIndex == null || p.CardIndex.NeedSync)
+            if (p.CardIndex == null || p.CardIndex.CDFinished)
             {
                 SyncCardIndex();
             }
@@ -88,7 +88,7 @@ namespace sgll.net.Core.Queue
                         Stamima = profile.data.stamina,
                         VM = profile.data.vm,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 900 + random.Next(0, 60),
+                        ColdDown = 900 + random.Next(0, 60),
                     };
                     SGLL.Data.PlayerInfo = new_p;
 

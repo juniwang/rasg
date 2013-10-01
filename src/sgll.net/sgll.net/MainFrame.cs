@@ -30,7 +30,7 @@ namespace sgll.net
         private ForceTasks m_forceTasks = new ForceTasks();
         private BuyHuangjinTreasure m_huangjinTreansure = new BuyHuangjinTreasure();
         private ForceProfilePanel m_forceProfile = new ForceProfilePanel();
-        private ForceZhufushiPanel m_forceZhufushi = new ForceZhufushiPanel();
+        private ForceExchangePanel m_forceExchange = new ForceExchangePanel();
         private CollectPanel m_collect = new CollectPanel();
         private FubenPanel m_fuben = new FubenPanel();
         private MissionPanel m_mission = new MissionPanel();
@@ -109,9 +109,9 @@ namespace sgll.net
             {
                 m_forceProfile.Display();
             }
-            if ((type & ChangedType.ForceZhufushi) == ChangedType.ForceZhufushi)
+            if ((type & ChangedType.ForceExchange) == ChangedType.ForceExchange)
             {
-                m_forceZhufushi.Display();
+                m_forceExchange.Display();
             }
             if ((type & ChangedType.Collect) == ChangedType.Collect)
             {
@@ -186,7 +186,7 @@ namespace sgll.net
 
             m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall
                 = m_fuben.UpCall = m_signin.UpCall = m_daoju.UpCall = m_mission.UpCall = m_forceTasks.UpCall
-                = m_forceZhufushi.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = m_money.UpCall = this;
+                = m_forceExchange.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = m_money.UpCall = this;
 
             string fn = GetStyleFilename();
             if (!File.Exists(fn))
@@ -209,7 +209,7 @@ namespace sgll.net
                 m_mission.Show(dockPanel1);
                 m_signin.Show(dockPanel1);
                 m_huangjinTreansure.Show(dockPanel1);
-                m_forceZhufushi.Show(dockPanel1);
+                m_forceExchange.Show(dockPanel1);
                 m_forceBoss.Show(dockPanel1);
                 m_money.Show(dockPanel1);
             }
@@ -225,7 +225,7 @@ namespace sgll.net
 
         private IDockContent FindDocument(string text)
         {
-            foreach (var x in new DockContent[] { m_forceZhufushi, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, m_daoju,
+            foreach (var x in new DockContent[] { m_forceExchange, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, m_daoju,
                 m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss, m_signin, m_money})
             {
                 if (text == x.GetType().ToString())

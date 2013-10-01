@@ -19,7 +19,7 @@ namespace sgll.net.Core
         public MojoForceTask ForceTasks { get; set; }
         public MojoHuangjinItemList HuangjinTreasure { get; set; }
         public MojoForceInfo ForceProfile { get; set; }
-        public MojoForceZhufushiInfo ForceZhufushi { get; set; }
+        public MojoForceExchangeData ForceExchange { get; set; }
         public MojoCollectData CollectData { get; set; }
         public MojoFubenData FubenData { get; set; }
         public MojoMissionData MissionData { get; set; }

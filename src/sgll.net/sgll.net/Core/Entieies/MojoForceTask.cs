@@ -13,14 +13,13 @@ namespace sgll.net.Core.Entieies
         public int ForceLevel { get; set; }
     }
 
-    public class MojoForceTaskItem
+    public class MojoForceTaskItem : AbstractMojoColdDown
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
         public int SumCount { get; set; }
         public int Status { get; set; }
-        public int ColdDownSecond { get; set; }
         public int UnlockLevel { get; set; }
 
         /// <summary>
@@ -30,24 +29,8 @@ namespace sgll.net.Core.Entieies
         {
             get
             {
-                return ColdDownSecond + 5;
+                return ColdDown + 5;
             }
         }
-        public string ColdDownText
-        {
-            get
-            {
-                int cd = 0;
-                DateTime tg = LastSyncTime.AddSeconds(ColdDownWithDelay);
-                if (tg < DateTime.Now)
-                {
-                    cd = 0;
-                }
-                else
-                    cd = (int)(tg - DateTime.Now).TotalSeconds;
-                return new TimeSpan(0, 0, cd).ToString();
-            }
-        }
-        public DateTime LastSyncTime { get; set; }
     }
 }

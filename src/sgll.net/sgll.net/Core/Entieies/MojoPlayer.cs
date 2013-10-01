@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace sgll.net.Core.Entieies
 {
-    public class MojoPlayer : AbstractMojoEntity
+    public class MojoPlayer : AbstractMojoColdDown
     {
         public string Name { get; set; }
         public string NickName { get; set; }
@@ -38,7 +38,7 @@ namespace sgll.net.Core.Entieies
         public MojoCardIndex CardIndex { get; set; }
     }
 
-    public class MojoCardIndex : AbstractMojoEntity
+    public class MojoCardIndex : AbstractMojoColdDown
     {
         public int CardCount { get; set; }
         public int CardCapacity { get; set; }

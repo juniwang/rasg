@@ -73,10 +73,10 @@
     <Compile Include="AdvanceCall.Designer.cs">
       <DependentUpon>AdvanceCall.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Entieies\AbstractMojoEntity.cs" />
+    <Compile Include="Core\Entieies\AbstractMojoColdDown.cs" />
     <Compile Include="Core\Entieies\MojoCollectData.cs" />
     <Compile Include="Core\Entieies\MojoForceBoss.cs" />
-    <Compile Include="Core\Entieies\MojoForceZhufushiInfo.cs" />
+    <Compile Include="Core\Entieies\MojoForceExchangeData.cs" />
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
     <Compile Include="Core\Entieies\MojoMallDaoju.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />
@@ -86,7 +86,7 @@
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\DaojuQueue.cs" />
     <Compile Include="Core\Queue\ForceBossQueue.cs" />
-    <Compile Include="Core\Queue\ForceZhufushiQueue.cs" />
+    <Compile Include="Core\Queue\ForceExchangeQueue.cs" />
     <Compile Include="Core\Queue\FubenAwardQueue.cs" />
     <Compile Include="Core\Queue\FubenQueue.cs" />
     <Compile Include="Core\Queue\MissionQueue.cs" />
@@ -124,11 +124,11 @@
     <Compile Include="DockingPanel\ForceProfilePanel.Designer.cs">
       <DependentUpon>ForceProfilePanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="DockingPanel\ForceZhufushiPanel.cs">
+    <Compile Include="DockingPanel\ForceExchangePanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DockingPanel\ForceZhufushiPanel.Designer.cs">
-      <DependentUpon>ForceZhufushiPanel.cs</DependentUpon>
+    <Compile Include="DockingPanel\ForceExchangePanel.Designer.cs">
+      <DependentUpon>ForceExchangePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="DockingPanel\FubenPanel.cs">
       <SubType>Form</SubType>
@@ -277,8 +277,8 @@
     <EmbeddedResource Include="DockingPanel\ForceProfilePanel.resx">
       <DependentUpon>ForceProfilePanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DockingPanel\ForceZhufushiPanel.resx">
-      <DependentUpon>ForceZhufushiPanel.cs</DependentUpon>
+    <EmbeddedResource Include="DockingPanel\ForceExchangePanel.resx">
+      <DependentUpon>ForceExchangePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\FubenPanel.resx">
       <DependentUpon>FubenPanel.cs</DependentUpon>

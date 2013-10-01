@@ -26,7 +26,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (SGLL.Data.Daoju == null || SGLL.Data.Daoju.Items == null || SGLL.Data.Daoju.NeedSync)
+                if (SGLL.Data.Daoju == null || SGLL.Data.Daoju.Items == null || SGLL.Data.Daoju.CDFinished)
                     return 0;
 
                 return 1;
@@ -74,7 +74,7 @@ namespace sgll.net.Core.Queue
                     {
                         Items = items,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 900 + random.Next(0, 100),
+                        ColdDown = 900 + random.Next(0, 100),
                     };
 
                     //player info

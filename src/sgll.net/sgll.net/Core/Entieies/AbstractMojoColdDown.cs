@@ -14,28 +14,29 @@ namespace sgll.net.Core.Entieies
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public abstract class AbstractMojoEntity
+    public abstract class AbstractMojoColdDown
     {
-        private int _syncIntervalSec = 600;
+        private int _coldDown = 600;
 
         public DateTime LastSyncTime { get; set; }
-        public int SyncIntervalSec
+        public int ColdDown
         {
-            get { return _syncIntervalSec; }
-            set { _syncIntervalSec = value; }
+            get { return _coldDown; }
+            set { _coldDown = value; }
         }
-        public bool NeedSync
+
+        public bool CDFinished
         {
             get
             {
-                return DateTime.Now >= LastSyncTime.AddSeconds(SyncIntervalSec);
+                return DateTime.Now >= LastSyncTime.AddSeconds(ColdDown);
             }
         }
         public string ColdDownDisplay
         {
             get
             {
-                var ts = LastSyncTime.AddSeconds(SyncIntervalSec) - DateTime.Now;
+                var ts = LastSyncTime.AddSeconds(ColdDown) - DateTime.Now;
                 int cd = 0;
                 if (ts.TotalSeconds > 0)
                     cd = (int)ts.TotalSeconds;

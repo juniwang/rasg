@@ -103,7 +103,7 @@ namespace sgll.net.Core.Queue
                             LogWarn("执行：" + task.Name);
                             task.Count = resp.data.task.count;
                             task.Status = resp.data.task.status;
-                            task.ColdDownSecond = resp.data.task.cold_down;
+                            task.ColdDown = resp.data.task.cold_down;
                             task.LastSyncTime = DateTime.Now;
                             SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
 
@@ -199,7 +199,7 @@ namespace sgll.net.Core.Queue
                             Status = item.status,
                             SumCount = item.sum_count,
                             UnlockLevel = item.unlock_level,
-                            ColdDownSecond = item.cold_down
+                            ColdDown = item.cold_down
                         };
                         tasks.Add(t);
                     }
@@ -249,7 +249,7 @@ namespace sgll.net.Core.Queue
                             Status = item.status,
                             SumCount = item.sum_count,
                             UnlockLevel = item.unlock_level,
-                            ColdDownSecond = item.cold_down,
+                            ColdDown = item.cold_down,
                         };
                         tasks.Add(t);
                     }

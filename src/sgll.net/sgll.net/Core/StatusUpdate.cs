@@ -13,7 +13,7 @@ namespace sgll.net.Core
         ForceTask = 0x2,
         HuangjinTreasure = 0x4,
         ForceProfile = 0x8,
-        ForceZhufushi = 0x10,
+        ForceExchange = 0x10,
         Collect = 0x20,
         Fuben = 0x40,
         Mission = 0x80,

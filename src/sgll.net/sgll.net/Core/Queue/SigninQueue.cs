@@ -90,7 +90,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (SGLL.Data.SignInData == null || SGLL.Data.SignInData.NeedSync)
+                if (SGLL.Data.SignInData == null || SGLL.Data.SignInData.CDFinished)
                     return 0;
 
                 if (Data.SignInData.LastSyncTime.Day != DateTime.Today.Day)
@@ -113,7 +113,7 @@ namespace sgll.net.Core.Queue
                     Data.SignInData = new MojoSigninData();
 
                 Data.SignInData.LastSyncTime = DateTime.Now;
-                Data.SignInData.SyncIntervalSec = 6 * 60 * 60 + random.Next(0, 3600);
+                Data.SignInData.ColdDown = 6 * 60 * 60 + random.Next(0, 3600);
                 Data.SignInData.Status = resp.data.check_in != null ? SignStatus.NeedSignin : SignStatus.Completed;
 
                 SGLL.CallStatusUpdate(this, ChangedType.SignIn);

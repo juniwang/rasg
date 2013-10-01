@@ -16,7 +16,7 @@ namespace sgll.net.Core
             public static readonly int ForceTaskQueue = 1;
             public static readonly int HuangjinTreasureQueue = 2;
             public static readonly int ForceProfileQueue = 3;
-            public static readonly int ForceZhufushiQueue = 4;
+            public static readonly int ForceExchangeQueue = 4;
             public static readonly int CollectQueue = 5;
             public static readonly int FubenQueue = 6;
             public static readonly int FubenAwardQueue = 7;
@@ -39,7 +39,7 @@ namespace sgll.net.Core
             QueueTitles.Add(1, "内政");
             QueueTitles.Add(2, "黄巾宝藏");
             QueueTitles.Add(3, "势力资料");
-            QueueTitles.Add(4, "势力兑换祝福石");
+            QueueTitles.Add(4, "势力兑换");
             QueueTitles.Add(5, "收宝");
             QueueTitles.Add(6, "副本");
             QueueTitles.Add(7, "副本领奖");
@@ -81,7 +81,7 @@ namespace sgll.net.Core
             Queues.Add(new ForceTaskQueue { SGLL = this, Enabled = false });
             Queues.Add(new CollectQueue { SGLL = this, Enabled = false });
             Queues.Add(new HuangjinTreasureQueue { SGLL = this, Enabled = false });
-            Queues.Add(new ForceZhufushiQueue { SGLL = this, Enabled = false });
+            Queues.Add(new ForceExchangeQueue { SGLL = this, Enabled = false });
             Queues.Add(new FubenQueue { SGLL = this, Enabled = false });
             Queues.Add(new MissionQueue { SGLL = this, Enabled = false });
             Queues.Add(new SigninQueue { SGLL = this, Enabled = false });

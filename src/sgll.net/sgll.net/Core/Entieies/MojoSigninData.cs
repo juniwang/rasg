@@ -14,7 +14,7 @@ namespace sgll.net.Core.Entieies
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class MojoSigninData : AbstractMojoEntity
+    public class MojoSigninData : AbstractMojoColdDown
     {
         public SignStatus Status { get; set; }
         public string AwardToday { get; set; }

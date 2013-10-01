@@ -5,7 +5,7 @@ using System.Text;
 
 namespace sgll.net.Core.Entieies
 {
-    public class MojoMallDaoju : AbstractMojoEntity
+    public class MojoMallDaoju : AbstractMojoColdDown
     {
         public List<MojoMallDaojuItem> Items { get; set; }
 

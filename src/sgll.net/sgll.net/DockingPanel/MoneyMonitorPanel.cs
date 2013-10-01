@@ -26,7 +26,7 @@ namespace sgll.net.DockingPanel
             this.startStop1.OnStart = () =>
             {
                 SaveParameters();
-                Display();
+                RefreshParas();
             };
         }
 

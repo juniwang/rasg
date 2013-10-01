@@ -23,7 +23,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (SGLL.Data.ForceBoss == null || SGLL.Data.ForceBoss.NeedSync)
+                if (SGLL.Data.ForceBoss == null || SGLL.Data.ForceBoss.CDFinished)
                     return 0;
 
                 if (SGLL.Data.ForceBoss.IsInChallange && SGLL.Data.ForceBoss.Battle != null)
@@ -46,7 +46,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (SGLL.Data.ForceBoss == null || SGLL.Data.ForceBoss.NeedSync)
+            if (SGLL.Data.ForceBoss == null || SGLL.Data.ForceBoss.CDFinished)
             {
                 SyncForceBoss();
                 return;
@@ -147,7 +147,7 @@ namespace sgll.net.Core.Queue
                     {
                         IsInChallange = true,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 60,
+                        ColdDown = 60,
                         Battle = new MojoForceBossBattle
                         {
                             Left = resp.data.battle.left,
@@ -167,7 +167,7 @@ namespace sgll.net.Core.Queue
                     {
                         IsInChallange = false,
                         LastSyncTime = DateTime.Now,
-                        SyncIntervalSec = 300 + random.Next(0, 60),
+                        ColdDown = 300 + random.Next(0, 60),
                         Battle = null,
                     };
                     SGLL.Data.ForceBoss = boss;

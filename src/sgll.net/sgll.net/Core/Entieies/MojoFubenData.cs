@@ -12,15 +12,13 @@ namespace sgll.net.Core.Entieies
         public DateTime NextSyncTime { get; set; }
     }
 
-    public class MojoFuben
+    public class MojoFuben : AbstractMojoColdDown
     {
         public string Id { get; set; }
         public string Name { get; set; }
         public int UnlockLevel { get; set; }
-        public int ColdDown { get; set; }
         public int Unlock { get; set; }
         public int Status { get; set; }
-        public DateTime LastSyncTime { get; set; }
         public MojoFubenGroup CurrentGroup { get; set; }
         public List<MojoFubenGroup> Groups { get; set; }
         public List<MojoFubenTask> Tasks { get; set; }
@@ -49,18 +47,6 @@ namespace sgll.net.Core.Entieies
                 else return Color.White;
             }
         }
-
-        public string ColdDownDisplay
-        {
-            get
-            {
-                int cd = 0;
-                if (DateTime.Now < LastSyncTime.AddSeconds(ColdDown)) cd = (int)(LastSyncTime.AddSeconds(ColdDown) - DateTime.Now).TotalSeconds;
-                var ts = new TimeSpan(0, 0, cd);
-                if (ts.TotalHours >= 24) return string.Format("{0}天{1}小时", (int)ts.TotalDays, (int)ts.Hours);
-                return new TimeSpan(0, 0, cd).ToString();
-            }
-        }
     }
 
     public class MojoFubenGroup
@@ -71,7 +57,7 @@ namespace sgll.net.Core.Entieies
         public string Name { get; set; }
     }
 
-    public class MojoFubenTask
+    public class MojoFubenTask : AbstractMojoColdDown
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -79,21 +65,6 @@ namespace sgll.net.Core.Entieies
         public int Count { get; set; }
         public int SumCount { get; set; }
         public int Status { get; set; }
-        public int ColdDown { get; set; }
         public int Unlock { get; set; }
-        public DateTime LastSyncTime { get; set; }
-
-        public string ColdDownDisplay
-        {
-            get
-            {
-                if (Status == 2)
-                    return SR.Display.ColdDownDisable;
-
-                int cd = 0;
-                if (DateTime.Now < LastSyncTime.AddSeconds(ColdDown)) cd = (int)(LastSyncTime.AddSeconds(ColdDown) - DateTime.Now).TotalSeconds;
-                return new TimeSpan(0, 0, cd).ToString();
-            }
-        }
     }
 }
