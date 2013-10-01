@@ -131,9 +131,13 @@ namespace sgll.net.Core.Queue
                         }
                     }
                 }
-                else if (resp.errorCode == 20010)
+                else
                 {
-                    LogError((string)resp.errorMsg);
+                    Data.MissionData = null;
+                    if (resp.errorCode == 20010)
+                    {
+                        LogError((string)resp.errorMsg);
+                    }
                 }
             }
         }

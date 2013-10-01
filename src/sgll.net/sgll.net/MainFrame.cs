@@ -25,7 +25,6 @@ namespace sgll.net
 
         private delegate void LogEvent_d(TDebugInfo e);
         private delegate void StatusEvent_d(object sender, StatusChangedArgs e);
-        private DateTime NextStatusFullRefresh = DateTime.Now;
 
         private PlayerStatus m_playerStatus = new PlayerStatus();
         private ForceTasks m_forceTasks = new ForceTasks();
@@ -315,11 +314,8 @@ namespace sgll.net
             {
                 richTextBoxLog.Text = richTextBoxLog.Text.Substring(richTextBoxLog.Text.Length - 1024);
             }
-            if (DateTime.Now > NextStatusFullRefresh)
-            {
-                RefreshDisplay(ChangedType.All);
-                NextStatusFullRefresh = DateTime.Now.AddMinutes(10);
-            }
+            
+            RefreshDisplay(ChangedType.All);
         }
     }
 }

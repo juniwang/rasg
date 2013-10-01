@@ -81,6 +81,7 @@
     <Compile Include="Core\Entieies\MojoMallDaoju.cs" />
     <Compile Include="Core\Entieies\MojoMissionData.cs" />
     <Compile Include="Core\Entieies\MojoSigninData.cs" />
+    <Compile Include="Core\Multiple.cs" />
     <Compile Include="Core\MultipleUserCtl.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\DaojuQueue.cs" />

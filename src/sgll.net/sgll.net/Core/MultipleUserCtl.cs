@@ -44,5 +44,13 @@ namespace sgll.net.Core
                 ctl.CallStatusUpdate(sender, ChangedType.All);
             }
         }
+
+        public static void AdvanceCall(object sender, AdvanceCallArgs args)
+        {
+            foreach (var ctl in controllers.Values)
+            {
+                ctl.AdvanceCall(sender, args);
+            }
+        }
     }
 }

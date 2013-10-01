@@ -14,18 +14,58 @@ namespace sgll.net
     public partial class AdvanceCall : UserControl
     {
         public MainFrame UpCall { get; set; }
+        private delegate void AdvanceCall_d(object sender, AdvanceCallArgs e);
+
+        private int CurTimes = 1;
+        private int MaxTimes = 1;
+        private Timer timer;
+        private AdvanceCallArgs args;
 
         public AdvanceCall()
         {
             InitializeComponent();
         }
 
-        private int CurTimes = 1;
-        private int MaxTimes = 1;
-        private Timer timer;
+        void SGLL_OnAdvanceCall(object sender, AdvanceCallArgs e)
+        {
+            if (e == null || e.SenderUserName == UpCall.SGLL.Data.LoginUser.Username)
+                return;
+
+            try
+            {
+                Invoke(new AdvanceCall_d(Local_AdvanceCall), new object[] { sender, e });
+            }
+            catch (Exception)
+            { }
+        }
+
+        void Local_AdvanceCall(object sender, AdvanceCallArgs e)
+        {
+            args = e;
+            Reset();
+            StartMojoCall();
+        }
+
+        private void Reset()
+        {
+            this.textBoxResult.Clear();
+            CurTimes = 1;
+            MaxTimes = args.Times;
+            this.textBoxUrl.Text = args.Url;
+            this.textBoxParameters.Text = args.Parameters;
+            if (timer != null)
+            {
+                timer.Stop();
+                timer.Dispose();
+                timer = null;
+            }
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (UpCall == null || UpCall.SGLL == null)
+                return;
+
             int times = 1;
             if (!int.TryParse(this.textBoxTimes.Text, out times) || times <= 0)
             {
@@ -39,27 +79,39 @@ namespace sgll.net
                 return;
             }
 
-            this.textBoxResult.Clear();
-            MaxTimes = times;
-            CurTimes = 1;
-            if (UpCall != null && !string.IsNullOrEmpty(UpCall.LoginInfo.Cookie))
+            args = new AdvanceCallArgs
             {
-                CallMojo();
-                if (times > 1)
-                {
-                    timer = new Timer();
-                    timer.Enabled = true;
-                    timer.Interval = interval;
-                    timer.Tick += new EventHandler(t_Tick);
-                    timer.Start();
-                }
+                Url = this.textBoxUrl.Text,
+                Times = times,
+                SenderUserName = UpCall.SGLL.Data.LoginUser.Username,
+                Parameters = this.textBoxParameters.Text,
+                IntervalSec = interval,
+            };
+            Reset();
+            StartMojoCall();
+            if (this.checkBoxAllUsers.Checked)
+            {
+                MultipleUserCtl.AdvanceCall(this, args);
+            }
+        }
+
+        private void StartMojoCall()
+        {
+            CallMojoOnce(args);
+            if (args.Times > 1)
+            {
+                timer = new Timer();
+                timer.Enabled = true;
+                timer.Interval = args.IntervalSec;
+                timer.Tick += new EventHandler(t_Tick);
+                timer.Start();
             }
         }
 
         void t_Tick(object sender, EventArgs e)
         {
             CurTimes++;
-            CallMojo();
+            CallMojoOnce(args);
 
             if (CurTimes >= MaxTimes)
             {
@@ -69,10 +121,10 @@ namespace sgll.net
             }
         }
 
-        private void CallMojo()
+        private void CallMojoOnce(AdvanceCallArgs args)
         {
-            string url = this.textBoxUrl.Text.Trim();
-            string paras = this.textBoxParameters.Text.Trim();
+            string url = args.Url;
+            string paras = args.Parameters;
 
             this.textBoxResult.AppendText(DateTime.Now.ToString() + " 开始执行第" + CurTimes + "次执行......");
             textBoxResult.AppendText(Environment.NewLine);
@@ -84,6 +136,11 @@ namespace sgll.net
             this.textBoxResult.AppendText(Environment.NewLine);
             this.textBoxResult.AppendText(Environment.NewLine);
             this.textBoxResult.AppendText(Environment.NewLine);
+        }
+
+        private void AdvanceCall_Load(object sender, EventArgs e)
+        {
+            UpCall.SGLL.OnAdvanceCall += new EventHandler<AdvanceCallArgs>(SGLL_OnAdvanceCall);
         }
     }
 }
