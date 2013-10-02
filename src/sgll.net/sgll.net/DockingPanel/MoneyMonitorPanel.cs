@@ -87,6 +87,8 @@ namespace sgll.net.DockingPanel
 
         private void RefreshParas()
         {
+            this.comboBoxAddMoney.SelectedIndex = 0;
+            this.comboBoxSubMoney.SelectedIndex = 0;
             var feature = UpCall.Data.LoginUser.GetFeature(SGLLController.QueueGUID.MoneyMonitorQueue);
             if (feature != null && feature.Parameters != null)
             {
