@@ -140,6 +140,11 @@ namespace sgll.net
 
         private void AdvanceCall_Load(object sender, EventArgs e)
         {
+
+        }
+
+        public void RegisterMultipleCall()
+        {
             UpCall.SGLL.OnAdvanceCall += new EventHandler<AdvanceCallArgs>(SGLL_OnAdvanceCall);
         }
     }

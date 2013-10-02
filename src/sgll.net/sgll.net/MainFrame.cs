@@ -187,6 +187,7 @@ namespace sgll.net
             m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall
                 = m_fuben.UpCall = m_signin.UpCall = m_daoju.UpCall = m_mission.UpCall = m_forceTasks.UpCall
                 = m_forceExchange.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = m_money.UpCall = this;
+            advanceCall1.RegisterMultipleCall();
 
             string fn = GetStyleFilename();
             if (!File.Exists(fn))
