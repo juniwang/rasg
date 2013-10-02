@@ -28,7 +28,8 @@ namespace sgll.net.Core.Queue
                 foreach (var item in Data.ForceExchange.Items)
                 {
                     if (DateTime.Now > item.LastSyncTime.AddSeconds(item.ColdDown)
-                        && Data.PlayerInfo.Grain >= item.Grain)
+                        && Data.PlayerInfo.Grain >= item.Grain
+                        && item.IsChecked(Data.LoginUser))
                         return 0;
                 }
 
@@ -46,18 +47,21 @@ namespace sgll.net.Core.Queue
                 foreach (var item in resp.data.list)
                 {
                     string name = (string)item.name;
-                    if (Regex.IsMatch(name, Pattern))
+                    //if (Regex.IsMatch(name, Pattern))
+                    //{
+
+                    //}
+                    var new_i = new MojoForceExchangeItem
                     {
-                        var new_i = new MojoForceExchangeItem
-                        {
-                            ColdDown = item.cold_down,
-                            LastSyncTime = DateTime.Now,
-                            Grain = item.grain,
-                            Id = item.id,
-                            Name = name,
-                        };
-                        items.Add(new_i);
-                    }
+                        ColdDown = item.cold_down,
+                        LastSyncTime = DateTime.Now,
+                        Grain = item.grain,
+                        Id = item.id,
+                        Name = name,
+                    };
+                    if ((int)item.rm > 0 || (int)item.unlock_level > Data.ForceProfile.Level)
+                        new_i.Locked = true;
+                    items.Add(new_i);
                 }
                 Data.ForceExchange = new MojoForceExchangeData
                 {
@@ -118,7 +122,9 @@ namespace sgll.net.Core.Queue
             MojoForceExchangeItem target = null;
             foreach (var item in exchange.Items)
             {
-                if (DateTime.Now > item.LastSyncTime.AddSeconds(item.ColdDown) && Data.PlayerInfo.Grain >= item.Grain)
+                if (DateTime.Now > item.LastSyncTime.AddSeconds(item.ColdDown)
+                    && Data.PlayerInfo.Grain >= item.Grain
+                    && item.IsChecked(Data.LoginUser))
                 {
                     target = item;
                     break;

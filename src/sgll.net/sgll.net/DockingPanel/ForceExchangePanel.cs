@@ -42,12 +42,23 @@ namespace sgll.net.DockingPanel
 
                 if (this.listViewEx1.Items.Count == 0)
                 {
-                    foreach (var item in UpCall.Data.ForceExchange.Items)
+                    for (int i = 0; i < UpCall.Data.ForceExchange.Items.Count; i++)
                     {
+                        var item = UpCall.Data.ForceExchange.Items[i];
                         var lvi = listViewEx1.Items.Add(item.Name);
+                        lvi.SubItems.Add("");
                         lvi.SubItems.Add(item.Grain.ToString());
                         lvi.SubItems.Add(item.ColdDownDisplay);
                         lvi.SubItems.Add(item.Award);
+                        lvi.BackColor = item.Locked ? Color.LightGray : Color.White;
+
+                        CheckBox cb = new CheckBox();
+                        cb.Text = "";
+                        cb.Tag = item.GetKey();
+                        cb.Checked = item.IsChecked(UpCall.Data.LoginUser);
+                        cb.Enabled = !item.Locked;
+                        listViewEx1.AddEmbeddedControl(cb, 1, i);
+                        cb.CheckStateChanged += new EventHandler(cb_CheckStateChanged);
                     }
                 }
                 else
@@ -57,12 +68,36 @@ namespace sgll.net.DockingPanel
                         var item = UpCall.Data.ForceExchange.Items[i];
                         var lvi = listViewEx1.Items[i];
                         lvi.Text = item.Name;
-                        lvi.SubItems[1].Text = item.Grain.ToString();
-                        lvi.SubItems[2].Text = item.ColdDownDisplay;
-                        lvi.SubItems[3].Text = item.Award;
+                        lvi.SubItems[2].Text = item.Grain.ToString();
+                        lvi.SubItems[3].Text = item.ColdDownDisplay;
+                        lvi.SubItems[4].Text = item.Award;
+
+                        CheckBox cb = (CheckBox)listViewEx1.GetEmbeddedControl(1, i);
+                        cb.Checked = item.IsChecked(UpCall.Data.LoginUser);
+                        cb.Enabled = !item.Locked;
+                        lvi.BackColor = item.Locked ? Color.LightGray : Color.White;
                     }
                 }
             }
+        }
+
+        void cb_CheckStateChanged(object sender, EventArgs e)
+        {
+            SaveParameters();
+        }
+
+        private void SaveParameters()
+        {
+            var dic = new Dictionary<string, string>();
+            for (int i = 0; i < listViewEx1.Items.Count; i++)
+            {
+                CheckBox cb = (CheckBox)listViewEx1.GetEmbeddedControl(1, i);
+                dic.Add((string)cb.Tag, cb.Checked.ToString().ToLower());
+            }
+
+            UpCall.SGLL.SetQueueParameters(SGLLController.QueueGUID.ForceExchangeQueue, dic);
+
+            Display();
         }
 
         private void ForceZhufushiPanel_Load(object sender, EventArgs e)
@@ -76,6 +111,7 @@ namespace sgll.net.DockingPanel
             this.startStop1.Qid = SGLLController.QueueGUID.ForceExchangeQueue;
             this.startStop1.StatusUpdate = ChangedType.ForceExchange;
             this.startStop1.TextControl = this;
+            this.startStop1.OnStart = () => SaveParameters();
         }
     }
 }
