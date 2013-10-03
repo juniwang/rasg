@@ -38,6 +38,7 @@ namespace sgll.net
         private SigninPanel m_signin = new SigninPanel();
         private DaojuPanel m_daoju = new DaojuPanel();
         private MoneyMonitorPanel m_money = new MoneyMonitorPanel();
+        private CardSalePanel m_cardSale = new CardSalePanel();
 
         private List<string> LogShowText = new List<string> { "调试", "详细", "简略" };
 
@@ -141,6 +142,10 @@ namespace sgll.net
             {
                 m_money.Display();
             }
+            if ((type & ChangedType.CardSale) == ChangedType.CardSale)
+            {
+                m_cardSale.Display();
+            }
         }
 
         void SGLL_StatusUpdate(object sender, StatusChangedArgs e)
@@ -186,7 +191,8 @@ namespace sgll.net
 
             m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall
                 = m_fuben.UpCall = m_signin.UpCall = m_daoju.UpCall = m_mission.UpCall = m_forceTasks.UpCall
-                = m_forceExchange.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = m_money.UpCall = this;
+                = m_forceExchange.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = m_money.UpCall
+                = m_cardSale.UpCall = this;
             advanceCall1.RegisterMultipleCall();
 
             string fn = GetStyleFilename();
@@ -213,6 +219,7 @@ namespace sgll.net
                 m_forceExchange.Show(dockPanel1);
                 m_forceBoss.Show(dockPanel1);
                 m_money.Show(dockPanel1);
+                m_cardSale.Show(dockPanel1);
             }
             m_playerStatus.Activate();
             ResumeLayout();
@@ -227,7 +234,7 @@ namespace sgll.net
         private IDockContent FindDocument(string text)
         {
             foreach (var x in new DockContent[] { m_forceExchange, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, m_daoju,
-                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss, m_signin, m_money})
+                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss, m_signin, m_money, m_cardSale})
             {
                 if (text == x.GetType().ToString())
                     return x;

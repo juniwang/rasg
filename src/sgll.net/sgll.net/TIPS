@@ -10,7 +10,7 @@ http://www.microsoft.com/zh-cn/download/details.aspx?id=17718
 
 5.电脑版登录的时候，ipad上的会提示重复登陆。所以如果你需要登陆ipad直接操作，请关闭电脑版的对应账号（点右上角的X就行）
 
-6.新版本发布后，复制旧版本目录下的注册码文件(*****.key)和config.json到新版本的目录下即可。
+6.新版本发布后，复制旧版本目录下的注册码文件(*****.key)和config.json到新版本的目录下即可。旧版的样式文件不能复制到新版，需要重排。
 
 7.启用最小化到托盘的方式：用记事本打开sgll.net.config,找到appSettings下面NotifyIcon，值改为true即可.需重启游戏。
 

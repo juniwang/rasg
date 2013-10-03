@@ -25,5 +25,6 @@ namespace sgll.net.Core
         public MojoMissionData MissionData { get; set; }
         public MojoForceBoss ForceBoss { get; set; }
         public MojoSigninData SignInData { get; set; }
+        public MojoCardSale CardSale { get; set; }
     }
 }

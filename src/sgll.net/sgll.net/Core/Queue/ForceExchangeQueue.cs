@@ -42,7 +42,7 @@ namespace sgll.net.Core.Queue
             dynamic resp = Post("/force/exchangelist", "");
             if (resp.errorCode == 0)
             {
-                LogWarn("刷新势力兑换列表");
+                LogInfo("刷新势力兑换列表");
                 var items = new List<MojoForceExchangeItem>();
                 foreach (var item in resp.data.list)
                 {
@@ -62,6 +62,12 @@ namespace sgll.net.Core.Queue
                     if ((int)item.rm > 0 || (int)item.unlock_level > Data.ForceProfile.Level)
                         new_i.Locked = true;
                     items.Add(new_i);
+                    if (Data.ForceExchange != null && Data.ForceExchange.Items!=null)
+                    {
+                        var exist = Data.ForceExchange.Items.FirstOrDefault(p => p.Name == new_i.Name);
+                        if (exist != null)
+                            new_i.Award = exist.Award;
+                    }
                 }
                 Data.ForceExchange = new MojoForceExchangeData
                 {

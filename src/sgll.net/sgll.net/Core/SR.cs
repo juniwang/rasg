@@ -49,6 +49,18 @@ namespace sgll.net.Core
             /// 银币太多时，购买的物品：钱箱、超级蒋干、超级蒙古马
             /// </summary>
             public static readonly string MoneySubItem = "moneysubitem";
+            /// <summary>
+            /// 卖卡类别设置
+            /// </summary>
+            public static readonly string CardSaleType = "card_sale_type";
+            /// <summary>
+            /// 卖卡星级设置: 1=5星 5=1星
+            /// </summary>
+            public static readonly string CardSaleRarity = "card_sale_rarity";
+            /// <summary>
+            /// 卖卡是否只卖等级1的卡
+            /// </summary>
+            public static readonly string CardSaleLevel1 = "card_sale_level1";
         }
 
         public struct Display

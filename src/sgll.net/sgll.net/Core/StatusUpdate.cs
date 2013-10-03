@@ -21,6 +21,7 @@ namespace sgll.net.Core
         SignIn = 0x200,
         Daoju = 0x400,
         MoneyMonitor = 0x800,
+        CardSale = 0x1000,
         All = 0xffff
     }
 

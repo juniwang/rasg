@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSetPara = new System.Windows.Forms.Button();
             this.startStop1 = new sgll.net.StartStop();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxSubLine = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxSubMoney = new System.Windows.Forms.ComboBox();
             this.comboBoxAddMoney = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxAddLine = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonSetPara = new System.Windows.Forms.Button();
+            this.comboBoxSubMoney = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxSubLine = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +54,16 @@
             this.groupBox1.Size = new System.Drawing.Size(350, 47);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // buttonSetPara
+            // 
+            this.buttonSetPara.Location = new System.Drawing.Point(7, 16);
+            this.buttonSetPara.Name = "buttonSetPara";
+            this.buttonSetPara.Size = new System.Drawing.Size(75, 23);
+            this.buttonSetPara.TabIndex = 1;
+            this.buttonSetPara.Text = "应用";
+            this.buttonSetPara.UseVisualStyleBackColor = true;
+            this.buttonSetPara.Click += new System.EventHandler(this.buttonSetPara_Click);
             // 
             // startStop1
             // 
@@ -84,46 +94,6 @@
             this.groupBox2.Size = new System.Drawing.Size(350, 149);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "当银币大于";
-            // 
-            // textBoxSubLine
-            // 
-            this.textBoxSubLine.Location = new System.Drawing.Point(87, 35);
-            this.textBoxSubLine.Name = "textBoxSubLine";
-            this.textBoxSubLine.Size = new System.Drawing.Size(51, 21);
-            this.textBoxSubLine.TabIndex = 1;
-            this.textBoxSubLine.Text = "14000";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(145, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "时购买：";
-            // 
-            // comboBoxSubMoney
-            // 
-            this.comboBoxSubMoney.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxSubMoney.FormattingEnabled = true;
-            this.comboBoxSubMoney.Items.AddRange(new object[] {
-            "超级蒋干",
-            "超级蒙古马",
-            "钱箱",
-            "钱袋"});
-            this.comboBoxSubMoney.Location = new System.Drawing.Point(194, 35);
-            this.comboBoxSubMoney.Name = "comboBoxSubMoney";
-            this.comboBoxSubMoney.Size = new System.Drawing.Size(113, 20);
-            this.comboBoxSubMoney.TabIndex = 3;
             // 
             // comboBoxAddMoney
             // 
@@ -163,15 +133,45 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "当银币小于";
             // 
-            // buttonSetPara
+            // comboBoxSubMoney
             // 
-            this.buttonSetPara.Location = new System.Drawing.Point(7, 16);
-            this.buttonSetPara.Name = "buttonSetPara";
-            this.buttonSetPara.Size = new System.Drawing.Size(75, 23);
-            this.buttonSetPara.TabIndex = 1;
-            this.buttonSetPara.Text = "应用";
-            this.buttonSetPara.UseVisualStyleBackColor = true;
-            this.buttonSetPara.Click += new System.EventHandler(this.buttonSetPara_Click);
+            this.comboBoxSubMoney.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSubMoney.FormattingEnabled = true;
+            this.comboBoxSubMoney.Items.AddRange(new object[] {
+            "钱箱",
+            "钱袋",
+            "超级蒋干",
+            "超级蒙古马"});
+            this.comboBoxSubMoney.Location = new System.Drawing.Point(194, 35);
+            this.comboBoxSubMoney.Name = "comboBoxSubMoney";
+            this.comboBoxSubMoney.Size = new System.Drawing.Size(113, 20);
+            this.comboBoxSubMoney.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(145, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "时购买：";
+            // 
+            // textBoxSubLine
+            // 
+            this.textBoxSubLine.Location = new System.Drawing.Point(87, 35);
+            this.textBoxSubLine.Name = "textBoxSubLine";
+            this.textBoxSubLine.Size = new System.Drawing.Size(51, 21);
+            this.textBoxSubLine.TabIndex = 1;
+            this.textBoxSubLine.Text = "14000";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "当银币大于";
             // 
             // MoneyMonitorPanel
             // 

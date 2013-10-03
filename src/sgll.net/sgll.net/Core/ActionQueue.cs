@@ -26,6 +26,7 @@ namespace sgll.net.Core
             public static readonly int SigninQueue = 11;
             public static readonly int SigninQueryQueue = 12;
             public static readonly int MoneyMonitorQueue = 13;
+            public static readonly int CardSaleQueue = 14;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
@@ -49,6 +50,7 @@ namespace sgll.net.Core
             QueueTitles.Add(11, "签到");
             QueueTitles.Add(12, "签到");
             QueueTitles.Add(13, "银币管理");
+            QueueTitles.Add(14, "卖卡");
 
             // for display
             QueueShowItems.Add("内政", 1);
@@ -60,6 +62,7 @@ namespace sgll.net.Core
             QueueShowItems.Add("势力Boss", 9);
             QueueShowItems.Add("签到", 11);
             QueueShowItems.Add("银币管理", 13);
+            QueueShowItems.Add("卖卡", 14);
 
             // mall items to buy
             MallItemsToBuy.Add("超级蒋干", "sp1111");
@@ -77,7 +80,7 @@ namespace sgll.net.Core
             Queues.Add(new SigninQueryQueue { SGLL = this, Enabled = true });
 
             Queues.Add(new ForceBossQueue { SGLL = this, Enabled = false });
-            Queues.Add(new MoneyMonitorQueue { SGLL = this, Enabled = false }); 
+            Queues.Add(new MoneyMonitorQueue { SGLL = this, Enabled = false });
             Queues.Add(new ForceTaskQueue { SGLL = this, Enabled = false });
             Queues.Add(new CollectQueue { SGLL = this, Enabled = false });
             Queues.Add(new HuangjinTreasureQueue { SGLL = this, Enabled = false });
@@ -85,6 +88,7 @@ namespace sgll.net.Core
             Queues.Add(new FubenQueue { SGLL = this, Enabled = false });
             Queues.Add(new MissionQueue { SGLL = this, Enabled = false });
             Queues.Add(new SigninQueue { SGLL = this, Enabled = false });
+            Queues.Add(new CardSaleQueue { SGLL = this, Enabled = false });
 
             if (Data.LoginUser.Features != null)
             {
@@ -142,22 +146,25 @@ namespace sgll.net.Core
             }
         }
 
+        int queueIndex = 0;
         public void ExecuteQueue()
         {
             IQueue queue = null;
-            foreach (var q in Queues)
+            for (int i = queueIndex; i < queueIndex + Queues.Count; i++)
             {
+                var q = Queues[i % Queues.Count];
                 if (!q.Enabled)
                 {
                     continue;
                 }
-
                 if (q.CountDown <= 0)
                 {
                     queue = q;
                     break;
                 }
             }
+            queueIndex++;
+            if (queueIndex > 10000) queueIndex = queueIndex % Queues.Count;
 
             if (queue != null)
             {

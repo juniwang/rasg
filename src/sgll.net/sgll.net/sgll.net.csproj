@@ -75,6 +75,7 @@
     </Compile>
     <Compile Include="Core\Entieies\AbstractMojoColdDown.cs" />
     <Compile Include="Core\Entieies\MojoCollectData.cs" />
+    <Compile Include="Core\Entieies\MojoEntitySale.cs" />
     <Compile Include="Core\Entieies\MojoForceBoss.cs" />
     <Compile Include="Core\Entieies\MojoForceExchangeData.cs" />
     <Compile Include="Core\Entieies\MojoFubenData.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Core\Entieies\MojoSigninData.cs" />
     <Compile Include="Core\Multiple.cs" />
     <Compile Include="Core\MultipleUserCtl.cs" />
+    <Compile Include="Core\Queue\CardSaleQueue.cs" />
     <Compile Include="Core\Queue\CollectQueue.cs" />
     <Compile Include="Core\Queue\DaojuQueue.cs" />
     <Compile Include="Core\Queue\ForceBossQueue.cs" />
@@ -99,6 +101,12 @@
     </Compile>
     <Compile Include="DaojuLabel.Designer.cs">
       <DependentUpon>DaojuLabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DockingPanel\CardSalePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DockingPanel\CardSalePanel.Designer.cs">
+      <DependentUpon>CardSalePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="DockingPanel\CollectPanel.cs">
       <SubType>Form</SubType>
@@ -264,6 +272,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DaojuLabel.resx">
       <DependentUpon>DaojuLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DockingPanel\CardSalePanel.resx">
+      <DependentUpon>CardSalePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DockingPanel\CollectPanel.resx">
       <DependentUpon>CollectPanel.cs</DependentUpon>

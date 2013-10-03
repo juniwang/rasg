@@ -58,7 +58,7 @@
             // 
             this.textBoxUrl.Location = new System.Drawing.Point(57, 22);
             this.textBoxUrl.Name = "textBoxUrl";
-            this.textBoxUrl.Size = new System.Drawing.Size(408, 21);
+            this.textBoxUrl.Size = new System.Drawing.Size(547, 21);
             this.textBoxUrl.TabIndex = 1;
             this.textBoxUrl.Text = "/player/profile";
             // 
@@ -66,7 +66,7 @@
             // 
             this.textBoxParameters.Location = new System.Drawing.Point(57, 46);
             this.textBoxParameters.Name = "textBoxParameters";
-            this.textBoxParameters.Size = new System.Drawing.Size(408, 21);
+            this.textBoxParameters.Size = new System.Drawing.Size(547, 21);
             this.textBoxParameters.TabIndex = 3;
             // 
             // label2
@@ -101,7 +101,7 @@
             this.textBoxResult.Location = new System.Drawing.Point(3, 17);
             this.textBoxResult.Multiline = true;
             this.textBoxResult.Name = "textBoxResult";
-            this.textBoxResult.Size = new System.Drawing.Size(493, 293);
+            this.textBoxResult.Size = new System.Drawing.Size(640, 293);
             this.textBoxResult.TabIndex = 7;
             // 
             // groupBox1
@@ -119,7 +119,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(499, 138);
+            this.groupBox1.Size = new System.Drawing.Size(646, 138);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "请求设置";
@@ -157,7 +157,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 138);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(499, 313);
+            this.groupBox2.Size = new System.Drawing.Size(646, 313);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "输出";
@@ -179,7 +179,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "AdvanceCall";
-            this.Size = new System.Drawing.Size(499, 451);
+            this.Size = new System.Drawing.Size(646, 451);
             this.Load += new System.EventHandler(this.AdvanceCall_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
