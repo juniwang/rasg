@@ -116,6 +116,7 @@ namespace sgll.net.DockingPanel
                 DisplayParameters();
                 this.checkBoxLevel1Only.Checked = bool.Parse(UpCall.SGLL.Data.LoginUser.GetParameter(Qid, SR.ParaKey.CardSaleLevel1, "true"));
                 firstLoad = false;
+                labelExclude.Text = "保留卡片：蒋干，蒙古马，超级蒋干，超级蒙古马，龙渊剑";
             }
         }
 

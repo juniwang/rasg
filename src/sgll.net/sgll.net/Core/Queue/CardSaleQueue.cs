@@ -48,6 +48,9 @@ namespace sgll.net.Core.Queue
         {
             var cards = Data.CardSale.CardsToSell.Where(p => p.Name != "蒋干")
                 .Where(p => p.Name != "蒙古马")
+                .Where(p => p.Name != "龙渊剑")
+                .Where(p => p.Name != "超级蒙古马")
+                .Where(p => p.Name != "超级蒋干")
                 .Where(p => p.RarityId != "1" && p.RarityId != "2");
             if (MatchParam(SR.ParaKey.CardSaleLevel1, "true", true))
             {
