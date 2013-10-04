@@ -8,6 +8,8 @@ namespace sgll.net.Core.Queue
 {
     public class CardSaleQueue : AbstractQueue
     {
+        int filtered = 0;
+
         public override int QueueGUID
         {
             get { return SGLLController.QueueGUID.CardSaleQueue; }
@@ -58,6 +60,7 @@ namespace sgll.net.Core.Queue
             }
             var ids = string.Join(",", cards.Select(p => p.PlayerEntityId)).Trim(',');
             var names = string.Join(",", cards.Select(p => p.Name)).Trim(',');
+            filtered = Data.CardSale.CardsToSell.Count - ids.Count();
             if (!string.IsNullOrWhiteSpace(ids))
             {
                 /*
@@ -96,8 +99,12 @@ namespace sgll.net.Core.Queue
                 };
                 return;
             }
+            int count = 50 + filtered;
 
-            string contents = string.Format("type=sale&type_ids={0}&rarity_ids={1}&start=0&count=50&order_id=2", type_ids, rarity_ids);
+            string contents = string.Format("type=sale&type_ids={0}&rarity_ids={1}&start=0&count={2}&order_id=2",
+                type_ids,
+                rarity_ids,
+                count);
             dynamic resp = Post("/entity/package", contents);
             if (resp != null && resp.errorCode == 0)
             {
