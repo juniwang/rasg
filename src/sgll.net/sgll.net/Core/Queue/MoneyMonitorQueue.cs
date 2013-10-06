@@ -41,7 +41,7 @@ namespace sgll.net.Core.Queue
             {
                 int sLine = -1;
                 if (int.TryParse(Parameters[SR.ParaKey.MoneySubLine], out sLine)
-                    && Data.PlayerInfo.VM > sLine)
+                    && SGLL.Data.PlayerInfo.VM > sLine)
                 {
                     return true;
                 }
@@ -56,7 +56,7 @@ namespace sgll.net.Core.Queue
                 int aLine = -1;
                 var daoju = Parameters[SR.ParaKey.MoneyAddItem];
                 if (int.TryParse(Parameters[SR.ParaKey.MoneyAddLine], out aLine)
-                    && Data.PlayerInfo.VM < aLine
+                    && SGLL.Data.PlayerInfo.VM < aLine
                     && HasDaoju(daoju))
                 {
                     return true;
@@ -79,8 +79,8 @@ namespace sgll.net.Core.Queue
             {
                 string dj=Parameters[SR.ParaKey.MoneySubItem];
                 BuyDaoju(dj);
-                if (Data.Daoju.Get(dj) != null)
-                    Data.Daoju.Get(dj).Count++;
+                if (SGLL.Data.Daoju.Get(dj) != null)
+                    SGLL.Data.Daoju.Get(dj).Count++;
                 SGLL.CallStatusUpdate(this, ChangedType.Profile | ChangedType.MoneyMonitor | ChangedType.Daoju);
             }
         }

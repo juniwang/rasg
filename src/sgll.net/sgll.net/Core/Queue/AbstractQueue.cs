@@ -17,14 +17,6 @@ namespace sgll.net.Core.Queue
             set;
         }
 
-        public SGLLData Data
-        {
-            get
-            {
-                return SGLL == null ? null : SGLL.Data;
-            }
-        }
-
         public bool Enabled
         {
             get;
@@ -110,7 +102,7 @@ namespace sgll.net.Core.Queue
 
         protected void BuyDaoju(string name)
         {
-            var dj = Data.Daoju.Get(name);
+            var dj = SGLL.Data.Daoju.Get(name);
             string id = "";
             if (dj != null)
                 id = dj.GoodsId;

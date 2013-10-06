@@ -133,7 +133,7 @@ namespace sgll.net.Core.Queue
                 }
                 else
                 {
-                    Data.MissionData = null;
+                    SGLL.Data.MissionData = null;
                     if (resp.errorCode == 20010)
                     {
                         LogError((string)resp.errorMsg);

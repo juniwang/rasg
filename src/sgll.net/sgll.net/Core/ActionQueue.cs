@@ -10,6 +10,7 @@ namespace sgll.net.Core
 {
     public partial class SGLLController
     {
+        // never change those ID and corresponding titles, show names because of compatibility
         public struct QueueGUID
         {
             public static readonly int BasicProfileQueue = 0;
@@ -27,6 +28,7 @@ namespace sgll.net.Core
             public static readonly int SigninQueryQueue = 12;
             public static readonly int MoneyMonitorQueue = 13;
             public static readonly int CardSaleQueue = 14;
+            public static readonly int ActivityQueue = 15;
         }
 
         public static Dictionary<int, string> QueueTitles = new Dictionary<int, string>();
@@ -51,6 +53,7 @@ namespace sgll.net.Core
             QueueTitles.Add(12, "签到");
             QueueTitles.Add(13, "银币管理");
             QueueTitles.Add(14, "卖卡");
+            QueueTitles.Add(15, "活动中心");
 
             // for display
             QueueShowItems.Add("内政", 1);
@@ -63,10 +66,13 @@ namespace sgll.net.Core
             QueueShowItems.Add("签到", 11);
             QueueShowItems.Add("银币管理", 13);
             QueueShowItems.Add("卖卡", 14);
+            QueueShowItems.Add("活动中心", 15);
 
             // mall items to buy
             MallItemsToBuy.Add("超级蒋干", "sp1111");
             MallItemsToBuy.Add("超级蒙古马", "sp2222");
+            MallItemsToBuy.Add("蒋干", "sp0105"); // 一大波蒋干来了
+            MallItemsToBuy.Add("蒙古马", "sp0107"); // 万马奔腾
         }
 
         private List<IQueue> Queues = new List<IQueue>();
@@ -89,6 +95,7 @@ namespace sgll.net.Core
             Queues.Add(new MissionQueue { SGLL = this, Enabled = false });
             Queues.Add(new SigninQueue { SGLL = this, Enabled = false });
             Queues.Add(new CardSaleQueue { SGLL = this, Enabled = false });
+            Queues.Add(new ActivityQueue { SGLL = this, Enabled = false });
 
             if (Data.LoginUser.Features != null)
             {

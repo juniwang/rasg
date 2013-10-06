@@ -39,6 +39,7 @@ namespace sgll.net
         private DaojuPanel m_daoju = new DaojuPanel();
         private MoneyMonitorPanel m_money = new MoneyMonitorPanel();
         private CardSalePanel m_cardSale = new CardSalePanel();
+        private ActivityPanel m_activity = new ActivityPanel();
 
         private List<string> LogShowText = new List<string> { "调试", "详细", "简略" };
 
@@ -146,6 +147,10 @@ namespace sgll.net
             {
                 m_cardSale.Display();
             }
+            if ((type & ChangedType.Activity) == ChangedType.Activity)
+            {
+                m_activity.Display();
+            }
         }
 
         void SGLL_StatusUpdate(object sender, StatusChangedArgs e)
@@ -192,7 +197,7 @@ namespace sgll.net
             m_playerStatus.UpCall = m_forceProfile.UpCall = m_huangjinTreansure.UpCall = m_collect.UpCall
                 = m_fuben.UpCall = m_signin.UpCall = m_daoju.UpCall = m_mission.UpCall = m_forceTasks.UpCall
                 = m_forceExchange.UpCall = advanceCall1.UpCall = m_forceBoss.UpCall = m_money.UpCall
-                = m_cardSale.UpCall = this;
+                = m_cardSale.UpCall = m_activity.UpCall = this;
             advanceCall1.RegisterMultipleCall();
 
             string fn = GetStyleFilename();
@@ -220,6 +225,7 @@ namespace sgll.net
                 m_forceBoss.Show(dockPanel1);
                 m_money.Show(dockPanel1);
                 m_cardSale.Show(dockPanel1);
+                m_activity.Show(dockPanel1);
             }
             m_playerStatus.Activate();
             ResumeLayout();
@@ -234,7 +240,7 @@ namespace sgll.net
         private IDockContent FindDocument(string text)
         {
             foreach (var x in new DockContent[] { m_forceExchange, m_forceProfile, m_forceTasks, m_playerStatus, m_collect, m_daoju,
-                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss, m_signin, m_money, m_cardSale})
+                m_huangjinTreansure, m_fuben ,m_mission,m_forceBoss, m_signin, m_money, m_cardSale,m_activity})
             {
                 if (text == x.GetType().ToString())
                     return x;

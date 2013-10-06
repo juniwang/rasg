@@ -25,11 +25,12 @@ namespace sgll.net.Core.Queue
                 if (exchange == null || exchange.Items == null || exchange.CDFinished)
                     return 0;
 
-                foreach (var item in Data.ForceExchange.Items)
+                foreach (var item in SGLL.Data.ForceExchange.Items)
                 {
                     if (DateTime.Now > item.LastSyncTime.AddSeconds(item.ColdDown)
-                        && Data.PlayerInfo.Grain >= item.Grain
-                        && item.IsChecked(Data.LoginUser))
+                        && SGLL.Data.PlayerInfo.Grain >= item.Grain
+                        && item.IsChecked(SGLL.Data.LoginUser)
+                        && !item.Locked)
                         return 0;
                 }
 
@@ -59,17 +60,17 @@ namespace sgll.net.Core.Queue
                         Id = item.id,
                         Name = name,
                     };
-                    if ((int)item.rm > 0 || (int)item.unlock_level > Data.ForceProfile.Level)
+                    if ((int)item.rm > 0 || (int)item.unlock_level > SGLL.Data.ForceProfile.Level)
                         new_i.Locked = true;
                     items.Add(new_i);
-                    if (Data.ForceExchange != null && Data.ForceExchange.Items!=null)
+                    if (SGLL.Data.ForceExchange != null && SGLL.Data.ForceExchange.Items != null)
                     {
-                        var exist = Data.ForceExchange.Items.FirstOrDefault(p => p.Name == new_i.Name);
+                        var exist = SGLL.Data.ForceExchange.Items.FirstOrDefault(p => p.Name == new_i.Name);
                         if (exist != null)
                             new_i.Award = exist.Award;
                     }
                 }
-                Data.ForceExchange = new MojoForceExchangeData
+                SGLL.Data.ForceExchange = new MojoForceExchangeData
                 {
                     Items = items,
                     LastSyncTime = DateTime.Now,
@@ -105,14 +106,14 @@ namespace sgll.net.Core.Queue
 
                 if (resp.data.player_force != null)
                 {
-                    Data.PlayerInfo.Grain = resp.data.player_force.grain;
-                    Data.PlayerInfo.RM = resp.data.player_force.rm;
+                    SGLL.Data.PlayerInfo.Grain = resp.data.player_force.grain;
+                    SGLL.Data.PlayerInfo.RM = resp.data.player_force.rm;
                 }
                 SGLL.CallStatusUpdate(this, ChangedType.ForceExchange | ChangedType.Profile);
             }
             else
             {
-                Data.ForceExchange = null;
+                SGLL.Data.ForceExchange = null;
             }
         }
 
@@ -129,8 +130,9 @@ namespace sgll.net.Core.Queue
             foreach (var item in exchange.Items)
             {
                 if (DateTime.Now > item.LastSyncTime.AddSeconds(item.ColdDown)
-                    && Data.PlayerInfo.Grain >= item.Grain
-                    && item.IsChecked(Data.LoginUser))
+                    && SGLL.Data.PlayerInfo.Grain >= item.Grain
+                    && item.IsChecked(SGLL.Data.LoginUser)
+                    && !item.Locked)
                 {
                     target = item;
                     break;

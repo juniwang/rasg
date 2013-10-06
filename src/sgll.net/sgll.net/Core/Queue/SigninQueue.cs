@@ -26,7 +26,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (Data.SignInData != null && Data.SignInData.Status == SignStatus.NeedSignin)
+                if (SGLL.Data.SignInData != null && SGLL.Data.SignInData.Status == SignStatus.NeedSignin)
                     return 0;
 
                 return 1;
@@ -50,10 +50,10 @@ namespace sgll.net.Core.Queue
                     // if ((bool)resp.data.award.is_double) at += "*2";
 
                     msg += "," + at;
-                    Data.SignInData.AwardToday = at;
+                    SGLL.Data.SignInData.AwardToday = at;
                 }
                 LogWarn(msg);
-                Data.SignInData.Status = SignStatus.Completed;
+                SGLL.Data.SignInData.Status = SignStatus.Completed;
 
                 var player = resp.data.player;
                 if (player != null && SGLL.Data.PlayerInfo != null)
@@ -74,7 +74,7 @@ namespace sgll.net.Core.Queue
             else
             {
                 LogWarn("签到失败:" + (string)resp.errorMsg);
-                Data.SignInData = null;
+                SGLL.Data.SignInData = null;
             }
         }
     }
@@ -93,10 +93,10 @@ namespace sgll.net.Core.Queue
                 if (SGLL.Data.SignInData == null || SGLL.Data.SignInData.CDFinished)
                     return 0;
 
-                if (Data.SignInData.LastSyncTime.Day != DateTime.Today.Day)
+                if (SGLL.Data.SignInData.LastSyncTime.Day != DateTime.Today.Day)
                 {
-                    Data.SignInData.Status = SignStatus.Unknown;
-                    Data.SignInData.AwardToday = "";
+                    SGLL.Data.SignInData.Status = SignStatus.Unknown;
+                    SGLL.Data.SignInData.AwardToday = "";
                 }
 
                 return 1;
@@ -109,12 +109,12 @@ namespace sgll.net.Core.Queue
             if (resp != null && resp.errorCode == 0)
             {
                 LogWarn("查询签到状态");
-                if (Data.SignInData == null)
-                    Data.SignInData = new MojoSigninData();
+                if (SGLL.Data.SignInData == null)
+                    SGLL.Data.SignInData = new MojoSigninData();
 
-                Data.SignInData.LastSyncTime = DateTime.Now;
-                Data.SignInData.ColdDown = 6 * 60 * 60 + random.Next(0, 3600);
-                Data.SignInData.Status = resp.data.check_in != null ? SignStatus.NeedSignin : SignStatus.Completed;
+                SGLL.Data.SignInData.LastSyncTime = DateTime.Now;
+                SGLL.Data.SignInData.ColdDown = 6 * 60 * 60 + random.Next(0, 3600);
+                SGLL.Data.SignInData.Status = resp.data.check_in != null ? SignStatus.NeedSignin : SignStatus.Completed;
 
                 SGLL.CallStatusUpdate(this, ChangedType.SignIn);
             }

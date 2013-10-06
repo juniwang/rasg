@@ -61,6 +61,14 @@ namespace sgll.net.Core
             /// 卖卡是否只卖等级1的卡
             /// </summary>
             public static readonly string CardSaleLevel1 = "card_sale_level1";
+            /// <summary>
+            /// 活动中心自动购买蒋干、蒙古马
+            /// </summary>
+            public static readonly string ActivityAutoJM = "activity_auto_jm";
+            /// <summary>
+            /// 活动中心自动兑换书银蛋
+            /// </summary>
+            public static readonly string ActivityAutoShu = "activity_syd";
         }
 
         public struct Display

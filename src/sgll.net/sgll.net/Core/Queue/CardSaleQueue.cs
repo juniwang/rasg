@@ -19,12 +19,12 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (Data.CardSale == null || Data.CardSale.CDFinished)
+                if (SGLL.Data.CardSale == null || SGLL.Data.CardSale.CDFinished)
                 {
                     return 0;
                 }
 
-                if (Data.CardSale.CardsToSell != null && Data.CardSale.CardsToSell.Count > 0)
+                if (SGLL.Data.CardSale.CardsToSell != null && SGLL.Data.CardSale.CardsToSell.Count > 0)
                     return 0;
 
                 return 1;
@@ -33,7 +33,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            var sale = Data.CardSale;
+            var sale = SGLL.Data.CardSale;
             if (sale == null || sale.CDFinished)
             {
                 QueryCardsToSell();
@@ -48,7 +48,7 @@ namespace sgll.net.Core.Queue
 
         private void SellCards()
         {
-            var cards = Data.CardSale.CardsToSell.Where(p => p.Name != "蒋干")
+            var cards = SGLL.Data.CardSale.CardsToSell.Where(p => p.Name != "蒋干")
                 .Where(p => p.Name != "蒙古马")
                 .Where(p => p.Name != "龙渊剑")
                 .Where(p => p.Name != "超级蒙古马")
@@ -60,7 +60,7 @@ namespace sgll.net.Core.Queue
             }
             var ids = string.Join(",", cards.Select(p => p.PlayerEntityId)).Trim(',');
             var names = string.Join(",", cards.Select(p => p.Name)).Trim(',');
-            filtered = Data.CardSale.CardsToSell.Count - ids.Count();
+            filtered = SGLL.Data.CardSale.CardsToSell.Count - ids.Count();
             if (!string.IsNullOrWhiteSpace(ids))
             {
                 /*
@@ -70,29 +70,29 @@ namespace sgll.net.Core.Queue
                 if (resp != null && resp.errorCode == 0)
                 {
                     int price = (int)resp.data.totalPrice;
-                    Data.PlayerInfo.VM += price;
+                    SGLL.Data.PlayerInfo.VM += price;
                     LogWarn("卖卡成功，收入银币：" + price + ",卖掉:" + names);
 
-                    if (Data.PlayerInfo.CardIndex != null)
-                        Data.PlayerInfo.CardIndex.CardCount -= cards.Count();
-                    Data.CardSale.CardsToSell = null;
+                    if (SGLL.Data.PlayerInfo.CardIndex != null)
+                        SGLL.Data.PlayerInfo.CardIndex.CardCount -= cards.Count();
+                    SGLL.Data.CardSale.CardsToSell = null;
                     SGLL.CallStatusUpdate(this, ChangedType.Profile);
                 }
                 else
                 {
-                    Data.CardSale.CardsToSell = null;
+                    SGLL.Data.CardSale.CardsToSell = null;
                 }
             }
         }
 
         private void QueryCardsToSell()
         {
-            string type_ids = Data.LoginUser.GetParameter(QueueGUID, SR.ParaKey.CardSaleType, "");
-            string rarity_ids = Data.LoginUser.GetParameter(QueueGUID, SR.ParaKey.CardSaleRarity, "");
+            string type_ids = SGLL.Data.LoginUser.GetParameter(QueueGUID, SR.ParaKey.CardSaleType, "");
+            string rarity_ids = SGLL.Data.LoginUser.GetParameter(QueueGUID, SR.ParaKey.CardSaleRarity, "");
             if (string.IsNullOrWhiteSpace(type_ids) || string.IsNullOrWhiteSpace(rarity_ids))
             {
                 LogError("设置错误，无法自动卖卡");
-                Data.CardSale = new MojoCardSale
+                SGLL.Data.CardSale = new MojoCardSale
                 {
                     LastSyncTime = DateTime.Now,
                     ColdDown = 3600,
@@ -122,13 +122,13 @@ namespace sgll.net.Core.Queue
                     };
                     toSell.Add(new_c);
                 }
-                Data.CardSale = new MojoCardSale
+                SGLL.Data.CardSale = new MojoCardSale
                 {
                     CardsToSell = toSell,
                     ColdDown = 3600,
                     LastSyncTime = DateTime.Now,
                 };
-                Data.PlayerInfo.CardIndex = new MojoCardIndex
+                SGLL.Data.PlayerInfo.CardIndex = new MojoCardIndex
                 {
                     CardCapacity = resp.data.entityMaxCapacity,
                     CardCount = resp.data.entityCardCount,
@@ -138,7 +138,7 @@ namespace sgll.net.Core.Queue
             }
             else
             {
-                Data.CardSale = new MojoCardSale
+                SGLL.Data.CardSale = new MojoCardSale
                 {
                     LastSyncTime = DateTime.Now,
                     ColdDown = 3600,

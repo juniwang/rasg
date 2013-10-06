@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxBoss = new System.Windows.Forms.CheckBox();
             this.startStop1 = new sgll.net.StartStop();
             this.listViewEx1 = new ListViewEmbeddedControls.ListViewEx();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -37,7 +38,6 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.checkBoxBoss = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -48,11 +48,22 @@
             this.groupBox1.Controls.Add(this.checkBoxBoss);
             this.groupBox1.Controls.Add(this.startStop1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(3, 237);
+            this.groupBox1.Location = new System.Drawing.Point(0, 266);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(470, 76);
+            this.groupBox1.Size = new System.Drawing.Size(484, 76);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
+            // 
+            // checkBoxBoss
+            // 
+            this.checkBoxBoss.AutoSize = true;
+            this.checkBoxBoss.Location = new System.Drawing.Point(6, 20);
+            this.checkBoxBoss.Name = "checkBoxBoss";
+            this.checkBoxBoss.Size = new System.Drawing.Size(264, 16);
+            this.checkBoxBoss.TabIndex = 1;
+            this.checkBoxBoss.Text = "关底boss自动领奖。要开晋国蛋的不要勾选。";
+            this.checkBoxBoss.UseVisualStyleBackColor = true;
+            this.checkBoxBoss.CheckedChanged += new System.EventHandler(this.checkBoxBoss_CheckedChanged);
             // 
             // startStop1
             // 
@@ -107,31 +118,19 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(484, 342);
+            this.tabControl1.Size = new System.Drawing.Size(484, 266);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.listViewEx1);
-            this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(476, 316);
+            this.tabPage1.Size = new System.Drawing.Size(476, 240);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "总览";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxBoss
-            // 
-            this.checkBoxBoss.AutoSize = true;
-            this.checkBoxBoss.Location = new System.Drawing.Point(6, 20);
-            this.checkBoxBoss.Name = "checkBoxBoss";
-            this.checkBoxBoss.Size = new System.Drawing.Size(264, 16);
-            this.checkBoxBoss.TabIndex = 1;
-            this.checkBoxBoss.Text = "关底boss自动领奖。要开晋国蛋的不要勾选。";
-            this.checkBoxBoss.UseVisualStyleBackColor = true;
-            this.checkBoxBoss.CheckedChanged += new System.EventHandler(this.checkBoxBoss_CheckedChanged);
             // 
             // FubenPanel
             // 
@@ -142,6 +141,7 @@
             this.CloseButtonVisible = false;
             this.ControlBox = false;
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "FubenPanel";
             this.ShowIcon = false;
