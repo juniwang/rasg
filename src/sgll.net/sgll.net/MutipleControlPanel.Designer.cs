@@ -32,8 +32,8 @@
             this.buttonStart = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -63,7 +63,7 @@
             this.groupBox1.Controls.Add(this.buttonStop);
             this.groupBox1.Controls.Add(this.buttonStart);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(0, 213);
+            this.groupBox1.Location = new System.Drawing.Point(0, 234);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(287, 40);
             this.groupBox1.TabIndex = 13;
@@ -76,18 +76,9 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 213);
+            this.groupBox2.Size = new System.Drawing.Size(287, 234);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(131, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "同时更改所有登录账号:";
             // 
             // checkedListBox1
             // 
@@ -107,14 +98,23 @@
             "活动中心兑换"});
             this.checkedListBox1.Location = new System.Drawing.Point(14, 42);
             this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(252, 144);
+            this.checkedListBox1.Size = new System.Drawing.Size(252, 176);
             this.checkedListBox1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(131, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "同时更改所有登录账号:";
             // 
             // MutipleControlPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(287, 253);
+            this.ClientSize = new System.Drawing.Size(287, 274);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "MutipleControlPanel";
