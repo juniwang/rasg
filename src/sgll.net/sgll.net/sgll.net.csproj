@@ -96,6 +96,9 @@
     <Compile Include="Core\Queue\MissionQueue.cs" />
     <Compile Include="Core\Queue\MoneyMonitorQueue.cs" />
     <Compile Include="Core\Queue\SigninQueue.cs" />
+    <Compile Include="Core\Schedule.cs" />
+    <Compile Include="Core\Schedule\ITaskScheduler.cs" />
+    <Compile Include="Core\Schedule\NonBlockingScheduler.cs" />
     <Compile Include="Core\SConfig.cs" />
     <Compile Include="Core\SGLLLog.cs" />
     <Compile Include="DaojuLabel.cs">

@@ -19,6 +19,12 @@ namespace sgll.net.Core
             Data = data;
         }
 
+        public void Close()
+        { 
+            // clean up work
+            taskScheduler.Dispose();
+        }
+
         public bool Login()
         {
             var output = new Dictionary<string, string>();

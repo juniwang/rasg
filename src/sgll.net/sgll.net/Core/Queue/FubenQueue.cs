@@ -19,7 +19,7 @@ namespace sgll.net.Core.Queue
             get
             {
                 //初始化副本列表
-                if (SGLL.Data.FubenData == null || SGLL.Data.FubenData.Fubens == null || DateTime.Now > SGLL.Data.FubenData.NextSyncTime)
+                if (SGLL.Data.FubenData == null || SGLL.Data.FubenData.Fubens == null || SGLL.Data.FubenData.CDFinished)
                 {
                     return 0;
                 }
@@ -64,6 +64,32 @@ namespace sgll.net.Core.Queue
                         fuben.Tasks = null;
                         return 0;
                     }
+                    else if (fuben.Status == 2)
+                    {
+                        // 领奖
+                        if (fuben.Tasks == null || fuben.CurrentGroup == null || fuben.Groups == null)
+                            return 0;
+
+                        var awardTask = fuben.Tasks.LastOrDefault();
+                        if (awardTask != null && awardTask.Status == 3)
+                        {
+                            string fubenName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, awardTask.Name);
+                            awardTask.Status = 2;
+                            // 小关自动领奖
+                            if (fuben.CurrentGroup.Order != fuben.Groups.Count)
+                            {
+                                OpenAward(awardTask, fubenName);
+                            }
+                            else
+                            {
+                                //关底boss是否领奖
+                                if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
+                                {
+                                    OpenAward(awardTask, fubenName);
+                                }
+                            }
+                        }
+                    }
                 }
 
                 return 1;
@@ -72,7 +98,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (SGLL.Data.FubenData == null || SGLL.Data.FubenData.Fubens == null || DateTime.Now > SGLL.Data.FubenData.NextSyncTime)
+            if (SGLL.Data.FubenData == null || SGLL.Data.FubenData.Fubens == null || SGLL.Data.FubenData.CDFinished)
             {
                 RefreshFubenList();
                 return;
@@ -115,6 +141,15 @@ namespace sgll.net.Core.Queue
                     ResetFuben(fb);
                     return;
                 }
+                else if (fb.Status == 2)
+                {
+                    if (fb.Tasks == null || fb.Groups == null || fb.CurrentGroup == null)
+                    {
+                        RefreshTasks(fb);
+                        return;
+                    }
+                    var awardT = fb.Tasks.Last();
+                }
             }
         }
 
@@ -150,7 +185,8 @@ namespace sgll.net.Core.Queue
                         {
                             OpenAward(task, fubenName);
                         }
-                        else {
+                        else
+                        {
                             //关底boss是否领奖
                             if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
                             {
@@ -236,7 +272,7 @@ namespace sgll.net.Core.Queue
                 dynamic resp = JObject.Parse(call.Item2);
                 if (resp.errorCode == 0)
                 {
-                    LogWarn( fuben.Name + "获取副本关卡列表");
+                    LogWarn(fuben.Name + "获取副本关卡列表");
                     var groups = new List<MojoFubenGroup>();
                     foreach (var g in resp.data.fb_task_groups)
                     {
@@ -327,7 +363,8 @@ namespace sgll.net.Core.Queue
                     SGLL.Data.FubenData = new MojoFubenData
                     {
                         Fubens = fubens,
-                        NextSyncTime = DateTime.Now.AddHours(1).AddMinutes(new Random().Next(0, 30)),
+                        LastSyncTime = DateTime.Now,
+                        ColdDown = 3600,
                     };
                     SGLL.CallStatusUpdate(this, ChangedType.Fuben);
                 }

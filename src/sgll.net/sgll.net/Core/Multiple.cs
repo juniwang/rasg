@@ -16,12 +16,15 @@ namespace sgll.net.Core
 
     public partial class SGLLController
     {
+        Random random = new Random();
         public event EventHandler<AdvanceCallArgs> OnAdvanceCall;
 
         public void AdvanceCall(Object sender, AdvanceCallArgs args)
         {
             if (OnAdvanceCall != null)
-                OnAdvanceCall(sender, args);
+            {
+                SetTimer(random.Next(1, 30000), () => OnAdvanceCall(sender, args));
+            }
         }
     }
 }

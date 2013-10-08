@@ -59,6 +59,7 @@ namespace sgll.net
             {
                 (UpTP.Parent as TabControl).TabPages.Remove(UpTP);
                 MultipleUserCtl.UnRegisterController(LoginInfo.Username);
+                SGLL.Close();
                 timer2.Enabled = false;
                 timer2.Dispose();
                 UpTP.Dispose();

@@ -6,10 +6,9 @@ using System.Drawing;
 
 namespace sgll.net.Core.Entieies
 {
-    public class MojoFubenData
+    public class MojoFubenData : AbstractMojoColdDown
     {
         public List<MojoFuben> Fubens { get; set; }
-        public DateTime NextSyncTime { get; set; }
     }
 
     public class MojoFuben : AbstractMojoColdDown
