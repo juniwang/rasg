@@ -6,16 +6,16 @@ using Newtonsoft.Json.Linq;
 
 namespace sgll.net.Core.Queue
 {
+    class AwardInfo
+    {
+        public string TaskId { get; set; }
+        public string AwardId { get; set; }
+        public string TaskFullName { get; set; }
+    }
+
     public class FubenAwardQueue : AbstractQueue
     {
-        class AwardInfo
-        {
-            public string AwardId { get; set; }
-            public string FubenName { get; set; }
-        }
-
-        internal Dictionary<string, string> AwardsPre = new Dictionary<string, string>();
-        Dictionary<string, AwardInfo> Awards = new Dictionary<string, AwardInfo>();
+        internal List<AwardInfo> Awards = new List<AwardInfo>();
 
         public override int QueueGUID
         {
@@ -29,7 +29,7 @@ namespace sgll.net.Core.Queue
         {
             get
             {
-                if (AwardsPre.Count > 0 || Awards.Count > 0)
+                if (Awards.Count > 0)
                     return 0;
                 return 1;
             }
@@ -37,64 +37,51 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (AwardsPre.Count > 0)
-            {
-                GetAwardPre();
-                return;
-            }
-
             if (Awards.Count > 0)
             {
-                OpenAward();
+                var award = Awards.First();
+                if (string.IsNullOrWhiteSpace(award.AwardId))
+                    GetAwardPre(award);
+                else
+                    OpenAward(award);
             }
         }
 
-        private void OpenAward()
+        private void OpenAward(AwardInfo award)
         {
-            var task_id = Awards.Keys.First();
-            var awardInfo = Awards[task_id];
-            var contents = string.Format("id={0}&award_id={1}&status=1", task_id, awardInfo.AwardId);
-            var call = SGLL.Client.Post("/fuben/openAward", contents, SGLL.Data.LoginUser.Cookie);
-            LogDebug(call.ToLogString());
-            if (call.Item1)
+            var contents = string.Format("id={0}&award_id={1}&status=1", award.TaskId, award.AwardId);
+            dynamic resp = Post("/fuben/openAward", contents);
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
+                string msg = award.TaskFullName + "领奖成功";
+                if (resp.data != null && resp.data.entity != null)
                 {
-                    string msg = awardInfo.FubenName + "领奖成功";
-                    if (resp.data != null && resp.data.entity != null)
-                    {
-                        msg += ",获得:" + resp.data.entity.name;
-                    }
-                    LogWarn(msg);
+                    msg += ",获得:" + resp.data.entity.name;
                 }
-                else
-                {
-                    LogError("领奖失败;" + call.Item2);
-                }
+                LogWarn(msg);
             }
-            Awards.Remove(task_id);
+            else
+            {
+                LogError(award.TaskFullName + "领奖失败");
+            }
+            Awards.Remove(award);
+            // reload all fubens
+            SGLL.Data.FubenData.Fubens = null;
         }
 
-        private void GetAwardPre()
+        private void GetAwardPre(AwardInfo award)
         {
-            var task_id = AwardsPre.Keys.First();
-            var call = SGLL.Client.Post("/fuben/getAward", "id=" + task_id, SGLL.Data.LoginUser.Cookie);
-            LogDebug(call.ToLogString());
-            if (call.Item1)
+            dynamic resp = Post("/fuben/getAward", "id=" + award.TaskId);
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
-                {
-                    if (Awards.ContainsKey(task_id)) Awards.Remove(task_id);
-                    Awards.Add(task_id, new AwardInfo { AwardId = resp.data.free_award.id, FubenName = AwardsPre[task_id] });
-                }
-                else
-                {
-                    LogError("领奖失败：" + call.Item2);
-                }
+                LogWarn("获取奖品id成功：" + award.TaskFullName);
+                award.AwardId = resp.data.free_award.id;
             }
-            AwardsPre.Remove(task_id);
+            else
+            {
+                LogError("获取奖品id失败:" + award.TaskFullName);
+                Awards.Remove(award);
+            }
         }
     }
 }

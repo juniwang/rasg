@@ -73,19 +73,19 @@ namespace sgll.net.Core.Queue
                         var awardTask = fuben.Tasks.LastOrDefault();
                         if (awardTask != null && awardTask.Status == 3)
                         {
-                            string fubenName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, awardTask.Name);
+                            string taskFullName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, awardTask.Name);
                             awardTask.Status = 2;
                             // 小关自动领奖
                             if (fuben.CurrentGroup.Order != fuben.Groups.Count)
                             {
-                                OpenAward(awardTask, fubenName);
+                                OpenAward(awardTask, taskFullName);
                             }
                             else
                             {
                                 //关底boss是否领奖
                                 if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
                                 {
-                                    OpenAward(awardTask, fubenName);
+                                    OpenAward(awardTask, taskFullName);
                                 }
                             }
                         }
@@ -155,7 +155,7 @@ namespace sgll.net.Core.Queue
 
         private void DoTask(MojoFuben fuben, MojoFubenTask task)
         {
-            string fubenName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, task.Name);
+            string taskFullName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, task.Name);
             var call = SGLL.Client.Post("/fuben/do", "id=" + task.Id, SGLL.Data.LoginUser.Cookie);
             LogDebug(call.ToLogString());
             if (call.Item1)
@@ -164,7 +164,7 @@ namespace sgll.net.Core.Queue
                 if (resp.errorCode == 0)
                 {
                     //物品奖励
-                    string msg = fubenName + "执行成功";
+                    string msg = taskFullName + "执行成功";
                     if (resp.data.award != null && resp.data.award.bonus != null && resp.data.award.bonus.entities != null)
                     {
                         msg = msg + "，获得:" + resp.data.award.bonus.entities[0].name;
@@ -183,14 +183,14 @@ namespace sgll.net.Core.Queue
                         //小关自动领奖
                         if (fuben.CurrentGroup.Order != fuben.Groups.Count)
                         {
-                            OpenAward(task, fubenName);
+                            OpenAward(task, taskFullName);
                         }
                         else
                         {
                             //关底boss是否领奖
                             if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
                             {
-                                OpenAward(task, fubenName);
+                                OpenAward(task, taskFullName);
                             }
                         }
                         //解锁下一关
@@ -242,13 +242,13 @@ namespace sgll.net.Core.Queue
                 }
                 else if (resp.errorCode == 160003)
                 {
-                    LogError(fubenName + "失败：卡牌容量不足");
+                    LogError(taskFullName + "失败：卡牌容量不足");
                     var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenQueue);
                     if (queue != null) queue.Enabled = false;
                 }
                 else
                 {
-                    LogError(fubenName + "失败:(" + resp.errorCode + ")" + resp.errorMsg);
+                    LogError(taskFullName + "失败:(" + resp.errorCode + ")" + resp.errorMsg);
                     fuben.CurrentGroup = null;
                     fuben.Groups = null;
                     fuben.Tasks = null;
@@ -256,11 +256,17 @@ namespace sgll.net.Core.Queue
             }
         }
 
-        private void OpenAward(MojoFubenTask task, string fubenName)
+        private void OpenAward(MojoFubenTask task, string taskFullName)
         {
             var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenAwardQueue) as FubenAwardQueue;
             if (queue != null)
-                queue.AwardsPre.Add(task.Id, fubenName);
+            {
+                queue.Awards.Add(new AwardInfo
+                {
+                    TaskId = task.Id,
+                    TaskFullName = taskFullName,
+                });
+            }
         }
 
         private void RefreshTasks(MojoFuben fuben)
