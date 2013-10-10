@@ -78,14 +78,14 @@ namespace sgll.net.Core.Queue
                             // 小关自动领奖
                             if (fuben.CurrentGroup.Order != fuben.Groups.Count)
                             {
-                                OpenAward(awardTask, taskFullName);
+                                OpenAward(fuben, awardTask, taskFullName);
                             }
                             else
                             {
                                 //关底boss是否领奖
                                 if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
                                 {
-                                    OpenAward(awardTask, taskFullName);
+                                    OpenAward(fuben, awardTask, taskFullName);
                                 }
                             }
                         }
@@ -148,11 +148,11 @@ namespace sgll.net.Core.Queue
                         RefreshTasks(fb);
                         return;
                     }
-                    var awardT = fb.Tasks.Last();
                 }
             }
         }
 
+        #region private void DoTask(MojoFuben fuben, MojoFubenTask task)
         private void DoTask(MojoFuben fuben, MojoFubenTask task)
         {
             string taskFullName = string.Format("[{0}][{1}][{2}]", fuben.Name, fuben.CurrentGroup.Name, task.Name);
@@ -183,14 +183,14 @@ namespace sgll.net.Core.Queue
                         //小关自动领奖
                         if (fuben.CurrentGroup.Order != fuben.Groups.Count)
                         {
-                            OpenAward(task, taskFullName);
+                            OpenAward(fuben, task, taskFullName);
                         }
                         else
                         {
                             //关底boss是否领奖
                             if (MatchParam(SR.ParaKey.AutoBossAward, "true", false))
                             {
-                                OpenAward(task, taskFullName);
+                                OpenAward(fuben, task, taskFullName);
                             }
                         }
                         //解锁下一关
@@ -255,8 +255,9 @@ namespace sgll.net.Core.Queue
                 }
             }
         }
+        #endregion
 
-        private void OpenAward(MojoFubenTask task, string taskFullName)
+        private void OpenAward(MojoFuben fuben, MojoFubenTask task, string taskFullName)
         {
             var queue = SGLL.QueryQueue(SGLLController.QueueGUID.FubenAwardQueue) as FubenAwardQueue;
             if (queue != null)
@@ -265,10 +266,12 @@ namespace sgll.net.Core.Queue
                 {
                     TaskId = task.Id,
                     TaskFullName = taskFullName,
+                    FubenId = fuben.Id,
                 });
             }
         }
 
+        #region private void RefreshTasks(MojoFuben fuben)
         private void RefreshTasks(MojoFuben fuben)
         {
             var call = SGLL.Client.Post("/fuben/fbTasks", "fuben_id=" + fuben.Id, SGLL.Data.LoginUser.Cookie);
@@ -321,6 +324,7 @@ namespace sgll.net.Core.Queue
                 }
             }
         }
+        #endregion
 
         #region ResetFuben
         private void ResetFuben(MojoFuben fuben)
@@ -335,12 +339,14 @@ namespace sgll.net.Core.Queue
                 {
                     LogWarn(fuben.Name + "重置成功");
                     fuben.Status = 1;
+                    fuben.Award = "";
                     SGLL.CallStatusUpdate(this, ChangedType.Fuben);
                 }
             }
         }
         #endregion
 
+        #region private void RefreshFubenList()
         private void RefreshFubenList()
         {
             var call = SGLL.Client.Post("/fuben/fubens", "", SGLL.Data.LoginUser.Cookie);
@@ -364,6 +370,12 @@ namespace sgll.net.Core.Queue
                             UnlockLevel = fuben.unlock_level,
                             LastSyncTime = DateTime.Now,
                         };
+                        if (SGLL.Data.FubenData != null && SGLL.Data.FubenData.Fubens != null)
+                        {
+                            var existedFb = SGLL.Data.FubenData.Fubens.FirstOrDefault(p => p.Id == fd.Id);
+                            if (existedFb != null)
+                                fd.Award = existedFb.Award;
+                        }
                         fubens.Add(fd);
                     }
                     SGLL.Data.FubenData = new MojoFubenData
@@ -376,5 +388,6 @@ namespace sgll.net.Core.Queue
                 }
             }
         }
+        #endregion
     }
 }

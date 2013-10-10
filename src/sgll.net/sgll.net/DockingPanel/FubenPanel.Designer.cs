@@ -38,6 +38,7 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -50,7 +51,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(0, 266);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(484, 76);
+            this.groupBox1.Size = new System.Drawing.Size(558, 76);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -84,12 +85,13 @@
             this.columnHeader1,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader5});
             this.listViewEx1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewEx1.GridLines = true;
             this.listViewEx1.Location = new System.Drawing.Point(3, 3);
             this.listViewEx1.Name = "listViewEx1";
-            this.listViewEx1.Size = new System.Drawing.Size(470, 234);
+            this.listViewEx1.Size = new System.Drawing.Size(544, 234);
             this.listViewEx1.TabIndex = 1;
             this.listViewEx1.UseCompatibleStateImageBehavior = false;
             this.listViewEx1.View = System.Windows.Forms.View.Details;
@@ -118,7 +120,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(484, 266);
+            this.tabControl1.Size = new System.Drawing.Size(558, 266);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -127,16 +129,21 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(476, 240);
+            this.tabPage1.Size = new System.Drawing.Size(550, 240);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "总览";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "奖品";
+            this.columnHeader5.Width = 274;
             // 
             // FubenPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 342);
+            this.ClientSize = new System.Drawing.Size(558, 342);
             this.CloseButton = false;
             this.CloseButtonVisible = false;
             this.ControlBox = false;
@@ -167,5 +174,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.CheckBox checkBoxBoss;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
     }
 }

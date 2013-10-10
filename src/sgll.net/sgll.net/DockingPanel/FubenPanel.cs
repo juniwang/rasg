@@ -49,6 +49,7 @@ namespace sgll.net.DockingPanel
                         lvi.SubItems.Add(item.StatusDisplay);
                         lvi.SubItems.Add(item.CurrentGroup == null ? "" : item.CurrentGroup.Name);
                         lvi.SubItems.Add(item.ColdDownDisplay);
+                        lvi.SubItems.Add(item.Award);
                         lvi.BackColor = item.StatusColor;
                     }
                 }
@@ -60,6 +61,7 @@ namespace sgll.net.DockingPanel
                     lvi.SubItems[1].Text = item.StatusDisplay;
                     lvi.SubItems[2].Text = item.CurrentGroup == null ? "" : item.CurrentGroup.Name;
                     lvi.SubItems[3].Text = item.ColdDownDisplay;
+                    lvi.SubItems[4].Text = item.Award;
                     lvi.BackColor = item.StatusColor;
                 }
 

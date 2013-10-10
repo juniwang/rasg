@@ -21,6 +21,7 @@ namespace sgll.net.Core.Entieies
         public MojoFubenGroup CurrentGroup { get; set; }
         public List<MojoFubenGroup> Groups { get; set; }
         public List<MojoFubenTask> Tasks { get; set; }
+        public string Award { get; set; }
 
         public string StatusDisplay
         {
