@@ -74,7 +74,7 @@ namespace sgll.net.Core.Queue
                     {
                         Items = items,
                         LastSyncTime = DateTime.Now,
-                        ColdDown = 900 + random.Next(0, 100),
+                        ColdDown = CD(1200),
                     };
 
                     //player info

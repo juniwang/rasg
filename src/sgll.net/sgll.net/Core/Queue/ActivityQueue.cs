@@ -186,7 +186,7 @@ namespace sgll.net.Core.Queue
                 SGLL.Data.ActivityData = new MojoActivityData
                 {
                     Activities = activities,
-                    ColdDown = 3600,
+                    ColdDown = CD(3600),
                     LastSyncTime = DateTime.Now,
                 };
                 SGLL.CallStatusUpdate(this, ChangedType.Activity);

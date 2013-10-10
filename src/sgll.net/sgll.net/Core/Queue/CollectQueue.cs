@@ -22,7 +22,7 @@ namespace sgll.net.Core.Queue
             get
             {
                 //初始化
-                if (SGLL.Data.CollectData == null || SGLL.Data.CollectData.Items == null)
+                if (SGLL.Data.CollectData == null || SGLL.Data.CollectData.Items == null || SGLL.Data.CollectData.CDFinished)
                     return 0;
 
                 foreach (var item in SGLL.Data.CollectData.Items)
@@ -40,9 +40,6 @@ namespace sgll.net.Core.Queue
                     else if (item.CanStartCollect)
                         //可以开始合成
                         return 0;
-                    else if (DateTime.Now > item.LastSyncTime.AddMinutes(10))
-                        //刷新碎片
-                        return 0;
                 }
 
                 return 1;
@@ -51,7 +48,7 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            if (SGLL.Data.CollectData == null || SGLL.Data.CollectData.Items == null)
+            if (SGLL.Data.CollectData == null || SGLL.Data.CollectData.Items == null || SGLL.Data.CollectData.CDFinished)
             {
                 RefreshCollectData();
                 return;
@@ -74,11 +71,6 @@ namespace sgll.net.Core.Queue
                 {
                     //开始合成
                     CollectStart(item);
-                    return;
-                }
-                else if (DateTime.Now > item.LastSyncTime.AddMinutes(10))
-                {
-                    RefreshCollectData();
                     return;
                 }
             }
@@ -199,11 +191,13 @@ namespace sgll.net.Core.Queue
                     SGLL.Data.CollectData = new MojoCollectData
                     {
                         Items = items,
+                        LastSyncTime = DateTime.Now,
+                        ColdDown = CD(600),
                     };
                     SGLL.CallStatusUpdate(this, ChangedType.Collect);
                 }
             }
-        } 
+        }
         #endregion
     }
 }

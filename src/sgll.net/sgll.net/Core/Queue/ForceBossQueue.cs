@@ -167,7 +167,7 @@ namespace sgll.net.Core.Queue
                     {
                         IsInChallange = false,
                         LastSyncTime = DateTime.Now,
-                        ColdDown = 300 + random.Next(0, 60),
+                        ColdDown = 300,
                         Battle = null,
                     };
                     SGLL.Data.ForceBoss = boss;

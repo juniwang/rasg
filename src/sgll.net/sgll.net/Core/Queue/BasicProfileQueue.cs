@@ -56,6 +56,7 @@ namespace sgll.net.Core.Queue
                         CardCount = resp.data.entityCardCount,
                         CardCapacity = resp.data.entityMaxCapacity,
                         LastSyncTime = DateTime.Now,
+                        ColdDown = CD(3600),
                     };
                     SGLL.Data.PlayerInfo.CardIndex = new_ci;
                     SGLL.CallStatusUpdate(this, ChangedType.Profile);
@@ -88,7 +89,7 @@ namespace sgll.net.Core.Queue
                         Stamima = profile.data.stamina,
                         VM = profile.data.vm,
                         LastSyncTime = DateTime.Now,
-                        ColdDown = 900 + random.Next(0, 60),
+                        ColdDown = CD(1200),
                     };
                     SGLL.Data.PlayerInfo = new_p;
 

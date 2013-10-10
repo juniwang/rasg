@@ -95,7 +95,7 @@ namespace sgll.net.Core.Queue
                 SGLL.Data.CardSale = new MojoCardSale
                 {
                     LastSyncTime = DateTime.Now,
-                    ColdDown = 3600,
+                    ColdDown = CD(3600),
                 };
                 return;
             }
@@ -125,7 +125,7 @@ namespace sgll.net.Core.Queue
                 SGLL.Data.CardSale = new MojoCardSale
                 {
                     CardsToSell = toSell,
-                    ColdDown = 3600,
+                    ColdDown = CD(3600),
                     LastSyncTime = DateTime.Now,
                 };
                 SGLL.Data.PlayerInfo.CardIndex = new MojoCardIndex
@@ -141,7 +141,7 @@ namespace sgll.net.Core.Queue
                 SGLL.Data.CardSale = new MojoCardSale
                 {
                     LastSyncTime = DateTime.Now,
-                    ColdDown = 3600,
+                    ColdDown = CD(3600),
                 };
             }
         }

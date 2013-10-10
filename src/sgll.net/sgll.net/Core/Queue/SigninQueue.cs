@@ -113,7 +113,7 @@ namespace sgll.net.Core.Queue
                     SGLL.Data.SignInData = new MojoSigninData();
 
                 SGLL.Data.SignInData.LastSyncTime = DateTime.Now;
-                SGLL.Data.SignInData.ColdDown = 6 * 60 * 60 + random.Next(0, 3600);
+                SGLL.Data.SignInData.ColdDown = CD(6 * 60 * 60); // six hours
                 SGLL.Data.SignInData.Status = resp.data.check_in != null ? SignStatus.NeedSignin : SignStatus.Completed;
 
                 SGLL.CallStatusUpdate(this, ChangedType.SignIn);

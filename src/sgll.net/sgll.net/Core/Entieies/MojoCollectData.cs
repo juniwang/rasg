@@ -5,7 +5,7 @@ using System.Text;
 
 namespace sgll.net.Core.Entieies
 {
-    public class MojoCollectData
+    public class MojoCollectData : AbstractMojoColdDown
     {
         public List<MojoCollectItem> Items { get; set; }
     }

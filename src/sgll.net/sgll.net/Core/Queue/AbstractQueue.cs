@@ -47,6 +47,11 @@ namespace sgll.net.Core.Queue
             return Parameters[key].Equals(targetValue, StringComparison.OrdinalIgnoreCase);
         }
 
+        protected int CD(int origin)
+        {
+            return origin + random.Next(0, origin / 10);
+        }
+
         #region Log methods for queue execution
         protected void LogInfo(string message)
         {
@@ -88,7 +93,7 @@ namespace sgll.net.Core.Queue
         }
         #endregion
 
-        #region common methods
+        #region common methods for Mojo
         protected bool HasDaoju(string name)
         {
             if (SGLL.Data.Daoju != null)

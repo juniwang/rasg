@@ -74,7 +74,7 @@ namespace sgll.net.Core.Queue
                 {
                     Items = items,
                     LastSyncTime = DateTime.Now,
-                    ColdDown = 1000 + random.Next(1, 100),
+                    ColdDown = CD(1200),
                 };
                 SGLL.CallStatusUpdate(this, ChangedType.ForceExchange);
             }

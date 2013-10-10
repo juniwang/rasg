@@ -370,7 +370,7 @@ namespace sgll.net.Core.Queue
                     {
                         Fubens = fubens,
                         LastSyncTime = DateTime.Now,
-                        ColdDown = 3600,
+                        ColdDown = CD(3600),
                     };
                     SGLL.CallStatusUpdate(this, ChangedType.Fuben);
                 }
