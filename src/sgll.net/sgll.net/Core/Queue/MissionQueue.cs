@@ -66,78 +66,73 @@ namespace sgll.net.Core.Queue
         #region DoMission
         private void DoMission(MojoMissionTask task)
         {
-            var call = SGLL.Client.Post("/mission/do", string.Format("id={0}&preview=0", task.Id), SGLL.Data.LoginUser.Cookie);
-            LogDebug(call);
-            if (call.IsSuccess())
+            dynamic resp = Post("/mission/do", string.Format("id={0}&preview=0", task.Id));
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
+                string msg = "任务[" + task.Name + "]执行成功";
+                if (resp.data.award != null && resp.data.award.bonus != null && resp.data.award.bonus.entities != null)
                 {
-                    string msg = "任务[" + task.Name + "]执行成功";
-                    if (resp.data.award != null && resp.data.award.bonus != null && resp.data.award.bonus.entities != null)
+                    msg += ",获得：";
+                    foreach (var en in resp.data.award.bonus.entities)
                     {
-                        msg += ",获得：";
-                        foreach (var en in resp.data.award.bonus.entities)
-                        {
-                            msg += en.name + ",";
-                        }
+                        msg += en.name + ",";
                     }
-                    msg = msg.TrimEnd(',');
-                    LogWarn(msg);
+                }
+                msg = msg.TrimEnd(',');
+                LogWarn(msg);
 
-                    task.Count = resp.data.task.count;
-                    task.Status = resp.data.task.status;
-                    SGLL.CallStatusUpdate(this, ChangedType.Mission);
+                task.Count = resp.data.task.count;
+                task.Status = resp.data.task.status;
+                SGLL.CallStatusUpdate(this, ChangedType.Mission);
 
-                    var player = resp.data.player;
-                    if (player != null && SGLL.Data.PlayerInfo != null)
+                var player = resp.data.player;
+                if (player != null && SGLL.Data.PlayerInfo != null)
+                {
+                    SGLL.Data.PlayerInfo.EP = player.ep;
+                    SGLL.Data.PlayerInfo.SP = player.sp;
+                    SGLL.Data.PlayerInfo.VM = player.vm;
+                    SGLL.Data.PlayerInfo.RM = player.rm;
+                    SGLL.Data.PlayerInfo.Exp = player.xp;
+                    SGLL.Data.PlayerInfo.LevelExp = player.next_xp;
+                    SGLL.Data.PlayerInfo.Level = player.level;
+                    SGLL.Data.PlayerInfo.Energy = player.energy;
+                    SGLL.Data.PlayerInfo.Stamima = player.stamina;
+                    SGLL.Data.PlayerInfo.Grain = player.grain;
+
+                    SGLL.CallStatusUpdate(this, ChangedType.Profile);
+                }
+
+                if (task.Status == 2)
+                {
+                    if (SGLL.Data.MissionData.Tasks.All(p => p.Status == 2))
                     {
-                        SGLL.Data.PlayerInfo.EP = player.ep;
-                        SGLL.Data.PlayerInfo.SP = player.sp;
-                        SGLL.Data.PlayerInfo.VM = player.vm;
-                        SGLL.Data.PlayerInfo.RM = player.rm;
-                        SGLL.Data.PlayerInfo.Exp = player.xp;
-                        SGLL.Data.PlayerInfo.LevelExp = player.next_xp;
-                        SGLL.Data.PlayerInfo.Level = player.level;
-                        SGLL.Data.PlayerInfo.Energy = player.energy;
-                        SGLL.Data.PlayerInfo.Stamima = player.stamina;
-                        SGLL.Data.PlayerInfo.Grain = player.grain;
-
-                        SGLL.CallStatusUpdate(this, ChangedType.Profile);
+                        SGLL.Data.MissionData.Tasks = null;
                     }
-
-                    if (task.Status == 2)
+                    else
                     {
-                        if (SGLL.Data.MissionData.Tasks.All(p => p.Status == 2))
+                        var unlock = true;
+                        for (int i = 0; i < SGLL.Data.MissionData.Tasks.Count - 1; i++)
                         {
-                            SGLL.Data.MissionData.Tasks = null;
+                            if (SGLL.Data.MissionData.Tasks[i].Status != 2)
+                            {
+                                unlock = false;
+                                break;
+                            }
                         }
-                        else
+                        if (unlock)
                         {
-                            var unlock = true;
-                            for (int i = 0; i < SGLL.Data.MissionData.Tasks.Count - 1; i++)
-                            {
-                                if (SGLL.Data.MissionData.Tasks[i].Status != 2)
-                                {
-                                    unlock = false;
-                                    break;
-                                }
-                            }
-                            if (unlock)
-                            {
-                                SGLL.Data.MissionData.Tasks.Last().Unlock = 1;
-                                SGLL.Data.MissionData.Tasks.Last().Status = 0;
-                            }
+                            SGLL.Data.MissionData.Tasks.Last().Unlock = 1;
+                            SGLL.Data.MissionData.Tasks.Last().Status = 0;
                         }
                     }
                 }
-                else
+            }
+            else
+            {
+                SGLL.Data.MissionData = null;
+                if (resp.errorCode == 20010)
                 {
-                    SGLL.Data.MissionData = null;
-                    if (resp.errorCode == 20010)
-                    {
-                        LogError((string)resp.errorMsg);
-                    }
+                    LogError((string)resp.errorMsg);
                 }
             }
         }
@@ -146,71 +141,66 @@ namespace sgll.net.Core.Queue
         #region GetMissionData
         private void GetMissionData()
         {
-            var call = SGLL.Client.Post("/mission", "", SGLL.Data.LoginUser.Cookie);
-            LogDebug(call.ToLogString());
-            if (call.Item1)
+            dynamic resp = Post("/mission", "");
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
+                LogInfo("刷新任务信息");
+                var scenario = new MojoMissionScenario
                 {
-                    LogInfo("刷新任务信息");
-                    var scenario = new MojoMissionScenario
+                    Name = resp.data.cur_scenario.name,
+                    Order = resp.data.cur_scenario.order,
+                    ScenarioId = resp.data.cur_scenario.scenario_id,
+                    Unlock = resp.data.cur_scenario.unlock
+                };
+
+                var groups = new List<MojoMissionTaskGroup>();
+                MojoMissionTaskGroup curGroup = null;
+                foreach (var g in resp.data.task_groups)
+                {
+                    var new_g = new MojoMissionTaskGroup
                     {
-                        Name = resp.data.cur_scenario.name,
-                        Order = resp.data.cur_scenario.order,
-                        ScenarioId = resp.data.cur_scenario.scenario_id,
-                        Unlock = resp.data.cur_scenario.unlock
+                        Level = g.level,
+                        Name = g.name,
+                        Order = g.order,
+                        ScenarioId = g.scenario_id,
+                        TaskGroupId = g.task_group_id,
+                        Unlock = g.unlock
                     };
+                    groups.Add(new_g);
 
-                    var groups = new List<MojoMissionTaskGroup>();
-                    MojoMissionTaskGroup curGroup = null;
-                    foreach (var g in resp.data.task_groups)
+                    if (new_g.TaskGroupId == (string)resp.data.cur_task_group.task_group_id)
                     {
-                        var new_g = new MojoMissionTaskGroup
-                        {
-                            Level = g.level,
-                            Name = g.name,
-                            Order = g.order,
-                            ScenarioId = g.scenario_id,
-                            TaskGroupId = g.task_group_id,
-                            Unlock = g.unlock
-                        };
-                        groups.Add(new_g);
-
-                        if (new_g.TaskGroupId == (string)resp.data.cur_task_group.task_group_id)
-                        {
-                            curGroup = new_g;
-                        }
+                        curGroup = new_g;
                     }
-
-                    var tasks = new List<MojoMissionTask>();
-                    foreach (var t in resp.data.tasks)
-                    {
-                        var new_t = new MojoMissionTask
-                        {
-                            Status = t.status,
-                            Unlock = t.unlock,
-                            Count = t.count,
-                            EP = t.ep,
-                            Id = t.id,
-                            Level = t.level,
-                            Name = t.name,
-                            ScenarioId = t.scenario_id,
-                            SumCount = t.sum_count,
-                            TaskGroupId = t.task_group_id,
-                            TaskId = t.task_id
-                        };
-                        tasks.Add(new_t);
-                    }
-
-                    SGLL.Data.MissionData = new MojoMissionData
-                    {
-                        Tasks = tasks,
-                        TaskGroups = groups,
-                        CurTaskGroup = curGroup,
-                        CurScenario = scenario
-                    };
                 }
+
+                var tasks = new List<MojoMissionTask>();
+                foreach (var t in resp.data.tasks)
+                {
+                    var new_t = new MojoMissionTask
+                    {
+                        Status = t.status,
+                        Unlock = t.unlock,
+                        Count = t.count,
+                        EP = t.ep,
+                        Id = t.id,
+                        Level = t.level,
+                        Name = t.name,
+                        ScenarioId = t.scenario_id,
+                        SumCount = t.sum_count,
+                        TaskGroupId = t.task_group_id,
+                        TaskId = t.task_id
+                    };
+                    tasks.Add(new_t);
+                }
+
+                SGLL.Data.MissionData = new MojoMissionData
+                {
+                    Tasks = tasks,
+                    TaskGroups = groups,
+                    CurTaskGroup = curGroup,
+                    CurScenario = scenario
+                };
             }
             SGLL.CallStatusUpdate(this, ChangedType.Mission);
         }

@@ -23,6 +23,8 @@ namespace sgll.net.Core.Entieies
         public string Description { get; set; }
         [JsonIgnore]
         public string Cookie { get; set; }
+        [JsonIgnore]
+        public string Token { get; set; }
         public List<SFeature> Features { get; set; }
 
         public string GetKey()

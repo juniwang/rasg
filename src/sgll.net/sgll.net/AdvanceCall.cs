@@ -128,7 +128,7 @@ namespace sgll.net
 
             this.textBoxResult.AppendText(DateTime.Now.ToString() + " 开始执行第" + CurTimes + "次执行......");
             textBoxResult.AppendText(Environment.NewLine);
-            var result = UpCall.SGLL.Client.Post(url, paras, UpCall.LoginInfo.Cookie);
+            var result = UpCall.SGLL.Client.Post(url, paras, UpCall.LoginInfo);
             if (result.Item1)
             {
                 this.textBoxResult.AppendText(result.Item2);

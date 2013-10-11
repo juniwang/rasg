@@ -76,104 +76,94 @@ namespace sgll.net.Core.Queue
 
         private void AttackBossFree()
         {
-            var call = SGLL.Client.Post("/forceBoss/attack", "preview=0&skip_cd=0", SGLL.Data.LoginUser.Cookie);
-            LogDebug(call);
-            if (call.IsSuccess())
+            try
             {
-                try
+                dynamic resp = Post("/forceBoss/attack", "preview=0&skip_cd=0");
+                if (resp != null && resp.errorCode == 0)
                 {
-                    dynamic resp = JObject.Parse(call.Item2);
-                    if (resp.errorCode == 0)
+                    LogWarn("攻击boss成功");
+                    SGLL.Data.ForceBoss.Battle = new MojoForceBossBattle
                     {
-                        LogWarn("攻击boss成功");
-                        SGLL.Data.ForceBoss.Battle = new MojoForceBossBattle
-                        {
-                            Left = resp.data.battle.left,
-                            BossTimeout = resp.data.battle.timeout,
-                            AttackFree = resp.data.battle.attack.free,
-                            AttackRMCost = resp.data.battle.attack.cost,
-                            AttackTimeout = resp.data.battle.attack.timeout,
-                            LastAttackTime = DateTime.Now,
-                        };
-                        SGLL.Data.ForceBoss.Battle.AttackTimeout += 2;
-                        SGLL.Data.ForceBoss.LastSyncTime = DateTime.Now;
-                        if (resp.data.player != null)
-                        {
-                            SGLL.Data.PlayerInfo.SP = resp.data.player.sp;
-                            SGLL.Data.PlayerInfo.RM = resp.data.player.rm;
-                            SGLL.CallStatusUpdate(this, ChangedType.Profile);
-                        }
+                        Left = resp.data.battle.left,
+                        BossTimeout = resp.data.battle.timeout,
+                        AttackFree = resp.data.battle.attack.free,
+                        AttackRMCost = resp.data.battle.attack.cost,
+                        AttackTimeout = resp.data.battle.attack.timeout,
+                        LastAttackTime = DateTime.Now,
+                    };
+                    SGLL.Data.ForceBoss.Battle.AttackTimeout += 2;
+                    SGLL.Data.ForceBoss.LastSyncTime = DateTime.Now;
+                    if (resp.data.player != null)
+                    {
+                        SGLL.Data.PlayerInfo.SP = resp.data.player.sp;
+                        SGLL.Data.PlayerInfo.RM = resp.data.player.rm;
+                        SGLL.CallStatusUpdate(this, ChangedType.Profile);
+                    }
+                }
+                else
+                {
+                    LogWarn((string)resp.errorMsg);
+                    if (resp.errorCode == 230403)
+                    {
+                        SGLL.Data.ForceBoss.Battle.AttackTimeout = 12;
+                        SGLL.Data.ForceBoss.Battle.LastAttackTime = DateTime.Now;
+                    }
+                    else if (resp.errorCode == 10003)
+                    {
+                        //体力不足
+                        SGLL.Data.PlayerInfo.SP = 0;
                     }
                     else
                     {
-                        LogWarn((string)resp.errorMsg);
-                        if (resp.errorCode == 230403)
-                        {
-                            SGLL.Data.ForceBoss.Battle.AttackTimeout = 12;
-                            SGLL.Data.ForceBoss.Battle.LastAttackTime = DateTime.Now;
-                        }
-                        else if (resp.errorCode == 10003)
-                        {
-                            //体力不足
-                            SGLL.Data.PlayerInfo.SP = 0;
-                        }
-                        else
-                        {
-                            SGLL.Data.ForceBoss = null;
-                        }
+                        SGLL.Data.ForceBoss = null;
                     }
                 }
-                catch (Exception e)
-                {
-                    LogError(e);
-                    SGLL.Data.ForceBoss = null;
-                }
-                SGLL.CallStatusUpdate(this, ChangedType.ForceBoss);
             }
+            catch (Exception e)
+            {
+                LogError(e);
+                SGLL.Data.ForceBoss = null;
+            }
+            SGLL.CallStatusUpdate(this, ChangedType.ForceBoss);
         }
 
         private void SyncForceBoss()
         {
-            var call = SGLL.Client.Post("/forceBoss/index", "", SGLL.Data.LoginUser.Cookie);
-            LogDebug(call);
-            if (call.IsSuccess())
+            dynamic resp = Post("/forceBoss/index", "");
+            if (resp != null && resp.errorCode == IN_CHALLENGE_CODE)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == IN_CHALLENGE_CODE)
+                LogWarn("刷新势力boss信息：挑战中");
+                //TODO battle info
+                var boss = new MojoForceBoss
                 {
-                    LogWarn("刷新势力boss信息：挑战中");
-                    //TODO battle info
-                    var boss = new MojoForceBoss
+                    IsInChallange = true,
+                    LastSyncTime = DateTime.Now,
+                    ColdDown = 60,
+                    Battle = new MojoForceBossBattle
                     {
-                        IsInChallange = true,
-                        LastSyncTime = DateTime.Now,
-                        ColdDown = 60,
-                        Battle = new MojoForceBossBattle
-                        {
-                            Left = resp.data.battle.left,
-                            BossTimeout = resp.data.battle.timeout,
-                            AttackFree = resp.data.battle.attack.free,
-                            AttackRMCost = resp.data.battle.attack.cost,
-                            AttackTimeout = resp.data.battle.attack.timeout,
-                            LastAttackTime = DateTime.Now,
-                        },
-                    };
-                    SGLL.Data.ForceBoss = boss;
-                }
-                else
-                {
-                    LogInfo("刷新势力boss信息");
-                    var boss = new MojoForceBoss
-                    {
-                        IsInChallange = false,
-                        LastSyncTime = DateTime.Now,
-                        ColdDown = 300,
-                        Battle = null,
-                    };
-                    SGLL.Data.ForceBoss = boss;
-                }
-                SGLL.CallStatusUpdate(this, ChangedType.ForceBoss);
+                        Left = resp.data.battle.left,
+                        BossTimeout = resp.data.battle.timeout,
+                        AttackFree = resp.data.battle.attack.free,
+                        AttackRMCost = resp.data.battle.attack.cost,
+                        AttackTimeout = resp.data.battle.attack.timeout,
+                        LastAttackTime = DateTime.Now,
+                    },
+                };
+                SGLL.Data.ForceBoss = boss;
             }
+            else
+            {
+                LogInfo("刷新势力boss信息");
+                var boss = new MojoForceBoss
+                {
+                    IsInChallange = false,
+                    LastSyncTime = DateTime.Now,
+                    ColdDown = 300,
+                    Battle = null,
+                };
+                SGLL.Data.ForceBoss = boss;
+            }
+            SGLL.CallStatusUpdate(this, ChangedType.ForceBoss);
         }
     }
 }

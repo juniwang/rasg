@@ -79,34 +79,28 @@ namespace sgll.net.Core.Queue
         #region 收宝
         private void Collect(MojoCollectItem item)
         {
-            var call = SGLL.Client.Post("/collect/composite", "id=" + item.Id, SGLL.Data.LoginUser.Cookie);
-            LogDebug(call.ToLogString());
-
-            if (call.Item1)
+            dynamic resp = Post("/collect/composite", "id=" + item.Id);
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
+                LogWarn("收宝成功，获得：" + item.Name);
+                item.Count = item.Count + 1;
+                item.LastSyncTime = DateTime.Now;
+                item.AwayTime = 0;
+                var frags = new List<MojoCollectFragment>();
+                foreach (var fr in resp.data.fragments)
                 {
-                    LogWarn("收宝成功，获得：" + item.Name);
-                    item.Count = item.Count + 1;
-                    item.LastSyncTime = DateTime.Now;
-                    item.AwayTime = 0;
-                    var frags = new List<MojoCollectFragment>();
-                    foreach (var fr in resp.data.fragments)
-                    {
-                        var new_f = new MojoCollectFragment { Id = fr.id, Count = fr.count };
-                        frags.Add(new_f);
-                    }
-                    item.Fragments = frags;
-                    SGLL.CallStatusUpdate(this, ChangedType.Collect);
+                    var new_f = new MojoCollectFragment { Id = fr.id, Count = fr.count };
+                    frags.Add(new_f);
                 }
-                else
-                {
-                    //reset item to refresh
-                    item.AwayTime = 0;
-                    item.Fragments = null;
-                    item.LastSyncTime = DateTime.Now.AddMinutes(-30);
-                }
+                item.Fragments = frags;
+                SGLL.CallStatusUpdate(this, ChangedType.Collect);
+            }
+            else
+            {
+                //reset item to refresh
+                item.AwayTime = 0;
+                item.Fragments = null;
+                item.LastSyncTime = DateTime.Now.AddMinutes(-30);
             }
         }
         #endregion
@@ -114,26 +108,20 @@ namespace sgll.net.Core.Queue
         #region 合成
         private void CollectStart(MojoCollectItem item)
         {
-            var call = SGLL.Client.Post("/collect/compositestart", "id=" + item.Id, SGLL.Data.LoginUser.Cookie);
-            LogDebug(call.ToLogString());
-
-            if (call.Item1)
+            dynamic resp = Post("/collect/compositestart", "id=" + item.Id);
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
-                {
-                    LogWarn("开始合成：" + item.Name);
-                    item.LastSyncTime = DateTime.Now;
-                    item.AwayTime = 3600;
-                    SGLL.CallStatusUpdate(this, ChangedType.Collect);
-                }
-                else
-                {
-                    //reset item to refresh
-                    item.AwayTime = 0;
-                    item.Fragments = null;
-                    item.LastSyncTime = DateTime.Now.AddMinutes(-30);
-                }
+                LogWarn("开始合成：" + item.Name);
+                item.LastSyncTime = DateTime.Now;
+                item.AwayTime = 3600;
+                SGLL.CallStatusUpdate(this, ChangedType.Collect);
+            }
+            else
+            {
+                //reset item to refresh
+                item.AwayTime = 0;
+                item.Fragments = null;
+                item.LastSyncTime = DateTime.Now.AddMinutes(-30);
             }
         }
         #endregion
@@ -141,61 +129,55 @@ namespace sgll.net.Core.Queue
         #region 刷新碎片
         private void RefreshCollectData()
         {
-            var call = SGLL.Client.Post("/collect", "start=0&count=10&msgid=", SGLL.Data.LoginUser.Cookie);
-            LogDebug(call.ToLogString());
-
-            if (call.Item1)
+            dynamic resp = Post("/collect", "start=0&count=10&msgid=");
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(call.Item2);
-                if (resp.errorCode == 0)
+                LogInfo("刷新宝物碎片信息");
+                var items = new List<MojoCollectItem>();
+                #region construct items
+                foreach (var en in resp.data.entities)
                 {
-                    LogInfo("刷新宝物碎片信息");
-                    var items = new List<MojoCollectItem>();
-                    #region construct items
-                    foreach (var en in resp.data.entities)
+                    var fragments = new List<MojoCollectFragment>();
+                    #region contruct fragments
+                    foreach (var frag in en.fragments)
                     {
-                        var fragments = new List<MojoCollectFragment>();
-                        #region contruct fragments
-                        foreach (var frag in en.fragments)
+                        var new_f = new MojoCollectFragment
                         {
-                            var new_f = new MojoCollectFragment
-                            {
-                                Id = frag.id,
-                                Count = frag.count,
-                                Name = frag.name,
-                            };
-                            fragments.Add(new_f);
-                        }
-                        #endregion
-                        var new_i = new MojoCollectItem
-                        {
-                            LastSyncTime = DateTime.Now,
-                            Fragments = fragments,
-                            Id = en.id,
-                            Name = en.name,
-                            Count = en.count,
+                            Id = frag.id,
+                            Count = frag.count,
+                            Name = frag.name,
                         };
-                        try
-                        {
-                            var jo = (JObject)en;
-                            new_i.AwayTime = jo["away_time"] == null ? 0 : (int)jo["away_time"];
-                        }
-                        catch (Exception)
-                        {
-                            new_i.AwayTime = 0;
-                        }
-                        items.Add(new_i);
+                        fragments.Add(new_f);
                     }
                     #endregion
-
-                    SGLL.Data.CollectData = new MojoCollectData
+                    var new_i = new MojoCollectItem
                     {
-                        Items = items,
                         LastSyncTime = DateTime.Now,
-                        ColdDown = CD(600),
+                        Fragments = fragments,
+                        Id = en.id,
+                        Name = en.name,
+                        Count = en.count,
                     };
-                    SGLL.CallStatusUpdate(this, ChangedType.Collect);
+                    try
+                    {
+                        var jo = (JObject)en;
+                        new_i.AwayTime = jo["away_time"] == null ? 0 : (int)jo["away_time"];
+                    }
+                    catch (Exception)
+                    {
+                        new_i.AwayTime = 0;
+                    }
+                    items.Add(new_i);
                 }
+                #endregion
+
+                SGLL.Data.CollectData = new MojoCollectData
+                {
+                    Items = items,
+                    LastSyncTime = DateTime.Now,
+                    ColdDown = CD(600),
+                };
+                SGLL.CallStatusUpdate(this, ChangedType.Collect);
             }
         }
         #endregion

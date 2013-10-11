@@ -20,7 +20,7 @@ namespace sgll.net.Core
         }
 
         public void Close()
-        { 
+        {
             // clean up work
             taskScheduler.Dispose();
         }

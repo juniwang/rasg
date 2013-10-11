@@ -92,60 +92,54 @@ namespace sgll.net.Core.Queue
             {
                 try
                 {
-                    var result = SGLL.Client.Post("/force/doTask", "id=" + task.Id, SGLL.Data.LoginUser.Cookie);
-                    LogDebug(result.ToLogString());
-
-                    if (result.Item1)
+                    dynamic resp = Post("/force/doTask", "id=" + task.Id);
+                    if (resp != null && resp.errorCode == 0)
                     {
-                        dynamic resp = JObject.Parse(result.Item2);
-                        if (resp.errorCode == 0)
-                        {
-                            LogWarn("执行：" + task.Name);
-                            task.Count = resp.data.task.count;
-                            task.Status = resp.data.task.status;
-                            task.ColdDown = resp.data.task.cold_down;
-                            task.LastSyncTime = DateTime.Now;
-                            SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
+                        LogWarn("执行：" + task.Name);
+                        task.Count = resp.data.task.count;
+                        task.Status = resp.data.task.status;
+                        task.ColdDown = resp.data.task.cold_down;
+                        task.LastSyncTime = DateTime.Now;
+                        SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
 
-                            var player = resp.data.player;
-                            if (player != null)
-                            {
-                                SGLL.Data.PlayerInfo.VM = player.vm;
-                                SGLL.Data.PlayerInfo.Grain = player.grain;
-                                SGLL.CallStatusUpdate(this, ChangedType.Profile);
-                            }
-                            if (resp.data.force != null && SGLL.Data.ForceProfile != null)
-                            {
-                                SGLL.Data.ForceProfile.Grain = resp.data.force.grain;
-                                SGLL.Data.ForceProfile.GrainProtected = resp.data.force.grain_protected;
-                                SGLL.CallStatusUpdate(this, ChangedType.ForceProfile);
-                            }
-                        }
-                        else if (resp.errorcode == 20002)
+                        var player = resp.data.player;
+                        if (player != null)
                         {
-                            //已完成
-                            task.Status = 2;
+                            SGLL.Data.PlayerInfo.VM = player.vm;
+                            SGLL.Data.PlayerInfo.Grain = player.grain;
+                            SGLL.CallStatusUpdate(this, ChangedType.Profile);
                         }
-                        else if (resp.errorCode == 160003)
+                        if (resp.data.force != null && SGLL.Data.ForceProfile != null)
                         {
-                            //卡牌容量不足
-                            LogError("卡牌容量不足");
-                            this.Enabled = false;
+                            SGLL.Data.ForceProfile.Grain = resp.data.force.grain;
+                            SGLL.Data.ForceProfile.GrainProtected = resp.data.force.grain_protected;
+                            SGLL.CallStatusUpdate(this, ChangedType.ForceProfile);
                         }
-                        else if (resp.errorCode == 130019)
-                        {
-                            //未加入势力
-                            LogError("无法内政：未加入势力");
-                            SGLL.Data.ForceTasks.NoForce = true;
-                            SGLL.Data.ForceTasks.Tasks = null;
-                        }
-                        else
-                        {
-                            //error in memory data. need to re-initialize
-                            LogError(task.Name + "执行出错:" + result.Item2);
-                            SGLL.Data.ForceTasks.Tasks = null;
-                            _nextSystemRefreshTime = DateTime.Now.AddSeconds(5);
-                        }
+                    }
+                    else if (resp.errorcode == 20002)
+                    {
+                        //已完成
+                        task.Status = 2;
+                    }
+                    else if (resp.errorCode == 160003)
+                    {
+                        //卡牌容量不足
+                        LogError("卡牌容量不足");
+                        this.Enabled = false;
+                    }
+                    else if (resp.errorCode == 130019)
+                    {
+                        //未加入势力
+                        LogError("无法内政：未加入势力");
+                        SGLL.Data.ForceTasks.NoForce = true;
+                        SGLL.Data.ForceTasks.Tasks = null;
+                    }
+                    else
+                    {
+                        //error in memory data. need to re-initialize
+                        LogError(task.Name + "执行出错");
+                        SGLL.Data.ForceTasks.Tasks = null;
+                        _nextSystemRefreshTime = DateTime.Now.AddSeconds(5);
                     }
                 }
                 catch (Exception e)
@@ -178,91 +172,79 @@ namespace sgll.net.Core.Queue
         #region 系统刷新
         private void DoSystemRefresh()
         {
-            var result = SGLL.Client.Post("/force/playerTasks", "", SGLL.Data.LoginUser.Cookie);
-            LogDebug(result.ToLogString());
-
-            if (result.Item1)
+            dynamic resp = Post("/force/playerTasks", "");
+            if (resp != null && resp.errorCode == 0)
             {
-                dynamic resp = JObject.Parse(result.Item2);
-                if (resp.errorCode == 0)
+                LogInfo("重新加载内政信息");
+                var tasks = new List<MojoForceTaskItem>();
+                foreach (var item in resp.data.task.tasks)
                 {
-                    LogInfo("重新加载内政信息");
-                    var tasks = new List<MojoForceTaskItem>();
-                    foreach (var item in resp.data.task.tasks)
+                    var t = new MojoForceTaskItem
                     {
-                        var t = new MojoForceTaskItem
-                        {
-                            Count = item.count,
-                            Id = item.id,
-                            LastSyncTime = DateTime.Now,
-                            Name = item.name,
-                            Status = item.status,
-                            SumCount = item.sum_count,
-                            UnlockLevel = item.unlock_level,
-                            ColdDown = item.cold_down
-                        };
-                        tasks.Add(t);
-                    }
-                    var force = new MojoForceTask
-                    {
-                        ForceLevel = resp.data.task.force_level,
-                        HasRefresh = resp.data.has_refresh,
-                        NoForce = false,
-                        Tasks = tasks,
+                        Count = item.count,
+                        Id = item.id,
+                        LastSyncTime = DateTime.Now,
+                        Name = item.name,
+                        Status = item.status,
+                        SumCount = item.sum_count,
+                        UnlockLevel = item.unlock_level,
+                        ColdDown = item.cold_down
                     };
-                    SGLL.Data.ForceTasks = force;
+                    tasks.Add(t);
                 }
-                else if (resp.errorCode == 130019)
+                var force = new MojoForceTask
                 {
-                    //no force
-                    SGLL.Data.ForceTasks = new MojoForceTask
-                    {
-                        NoForce = true
-                    };
-                }
-                SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
+                    ForceLevel = resp.data.task.force_level,
+                    HasRefresh = resp.data.has_refresh,
+                    NoForce = false,
+                    Tasks = tasks,
+                };
+                SGLL.Data.ForceTasks = force;
             }
+            else if (resp.errorCode == 130019)
+            {
+                //no force
+                SGLL.Data.ForceTasks = new MojoForceTask
+                {
+                    NoForce = true
+                };
+            }
+            SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
         }
         #endregion
 
         #region 官员刷新
         private void DoOfficialRefresh()
         {
-            var dic = SGLL.Client.Post("/force/acceptRefreshTask", "", SGLL.Data.LoginUser.Cookie);
-            LogDebug(dic.ToLogString());
-
-            if (dic.Item1)
+            dynamic resp = Post("/force/acceptRefreshTask", "");
+            if (resp != null && resp.errorcode == 0)
             {
-                dynamic resp = JObject.Parse(dic.Item2.ToLower());
-                if (resp.errorcode == 0)
+                LogWarn("自动接受官员刷新");
+                var tasks = new List<MojoForceTaskItem>();
+                foreach (var item in resp.data)
                 {
-                    LogWarn("自动接受官员刷新");
-                    var tasks = new List<MojoForceTaskItem>();
-                    foreach (var item in resp.data)
+                    var t = new MojoForceTaskItem
                     {
-                        var t = new MojoForceTaskItem
-                        {
-                            Count = item.count,
-                            Id = item.id,
-                            LastSyncTime = DateTime.Now,
-                            Name = item.name,
-                            Status = item.status,
-                            SumCount = item.sum_count,
-                            UnlockLevel = item.unlock_level,
-                            ColdDown = item.cold_down,
-                        };
-                        tasks.Add(t);
-                    }
-                    SGLL.Data.ForceTasks.HasRefresh = 0;
-                    SGLL.Data.ForceTasks.Tasks = tasks;
+                        Count = item.count,
+                        Id = item.id,
+                        LastSyncTime = DateTime.Now,
+                        Name = item.name,
+                        Status = item.status,
+                        SumCount = item.sum_count,
+                        UnlockLevel = item.unlock_level,
+                        ColdDown = item.cold_down,
+                    };
+                    tasks.Add(t);
                 }
-                else
-                {
-                    //重新初始化
-                    SGLL.Data.ForceTasks = null;
-                }
-                SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
+                SGLL.Data.ForceTasks.HasRefresh = 0;
+                SGLL.Data.ForceTasks.Tasks = tasks;
             }
+            else
+            {
+                //重新初始化
+                SGLL.Data.ForceTasks = null;
+            }
+            SGLL.CallStatusUpdate(this, ChangedType.ForceTask);
         }
         #endregion
 

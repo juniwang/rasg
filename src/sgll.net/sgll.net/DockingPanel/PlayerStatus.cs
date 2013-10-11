@@ -40,7 +40,7 @@ namespace sgll.net.DockingPanel
                  UpCall.SGLL.Data.LoginUser.Cookie);
             if (resp.Item1)
             {
-                var r2 = client.Post("/player/accessToken", "", ck);
+                var r2 = client.Post("/player/accessToken", "", ck, "");
                 if (r2.Item1)
                 {
                     dynamic d1 = JObject.Parse(r2.Item2);
@@ -50,7 +50,7 @@ namespace sgll.net.DockingPanel
                     var r3 = client.SwitchAccount(ck, token1, out token2);
                     if (r3.Item1)
                     {
-                        var r4 = client.Post("/player/profile", "", ck);
+                        var r4 = client.Post("/player/profile", "", ck, "");
                         if (r4.Item1)
                             MessageBox.Show(r4.Item2);
                     }

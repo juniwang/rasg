@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using System.Dynamic;
 
 namespace sgll.net.Core.Queue
 {
@@ -161,11 +162,27 @@ namespace sgll.net.Core.Queue
 
         protected dynamic Post(string url, string contents)
         {
-            var call = SGLL.Client.Post(url, contents, SGLL.Data.LoginUser.Cookie);
+            var call = SGLL.Client.Post(url, contents, SGLL.Data.LoginUser);
             LogDebug(call);
             if (call.IsSuccess())
+            {
+                if (string.IsNullOrWhiteSpace(SGLL.Data.LoginUser.Token))
+                {
+                    SGLL.SetTimer(1000 + random.Next(0, 1000), () =>
+                    {
+                        dynamic resp = Post("/player/accessToken", "");
+                        if (resp != null && resp.errorCode == 0)
+                        {
+                            LogWarn("获取accessToken成功");
+                            SGLL.Data.LoginUser.Token = (string)resp.data.accessToken;
+                        }
+                    });
+                }
                 return JObject.Parse(call.Item2);
-            return null;
+            }
+            dynamic dyn = new ExpandoObject();
+            dyn.errorCode = -1;
+            return dyn;
         }
         #endregion
     }

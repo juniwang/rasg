@@ -80,68 +80,60 @@ namespace sgll.net.Core.Queue
 
         private void BuyItem(MojoHuangjinItem toBuy)
         {
-            var buy = SGLL.Client.Post("/mall/exchange", "id=" + toBuy.Id, SGLL.Data.LoginUser.Cookie);
-            if (buy.Item1)
+            var dyn = Post("/mall/exchange", "id=" + toBuy.Id);
+            if (dyn != null && dyn.errorCode == 0)
             {
-                dynamic dyn = JObject.Parse(buy.Item2);
-                if (dyn.errorCode == 0)
-                {
-                    toBuy.Bought = 1;
-                    LogWarn("黄巾宝藏购买成功，获得：" + toBuy.EntityName);
-                    SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
-                }
-                else if (dyn.errorCode == 22005)
-                {
-                    //重复购买
-                    toBuy.Bought = 1;
-                    LogError("黄巾宝藏购买失败：" + dyn.errorMsg);
-                    SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
-                }
-                else
-                {
-                    LogError("黄巾宝藏购买失败:(" + dyn.errorCode + ")" + dyn.errorMsg);
-                    SGLL.Data.HuangjinTreasure = null;
-                }
+                toBuy.Bought = 1;
+                LogWarn("黄巾宝藏购买成功，获得：" + toBuy.EntityName);
+                SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
+            }
+            else if (dyn.errorCode == 22005)
+            {
+                //重复购买
+                toBuy.Bought = 1;
+                LogError("黄巾宝藏购买失败：" + dyn.errorMsg);
+                SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
+            }
+            else
+            {
+                LogError("黄巾宝藏购买失败:(" + dyn.errorCode + ")" + dyn.errorMsg);
+                SGLL.Data.HuangjinTreasure = null;
             }
         }
 
         private void RefreshData()
         {
-            var result = SGLL.Client.Post("/mall/rands", "", SGLL.Data.LoginUser.Cookie);
-            if (result.Item1)
+            dynamic dyn =Post("/mall/rands", "");
+            if (dyn != null && dyn.errorCode == 0 && dyn.data != null)
             {
-                dynamic dyn = JObject.Parse(result.Item2);
-                if (dyn.errorCode == 0 && dyn.data != null)
+                LogInfo("获取黄巾宝藏列表");
+                var tis = new List<MojoHuangjinItem>();
+                foreach (var item in dyn.data.list)
                 {
-                    LogInfo("获取黄巾宝藏列表");
-                    var tis = new List<MojoHuangjinItem>();
-                    foreach (var item in dyn.data.list)
+                    if (item.money_type == 1)
                     {
-                        if (item.money_type == 1)
-                        {
-                            tis.Add(new MojoHuangjinItem
-                                {
-                                    Id = item.id,
-                                    Discount = item.discount,
-                                    Price = item.price,
-                                    Bought = item.bought,
-                                    EntityId = item.entities.id,
-                                    EntityName = item.entities.name,
-                                    MoneyType = item.money_type
-                                });
-                        }
+                        tis.Add(new MojoHuangjinItem
+                            {
+                                Id = item.id,
+                                Discount = item.discount,
+                                Price = item.price,
+                                Bought = item.bought,
+                                EntityId = item.entities.id,
+                                EntityName = item.entities.name,
+                                MoneyType = item.money_type
+                            });
                     }
-                    var treasure = new MojoHuangjinItemList
-                    {
-                        ExpireSecond = dyn.data.expiretime,
-                        Items = tis,
-                        LastSyncTime = DateTime.Now,
-                        NoBox = false,
-                    };
-                    treasure.BuyDelay = new Random().Next(300, treasure.ExpireSecond > 700 ? treasure.ExpireSecond / 3 : 350);
-                    SGLL.Data.HuangjinTreasure = treasure;
-                    SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
                 }
+                var treasure = new MojoHuangjinItemList
+                {
+                    ExpireSecond = dyn.data.expiretime,
+                    Items = tis,
+                    LastSyncTime = DateTime.Now,
+                    NoBox = false,
+                };
+                treasure.BuyDelay = new Random().Next(300, treasure.ExpireSecond > 700 ? treasure.ExpireSecond / 3 : 350);
+                SGLL.Data.HuangjinTreasure = treasure;
+                SGLL.CallStatusUpdate(this, ChangedType.HuangjinTreasure);
             }
         }
 

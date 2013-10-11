@@ -6,6 +6,7 @@ using System.Net;
 using System.IO;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using sgll.net.Core.Entieies;
 
 namespace sgll.net.Core.Bridge
 {
@@ -211,7 +212,15 @@ namespace sgll.net.Core.Bridge
             }
         }
 
-        public Tuple<bool, string> Post(string url, string contents, string cookie)
+        public Tuple<bool, string> Post(string url, string contents, LoginUser user)
+        {
+            if (user == null)
+                return new Tuple<bool, string>(false, "用户不能为空!");
+
+            return Post(url, contents, user.Cookie, user.Token);
+        }
+
+        public Tuple<bool, string> Post(string url, string contents, string cookie, string token)
         {
             EnsureSignature();
 
@@ -232,7 +241,7 @@ namespace sgll.net.Core.Bridge
             req.Headers.Add("gamelanguage", "zh_cn");
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
             req.Headers.Add("Signature", AutoSig.Signature);
-            req.Headers.Add("Mojo-A-T", "");
+            req.Headers.Add("Mojo-A-T", token);
 
             if (!string.IsNullOrWhiteSpace(cookie))
             {
@@ -255,12 +264,29 @@ namespace sgll.net.Core.Bridge
                 resp = (HttpWebResponse)req.GetResponse();
                 if (resp.StatusCode == HttpStatusCode.OK)
                 {
-                    var sr = new StreamReader(resp.GetResponseStream());
-                    var target = sr.ReadToEnd();
-                    target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
-                    if (string.IsNullOrWhiteSpace(target))
-                        return new Tuple<bool, string>(false, "no response");
-                    return new Tuple<bool, string>(true, target);
+                    //var sr = new StreamReader(resp.GetResponseStream());
+                    //var target = sr.ReadToEnd();
+                    using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        try
+                        {
+                            while (!sr.EndOfStream)
+                            {
+                                sb.Append((char)sr.Read());
+                            }
+                        }
+                        catch (System.IO.IOException)
+                        {
+                            return new Tuple<bool, string>(false, "error when reading response.");
+                        }
+
+                        string target = sb.ToString();
+                        target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
+                        if (string.IsNullOrWhiteSpace(target))
+                            return new Tuple<bool, string>(false, "no response");
+                        return new Tuple<bool, string>(true, target);
+                    }
                 }
                 resp.Close();
                 return new Tuple<bool, string>(false, resp.StatusDescription);

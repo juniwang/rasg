@@ -28,45 +28,40 @@ namespace sgll.net.Core.Queue
 
         public override void Action()
         {
-            var resp = SGLL.Client.Post("/force/index", string.Empty, SGLL.Data.LoginUser.Cookie);
-            LogDebug(resp.ToLogString());
+            dynamic profile = Post("/force/index", string.Empty);
 
-            if (resp.Item1)
+            if (profile != null && profile.errorCode == 0 && profile.data != null)
             {
-                dynamic profile = JObject.Parse(resp.Item2);
-                if (profile.errorCode == 0 && profile.data != null)
+                LogInfo("刷新势力信息");
+                _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSec);
+                var fi = profile.data.force_info;
+                var local = new MojoForceInfo
                 {
-                    LogInfo("刷新势力信息");
-                    _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSec);
-                    var fi = profile.data.force_info;
-                    var local = new MojoForceInfo
-                    {
-                        Id = fi.id,
-                        Name = fi.name,
-                        Announcement = fi.announcement,
-                        Challenge = fi.challenge,
-                        ChallengeLimit = fi.challenge_limit,
-                        first_class_officer_num = fi.first_class_officer_num,
-                        first_class_officer_num_limit = fi.first_class_officer_num_limit,
-                        Grain = fi.grain,
-                        GrainProtected = fi.grain_protected,
-                        Level = fi.level,
-                        MemberNum = fi.member_num,
-                        MemberNumLimit = fi.member_num_limit,
-                        OwnerName = fi.owner == null ? "" : fi.owner.name,
-                        ViceOwnerName = fi.vice_owner == null ? "" : fi.vice_owner.name,
-                        second_class_officer_num = fi.second_class_officer_num,
-                        second_class_officer_num_limit = fi.second_class_officer_num_limit,
-                        third_class_officer_num = fi.third_class_officer_num,
-                        third_class_officer_num_limit = fi.third_class_officer_num_limit,
-                    };
-                    SGLL.Data.ForceProfile = local;
-                    SGLL.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.ForceProfile });
-                }
-                else
-                {
-                    _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSecNoForce);
-                }
+                    Id = fi.id,
+                    Name = fi.name,
+                    Announcement = fi.announcement,
+                    Challenge = fi.challenge,
+                    ChallengeLimit = fi.challenge_limit,
+                    first_class_officer_num = fi.first_class_officer_num,
+                    first_class_officer_num_limit = fi.first_class_officer_num_limit,
+                    Grain = fi.grain,
+                    GrainProtected = fi.grain_protected,
+                    Level = fi.level,
+                    MemberNum = fi.member_num,
+                    MemberNumLimit = fi.member_num_limit,
+                    OwnerName = fi.owner == null ? "" : fi.owner.name,
+                    ViceOwnerName = fi.vice_owner == null ? "" : fi.vice_owner.name,
+                    second_class_officer_num = fi.second_class_officer_num,
+                    second_class_officer_num_limit = fi.second_class_officer_num_limit,
+                    third_class_officer_num = fi.third_class_officer_num,
+                    third_class_officer_num_limit = fi.third_class_officer_num_limit,
+                };
+                SGLL.Data.ForceProfile = local;
+                SGLL.CallStatusUpdate(this, new StatusChangedArgs { ChangedData = ChangedType.ForceProfile });
+            }
+            else
+            {
+                _nextSyncTime = DateTime.Now.AddSeconds(syncIntervalSecNoForce);
             }
         }
     }
