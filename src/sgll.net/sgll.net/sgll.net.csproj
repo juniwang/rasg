@@ -73,16 +73,16 @@
     <Compile Include="AdvanceCall.Designer.cs">
       <DependentUpon>AdvanceCall.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\Entieies\AbstractMojoColdDown.cs" />
-    <Compile Include="Core\Entieies\MojoActivityData.cs" />
-    <Compile Include="Core\Entieies\MojoCollectData.cs" />
-    <Compile Include="Core\Entieies\MojoEntitySale.cs" />
-    <Compile Include="Core\Entieies\MojoForceBoss.cs" />
-    <Compile Include="Core\Entieies\MojoForceExchangeData.cs" />
-    <Compile Include="Core\Entieies\MojoFubenData.cs" />
-    <Compile Include="Core\Entieies\MojoMallDaoju.cs" />
-    <Compile Include="Core\Entieies\MojoMissionData.cs" />
-    <Compile Include="Core\Entieies\MojoSigninData.cs" />
+    <Compile Include="Core\Entities\AbstractMojoColdDown.cs" />
+    <Compile Include="Core\Entities\MojoActivityData.cs" />
+    <Compile Include="Core\Entities\MojoCollectData.cs" />
+    <Compile Include="Core\Entities\MojoEntitySale.cs" />
+    <Compile Include="Core\Entities\MojoForceBoss.cs" />
+    <Compile Include="Core\Entities\MojoForceExchangeData.cs" />
+    <Compile Include="Core\Entities\MojoFubenData.cs" />
+    <Compile Include="Core\Entities\MojoMallDaoju.cs" />
+    <Compile Include="Core\Entities\MojoMissionData.cs" />
+    <Compile Include="Core\Entities\MojoSigninData.cs" />
     <Compile Include="Core\Multiple.cs" />
     <Compile Include="Core\MultipleUserCtl.cs" />
     <Compile Include="Core\Queue\ActivityQueue.cs" />
@@ -184,12 +184,12 @@
     <Compile Include="Core\Bridge\IBridge.cs" />
     <Compile Include="Core\Bridge\IPadBridge.cs" />
     <Compile Include="Core\Data\AccountsLoader.cs" />
-    <Compile Include="Core\Entieies\MojoForceInfo.cs" />
-    <Compile Include="Core\Entieies\MojoForceTask.cs" />
-    <Compile Include="Core\Entieies\MojoHuangjinItem.cs" />
-    <Compile Include="Core\Entieies\MojoPlayer.cs" />
-    <Compile Include="Core\Entieies\SFeature.cs" />
-    <Compile Include="Core\Entieies\LoginUser.cs" />
+    <Compile Include="Core\Entities\MojoForceInfo.cs" />
+    <Compile Include="Core\Entities\MojoForceTask.cs" />
+    <Compile Include="Core\Entities\MojoHuangjinItem.cs" />
+    <Compile Include="Core\Entities\MojoPlayer.cs" />
+    <Compile Include="Core\Entities\SFeature.cs" />
+    <Compile Include="Core\Entities\LoginUser.cs" />
     <Compile Include="Core\Queue\AbstractQueue.cs" />
     <Compile Include="Core\Queue\BasicProfileQueue.cs" />
     <Compile Include="Core\Queue\ForceProfileQueue.cs" />

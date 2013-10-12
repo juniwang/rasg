@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using sgll.net.Core.Entieies;
+using sgll.net.Core.Entities;
 using Newtonsoft.Json.Linq;
 
 namespace sgll.net.Core.Queue

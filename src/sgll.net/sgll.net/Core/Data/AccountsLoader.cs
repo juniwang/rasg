@@ -11,7 +11,7 @@ namespace sgll.net.Core.Data
     using System.Linq;
     using System.Text;
     using System.IO;
-    using sgll.net.Core.Entieies;
+    using sgll.net.Core.Entities;
     using Newtonsoft.Json;
 
     /// <summary>

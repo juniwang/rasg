@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
-using sgll.net.Core.Entieies;
+using sgll.net.Core.Entities;
 
 namespace sgll.net.Core.Queue
 {

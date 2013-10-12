@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace sgll.net.Core.Entieies
+namespace sgll.net.Core.Entities
 {
     public class MojoPlayer : AbstractMojoColdDown
     {

@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
-using sgll.net.Core.Entieies;
+using sgll.net.Core.Entities;
 using sgll.net.Core.Data;
 using sgll.net.Core.Bridge;
 using System.Threading;

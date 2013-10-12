@@ -6,7 +6,7 @@ using System.Net;
 using System.IO;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using sgll.net.Core.Entieies;
+using sgll.net.Core.Entities;
 
 namespace sgll.net.Core.Bridge
 {
@@ -251,7 +251,7 @@ namespace sgll.net.Core.Bridge
                 req.CookieContainer = new CookieContainer();
                 req.CookieContainer.Add(ckk);
             }
-            req.AllowAutoRedirect = false;
+            req.AllowAutoRedirect = true;
             if (!string.IsNullOrWhiteSpace(contents))
             {
                 var bytes = Encoding.UTF8.GetBytes(contents);

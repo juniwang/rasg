@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace sgll.net.Core.Entieies
+namespace sgll.net.Core.Entities
 {
     using System;
     using System.Collections.Generic;

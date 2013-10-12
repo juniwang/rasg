@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using sgll.net.Core;
-using sgll.net.Core.Entieies;
+using sgll.net.Core.Entities;
 using sgll.net.Core.Queue;
 
 namespace sgll.net.DockingPanel
