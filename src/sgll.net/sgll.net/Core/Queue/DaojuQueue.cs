@@ -80,6 +80,10 @@ namespace sgll.net.Core.Queue
                     //player info
                     if (resp.data.player != null)
                     {
+                        if (SGLL.Data.PlayerInfo == null)
+                            SGLL.Data.PlayerInfo = new MojoPlayer();
+                        SGLL.Data.PlayerInfo.NickName = resp.data.player.name;
+                        SGLL.Data.PlayerInfo.Name = SGLL.Data.LoginUser.Username;
                         SGLL.Data.PlayerInfo.EP = resp.data.player.ep;
                         SGLL.Data.PlayerInfo.VM = resp.data.player.vm;
                         SGLL.Data.PlayerInfo.RM = resp.data.player.rm;

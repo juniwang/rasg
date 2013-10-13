@@ -11,6 +11,7 @@ namespace sgll.net.Core.Entities
     using System.Linq;
     using System.Text;
     using Newtonsoft.Json;
+    using System.Net;
 
     /// <summary>
     /// TODO: Update summary.
@@ -22,7 +23,7 @@ namespace sgll.net.Core.Entities
         public string Server { get; set; }
         public string Description { get; set; }
         [JsonIgnore]
-        public string Cookie { get; set; }
+        public CookieContainer Cookies { get; set; }
         [JsonIgnore]
         public string Token { get; set; }
         public List<SFeature> Features { get; set; }

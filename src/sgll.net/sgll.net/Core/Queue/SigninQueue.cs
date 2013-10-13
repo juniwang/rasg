@@ -56,8 +56,12 @@ namespace sgll.net.Core.Queue
                 SGLL.Data.SignInData.Status = SignStatus.Completed;
 
                 var player = resp.data.player;
-                if (player != null && SGLL.Data.PlayerInfo != null)
+                if (player != null)
                 {
+                    if (SGLL.Data.PlayerInfo != null)
+                        SGLL.Data.PlayerInfo = new MojoPlayer();
+                    SGLL.Data.PlayerInfo.NickName = player.name;
+                    SGLL.Data.PlayerInfo.Name = SGLL.Data.LoginUser.Username;
                     SGLL.Data.PlayerInfo.EP = player.ep;
                     SGLL.Data.PlayerInfo.SP = player.sp;
                     SGLL.Data.PlayerInfo.VM = player.vm;

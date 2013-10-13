@@ -7,6 +7,7 @@ using System.IO;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using sgll.net.Core.Entities;
+using System.IO.Compression;
 
 namespace sgll.net.Core.Bridge
 {
@@ -39,7 +40,7 @@ namespace sgll.net.Core.Bridge
             return dst;
         }
 
-        public void Login(string username, string password, Dictionary<string, string> output)
+        public Tuple<bool, string> Login(LoginUser user)
         {
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(AjaxBase + "/validate/login");
             req.Method = "post";
@@ -50,7 +51,7 @@ namespace sgll.net.Core.Bridge
             req.Referer = "http://wsa.sg21.redatoms.com";
             req.Headers.Add("gamelanguage", "zh_cn");
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            string contents = "UserLoginForm%5Busername%5D=" + username + "&UserLoginForm%5Bpassword%5D=" + password + "&ajax=validate-form";
+            string contents = "UserLoginForm%5Busername%5D=" + user.Username + "&UserLoginForm%5Bpassword%5D=" + user.Password + "&ajax=validate-form";
             req.AllowAutoRedirect = false;
 
             var bytes = Encoding.UTF8.GetBytes(contents);
@@ -62,30 +63,46 @@ namespace sgll.net.Core.Bridge
                 resp = (HttpWebResponse)req.GetResponse();
                 if (resp.Headers.AllKeys.Contains("Set-Cookie"))
                 {
-                    var values = resp.Headers.GetValues("Set-Cookie");
-                    foreach (var cv in values)
+                    //Dictionary<string, string> cookies = new Dictionary<string, string>();
+                    CookieContainer container = new CookieContainer();
+                    foreach (var cv in resp.Headers.GetValues("Set-Cookie"))
                     {
-                        if (cv.IndexOf("bfff9d71bbba80d88def25ce6c5988b1") >= 0)
+                        //if (cv.IndexOf("bfff9d71bbba80d88def25ce6c5988b1") >= 0
+                        //    || cv.IndexOf("PHPSESSID") >= 0
+                        //    || cv.IndexOf("SERVERID") >= 0
+                        //    )
+                        //{
+                        string[] _cv = cv.Split(';')[0].Split('=');
+                        if (_cv.Length > 1)
                         {
-                            string[] _cv = cv.Split(';');
-                            if (output.ContainsKey(SR.Keys.Cookie)) output.Remove(SR.Keys.Cookie);
-                            output.Add(SR.Keys.Cookie, _cv[0]);
+                            //if (cookies.ContainsKey(_cv[0])) cookies.Remove(_cv[0]);
+                            //cookies.Add(_cv[0], _cv[1]);
+                            Cookie cookie = new Cookie(_cv[0], _cv[1]);
+                            cookie.Domain = MojoDomain;
+                            cookie.Path = "/";
+                            container.Add(cookie);
                         }
+                        //}
                     }
+                    user.Cookies = container;
+                }
+                if (resp.Headers.AllKeys.Contains("MOJO_A_T"))
+                {
+                    user.Token = resp.Headers["MOJO_A_T"];
                 }
 
                 if (resp.StatusCode == HttpStatusCode.OK)
                 {
-                    var sr = new StreamReader(resp.GetResponseStream());
-                    output.Add(SR.Keys.Response, sr.ReadToEnd());
-                    sr.Close();
+                    using (var sr = new StreamReader(resp.GetResponseStream()))
+                    {
+                        return new Tuple<bool, string>(true, sr.ReadToEnd());
+                    }
                 }
-                resp.Close();
+                return new Tuple<bool, string>(false, "登录失败:" + resp.StatusDescription);
             }
             catch (Exception e)
             {
-                output.Add(SR.Keys.Exception, e.Message);
-                output.Add(SR.Keys.StackTrack, e.StackTrace);
+                return new Tuple<bool, string>(false, "登录失败:" + e.Message);
             }
             finally
             {
@@ -151,106 +168,36 @@ namespace sgll.net.Core.Bridge
             }
         }
 
-        public Tuple<bool, string> PostWithAT(string url, string contents, string cookie, string at)
-        {
-            EnsureSignature();
-
-            if (!url.StartsWith(AjaxBase))
-            {
-                url = AjaxBase + "/" + url.TrimStart('/');
-            }
-
-            HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
-            req.Method = "post";
-            req.Timeout = 15000;
-            req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
-            req.Accept = "application/json, text/javascript, */*; q=0.01";
-            req.ContentType = "application/x-www-form-urlencoded";
-            req.Referer = "http://wsa.sg21.redatoms.com";
-            req.Headers.Add("gamelanguage", "zh_cn");
-            req.Headers.Add("X-Requested-With", "XMLHttpRequest");
-            req.Headers.Add("Signature", AutoSig.Signature);
-            req.Headers.Add("Mojo-A-T", at);
-
-            if (!string.IsNullOrWhiteSpace(cookie))
-            {
-                var cks = cookie.Split('=');
-                var ckk = new Cookie(cks[0], cks[1]);
-                ckk.Domain = MojoDomain;
-                req.CookieContainer = new CookieContainer();
-                req.CookieContainer.Add(ckk);
-            }
-            req.AllowAutoRedirect = false;
-            if (!string.IsNullOrWhiteSpace(contents))
-            {
-                var bytes = Encoding.UTF8.GetBytes(contents);
-                req.GetRequestStream().Write(bytes, 0, bytes.Length);
-            }
-
-            HttpWebResponse resp = null;
-            try
-            {
-                resp = (HttpWebResponse)req.GetResponse();
-                if (resp.StatusCode == HttpStatusCode.OK)
-                {
-                    var sr = new StreamReader(resp.GetResponseStream());
-                    var target = sr.ReadToEnd();
-                    target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
-                    return new Tuple<bool, string>(true, target);
-                }
-                resp.Close();
-                return new Tuple<bool, string>(false, resp.StatusDescription);
-            }
-            catch (Exception e)
-            {
-                return new Tuple<bool, string>(false, e.Message);
-            }
-            finally
-            {
-                if (resp != null)
-                    resp.Close();
-            }
-        }
-
         public Tuple<bool, string> Post(string url, string contents, LoginUser user)
         {
             if (user == null)
                 return new Tuple<bool, string>(false, "用户不能为空!");
 
-            return Post(url, contents, user.Cookie, user.Token);
-        }
-
-        public Tuple<bool, string> Post(string url, string contents, string cookie, string token)
-        {
             EnsureSignature();
 
             if (!url.StartsWith(AjaxBase))
             {
                 url = AjaxBase + "/" + url.TrimStart('/');
             }
+            url = url + "?_=" + DateTime.Now.Ticks.ToString();
 
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "post";
             req.Timeout = 15000;
-            req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
-            //req.UserAgent = "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25";
+            //req.UserAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 5_1_1 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Mobile/9B206 Mojo/IOS";
+            req.UserAgent = "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/537.36 Mojo/IOS";
             req.Accept = "application/json, text/javascript, */*; q=0.01";
             req.ContentType = "application/x-www-form-urlencoded";
             //req.ContentType = "application/json";
             req.Referer = "http://wsa.sg21.redatoms.com";
+            req.KeepAlive = true;
             req.Headers.Add("gamelanguage", "zh_cn");
+            req.Headers.Add(HttpRequestHeader.AcceptEncoding, "gzip,deflate");
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
             req.Headers.Add("Signature", AutoSig.Signature);
-            req.Headers.Add("Mojo-A-T", token);
+            req.Headers.Add("Mojo-A-T", user.Token);
 
-            if (!string.IsNullOrWhiteSpace(cookie))
-            {
-                var cks = cookie.Split('=');
-                var ckk = new Cookie(cks[0], cks[1]);
-                ckk.Domain = MojoDomain;
-                req.CookieContainer = new CookieContainer();
-                req.CookieContainer.Add(ckk);
-            }
+            req.CookieContainer = user.Cookies;
             req.AllowAutoRedirect = true;
             if (!string.IsNullOrWhiteSpace(contents))
             {
@@ -262,31 +209,63 @@ namespace sgll.net.Core.Bridge
             try
             {
                 resp = (HttpWebResponse)req.GetResponse();
+                //if (resp.Headers.AllKeys.Contains("Set-Cookie"))
+                //{
+                //    var values = resp.Headers.GetValues("Set-Cookie");
+                //    foreach (var cv in values)
+                //    {
+                //        if (cv.IndexOf("bfff9d71bbba80d88def25ce6c5988b1") >= 0
+                //            || cv.IndexOf("PHPSESSID") >= 0
+                //            //|| cv.IndexOf("SERVERID") >= 0
+                //            )
+                //        {
+                //            string[] _cv = cv.Split(';')[0].Split('=');
+                //            if (_cv.Length > 1)
+                //            {
+                //                if (user.Cookies.ContainsKey(_cv[0])) user.Cookies.Remove(_cv[0]);
+                //                user.Cookies.Add(_cv[0], _cv[1]);
+                //            }
+                //        }
+                //    }
+                //}
+
                 if (resp.StatusCode == HttpStatusCode.OK)
                 {
-                    //var sr = new StreamReader(resp.GetResponseStream());
-                    //var target = sr.ReadToEnd();
-                    using (StreamReader sr = new StreamReader(resp.GetResponseStream(), Encoding.UTF8))
+                    string responseBody = string.Empty;
+                    if (resp.ContentEncoding.ToLower().Contains("gzip"))
                     {
-                        StringBuilder sb = new StringBuilder();
-                        try
+                        using (GZipStream stream = new GZipStream(resp.GetResponseStream(), CompressionMode.Decompress))
                         {
-                            while (!sr.EndOfStream)
+                            using (StreamReader reader = new StreamReader(stream))
                             {
-                                sb.Append((char)sr.Read());
+                                responseBody = reader.ReadToEnd();
                             }
                         }
-                        catch (System.IO.IOException)
-                        {
-                            return new Tuple<bool, string>(false, "error when reading response.");
-                        }
-
-                        string target = sb.ToString();
-                        target = Regex.Replace(target, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
-                        if (string.IsNullOrWhiteSpace(target))
-                            return new Tuple<bool, string>(false, "no response");
-                        return new Tuple<bool, string>(true, target);
                     }
+                    else if (resp.ContentEncoding.ToLower().Contains("deflate"))
+                    {
+                        using (DeflateStream stream = new DeflateStream(resp.GetResponseStream(), CompressionMode.Decompress))
+                        {
+                            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                            {
+                                responseBody = reader.ReadToEnd();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (Stream stream = resp.GetResponseStream())
+                        {
+                            using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                            {
+                                responseBody = reader.ReadToEnd();
+                            }
+                        }
+                    }
+                    responseBody = Regex.Replace(responseBody, @"(\\u[a-z0-9A-Z]{4})+", p => { try { return UnicodeToString(p.Value); } catch { return p.Value; } });
+                    if (string.IsNullOrWhiteSpace(responseBody))
+                        return new Tuple<bool, string>(false, "no response");
+                    return new Tuple<bool, string>(true, responseBody);
                 }
                 resp.Close();
                 return new Tuple<bool, string>(false, resp.StatusDescription);

@@ -27,26 +27,14 @@ namespace sgll.net.Core
 
         public bool Login()
         {
-            var output = new Dictionary<string, string>();
-            Client.Login(Data.LoginUser.Username, Data.LoginUser.Password, output);
-            if (output.ContainsKey(SR.Keys.Cookie))
+            var login = Client.Login(Data.LoginUser);
+            if (login.Item1)
             {
-                Data.LoginUser.Cookie = output[SR.Keys.Cookie];
                 Log("登录", "成功:" + Data.LoginUser.Username, LogLevel.Warn);
                 return true;
             }
 
-            Log("登录", "失败:" + Data.LoginUser.Username, LogLevel.Error);
-            string text = Data.LoginUser.Username + "登录失败";
-            if (output.ContainsKey(SR.Keys.Exception))
-            {
-                text += ":" + output[SR.Keys.Exception];
-            }
-            if (output.ContainsKey(SR.Keys.StackTrack))
-            {
-                text += ":" + output[SR.Keys.StackTrack];
-            }
-            Log("登录", text, LogLevel.Debug);
+            Log("登录", "[" + Data.LoginUser.Username + "]登录失败:" + login.Item2, LogLevel.Error);
             return false;
         }
     }
