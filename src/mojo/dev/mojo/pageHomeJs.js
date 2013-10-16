@@ -14998,17 +14998,19 @@ function trackClient(appkeys) {
                 }
             },3000);
         },
-        auto_fuben_internal: function(fn, fubens, fubens_refresh){
+        auto_fuben_internal: function(fn, fubens, fubens_refresh, fn_param){
             var self = this;
             var to_ref=fubens_refresh;
             var fb_tasks=[];
             var cur_fuben_index=0;
             var cur_fb_task_group;
             var is_boss_group = false;
+            var boss_award = (fn_param == "award");
             var iv_time = 2800;
             var runs=0;
             var needwait=false;
             var time = new Date().getTime() / 1000;
+
             var auto_fuben_iv = setInterval(function(){
                 if(to_ref.length>0){
                     Mojo.ajax('/fuben/fbTasks', {fuben_id:to_ref[0].id,fuben_refresh:1}, function (result) {
@@ -15077,7 +15079,7 @@ function trackClient(appkeys) {
                                     if(result.data.fb_task.status==3){
                                         //get award
                                         var a_task_id=fb_tasks[t_i].id;
-                                        if(!is_boss_group){
+                                        if(!is_boss_group || boss_award){
                                             setTimeout(function(){
                                                 Mojo.ajax("/fuben/getAward", {
                                                     id: a_task_id,
@@ -15127,7 +15129,38 @@ function trackClient(appkeys) {
                                     fb_tasks=[];
                                 }
                             },function(){});
-                        }else{
+                        }else if(fb_tasks[fb_tasks.length-1].status==3){
+                            //领奖
+                            var a_task_id = fb_tasks[fb_tasks.length-1].id;
+                            if(!is_boss_group || boss_award){
+                                Mojo.ajax("/fuben/getAward", {
+                                    id: a_task_id,
+                                }, function (garesult) {
+                                    if (garesult.errorCode == 0) {
+                                        Mojo.ajax("/fuben/openAward", {
+                                            id: a_task_id,
+                                            award_id: garesult.data.free_award.id,
+                                            status: 1,
+                                        }, function (oaresult) {
+                                            if(oaresult.errorCode==0 && oaresult.data && oaresult.data.entity){
+                                                Mojo.app.toast.show2("[副本]["+fuben_name+"]["+group_name+"]领奖获得："+oaresult.data.entity.name);
+                                            }
+                                        }, function () {
+                                            Mojo.app.toast.show2("[副本]领奖失败");
+                                        });
+                                    }else{
+                                        Mojo.app.toast.show2("[副本]领奖失败：获取奖品id失败");
+                                    }
+                                }, function(){
+                                    Mojo.app.toast.show2("[副本]领奖失败：无法获取奖品id");
+                                }); 
+                            }
+
+                            // no matter the result of get award, go to next fuben
+                            cur_fuben_index=cur_fuben_index+1;
+                            fb_tasks=[];
+                        }
+                        else{
                             //if not found, go to next fuben and reset tasks.
                             cur_fuben_index=cur_fuben_index+1;
                             fb_tasks=[];
@@ -15151,7 +15184,7 @@ function trackClient(appkeys) {
                 }
             }, iv_time);
         },
-        auto_fuben: function(fn){
+        auto_fuben: function(fn, fn_param){
             var self=this;
             var fubens = [];
             var fubens_refresh=[];
@@ -15166,13 +15199,15 @@ function trackClient(appkeys) {
                                 fubens.push(fb);
                             } else if (fb.status == 0 || (fb.status == 3 && fb.cold_down == 0)) {
                                 fubens_refresh.push(fb);
+                            } else if(fb.status ==2 ){//领奖
+                                fubens.push(fb);
                             }
                         }
                     });
                     if(fubens.length + fubens_refresh.length==0){
                         self.auto_finish(fn);
                     }else{
-                        self.auto_fuben_internal(fn, fubens, fubens_refresh);
+                        self.auto_fuben_internal(fn, fubens, fubens_refresh, fn_param);
                     }
                 } else {
                     Mojo.app.toast.show2("[副本]初始化失败:(" + result.errorCode + ")" + result.errorMsg);
@@ -15419,7 +15454,7 @@ function trackClient(appkeys) {
                     var fn_param = fnp.split("@")[1];
                     switch(fn){
                         case "fuben":
-                            self.auto_fuben(fn);
+                            self.auto_fuben(fn, fn_param);
                             break;
                         case "suipian":
                             self.auto_force_suipian(fn);
