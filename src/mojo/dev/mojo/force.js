@@ -9274,7 +9274,7 @@ function trackClient(appkeys) {
             'dday': '日',
             'default_text': '请输入给Ta的话',
             'diaochan_battle_guide': '主公~您的精力不足啦~<br>你还可通过<span class="special-text">【征讨】</span>提升实力哦~<div class="goBtn">点击继续</div>',
-            'diaochan_first_card': '啊~被打败了~<br/>主公再厉害也不能总是单打独斗呀~<br/>点击<span class="special-text">【首页】</span>中的阵容头像可以把刚获得的卡牌上阵哦~<div class="goBtn">点击继续</div>',
+            'diaochan_first_card': '啊~被打败了~<br/>星级越高的将领越厉害哦~<br/>点击<span class="special-text">【首页】</span>中的将领头像，更换成刚获得的三星将领吧~<div class="goBtn">点击继续</div>',
             'diaochan_intity_first_card': '低等级的卡牌不够给力啊~<br/>点击<span class="special-text">【首页】</span>中的将领头像，可以强化将领，提高战斗力哦~<div class="goBtn">点击继续</div>',
             'diaochan_new_player': 'Hi~主公~<br/>我是貂蝉~<br/>我将陪伴您通过<span class="special-text">【任务】</span>体验三国穿越之旅哦~<div class="goBtn">点击继续</div>',
             'diaochan_rob_guide': '主公~您的精力不足啦~<br>你还可通过<span class="special-text">【夺宝】</span>提升实力哦~<div class="goBtn">点击继续</div>',
@@ -9704,6 +9704,7 @@ function trackClient(appkeys) {
             'go_vm': '去換錢',
             'goods_detail_title': '商品資訊',
             'has_buy': '已購買',
+            'heaven_bless': '',
             'hot_goods_flag': '熱賣',
             'need_rm': '主公～您的元寶不夠啦，荷包存點錢再來吧！',
             'need_vm': '主公～您的銀幣不夠啦，荷包存點錢再來吧！',
@@ -9744,6 +9745,7 @@ function trackClient(appkeys) {
             'go_vm': '去换钱',
             'goods_detail_title': '商品信息',
             'has_buy': '已购买',
+            'heaven_bless': '天降鸿福',
             'hot_goods_flag': '热卖',
             'need_rm': '主公～您的元宝不够啦，攒点钱再来吧！',
             'need_vm': '主公～您的银币不够啦，攒点钱再来吧！',
@@ -9783,6 +9785,7 @@ function trackClient(appkeys) {
             'battle_result_formation_title_lose': '',
             'battle_result_formation_title_win': '',
             'formation': '',
+            'formation detail': '',
             'new_player_gift_title': '',
             'win_card': '',
         },
@@ -9807,6 +9810,7 @@ function trackClient(appkeys) {
             'battle_result_formation_title_lose': '战斗失败',
             'battle_result_formation_title_win': '战斗胜利',
             'formation': '调整阵容',
+            'formation detail': '阵容对比',
             'new_player_gift_title': '强者奖励',
             'win_card': '主公~您有可能获得将领卡哦~',
         },
@@ -10511,6 +10515,7 @@ function trackClient(appkeys) {
             'forcewar_win_content': '我方勢力輕鬆擊敗【{{:forcename}}】，<br/>奪得勢力糧餉：',
             'forcewar_win_grain': '我方勢力輕鬆擊敗【{{:forcename}}】，奪得{{:grain}}糧餉',
             'foreign': '外務',
+            'formation detail': '',
             'free_only_owner_can_ask_alliance': '',
             'free_only_ownerorvice_can_ask_surrender': '',
             'free_only_ownerorvice_can_start_battle': '',
@@ -10617,7 +10622,10 @@ function trackClient(appkeys) {
             'not_resign_apply': '',
             'not_this_member': '',
             'notice': '勢力公告',
-            'notice_default_text': '說說勢力的前景藍圖吧！',
+            'notice_default_text1': '',
+            'notice_default_text2': '',
+            'notice_default_title1': '',
+            'notice_default_title2': '',
             'notice_edit_btn': '修改',
             'notice_title': '【公告】',
             'offer': '貢獻：',
@@ -10924,7 +10932,7 @@ function trackClient(appkeys) {
             'deny_resign_apply': '主公~您拒绝了【{{:name}}】的请辞申请，TA仍是我方势力的太守！',
             'depose': '罢免',
             'do_with_member': '要和{{:honor}}<span class=\"overstriking\">{{:name}}</span>做些什么呢？',
-            'edit_force_fobbiden': '主公~二品以上官员才能编辑公告哦~',
+            'edit_force_fobbiden': '主公~三品以上官员才能编辑公告哦~',
             'electioneer_officer': '竞选州牧',
             'electioneer_officer_lose': '竞选州牧失败',
             'electioneer_officer_succ': '竞选州牧成功',
@@ -11118,6 +11126,7 @@ function trackClient(appkeys) {
             'forcewar_win_content': '我方势力轻松击败【{{:forcename}}】，<br/>夺得势力粮饷：',
             'forcewar_win_grain': '我方势力轻松击败【{{:forcename}}】，夺得{{:grain}}粮饷',
             'foreign': '外务',
+            'formation detail': '阵容对比',
             'free_only_owner_can_ask_alliance': '主公~只有势力主才能结盟哦~',
             'free_only_ownerorvice_can_ask_surrender': '主公~只有势力主、副势力主才能劝降哦~',
             'free_only_ownerorvice_can_start_battle': '只有势力主、副势力主才能发起霸占~',
@@ -11224,7 +11233,10 @@ function trackClient(appkeys) {
             'not_resign_apply': '不能受理请辞',
             'not_this_member': '没有这个成员',
             'notice': '势力公告',
-            'notice_default_text': '说说势力的发展方针呗！',
+            'notice_default_text1': '#对内公告内容#',
+            'notice_default_text2': '#对外公告内容#',
+            'notice_default_title1': '对内公告（仅势力成员可见）',
+            'notice_default_title2': '对外公告（非势力成员可见）',
             'notice_edit_btn': '修改',
             'notice_title': '【公告】',
             'offer': '贡献：',
@@ -11593,6 +11605,9 @@ function trackClient(appkeys) {
     };
     g.effectSound = function (value) {
         return g.booleanStorage('settings-effect-sound', value);
+    };
+    g.battleAnimation = function (value) {
+        return g.booleanStorage('settings-battle-animation', value);
     };
     g.splash = function (value) {
         return g.booleanStorage('settings-splash', value);
@@ -12416,6 +12431,1313 @@ function trackClient(appkeys) {
         }
         w.Mojo.gap.device = params.device;
         w.Mojo.gap.isJailbreak = params.isJailbreak;
+    }
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.ui = w.Mojo.ui || {};
+    w.Mojo.ui.BattleAnimation = w.Mojo.ui.BattleAnimation || {};
+    Mojo.ui.BattleAnimation.init = function () {
+        this.mainBaseArray = Mojo.app.baseUrl.split('/');
+        this.mainBaseUrl = "/" + this.mainBaseArray[1] + "/resources/classic/" + this.mainBaseArray[2];
+        this.fpsTimes = 80;
+        this.scale = 1;
+        this.defaultHeroUrl = this.mainBaseUrl + "/image/entity/1/large/j4_5_1.png";
+        this.baseUrl = this.mainBaseUrl + "/image/battleanimation/";
+        this.battleSoundUrl = this.mainBaseUrl + "/sound/battle";
+        this.battleTag = "extra";
+        this.winTag = 0;
+        this.attaker = {};
+        this.defender = {};
+        this.battleImageSource = {};
+        this.attakerImageSource = [];
+        this.attakerInfo = {}
+        this.defenderImageSource = [];
+        this.defenderInfo = {};
+        this.attakerValue = 0;
+        this.defenderValue = 0;
+        this.attakerPercent = 0;
+        this.defenderPercent = 0;
+        this.maxTimes = 0;
+        this.attakeTimes = 0;
+        this.attakerShowOver = false;
+        this.defenderShowOver = false;
+        this.heroNumTag = true;
+        this.sourceSize = 0;
+        this.loadedSourceSize = 0;
+        this.loadingDiv = null;
+        this.loadingImg = null;
+        this.bufferCanvas = null;
+        this.bufferCtx = null;
+        this.bgImage = null;
+        this.showLoadingImage = null;
+        this.exitImage = null;
+        this.iImage = null;
+        this.showXZ = 0;
+        this.strandImage = null;
+        this.attakerKZ = 0;
+        this.attakerDK = 0;
+        this.attakerBJ = 0;
+        this.defenderKZ = 0;
+        this.defenderDK = 0;
+        this.defenderFH = 0;
+        this.attakerInfoLater = [0, 0, 0];
+        this.defenderInfoLater = [0, 0, 0];
+        this.attakerTotalValue = 0;
+        this.defenderTotalValue = 0;
+        this.attackerAddValue = 0;
+        this.attackerInfoRefresh = [false, false, false];
+        this.defenderInfoRefresh = [false, false, false];
+        this.boutOver = 2;
+        this.showOverTag = 2;
+        this.gameLater = 0;
+        this.showExit = true;
+        this.numImage = null;
+        this.infoSImage = null;
+        this.kzImage = null;
+        this.kzTimes = 0;
+        this.kzShowTag = false;
+        this.dkImage = null;
+        this.dkShowTag = false;
+        this.dkTimes = 0;
+        this.bjImage = null;
+        this.bjTimes = [0, 0, 0];
+        this.fhImage = null;
+        this.fhTimes = [0, 0, 0];
+        this.winImage = null;
+        this.winTimes = 0;
+        this.failImage = null;
+        this.extraImg = null;
+        this.extraLoadTimes = 0;
+        this.attackerExtraTag = false;
+        this.defenderExtraTag = false;
+        this.attackerTag = [true, false, false];
+        this.attackeLater = [0, 0, 0];
+        this.defenderTag = [true, false, false];
+        this.infoAttackValueImg = [null, null, null, null, null, null];
+        this.showExitTag = true;
+        this.showExitLater = 0;
+        this.initdata = {
+            "data": {
+                "attacker": {
+                    "army": [{
+                        "name": "\u9093\u8302",
+                        "small_image": "/mojo/resources/classic/mobile/image/entity/1/small/j4_5_1.png",
+                        "attack": 0,
+                        "level": "1",
+                        "id": 263201620,
+                        "weapon_add_attack": 0,
+                        "is_anti_res": 0,
+                        "is_be_res": 0,
+                        "rebirth_sum": 0,
+                        "has_weapon_skill": false
+                    }, ],
+                    "player": {
+                        "id": "",
+                        "name": "",
+                        "level": 1,
+                        "base_attack": 840,
+                        "sum_attack": 840
+                    },
+                    "sumAttack": 840,
+                    "restraint": []
+                },
+                "defender": {
+                    "army": [{
+                        "name": "\u9093\u8302",
+                        "small_image": "/mojo/resources/classic/mobile/image/entity/1/small/j4_5_1.png",
+                        "defence": 0,
+                        "bid": "j4511",
+                        "id": 263201620,
+                        "is_be_res": 0,
+                        "is_anti_res": 0,
+                        "armor_add_defence": 0,
+                        "has_armor_skill": false,
+                        "rebirth_sum": 0
+                    }, ],
+                    "player": {
+                        "id": "1",
+                        "name": "\u9093\u8302",
+                        "level": "??",
+                        "base_defence": 0,
+                        "sum_defence": 736
+                    },
+                    "sumDefence": 736,
+                    "restraint": []
+                },
+                "win": 1,
+                "skill_summary": {
+                    "attacker": {
+                        "is_res": 0,
+                        "is_anti_res": 0,
+                        "weapon_add_attack": 0
+                    },
+                    "defender": {
+                        "is_res": 0,
+                        "is_anti_res": 0,
+                        "armor_add_defence": 0
+                    }
+                }
+            }
+        };
+        this.initdata.data.attacker.army[0].small_image = this.initdata.data.defender.army[0].small_image = this.mainBaseUrl + "/image/entity/1/small/j4_5_1.png";
+    }
+    Mojo.ui.BattleAnimation.openBattle = function (battleData, baseUrl, defaultSrc, fpsTimes, scale) {
+        var tt = Mojo.ui.BattleAnimation;
+        if (battleData == undefined || battleData.length == 0 || !Mojo.app.battleAnimation()) {
+            if (Mojo.ui.BattleAnimation.onclose instanceof Function) {
+                Mojo.ui.BattleAnimation.onclose();
+            }
+            return;
+        }
+        Mojo.ui.BattleAnimation.init();
+        $.extend(true, Mojo.ui.BattleAnimation.initdata, battleData);
+        if (fpsTimes != undefined && fpsTimes != '') {
+            Mojo.ui.BattleAnimation.fpsTimes = fpsTimes;
+        }
+        if (defaultSrc != undefined && defaultSrc != '') {
+            Mojo.ui.BattleAnimation.defaultHeroUrl = defaultSrc;
+        }
+        if (baseUrl != undefined && baseUrl != '') {
+            Mojo.ui.BattleAnimation.baseUrl = baseUrl;
+        }
+        if (scale != undefined && scale != '') {
+            Mojo.ui.BattleAnimation.scale = scale;
+        }
+        tt.loadingDiv = document.createElement("div");
+        tt.loadingDiv.setAttribute("style", "background:none repeat scroll 0 0 #000;left:0;position:absolute;top:0;width:100%;height:100%;opacity:0.8;text-align:center;vertical-align:middle;z-index:2000");
+        tt.loadingImg = document.createElement("img");
+        tt.loadingImg.src = tt.baseUrl + "mojo_common_waiting.gif";
+        tt.loadingImg.setAttribute("style", "position:absolute;width:25px;height:25px;top:50%;bottom:50%;left:50%;right:50%");
+        tt.loadingDiv.appendChild(tt.loadingImg);
+        tt.parseData(Mojo.ui.BattleAnimation.initdata);
+    }
+    Mojo.ui.BattleAnimation.isExit = function (aTag, dTag, aLength, bLength) {
+        if (aTag) {
+            if (dTag) {
+                if (aLength == 1 && bLength == 1)
+                    return true;
+            } else {
+                if (aLength == 1 && bLength == 0)
+                    return true;
+            }
+        } else {
+            if (dTag) {
+                if (aLength == 0 && bLength == 1)
+                    return true;
+            } else {
+                if (aLength == 0 && bLength == 0)
+                    return true;
+            }
+        }
+        return false;
+    }
+    Mojo.ui.BattleAnimation.parseData = function (battleData) {
+        var tt = Mojo.ui.BattleAnimation;
+        var jsonData = battleData;
+        tt.winTag = jsonData.data.win;
+        tt.attaker = jsonData.data.attacker;
+        tt.defender = jsonData.data.defender;
+        if (tt.attaker.is_barracks == 1) {
+            var barracks = jsonData.data.attacker.army[0];
+            if (barracks.attack > 0 || barracks.is_res > 0 || barracks.is_anti_res > 0 || barracks.weapon_add_attack > 0) {
+                tt.attackerExtraTag = true;
+            }
+        }
+        if (tt.defender.is_barracks == 1) {
+            var barracks = jsonData.data.defender.army[0];
+            if (barracks.defence > 0 || barracks.is_res > 0 || barracks.is_anti_res > 0 || barracks.armor_add_defence > 0) {
+                tt.defenderExtraTag = true;
+            }
+        }
+        if (tt.isExit(tt.attaker.is_barracks == 1, tt.defender.is_barracks == 1, tt.attaker.army.length, tt.defender.army.length)) {
+            tt.exit();
+            return;
+        }
+        document.body.appendChild(tt.loadingDiv);
+        var attakerLastTotal = (tt.attaker.player.sum_attack - tt.attaker.player.base_attack) / (tt.attaker.army.length * 3);
+        var defenderLastTotal = (tt.defender.player.sum_defence - tt.defender.player.base_defence) / (tt.defender.army.length * 3);
+        tt.attackerAddValue = attakerLastTotal > defenderLastTotal ? attakerLastTotal : defenderLastTotal;
+        tt.loadSource(tt.attaker.army);
+        tt.loadSource(tt.defender.army);
+        tt.resetAttake(tt.attaker.player.base_attack, 0);
+        tt.resetAttake(tt.defender.player.base_defence, 1);
+        tt.attakerArmyLength = tt.attaker.army.length;
+        if (tt.attaker.is_barracks == 1) {
+            tt.attakerArmyLength--;
+        }
+        tt.defenderArmyLength = tt.defender.army.length;
+        if (tt.defender.is_barracks == 1) {
+            tt.defenderArmyLength--;
+        }
+        if (tt.attakerArmyLength >= tt.defenderArmyLength) {
+            tt.maxTimes = parseInt(tt.attakerArmyLength / 3);
+            if (tt.attakerArmyLength % 3 == 0) {
+                tt.maxTimes = parseInt(tt.attakerArmyLength / 3) - 1;
+            }
+            tt.heroNumTag = true;
+        } else {
+            tt.maxTimes = parseInt(tt.defenderArmyLength / 3);
+            if (tt.defenderArmyLength % 3 == 0) {
+                tt.maxTimes = parseInt(tt.defenderArmyLength / 3) - 1;
+            }
+            tt.heroNumTag = false;
+        }
+        tt.bgImage = new Image();
+        tt.bgImage.src = tt.baseUrl + "mojo_common_battle_bg.png";
+        tt.showLoadingImage = new Image();
+        tt.showLoadingImage.src = tt.baseUrl + "mojo_common_battle_showloading.png";
+        tt.strandImage = new Image();
+        tt.strandImage.src = tt.baseUrl + "mojo_common_battle_strand.png";
+        tt.exitImage = new Image();
+        tt.exitImage.src = tt.baseUrl + "mojo_common_battle_exit.png";
+        tt.numImage = new Image();
+        tt.numImage.src = tt.baseUrl + "mojo_common_num.png";
+        tt.failImage = new Image();
+        tt.failImage.src = tt.baseUrl + "mojo_common_fail.png";
+        var infoImageUrl = [{
+            name: "info1",
+            src: "mojo_common_info_0001.png"
+        }, {
+            name: "info2",
+            src: "mojo_common_info_0002.png"
+        }, {
+            name: "info3",
+            src: "mojo_common_info_0003.png"
+        }, {
+            name: "info4",
+            src: "mojo_common_info_0004.png"
+        }, {
+            name: "info5",
+            src: "mojo_common_info_0005.png"
+        }, {
+            name: "info6",
+            src: "mojo_common_info_0006.png"
+        }, {
+            name: "info7",
+            src: "mojo_common_info_0007.png"
+        }, {
+            name: "info8",
+            src: "mojo_common_info_0008.png"
+        }, {
+            name: "info9",
+            src: "mojo_common_info_0009.png"
+        }, {
+            name: "info10",
+            src: "mojo_common_info_0010.png"
+        }, {
+            name: "info11",
+            src: "mojo_common_info_0011.png"
+        }, {
+            name: "info12",
+            src: "mojo_common_info_0012.png"
+        }];
+        tt.iImage = tt.loadImage(infoImageUrl);
+        var infoSImageUrl = [{
+            name: "infoKZ",
+            src: "mojo_common_info_kz.png"
+        }, {
+            name: "infoDK",
+            src: "mojo_common_info_dk.png"
+        }, {
+            name: "infoBJ",
+            src: "mojo_common_info_bj.png"
+        }, {
+            name: "infoFH",
+            src: "mojo_common_info_fh.png"
+        }];
+        tt.infoSImage = tt.loadImage(infoSImageUrl);
+        var infoKZImgUrl = [{
+            name: "info_kz01",
+            src: "mojo_common_info_kz01.png"
+        }, {
+            name: "info_kz02",
+            src: "mojo_common_info_kz02.png"
+        }, {
+            name: "info_kz03",
+            src: "mojo_common_info_kz03.png"
+        }, {
+            name: "info_kz04",
+            src: "mojo_common_info_kz04.png"
+        }, {
+            name: "info_kz05",
+            src: "mojo_common_info_kz05.png"
+        }, {
+            name: "info_kz06",
+            src: "mojo_common_info_kz06.png"
+        }, {
+            name: "info_kz07",
+            src: "mojo_common_info_kz07.png"
+        }, {
+            name: "info_kz08",
+            src: "mojo_common_info_kz08.png"
+        }, {
+            name: "info_kz09",
+            src: "mojo_common_info_kz09.png"
+        }, {
+            name: "info_kz10",
+            src: "mojo_common_info_kz10.png"
+        }, {
+            name: "info_kz11",
+            src: "mojo_common_info_kz11.png"
+        }, {
+            name: "info_kz12",
+            src: "mojo_common_info_kz12.png"
+        }, {
+            name: "info_kz13",
+            src: "mojo_common_info_kz13.png"
+        }];
+        tt.kzImage = tt.loadImage(infoKZImgUrl);
+        var infoDKImgUrl = [{
+            name: "info_dk_01",
+            src: "mojo_common_info_dk01.png"
+        }, {
+            name: "info_dk_02",
+            src: "mojo_common_info_dk02.png"
+        }, {
+            name: "info_dk_03",
+            src: "mojo_common_info_dk03.png"
+        }, {
+            name: "info_dk_04",
+            src: "mojo_common_info_dk04.png"
+        }, {
+            name: "info_dk_05",
+            src: "mojo_common_info_dk05.png"
+        }, {
+            name: "info_dk_06",
+            src: "mojo_common_info_dk06.png"
+        }, {
+            name: "info_dk_07",
+            src: "mojo_common_info_dk07.png"
+        }, {
+            name: "info_dk_08",
+            src: "mojo_common_info_dk08.png"
+        }, {
+            name: "info_dk_09",
+            src: "mojo_common_info_dk09.png"
+        }, {
+            name: "info_dk_10",
+            src: "mojo_common_info_dk10.png"
+        }];
+        tt.dkImage = tt.loadImage(infoDKImgUrl);
+        var infoBJImgUrl = [{
+            name: "info_bj_01",
+            src: "mojo_common_info_bj01.png"
+        }, {
+            name: "info_bj_02",
+            src: "mojo_common_info_bj02.png"
+        }, {
+            name: "info_bj_04",
+            src: "mojo_common_info_bj04.png"
+        }, {
+            name: "info_bj_05",
+            src: "mojo_common_info_bj05.png"
+        }, {
+            name: "info_bj_06",
+            src: "mojo_common_info_bj06.png"
+        }, {
+            name: "info_bj_07",
+            src: "mojo_common_info_bj07.png"
+        }, {
+            name: "info_bj_08",
+            src: "mojo_common_info_bj08.png"
+        }, {
+            name: "info_bj_09",
+            src: "mojo_common_info_bj09.png"
+        }, {
+            name: "info_bj_10",
+            src: "mojo_common_info_bj10.png"
+        }];
+        tt.bjImage = tt.loadImage(infoBJImgUrl);
+        var mojo_FHImgUrl = [{
+            name: "info_fh_01",
+            src: "mojo_common_info_fh01.png"
+        }, {
+            name: "info_fh_02",
+            src: "mojo_common_info_fh02.png"
+        }, {
+            name: "info_fh_03",
+            src: "mojo_common_info_fh03.png"
+        }, {
+            name: "info_fh_04",
+            src: "mojo_common_info_fh04.png"
+        }, {
+            name: "info_fh_05",
+            src: "mojo_common_info_fh05.png"
+        }, {
+            name: "info_fh_06",
+            src: "mojo_common_info_fh06.png"
+        }, {
+            name: "info_fh_07",
+            src: "mojo_common_info_fh07.png"
+        }, {
+            name: "info_fh_08",
+            src: "mojo_common_info_fh08.png"
+        }, {
+            name: "info_fh_09",
+            src: "mojo_common_info_fh09.png"
+        }, {
+            name: "info_fh_10",
+            src: "mojo_common_info_fh10.png"
+        }, {
+            name: "info_fh_11",
+            src: "mojo_common_info_fh11.png"
+        }, {
+            name: "info_fh_12",
+            src: "mojo_common_info_fh12.png"
+        }, {
+            name: "info_fh_13",
+            src: "mojo_common_info_fh13.png"
+        }];
+        tt.fhImage = tt.loadImage(mojo_FHImgUrl);
+        var winImgUrl = [{
+            name: "win01",
+            src: "mojo_common_win01.png"
+        }, {
+            name: "win02",
+            src: "mojo_common_win02.png"
+        }, {
+            name: "win03",
+            src: "mojo_common_win03.png"
+        }, {
+            name: "win04",
+            src: "mojo_common_win04.png"
+        }, {
+            name: "win05",
+            src: "mojo_common_win05.png"
+        }, {
+            name: "win06",
+            src: "mojo_common_win06.png"
+        }, {
+            name: "win07",
+            src: "mojo_common_win07.png"
+        }, {
+            name: "win08",
+            src: "mojo_common_win08.png"
+        }, {
+            name: "win09",
+            src: "mojo_common_win09.png"
+        }, {
+            name: "win10",
+            src: "mojo_common_win10.png"
+        }, {
+            name: "win11",
+            src: "mojo_common_win11.png"
+        }];
+        tt.winImage = tt.loadImage(winImgUrl);
+        if (tt.attackerExtraTag) {
+            tt.extraImg = tt.battleImageSource[tt.attaker.army[0].name];
+        } else {
+            if (tt.defenderExtraTag) {
+                tt.extraImg = tt.battleImageSource[tt.defender.army[0].name]
+            }
+        }
+    }
+    Mojo.ui.BattleAnimation.loadImage = function (source) {
+        var tempImage = [];
+        for (var i = 0; i < source.length; i++) {
+            tempImage[i] = new Image();
+            tempImage[i].src = Mojo.ui.BattleAnimation.baseUrl + source[i].src;
+        }
+        return tempImage;
+    }
+    Mojo.ui.BattleAnimation.loadSource = function (source) {
+        var tt = Mojo.ui.BattleAnimation;
+        tt.sourceSize = parseInt(tt.sourceSize) + source.length;
+        for (var i = 0; i < source.length; i++) {
+            var mm = source[i].name;
+            tt.battleImageSource[mm] = new Image();
+            tt.battleImageSource[mm].src = tt.resetUrl(source[i].small_image);
+            tt.battleImageSource[mm].onload = function () {
+                tt.loadedSourceSize++;
+                if (tt.loadedSourceSize == tt.sourceSize) {
+                    tt.createBattle();
+                    document.body.removeChild(tt.loadingDiv);
+                }
+            }
+            tt.battleImageSource[mm].onerror = function () {
+                this.src = tt.defaultHeroUrl;
+            }
+        }
+    }
+    Mojo.ui.BattleAnimation.resetUrl = function (imgUrl) {
+        return imgUrl.replace("/small/", "/large/");
+    }
+    Mojo.ui.BattleAnimation.circleHero = function (tempImage) {
+        var tempCanvas = document.createElement("canvas");
+        var context = tempCanvas.getContext("2d");
+        var clientWidth = tempImage.width;
+        var clientHeight = tempImage.height;
+        tempCanvas.width = clientWidth;
+        tempCanvas.height = clientHeight;
+        context.translate(clientWidth / 2, clientHeight / 2);
+        context.rotate(Math.PI);
+        context.scale(1, -1);
+        context.drawImage(tempImage, -clientWidth / 2, -clientHeight / 2);
+        return tempCanvas;
+    }
+    Mojo.ui.BattleAnimation.createBattle = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        tt.bufferCanvas = document.createElement("canvas");
+        tt.bufferCanvas.setAttribute("style", "position:absolute;left:0;top:0;width:100%;height:100%;z-index:2000");
+        tt.bufferCanvas.width = 640 * tt.scale;;
+        tt.bufferCanvas.height = 960 * tt.scale;
+        document.body.appendChild(tt.bufferCanvas);
+        tt.bufferCanvas.addEventListener("click", function (event) {
+            if (tt.showExit) {
+                tt.exit();
+            }
+        });
+        tt.bufferCtx = tt.bufferCanvas.getContext("2d");
+        tt.resetHero();
+        tt.terval = setInterval(tt.battleDraw, tt.fpsTimes);
+    }
+    Mojo.ui.BattleAnimation.resetAttake = function (attakeValue, tag) {
+        var tt = Mojo.ui.BattleAnimation;
+        switch (tag) {
+        case 0:
+            if (attakeValue != undefined) {
+                tt.attakerValue = parseInt(tt.attakerValue) + parseInt(attakeValue);
+            }
+            break;
+        case 1:
+            if (attakeValue != undefined) {
+                tt.defenderValue = parseInt(tt.defenderValue) + parseInt(attakeValue);
+            }
+            break;
+        default:
+            break;
+        }
+        tt.attakerPercent = parseInt(tt.attakerValue / (tt.attakerValue + tt.defenderValue) * 364);
+        if (tt.attakerPercent > 320) {
+            tt.attakerPercent = 320;
+        }
+        if (tt.attakerPercent < 44) {
+            tt.attakerPercent = 44;
+        }
+        tt.attakerPercent = tt.attakerPercent * tt.scale;
+        tt.defenderPercent = 364 * tt.scale - tt.attakerValue;
+    }
+    Mojo.ui.BattleAnimation.parseNumToImage = function (value) {
+        var ttImag = Mojo.ui.BattleAnimation.numImage;
+        var width = 37.5 * value.length + 37.5;
+        var tempCanvas = document.createElement("canvas");
+        tempCanvas.width = width;
+        tempCanvas.height = 50;
+        var tempCtx = tempCanvas.getContext("2d");
+        tempCtx.drawImage(ttImag, 37.5, 0, 37.5, 50, 0, 0, 37.5, 50);
+        for (i in value) {
+            var tempNum = parseInt(value[i]);
+            tempCtx.drawImage(ttImag, 75 + tempNum * 37.5, 0, 37.5, 50, 41 + i * 37.5, 0, 37.5, 50);
+        }
+        return tempCanvas;
+    }
+    Mojo.ui.BattleAnimation.resetHero = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        if (tt.attakeTimes * 3 < tt.attakerArmyLength) {
+            tt.attakerImageSource = [];
+            tt.attakerInfo = {};
+            var attakerArmy = tt.attaker.army;
+            var tempAttakerLength = (tt.attakeTimes * 3 + 3) < tt.attakerArmyLength ? (tt.attakeTimes * 3 + 3) : tt.attakerArmyLength;
+            if (tt.attaker.is_barracks == 1) {
+                for (var i = tt.attakeTimes * 3 + 1; i < tempAttakerLength + 1; i++) {
+                    tt.attakerImageSource[(i - 1) % 3] = tt.circleHero(tt.battleImageSource[attakerArmy[i].name]);
+                    tt.attakerInfo[(i - 1) % 3] = attakerArmy[i];
+                }
+            } else {
+                for (var i = tt.attakeTimes * 3; i < tempAttakerLength; i++) {
+                    tt.attakerImageSource[i % 3] = tt.circleHero(tt.battleImageSource[attakerArmy[i].name]);
+                    tt.attakerInfo[i % 3] = attakerArmy[i];
+                }
+            }
+            for (i in tt.attakerInfo) {
+                var ttInfo = tt.attakerInfo[i];
+                tt.infoAttackValueImg[i] = tt.parseNumToImage(ttInfo.attack + "");
+                if (ttInfo.is_res > 0 && !tt.kzShowTag) {
+                    tt.kzShowTag = true;
+                }
+            }
+        } else {
+            tt.attakerShowOver = true;
+        }
+        if (tt.attakeTimes * 3 < tt.defenderArmyLength) {
+            tt.defenderImageSource = [];
+            tt.defenderInfo = {};
+            var defenderArmy = tt.defender.army;
+            var tempDefenderLength = (tt.attakeTimes * 3 + 3) < tt.defenderArmyLength ? (tt.attakeTimes * 3 + 3) : tt.defenderArmyLength;
+            if (tt.defender.is_barracks == 1) {
+                for (var i = tt.attakeTimes * 3 + 1; i < tempDefenderLength + 1; i++) {
+                    tt.defenderImageSource[(i - 1) % 3] = tt.battleImageSource[defenderArmy[i].name];
+                    tt.defenderInfo[(i - 1) % 3] = defenderArmy[i];
+                }
+            } else {
+                for (var i = tt.attakeTimes * 3; i < tempDefenderLength; i++) {
+                    tt.defenderImageSource[i % 3] = tt.battleImageSource[defenderArmy[i].name];
+                    tt.defenderInfo[i % 3] = defenderArmy[i];
+                }
+            }
+            for (i in tt.defenderInfo) {
+                var ttInfo = tt.defenderInfo[i];
+                tt.infoAttackValueImg[3 + parseInt(i)] = tt.parseNumToImage(ttInfo.defence + "");
+                if (ttInfo.is_res > 0 && !tt.kzShowTag) {
+                    tt.kzShowTag = true;
+                }
+            }
+        } else {
+            tt.defenderShowOver = true;
+        }
+    }
+    Mojo.ui.BattleAnimation.battleDraw = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        tt.commonDraw();
+        switch (tt.battleTag) {
+        case "extra":
+            tt.extraDraw();
+            break;
+        case "prepare":
+            tt.prepareDraw();
+            break;
+        case "battle":
+            tt.attack();
+            break;
+        default:
+            break;
+        }
+    }
+    Mojo.ui.BattleAnimation.commonDraw = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        tt.bufferCtx.clearRect(0, 0, 640 * tt.scale, 960 * tt.scale);
+        tt.bufferCtx.drawImage(tt.bgImage, 0, 0, tt.bgImage.width, tt.bgImage.height, 0, 0, 640 * tt.scale, 960 * tt.scale);
+        tt.bufferCtx.drawImage(tt.strandImage, 0, 0, tt.strandImage.width, tt.strandImage.height, 137 * tt.scale, 63 * tt.scale, tt.attakerPercent, 27 * tt.scale);
+        var infoWidth = tt.iImage[0].width,
+            infoHeight = tt.iImage[0].height;
+        if (tt.attackerInfoRefresh[0]) {
+            tt.bufferCtx.drawImage(tt.iImage[1], 0, 0, infoWidth, infoHeight, 20 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+            tt.attakerInfoLater[0]++;
+            if (tt.attakerInfoLater[0] == 3) {
+                tt.attackerInfoRefresh[0] = false;
+                tt.attakerInfoLater[0] = 0;
+            }
+        } else {
+            tt.bufferCtx.drawImage(tt.iImage[0], 0, 0, infoWidth, infoHeight, 20 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.attackerInfoRefresh[1]) {
+            tt.bufferCtx.drawImage(tt.iImage[3], 0, 0, infoWidth, infoHeight, 105 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+            tt.attakerInfoLater[1]++;
+            if (tt.attakerInfoLater[1] == 3) {
+                tt.attackerInfoRefresh[1] = false;
+                tt.attakerInfoLater[1] = 0;
+            }
+        } else {
+            tt.bufferCtx.drawImage(tt.iImage[2], 0, 0, infoWidth, infoHeight, 105 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.attackerInfoRefresh[2]) {
+            tt.bufferCtx.drawImage(tt.iImage[5], 0, 0, infoWidth, infoHeight, 200 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+            tt.attakerInfoLater[2]++;
+            if (tt.attakerInfoLater[2] == 3) {
+                tt.attackerInfoRefresh[2] = false;
+                tt.attakerInfoLater[2] = 0;
+            }
+        } else {
+            tt.bufferCtx.drawImage(tt.iImage[4], 0, 0, infoWidth, infoHeight, 200 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.defenderInfoRefresh[0]) {
+            tt.bufferCtx.drawImage(tt.iImage[7], 0, 0, infoWidth, infoHeight, 368 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+            tt.defenderInfoLater[0]++;
+            if (tt.defenderInfoLater[0] == 3) {
+                tt.defenderInfoRefresh[0] = false;
+                tt.defenderInfoLater[0] = 0;
+            }
+        } else {
+            tt.bufferCtx.drawImage(tt.iImage[6], 0, 0, infoWidth, infoHeight, 368 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.defenderInfoRefresh[1]) {
+            tt.bufferCtx.drawImage(tt.iImage[9], 0, 0, infoWidth, infoHeight, 453 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+            tt.defenderInfoLater[1]++;
+            if (tt.defenderInfoLater[1] == 3) {
+                tt.defenderInfoRefresh[1] = false;
+                tt.defenderInfoLater[1] = 0;
+            }
+        } else {
+            tt.bufferCtx.drawImage(tt.iImage[8], 0, 0, infoWidth, infoHeight, 453 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.defenderInfoRefresh[2]) {
+            tt.bufferCtx.drawImage(tt.iImage[11], 0, 0, infoWidth, infoHeight, 538 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+            tt.defenderInfoLater[2]++;
+            if (tt.defenderInfoLater[2] == 3) {
+                tt.defenderInfoRefresh[2] = false;
+                tt.defenderInfoLater[2] = 0;
+            }
+        } else {
+            tt.bufferCtx.drawImage(tt.iImage[10], 0, 0, infoWidth, infoHeight, 538 * tt.scale, 120 * tt.scale, 83 * tt.scale, 50 * tt.scale);
+        }
+        tt.bufferCtx.fillStyle = "#ffff00";
+        tt.bufferCtx.font = 28 * tt.scale + "px Arial";
+        tt.bufferCtx.textAlign = "left";
+        tt.bufferCtx.fillText(tt.attakerKZ, 63 * tt.scale, 155 * tt.scale);
+        tt.bufferCtx.fillText(tt.attakerDK, 148 * tt.scale, 155 * tt.scale);
+        tt.bufferCtx.fillText(tt.attakerBJ, 244 * tt.scale, 155 * tt.scale);
+        tt.bufferCtx.fillStyle = "#33ffcc";
+        tt.bufferCtx.fillText(tt.defenderKZ, 410 * tt.scale, 155 * tt.scale);
+        tt.bufferCtx.fillText(tt.defenderDK, 495 * tt.scale, 155 * tt.scale);
+        tt.bufferCtx.fillText(tt.defenderFH, 580 * tt.scale, 155 * tt.scale);
+        tt.bufferCtx.fillStyle = "#000000";
+        tt.bufferCtx.font = 26 * tt.scale + "px Arial";
+        tt.bufferCtx.textAlign = "center";
+        tt.bufferCtx.fillText(tt.attaker.player.level, 45 * tt.scale, 44 * tt.scale);
+        if (tt.defender.player.level != undefined) {
+            tt.bufferCtx.fillText(tt.defender.player.level, 595 * tt.scale, 44 * tt.scale);
+        } else {
+            tt.bufferCtx.fillText("??", 595 * tt.scale, 44 * tt.scale);
+        }
+        tt.bufferCtx.font = 32 * tt.scale + "px Arial";
+        tt.bufferCtx.fillStyle = "#ff0000";
+        tt.bufferCtx.textAlign = "left";
+        var ttakerName = tt.attaker.player.name;
+        for (var i = ttakerName.length; i > 0; i--) {
+            var tempName = ttakerName.substring(0, i);
+            if (tt.bufferCtx.measureText(tempName).width < 194 * tt.scale) {
+                tt.bufferCtx.fillText(tempName, 90 * tt.scale, 38 * tt.scale);
+                break;
+            }
+        }
+        tt.bufferCtx.fillStyle = "#3366ff";
+        tt.bufferCtx.textAlign = "right";
+        var defenderName = tt.defender.player.name;
+        for (var i = defenderName.length; i > 0; i--) {
+            var tempName = defenderName.substring(0, i);
+            if (tt.bufferCtx.measureText(tempName).width < 194 * tt.scale) {
+                tt.bufferCtx.fillText(tempName, 550 * tt.scale, 38 * tt.scale);
+                break;
+            }
+        }
+        tt.bufferCtx.font = 28 * tt.scale + "px Arial";
+        tt.bufferCtx.fillStyle = "#ffffff";
+        tt.bufferCtx.textAlign = "left";
+        if (parseInt(tt.attakerTotalValue + tt.attackerAddValue) < tt.attakerValue) {
+            tt.attakerTotalValue = parseInt(tt.attakerTotalValue + tt.attackerAddValue);
+        } else {
+            tt.attakerTotalValue = tt.attakerValue;
+        }
+        tt.bufferCtx.fillText(tt.attakerTotalValue, 145 * tt.scale, 87 * tt.scale);
+        tt.bufferCtx.textAlign = "right";
+        if (parseInt(tt.defenderTotalValue + tt.attackerAddValue) < tt.defenderValue) {
+            tt.defenderTotalValue = parseInt(tt.defenderTotalValue + tt.attackerAddValue);
+        } else {
+            tt.defenderTotalValue = tt.defenderValue;
+        }
+        tt.bufferCtx.fillText(tt.defenderTotalValue, 495 * tt.scale, 87 * tt.scale);
+        if (tt.showExitTag) {
+            if (tt.showExitLater == 30) {
+                tt.showExitTag = false;
+            }
+            tt.showExitLater++;
+        } else {
+            if (tt.showExitLater == -10) {
+                tt.showExitTag = true;
+            }
+            tt.showExitLater--;
+        }
+        tt.bufferCtx.font = 20 * tt.scale + "px Arial";
+        tt.bufferCtx.fillStyle = "rgba(255,255,0," + tt.showExitLater * 0.05 + ")";
+        tt.bufferCtx.textAlign = "center";
+        tt.bufferCtx.fillText("点击跳过动画", 320 * tt.scale, 930 * tt.scale);
+        if (tt.extraLoadTimes >= 6) {
+            if (tt.attackerExtraTag) {
+                tt.bufferCtx.drawImage(tt.extraImg, 0, 0, tt.extraImg.width, tt.extraImg.height, 20 * tt.scale, 74 * tt.scale, 50 * tt.scale, 50 * tt.scale);
+            }
+            if (tt.defenderExtraTag) {
+                tt.bufferCtx.drawImage(tt.extraImg, 0, 0, tt.extraImg.width, tt.extraImg.height, 570 * tt.scale, 74 * tt.scale, 50 * tt.scale, 50 * tt.scale);
+            }
+        }
+    }
+    Mojo.ui.BattleAnimation.extraDraw = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        var tempImg = tt.showLoading(tt.extraLoadTimes);
+        if (tt.attackerExtraTag) {
+            tt.bufferCtx.drawImage(tempImg, 0, 0, tempImg.width, tempImg.height, 20 * tt.scale, 74 * tt.scale, 50 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.defenderExtraTag) {
+            tt.bufferCtx.drawImage(tempImg, 0, 0, tempImg.width, tempImg.height, 570 * tt.scale, 74 * tt.scale, 50 * tt.scale, 50 * tt.scale);
+        }
+        if (tt.extraLoadTimes == 5) {
+            if (tt.attackerExtraTag) {
+                var tempHero = tt.attaker.army[0];
+                tt.resetAttake(tempHero.attack, 0);
+                if (tempHero.is_res > 0) {
+                    tt.attakerKZ++;
+                    tt.attackerInfoRefresh[0] = [true];
+                }
+                if (tempHero.is_anti_res > 0) {
+                    tt.attakerDK++;
+                    tt.attackerInfoRefresh[1] = [true];
+                }
+                if (tempHero.weapon_add_attack > 0) {
+                    tt.attakerBJ++;
+                    tt.attackerInfoRefresh[2] = [true];
+                }
+            }
+            if (tt.defenderExtraTag) {
+                var tempHero = tt.defender.army[0];
+                tt.resetAttake(tempHero.defence, 1);
+                if (tempHero.is_res > 0) {
+                    tt.defenderKZ++;
+                    tt.defenderInfoRefresh[0] = [true];
+                }
+                if (tempHero.is_anti_res > 0) {
+                    tt.defenderDK++;
+                    tt.defenderInfoRefresh[1] = [true];
+                }
+                if (tempHero.armor_add_defence > 0) {
+                    tt.defenderFH++;
+                    tt.defenderInfoRefresh[2] = [true];
+                }
+            }
+            tt.battleTag = "prepare";
+        }
+        tt.extraLoadTimes++;
+    }
+    Mojo.ui.BattleAnimation.showLoading = function (value) {
+        var tt = Mojo.ui.BattleAnimation;
+        value = value % 4 * 0.5;
+        var tempCanvas = document.createElement("canvas");
+        var tempCtx = tempCanvas.getContext("2d");
+        tempCanvas.width = 60;
+        tempCanvas.height = 60;
+        tempCtx.clearRect(0, 0, 60, 60);
+        var showWidth = tt.showLoadingImage.width,
+            showHeight = tt.showLoadingImage.height;
+        switch (value) {
+        case 0:
+            tempCtx.rotate(0 * Math.PI / 180);
+            tempCtx.drawImage(tt.showLoadingImage, 0, 0, showWidth, showHeight, 0, 0, 60, 60);
+            break;
+        case 0.5:
+            tempCtx.rotate(90 * Math.PI / 180);
+            tempCtx.drawImage(tt.showLoadingImage, 0, 0, showWidth, showHeight, 0, -60, 60, 60);
+            break;
+        case 1:
+            tempCtx.rotate(Math.PI);
+            tempCtx.drawImage(tt.showLoadingImage, 0, 0, showWidth, showHeight, -60, -60, 60, 60);
+            break;
+        case 1.5:
+            tempCtx.rotate(270 * Math.PI / 180);
+            tempCtx.drawImage(tt.showLoadingImage, 0, 0, showWidth, showHeight, -60, 0, 60, 60);
+            break;
+        default:
+            break;
+        }
+        return tempCanvas;
+    }
+    Mojo.ui.BattleAnimation.prepareDraw = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        if (tt.attakerShowOver) {
+            tt.attakerAttack();
+        } else {
+            var tempCanvas = tt.showLoading(tt.showXZ);
+            if (tt.showXZ < 6) {
+                if (null != tt.attakerImageSource[0]) {
+                    tt.bufferCtx.drawImage(tempCanvas, 0, 0, 60, 60, 70 * tt.scale, 200 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                }
+            } else {
+                if (null != tt.attakerImageSource[0]) {
+                    var tempHero = tt.attakerImageSource[0];
+                    tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, 200 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                }
+                if (tt.showXZ > 5 && tt.showXZ < 11) {
+                    if (null != tt.attakerImageSource[1]) {
+                        tt.bufferCtx.drawImage(tempCanvas, 0, 0, 60, 60, 70 * tt.scale, 440 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                    }
+                } else {
+                    if (null != tt.attakerImageSource[1]) {
+                        var tempHero = tt.attakerImageSource[1];
+                        tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, 440 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                    }
+                    if (tt.showXZ > 10 && tt.showXZ < 16) {
+                        if (null != tt.attakerImageSource[2]) {
+                            tt.bufferCtx.drawImage(tempCanvas, 0, 0, 60, 60, 70 * tt.scale, 680 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                        }
+                    } else {
+                        if (null != tt.attakerImageSource[2]) {
+                            var tempHero = tt.attakerImageSource[2];
+                            tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, 680 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                        }
+                    }
+                }
+            }
+        }
+        if (tt.defenderShowOver) {
+            tt.defenderAttack();
+        } else {
+            var tempCanvas = tt.showLoading(tt.showXZ);
+            if (tt.showXZ < 6) {
+                if (null != tt.defenderImageSource[0]) {
+                    tt.bufferCtx.drawImage(tempCanvas, 0, 0, 60, 60, 370 * tt.scale, 200 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                }
+            } else {
+                if (null != tt.defenderImageSource[0]) {
+                    var tempHero = tt.defenderImageSource[0];
+                    tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 370 * tt.scale, 200 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                }
+                if (tt.showXZ > 5 && tt.showXZ < 11) {
+                    if (null != tt.defenderImageSource[1]) {
+                        tt.bufferCtx.drawImage(tempCanvas, 0, 0, 60, 60, 370 * tt.scale, 440 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                    }
+                } else {
+                    if (null != tt.defenderImageSource[1]) {
+                        var tempHero = tt.defenderImageSource[1];
+                        tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 370 * tt.scale, 440 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                    }
+                    if (tt.showXZ > 10 && tt.showXZ < 16) {
+                        if (null != tt.defenderImageSource[2]) {
+                            tt.bufferCtx.drawImage(tempCanvas, 0, 0, 60, 60, 370 * tt.scale, 680 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                        }
+                    } else {
+                        if (null != tt.defenderImageSource[2]) {
+                            var tempHero = tt.defenderImageSource[2];
+                            tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 370 * tt.scale, 680 * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                        }
+                    }
+                }
+            }
+        }
+        if (tt.showXZ > 15) {
+            tt.battleTag = "battle";
+        }
+        tt.showXZ++;
+    }
+    Mojo.ui.BattleAnimation.circleAttaker = function (img, value) {
+        var tempCanvas = document.createElement("canvas");
+        var tempCtx = tempCanvas.getContext("2d");
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        tempCtx.clearRect(0, 0, img.width, img.height);
+        tempCtx.rotate(parseInt(value) * 8 * Math.PI / 180);
+        tempCtx.translate(parseInt(value) * 40, -parseInt(value) * 30);
+        tempCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
+        return tempCanvas;
+    }
+    Mojo.ui.BattleAnimation.circleDefender = function (img, value) {
+        var tempCanvas = document.createElement("canvas");
+        var tempCtx = tempCanvas.getContext("2d");
+        tempCanvas.width = img.width;
+        tempCanvas.height = img.height;
+        tempCtx.clearRect(0, 0, img.width, img.height);
+        tempCtx.rotate(parseInt(value) * parseInt(-8) * Math.PI / 180);
+        tempCtx.translate(-parseInt(value) * (60), parseInt(value) * 2);
+        tempCtx.drawImage(img, 0, 0, img.width, img.height, 0, 0, img.width, img.height);
+        return tempCanvas;
+    }
+    Mojo.ui.BattleAnimation.attakerAttack = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        var tempImage = tt.attakerImageSource;
+        var infoKZ = tt.infoSImage[0];
+        var infoDK = tt.infoSImage[1];
+        var infoBJ = tt.infoSImage[2];
+        for (i in tempImage) {
+            var tempHero = tempImage[i];
+            var tempInfo = tt.attakerInfo[i];
+            if (!tt.attakerShowOver) {
+                var attackImage = tt.infoAttackValueImg[i];
+                var startX = (320 / 2 - attackImage.width / 2) * tt.scale;
+                if (tt.attackeLater[i] == 1) {
+                    tt.bufferCtx.drawImage(tt.circleDefender(tempHero, 1), 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                } else if (tt.attackeLater[i] == 2) {
+                    tt.bufferCtx.drawImage(tt.circleDefender(tempHero, 2), 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                } else if (tt.attackeLater[i] == 3) {
+                    tt.bufferCtx.drawImage(tt.circleAttaker(tempHero, 2), 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, (200 + (parseInt(i) * 240) - 30) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                } else if (tt.attackeLater[i] == 4) {
+                    tt.bufferCtx.drawImage(tt.circleAttaker(tempHero, 1), 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, (200 + (parseInt(i) * 240) - 10) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                } else {
+                    tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                }
+                if (tempInfo.is_res > 0 && tt.kzTimes < tt.kzImage.length) {
+                    var tempKZImg = tt.kzImage[tt.kzTimes];
+                    tt.bufferCtx.drawImage(tempKZImg, 0, 0, tempKZImg.width, tempKZImg.height, 70 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 200 * tt.scale);
+                    if (tt.kzTimes == 2) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, 120 * tt.scale, (360 + (parseInt(i) * 240)) * tt.scale, 90 * tt.scale, 40 * tt.scale);
+                    } else if (tt.kzTimes == 3) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, 115 * tt.scale, (352 + (parseInt(i) * 240)) * tt.scale, 96 * tt.scale, 48 * tt.scale);
+                    } else if (tt.kzTimes == 4) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, 110 * tt.scale, (350 + (parseInt(i) * 240)) * tt.scale, 100 * tt.scale, 50 * tt.scale);
+                    } else if (tt.kzTimes == 5) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                    } else if (tt.kzTimes == 6) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                    } else if (tt.kzTimes == 7) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                        tt.attakerKZ++;
+                        tt.attackerInfoRefresh[0] = true;
+                    }
+                }
+                if (tt.dkShowTag) {
+                    if (tempInfo.is_anti_res > 0 && tt.dkTimes > 0 && tt.dkTimes < tt.dkImage.length) {
+                        var tempDKImg = tt.dkImage[tt.dkTimes];
+                        tt.bufferCtx.drawImage(tempDKImg, 0, 0, tempDKImg.width, tempDKImg.height, 30 * tt.scale, (180 + (parseInt(i) * 240)) * tt.scale, 260 * tt.scale, 260 * tt.scale);
+                        if (tt.dkTimes == 2) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, 120 * tt.scale, (360 + (parseInt(i) * 240)) * tt.scale, 90 * tt.scale, 40 * tt.scale);
+                        } else if (tt.dkTimes == 3) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, 115 * tt.scale, (352 + (parseInt(i) * 240)) * tt.scale, 96 * tt.scale, 48 * tt.scale);
+                        } else if (tt.dkTimes == 4) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, 110 * tt.scale, (350 + (parseInt(i) * 240)) * tt.scale, 100 * tt.scale, 50 * tt.scale);
+                        } else if (tt.dkTimes == 5) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                        }
+                        if (tt.dkTimes == 6) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                        } else
+                        if (tt.dkTimes == 7) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                            tt.attakerDK++;
+                            tt.attackerInfoRefresh[1] = true;
+                        }
+                    }
+                }
+                if (tt.dkTimes >= 10) {
+                    if (tt.attackerTag[i]) {
+                        tt.attackeLater[i]++;
+                        if (tt.bjTimes[i] < tt.bjImage.length) {
+                            if (tt.attackeLater[i] > 2) {
+                                var tempBJImg = tt.bjImage[tt.bjTimes[i]];
+                                tt.bufferCtx.drawImage(tempBJImg, 0, 0, tempBJImg.width, tempBJImg.height, 30 * tt.scale, (150 + (parseInt(i) * 240)) * tt.scale, 360 * tt.scale, 176 * tt.scale);
+                                if (tempInfo.weapon_add_attack > 0) {
+                                    if (tt.bjTimes[i] == 2) {
+                                        tt.bufferCtx.drawImage(infoBJ, 0, 0, infoBJ.width, infoBJ.height, 120 * tt.scale, (360 + (parseInt(i) * 240)) * tt.scale, 90 * tt.scale, 40 * tt.scale);
+                                    } else if (tt.bjTimes[i] == 3) {
+                                        tt.bufferCtx.drawImage(infoBJ, 0, 0, infoBJ.width, infoBJ.height, 115 * tt.scale, (352 + (parseInt(i) * 240)) * tt.scale, 96 * tt.scale, 48 * tt.scale);
+                                    } else if (tt.bjTimes[i] == 4) {
+                                        tt.bufferCtx.drawImage(infoBJ, 0, 0, infoBJ.width, infoBJ.height, 110 * tt.scale, (350 + (parseInt(i) * 240)) * tt.scale, 100 * tt.scale, 50 * tt.scale);
+                                    } else if (tt.bjTimes[i] == 5) {
+                                        tt.bufferCtx.drawImage(infoBJ, 0, 0, infoBJ.width, infoBJ.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                                    } else if (tt.bjTimes[i] == 6) {
+                                        tt.bufferCtx.drawImage(infoBJ, 0, 0, infoBJ.width, infoBJ.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                                    } else if (tt.bjTimes[i] == 7) {
+                                        tt.bufferCtx.drawImage(infoBJ, 0, 0, infoBJ.width, infoBJ.height, (100 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                                        tt.attakerBJ++;
+                                        tt.attackerInfoRefresh[2] = true;
+                                    }
+                                }
+                                if (tt.bjTimes[i] == 1) {
+                                    tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (260 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                                    tt.resetAttake(tempInfo.attack, 0);
+                                }
+                                if (tt.bjTimes[i] == 2) {
+                                    tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (252 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                                } else if (tt.bjTimes[i] >= 3 && tt.bjTimes[i] < 8) {
+                                    tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (248 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                                }
+                                if (tt.bjTimes[i] == 8) {
+                                    tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (247 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                                    if (tt.heroNumTag) {
+                                        if (tt.attakeTimes != tt.maxTimes && i == 2) {
+                                            tt.boutOver = 0;
+                                        } else if (tt.attakeTimes == tt.maxTimes && tt.attakerImageSource.length == parseInt(i) + 1) {
+                                            tt.boutOver = 1;
+                                        }
+                                    }
+                                }
+                                tt.bjTimes[i]++;
+                            }
+                        } else {
+                            var ttM = parseInt(i) + 1;
+                            if (ttM < 3) {
+                                tt.attackerTag[ttM] = true;
+                            }
+                        }
+                    }
+                }
+            } else {
+                tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 70 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+            }
+        }
+    }
+    Mojo.ui.BattleAnimation.defenderAttack = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        var tempImage = tt.defenderImageSource;
+        var infoKZ = tt.infoSImage[0];
+        var infoDK = tt.infoSImage[1];
+        var infoFH = tt.infoSImage[3];
+        for (i in tempImage) {
+            var tempHero = tempImage[i];
+            var tempInfo = tt.defenderInfo[i];
+            if (!tt.defenderShowOver) {
+                var attackImage = tt.infoAttackValueImg[3 + parseInt(i)];
+                var startX = (320 + 320 / 2 - attackImage.width / 2) * tt.scale;
+                if (tt.fhTimes[i] == 1) {
+                    tt.bufferCtx.drawImage(tt.circleAttaker(tempHero, 1), 0, 0, tempHero.width, tempHero.height, (370 + 20) * tt.scale, (200 + (parseInt(i) * 240) + 20) * tt.scale, 200 * tt.scale, 230 * tt.scale);
+                } else if (tt.fhTimes[i] == 2) {
+                    tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, (370 + 20) * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                } else if (tt.fhTimes[i] == 3) {
+                    tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, (370 + 10) * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                } else {
+                    tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 370 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+                }
+                if (tempInfo.is_res > 0 && tt.kzTimes < tt.kzImage.length) {
+                    var tempKZImg = tt.kzImage[tt.kzTimes];
+                    tt.bufferCtx.drawImage(tempKZImg, 0, 0, tempKZImg.width, tempKZImg.height, 370 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 200 * tt.scale);
+                    if (tt.kzTimes == 2) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, 420 * tt.scale, (360 + (parseInt(i) * 240)) * tt.scale, 90 * tt.scale, 40 * tt.scale);
+                    } else if (tt.kzTimes == 3) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, 412 * tt.scale, (352 + (parseInt(i) * 240)) * tt.scale, 96 * tt.scale, 48 * tt.scale);
+                    } else if (tt.kzTimes == 4) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, 410 * tt.scale, (350 + (parseInt(i) * 240)) * tt.scale, 100 * tt.scale, 50 * tt.scale);
+                    } else if (tt.kzTimes == 5) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                    } else if (tt.kzTimes == 6) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                    } else if (tt.kzTimes == 7) {
+                        tt.bufferCtx.drawImage(infoKZ, 0, 0, infoKZ.width, infoKZ.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                        tt.defenderKZ++;
+                        tt.defenderInfoRefresh[0] = true;
+                    }
+                }
+                if (tt.dkShowTag) {
+                    if (tempInfo.is_anti_res > 0 && tt.dkTimes > 0 && tt.dkTimes < tt.dkImage.length) {
+                        var tempDKImg = tt.dkImage[tt.dkTimes];
+                        tt.bufferCtx.drawImage(tempDKImg, 0, 0, tempDKImg.width, tempDKImg.height, 335 * tt.scale, (180 + (parseInt(i) * 240)) * tt.scale, 260 * tt.scale, 260 * tt.scale);
+                        if (tt.dkTimes == 2) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, 420 * tt.scale, (360 + (parseInt(i) * 240)) * tt.scale, 90 * tt.scale, 40 * tt.scale);
+                        } else if (tt.dkTimes == 3) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, 412 * tt.scale, (352 + (parseInt(i) * 240)) * tt.scale, 96 * tt.scale, 48 * tt.scale);
+                        } else if (tt.dkTimes == 4) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, 410 * tt.scale, (350 + (parseInt(i) * 240)) * tt.scale, 100 * tt.scale, 50 * tt.scale);
+                        } else if (tt.dkTimes == 5) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                        }
+                        if (tt.dkTimes == 6) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                        } else if (tt.dkTimes == 7) {
+                            tt.bufferCtx.drawImage(infoDK, 0, 0, infoDK.width, infoDK.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                            tt.defenderDK++;
+                            tt.defenderInfoRefresh[1] = true;
+                        }
+                    }
+                }
+                if (tt.dkTimes >= 10) {
+                    if (tt.defenderTag[i]) {
+                        if (tt.fhTimes[i] < tt.fhImage.length) {
+                            var tempFHImg = tt.fhImage[tt.fhTimes[i]];
+                            tt.bufferCtx.drawImage(tempFHImg, 0, 0, tempFHImg.width, tempFHImg.height, 315 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 216 * tt.scale, 240 * tt.scale);
+                            if (tempInfo.armor_add_defence > 0) {
+                                if (tt.fhTimes[i] == 2) {
+                                    tt.bufferCtx.drawImage(infoFH, 0, 0, infoFH.width, infoFH.height, 420 * tt.scale, (360 + (parseInt(i) * 240)) * tt.scale, 90 * tt.scale, 40 * tt.scale);
+                                } else if (tt.fhTimes[i] == 3) {
+                                    tt.bufferCtx.drawImage(infoFH, 0, 0, infoFH.width, infoFH.height, 412 * tt.scale, (352 + (parseInt(i) * 240)) * tt.scale, 96 * tt.scale, 48 * tt.scale);
+                                } else if (tt.fhTimes[i] == 4) {
+                                    tt.bufferCtx.drawImage(infoFH, 0, 0, infoFH.width, infoFH.height, 410 * tt.scale, (350 + (parseInt(i) * 240)) * tt.scale, 100 * tt.scale, 50 * tt.scale);
+                                } else if (tt.fhTimes[i] == 5) {
+                                    tt.bufferCtx.drawImage(infoFH, 0, 0, infoFH.width, infoFH.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                                } else if (tt.fhTimes[i] == 6) {
+                                    tt.bufferCtx.drawImage(infoFH, 0, 0, infoFH.width, infoFH.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                                    tt.defenderFH++;
+                                    tt.defenderInfoRefresh[2] = true;
+                                } else if (tt.fhTimes[i] == 7) {
+                                    tt.bufferCtx.drawImage(infoFH, 0, 0, infoFH.width, infoFH.height, (400 + (Math.random() * 10)) * tt.scale, (340 + (parseInt(i) * 240) + (Math.random() * 10)) * tt.scale, 120 * tt.scale, 60 * tt.scale);
+                                }
+                            }
+                            if (tt.fhTimes[i] == 4) {
+                                tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (260 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                                tt.resetAttake(tempInfo.defence, 1);
+                            }
+                            if (tt.fhTimes[i] == 5) {
+                                tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (254 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                            } else if (tt.fhTimes[i] == 6) {
+                                tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (250 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                            } else if (tt.fhTimes[i] >= 7 && tt.fhTimes[i] < 12) {
+                                tt.bufferCtx.drawImage(attackImage, 0, 0, attackImage.width, attackImage.height, startX, (247 + (parseInt(i) * 240)) * tt.scale, attackImage.width * tt.scale, attackImage.height * tt.scale);
+                            } else
+                            if (tt.fhTimes[i] == 12) {
+                                if (!tt.heroNumTag) {
+                                    if (tt.attakeTimes != tt.maxTimes && i == 2) {
+                                        tt.boutOver = 0;
+                                    } else if (tt.attakeTimes == tt.maxTimes && tt.defenderImageSource.length == parseInt(i) + 1) {
+                                        tt.boutOver = 1;
+                                    }
+                                }
+                            }
+                            tt.fhTimes[i]++;
+                        } else {
+                            var ttM = parseInt(i) + 1;
+                            if (ttM < 3) {
+                                tt.defenderTag[ttM] = true;
+                            }
+                        }
+                    }
+                }
+            } else {
+                tt.bufferCtx.drawImage(tempHero, 0, 0, tempHero.width, tempHero.height, 370 * tt.scale, (200 + (parseInt(i) * 240)) * tt.scale, 200 * tt.scale, 240 * tt.scale);
+            }
+        }
+    }
+    Mojo.ui.BattleAnimation.attack = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        if (!tt.kzShowTag || tt.kzTimes > 13) {
+            tt.dkShowTag = true;
+            tt.dkTimes++;
+        }
+        tt.attakerAttack();
+        tt.defenderAttack();
+        if (0 == tt.boutOver) {
+            tt.gameLater++;
+            if (tt.gameLater > 6) {
+                tt.goOn();
+            }
+        }
+        if (1 == tt.boutOver) {
+            tt.resultDraw();
+            tt.winTimes++;
+            if (tt.winTimes > 25) {
+                tt.attackerTag = [true, false, false];
+                tt.defenderTag = [true, false, false];
+                tt.exit();
+            }
+        }
+        tt.kzTimes++;
+    }
+    Mojo.ui.BattleAnimation.resultDraw = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        if (tt.winTimes < tt.winImage.length) {
+            if (1 == tt.winTag) {
+                var tempImg = tt.winImage[tt.winTimes];
+                tt.bufferCtx.drawImage(tempImg, 0, 0, tempImg.width, tempImg.height, 70 * tt.scale, 333 * tt.scale, 500 * tt.scale, 295 * tt.scale);
+            } else {
+                tt.bufferCtx.drawImage(tt.failImage, 0, 0, tt.failImage.width, tt.failImage.height, (170 - 10 * tt.winTimes) * tt.scale, (392 - 5.2 * tt.winTimes) * tt.scale, (300 + 20 * tt.winTimes) * tt.scale, (164 + 10.4 * tt.winTimes) * tt.scale);
+            }
+        } else {
+            if (1 == tt.winTag) {
+                var tempImg = tt.winImage[tt.winImage.length - 1];
+                tt.bufferCtx.drawImage(tempImg, 0, 0, tempImg.width, tempImg.height, 70 * tt.scale, 333 * tt.scale, 500 * tt.scale, 295 * tt.scale);
+            } else {
+                tt.bufferCtx.drawImage(tt.failImage, 0, 0, tt.failImage.width, tt.failImage.height, 70 * tt.scale, 333 * tt.scale, 500 * tt.scale, 295 * tt.scale);
+            }
+        }
+    }
+    Mojo.ui.BattleAnimation.goOn = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        tt.battleTag = "prepare";
+        tt.attakeTimes++;
+        tt.boutOver = 2;
+        tt.showXZ = 0;
+        tt.kzTimes = 0;
+        tt.dkTimes = 0;
+        tt.bjTimes = [0, 0, 0];
+        tt.fhTimes = [0, 0, 0];
+        tt.attackeLater = [0, 0, 0];
+        tt.infoAttackValueImg = [null, null, null, null, null, null];
+        tt.attackerTag = [true, false, false];
+        tt.defenderTag = [true, false, false];
+        tt.resetHero();
+    }
+    Mojo.ui.BattleAnimation.exit = function () {
+        var tt = Mojo.ui.BattleAnimation;
+        try {
+            clearInterval(tt.terval);
+            if (null != tt.bufferCanvas) {
+                document.body.removeChild(tt.bufferCanvas);
+            }
+            tt.onclose();
+            tt.init();
+        } catch (e) {}
     }
 })(window, jQuery);;
 (function (w, $, undefined) {
@@ -13682,6 +15004,7 @@ function trackClient(appkeys) {
             (new Mojo.com.ForceNoticeDialog(self._force, {
                 getController: self._options.getController,
                 editable: editable,
+                showNotice: true,
                 okBtnText: Mojo.utils.locale('force', 'notice_edit_btn')
             })).open();
         },
@@ -13985,6 +15308,7 @@ function trackClient(appkeys) {
             this._data = data;
             this._super(undefined, options);
             this.element().addClass('mojo-com-messagedlg');
+            this.element().addClass('mojo-com-forcenoticedlg');
             this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
             this._addContent();
             this._addHandleButtons();
@@ -14002,41 +15326,79 @@ function trackClient(appkeys) {
             return str.replace(/\n/gm, '\r\n');
         },
         _addContent: function () {
-            var self = this;
-            if (self._options.subhead != undefined) {
-                self._subhead = $('<span class="words-subhead"></span>').html(self._options.subhead).appendTo(self._paragraph);
+            var hintText = this._options.hintText;
+            if (this._options.showNotice == true) {
+                hintText = Mojo.utils.locale('force', 'notice_default_text1');
             }
-            self._tip = $('<div class="words-tip"></div>').html(self._options.maxlength).appendTo(this._paragraph);
-            this._border = $('<div class="border"></div>').appendTo(this._paragraph);
-            var text = this._data.announcement ? this._data.announcement : self._options.hintText;
-            text = this._replaceBr(text);
-            self.oldText = this._replaceBr(this._data.announcement);
-            var _content = $('<form name="form" method="post" action=""><textarea name="textarea" maxlength="' + self._options.maxlength + '" id="message-content" cols="45" rows="5">' + text + '</textarea></form>').appendTo(this._border);
-            this._textarea = this._content.find('textarea').focus(function () {
-                if (this.value == self._options.hintText) {
+            var text1 = this._data.announcement ? this._data.announcement : hintText;
+            text1 = this._replaceBr(text1);
+            this.oldText1 = this._replaceBr(this._data.announcement);
+            this._textarea = this._createTextArea(text1, 1);
+            if (this._options.showNotice != true) {
+                this._textarea.css({
+                    height: '200px'
+                });
+            }
+            if (this._options.showNotice == true) {
+                var text2 = this._data.notice ? this._data.notice : Mojo.utils.locale('force', 'notice_default_text2');
+                text2 = this._replaceBr(text2);
+                this.oldText2 = this._replaceBr(this._data.notice);
+                this._textArea2 = this._createTextArea(text2, 2);
+            }
+        },
+        _createTextArea: function (text, flag) {
+            var self = this;
+            var _titleTip = null;
+            var _title = null;
+            var _tip = null;
+            var _textArea = null;
+            if (self._options.subhead != undefined) {
+                $('<span class="words-subhead"></span>').html(self._options.subhead).appendTo(self._paragraph);
+            }
+            _titleTip = $('<div class="title_tip"></div>').appendTo(this._paragraph);
+            if (self._options.showNotice == true) {
+                _title = $('<div class="title_left"></div>').appendTo(_titleTip);
+                if (flag == 1) {
+                    self._options.hintText1 = Mojo.utils.locale('force', 'notice_default_text1');
+                    _title.html(Mojo.utils.locale('force', 'notice_default_title1'));
+                } else {
+                    self._options.hintText2 = Mojo.utils.locale('force', 'notice_default_text2');
+                    _title.html(Mojo.utils.locale('force', 'notice_default_title2'));
+                }
+            }
+            _tip = $('<div class="words-tip"></div>').html(self._options.maxlength).appendTo(_titleTip);
+            _border = $('<div class="border"></div>').addClass('force-notice').appendTo(this._paragraph);
+            var _content = $('<form name="form" method="post" action=""><textarea name="textarea' + flag + '" class="textarea' + flag + '" maxlength="' + self._options.maxlength + '" id="message-content" cols="45" rows="5">' + text + '</textarea></form>').appendTo(_border);
+            _textArea = this._content.find('.textarea' + flag).focus(function (e) {
+                var hintText = e.target.className == 'textarea1' ? self._options.hintText1 : self._options.hintText2;
+                if (self._options.hintText) {
+                    hintText = self._options.hintText;
+                }
+                if (this.value == hintText) {
                     this.value = '';
                 }
             });
-            this._textarea.bind("focus input propertychange", function () {
+            _textArea.bind("focus input propertychange", function () {
                 var maxLength = $(this).attr('maxlength');
                 var text = $(this).val();
                 text = self._replaceEnter(text);
                 var v = text.length;
                 if (v <= maxLength) {
-                    self._tip.html(maxLength - v);
+                    _tip.html(maxLength - v);
                     return true;
                 } else {
                     $(this).val(text.substring(0, maxLength));
                     return false;
                 }
             });
-            this._textarea.trigger("input");
+            _textArea.trigger("input");
             if (this._options.editable == false) {
-                this._textarea.attr('disabled', 'disabled');
+                _textArea.attr('disabled', 'disabled');
             }
             if (self._options.beforeend != undefined) {
-                self._beforeend = $('<span class="words-subhead"></span>').html(self._options.beforeend).appendTo(self._paragraph);
+                $('<span class="words-subhead"></span>').html(self._options.beforeend).appendTo(self._paragraph);
             }
+            return _textArea;
         },
         _checkCount: function (v) {
             var self = this;
@@ -14049,27 +15411,40 @@ function trackClient(appkeys) {
                 special: 'button-big-red',
                 text: self._options.okBtnText,
                 click: function () {
-                    var content = self._textarea.attr('value');
-                    if (content == self._options.hintText && !self._options.hasDefaultMsg) {
-                        content = '';
+                    var content1 = self._textarea.attr('value');
+                    if (content1 == self._options.hintText && !self._options.hasDefaultMsg) {
+                        content1 = '';
                     }
-                    if (Mojo.utils.trim(content) == '') {
+                    if (Mojo.utils.trim(content1) == '') {
                         Mojo.app.toast.show(Mojo.utils.locale('common', 'no content'));
                         return;
+                    }
+                    if (self._options.showNotice == true) {
+                        var content2 = self._textArea2.attr('value');
+                        if (content2 == self._options.hintText && !self._options.hasDefaultMsg) {
+                            content2 = '';
+                        }
+                        if (Mojo.utils.trim(content2) == '') {
+                            Mojo.app.toast.show(Mojo.utils.locale('common', 'no content'));
+                            return;
+                        }
                     }
                     if (self._options.okBtnClick instanceof Function) {
                         self._options.okBtnClick(self);
                     } else {
-                        if (self.oldText != content) {
+                        if (self.oldText1 != content1 || self.oldText2 != content2) {
                             Mojo.ajax('/force/editAnnouncement', {
-                                'content': content
+                                'announcement': content1,
+                                'notice': content2
                             }, function (response) {
                                 if (response.errorCode == 0) {
                                     Mojo.track.onEvent('24_302');
                                     self._options.getController().sync();
                                     self.close();
                                 }
-                            }, function (e) {});
+                            }, function (e) {}, {
+                                showWait: true
+                            });
                         }
                         self.close();
                     }
@@ -14100,8 +15475,9 @@ function trackClient(appkeys) {
                 maxlength: 50,
                 okBtnText: Mojo.utils.locale('common', 'ok'),
                 okBtnClick: undefined,
+                showNotice: false,
                 hasDefaultMsg: false,
-                hintText: Mojo.utils.locale('force', 'notice_default_text'),
+                hintText: '',
                 id: '',
                 callback: $.noop,
                 deviceaware: true
@@ -16775,7 +18151,7 @@ function trackClient(appkeys) {
                             type: "embed",
                             army: data.army || 0,
                             is_barracks: 1,
-                            isbarracks_up: 1,
+                            isbarracks_up: 0,
                             changeGeneral: true,
                             onLoadCallback: function () {},
                             callback: function (generalId, chooseGeneral) {
@@ -16798,7 +18174,7 @@ function trackClient(appkeys) {
                     orderId: 1,
                     type: "embed",
                     is_barracks: 1,
-                    isbarracks_up: 1,
+                    isbarracks_up: 0,
                     changeGeneral: true,
                     army: data.army || 0,
                     onLoadCallback: function () {},
@@ -17239,6 +18615,7 @@ function trackClient(appkeys) {
                 orderId: 1,
                 type: "barracks",
                 is_barracks: 1,
+                isbarracks_up: 1,
                 treasure_num: !self.intensifyPreviewData ? 0 : self.intensifyPreviewData.treasure_num,
                 excludeIds: self._getIds().join(','),
                 onLoadCallback: function () {},
@@ -20076,6 +21453,8 @@ function trackClient(appkeys) {
                                                     } else {
                                                         if (playerLevel < 105) {
                                                             leftBtnText = Mojo.utils.locale('battle', 'formation detail');
+                                                        } else {
+                                                            rightBtnText = Mojo.utils.locale('battle', 'formation detail');
                                                         }
                                                         var defendername = Mojo.utils.formatPlayerName(data.defender);
                                                         resultTip = Mojo.utils.locale('force', 'win_lodgment_with_defender', {
@@ -20089,11 +21468,10 @@ function trackClient(appkeys) {
                                                     resultTitle = Mojo.utils.locale('force', 'capture_lose');
                                                     leftBtnDisabled = false;
                                                     rightBtnDisabled = false;
-                                                    rightBtnText = Mojo.utils.locale('force', 'capture_again');
-                                                    leftBtnText = Mojo.utils.locale('force', 'view_battle_array');
+                                                    leftBtnText = Mojo.utils.locale('force', 'capture_again');
+                                                    rightBtnText = Mojo.utils.locale('battle', 'formation detail');
                                                     if (data.defender == undefined) {
-                                                        leftBtnDisabled = true;
-                                                        leftBtnText = undefined;
+                                                        rightBtnText = Mojo.utils.locale('common', 'close');
                                                     }
                                                     var defendername = Mojo.utils.formatPlayerName(data.defender);
                                                     resultTip = Mojo.utils.locale('force', 'lose_lodgment_defender', {
@@ -20112,47 +21490,71 @@ function trackClient(appkeys) {
                                                     text: Mojo.utils.locale('force', 'offer1') + "+" + current.contribute
                                                 }).element().appendTo(offer);
                                                 offer.appendTo(dlgContent);
-                                                (new Mojo.com.CommonDialog(undefined, {
-                                                    title: resultTitle,
-                                                    content: dlgContent,
-                                                    leftBtnText: leftBtnText,
-                                                    leftBtnDisabled: leftBtnDisabled,
-                                                    leftBtnClick: function (that) {
-                                                        if (current.status == 1 && playerLevel >= 105) {
-                                                            Mojo.app.redirect('/package');
-                                                        } else {
-                                                            Mojo.ajax('/battle/Detail', {
-                                                                type: 'ForceBattleFighting'
-                                                            }, function (result) {
-                                                                if (result.errorCode == 0) {
-                                                                    that.element().hide();
-                                                                    (new Mojo.com.BattleDetailDialog(result.data, {
+                                                var onCloseFunc = function (battleDetail) {
+                                                    (new Mojo.com.CommonDialog(undefined, {
+                                                        title: resultTitle,
+                                                        content: dlgContent,
+                                                        leftBtnText: leftBtnText,
+                                                        leftBtnDisabled: leftBtnDisabled,
+                                                        leftBtnClick: function (that) {
+                                                            if (current.status == 1) {
+                                                                if (playerLevel >= 105) {
+                                                                    Mojo.app.redirect('/package');
+                                                                } else {
+                                                                    that.hide();
+                                                                    (new Mojo.com.BattleDetailDialog(battleDetail, {
                                                                         pid: data.defender.id,
                                                                         pkMode: true,
                                                                         vm: '+0',
                                                                         xp: '+0',
                                                                         entity: null,
                                                                         close: function () {
-                                                                            that.element().show();
+                                                                            that.show();
                                                                         },
                                                                     })).open(true);
                                                                 }
-                                                            }, function () {}, {
-                                                                showWait: true
-                                                            });
+                                                            } else {
+                                                                that.close();
+                                                                forceWarElement.doClick();
+                                                            }
+                                                        },
+                                                        rightBtnText: rightBtnText,
+                                                        rightBtnDisabled: rightBtnDisabled,
+                                                        rightBtnClick: function (that) {
+                                                            if (data.defender == undefined || (current.status == 1 && playerLevel < 105)) {
+                                                                that.close();
+                                                            } else {
+                                                                that.hide();
+                                                                (new Mojo.com.BattleDetailDialog(battleDetail, {
+                                                                    pid: data.defender.id,
+                                                                    pkMode: true,
+                                                                    vm: '+0',
+                                                                    xp: '+0',
+                                                                    entity: null,
+                                                                    close: function () {
+                                                                        that.show();
+                                                                    },
+                                                                })).open(true);
+                                                            }
+                                                        },
+                                                    })).open();
+                                                };
+                                                if (data.defender == undefined) {
+                                                    onCloseFunc(undefined);
+                                                } else {
+                                                    Mojo.ajax('/battle/Detail', {
+                                                        type: 'ForceBattleFighting'
+                                                    }, function (result) {
+                                                        if (result.errorCode == 0) {
+                                                            Mojo.ui.BattleAnimation.onclose = function () {
+                                                                onCloseFunc(result.data);
+                                                            };
+                                                            Mojo.ui.BattleAnimation.openBattle(result);
                                                         }
-                                                    },
-                                                    rightBtnText: rightBtnText,
-                                                    rightBtnDisabled: rightBtnDisabled,
-                                                    rightBtnClick: function (that) {
-                                                        if (current.status == 1) {
-                                                            that.close();
-                                                        } else {
-                                                            that.close();
-                                                            forceWarElement.doClick();
-                                                        }
-                                                    },
-                                                })).open();
+                                                    }, function () {}, {
+                                                        showWait: true
+                                                    });
+                                                }
                                             }
                                         } else {
                                             (new Mojo.com.CommonDialog(undefined, {
@@ -20164,6 +21566,8 @@ function trackClient(appkeys) {
                                                 }
                                             })).open();
                                         }
+                                    }, function () {}, {
+                                        showWait: true
                                     });
                                     Mojo.track.onEvent('24_703');
                                 }
@@ -20270,6 +21674,8 @@ function trackClient(appkeys) {
                                         }
                                     })).open();
                                 }
+                            }, function () {}, {
+                                showWait: true
                             });
                         }
                     }));
@@ -22240,8 +23646,8 @@ function trackClient(appkeys) {
             member.appendTo(this._paragraph);
             var board = $("<div class='board'></div>");
             $("<div class='h'></div>").appendTo(board).html(Mojo.utils.locale('force', 'info_board'));
-            var announcement = $("<div class='v'></div>").html(this._force.announcement);
-            board.append(announcement);
+            var notice = $("<div class='v'></div>").html(this._force.notice);
+            board.append(notice);
             var self = this;
             board.appendTo(this._paragraph);
             if (Mojo.utils.isNone(self._user.partners) == true) {
@@ -24791,8 +26197,12 @@ function trackClient(appkeys) {
                     if (goods && parseInt(goods.entity.type_id) == 8) {
                         Mojo.gap.niudanAnimationPlay(goods.entity.rarity_id);
                         var entity = response.data.entities[0];
+                        var t = Mojo.utils.locale('mall', 'open_minis_result');
+                        if (response.data.extra_entity) {
+                            t = Mojo.utils.locale('mall', 'heaven_bless');
+                        }
                         var entityDetailDialog = new Mojo.ui.Dialog(undefined, {
-                            title: Mojo.utils.locale('mall', 'open_minis_result'),
+                            title: t,
                             content: (new Mojo.com.LargeEntity(entity)).element()
                         });
                         var tip = undefined;
@@ -26670,6 +28080,8 @@ function trackClient(appkeys) {
                                                     } else {
                                                         if (playerLevel < 105) {
                                                             leftBtnText = Mojo.utils.locale('battle', 'formation detail');
+                                                        } else {
+                                                            rightBtnText = Mojo.utils.locale('battle', 'formation detail');
                                                         }
                                                         var defendername = Mojo.utils.formatPlayerName(fight.defender);
                                                         resultTip = Mojo.utils.locale('force', 'win_lodgment_with_defender', {
@@ -26680,14 +28092,17 @@ function trackClient(appkeys) {
                                                 } else {
                                                     forceWarElement.element().removeClass("has-captured");
                                                     forceWarElement._elementButton.disable(false);
-                                                    leftBtnText = Mojo.utils.locale('force', 'view_battle_array');
+                                                    leftBtnText = Mojo.utils.locale('force', 'capture_again');
                                                     resultTitle = Mojo.utils.locale('force', 'capture_lose');
-                                                    rightBtnText = Mojo.utils.locale('force', 'capture_again');
+                                                    rightBtnText = Mojo.utils.locale('battle', 'formation detail');
                                                     var defendername = Mojo.utils.formatPlayerName(fight.defender);
                                                     resultTip = Mojo.utils.locale('force', 'lose_lodgment_defender', {
                                                         'defendername': defendername,
                                                         'lodgment': data.name
                                                     });
+                                                    if (fight.defender == undefined) {
+                                                        rightBtnText = Mojo.utils.locale('common', 'close');
+                                                    }
                                                 }
                                                 var dlgContent = $('<div class="tip"><div class="fight-result">' + resultTip + '</div></div>');
                                                 var offer = $('<div class="fight-offer"></div>');
@@ -26700,46 +28115,70 @@ function trackClient(appkeys) {
                                                     text: Mojo.utils.locale('force', 'offer1') + "+" + fight.results.contribute
                                                 }).element().appendTo(offer);
                                                 offer.appendTo(dlgContent);
-                                                (new Mojo.com.CommonDialog(undefined, {
-                                                    title: resultTitle,
-                                                    content: dlgContent,
-                                                    leftBtnText: leftBtnText,
-                                                    leftBtnDisabled: leftBtnDisabled,
-                                                    leftBtnClick: function (that) {
-                                                        if (fight.status == 1 && playerLevel >= 105) {
-                                                            Mojo.app.redirect('/package');
-                                                        } else {
-                                                            Mojo.ajax('/battle/Detail', {
-                                                                type: 'ForceBattleFighting'
-                                                            }, function (result) {
-                                                                if (result.errorCode == 0) {
-                                                                    that.element().hide();
-                                                                    (new Mojo.com.BattleDetailDialog(result.data, {
+                                                var onCloseFunc = function (battleDetail) {
+                                                    (new Mojo.com.CommonDialog(undefined, {
+                                                        title: resultTitle,
+                                                        content: dlgContent,
+                                                        leftBtnText: leftBtnText,
+                                                        leftBtnDisabled: leftBtnDisabled,
+                                                        leftBtnClick: function (that) {
+                                                            if (fight.status == 1) {
+                                                                if (playerLevel >= 105) {
+                                                                    Mojo.app.redirect('/package');
+                                                                } else {
+                                                                    that.hide();
+                                                                    (new Mojo.com.BattleDetailDialog(battleDetail, {
                                                                         pid: fight.defender.id,
                                                                         pkMode: true,
                                                                         vm: '+0',
                                                                         xp: '+0',
                                                                         entity: null,
                                                                         close: function () {
-                                                                            that.element().show();
+                                                                            that.show();
                                                                         },
                                                                     })).open(true);
                                                                 }
-                                                            }, function () {}, {
-                                                                showWait: true
-                                                            });
+                                                            } else {
+                                                                that.close();
+                                                                forceWarElement.doClick();
+                                                            }
+                                                        },
+                                                        rightBtnText: rightBtnText,
+                                                        rightBtnClick: function (that) {
+                                                            if (fight.defender != undefined || (fight.status == 1 && playerLevel < 105)) {
+                                                                that.close();
+                                                            } else {
+                                                                that.hide();
+                                                                (new Mojo.com.BattleDetailDialog(battleDetail, {
+                                                                    pid: fight.defender.id,
+                                                                    pkMode: true,
+                                                                    vm: '+0',
+                                                                    xp: '+0',
+                                                                    entity: null,
+                                                                    close: function () {
+                                                                        that.show();
+                                                                    },
+                                                                })).open(true);
+                                                            }
                                                         }
-                                                    },
-                                                    rightBtnText: rightBtnText,
-                                                    rightBtnClick: function (that) {
-                                                        if (fight.status == 1) {
-                                                            that.close();
-                                                        } else {
-                                                            that.close();
-                                                            forceWarElement.doClick();
+                                                    })).open();
+                                                };
+                                                if (fight.defender == undefined) {
+                                                    onCloseFunc(undefined);
+                                                } else {
+                                                    Mojo.ajax('/battle/Detail', {
+                                                        type: 'ForceBattleFighting'
+                                                    }, function (result) {
+                                                        if (result.errorCode == 0) {
+                                                            Mojo.ui.BattleAnimation.onclose = function () {
+                                                                onCloseFunc(result.data);
+                                                            };
+                                                            Mojo.ui.BattleAnimation.openBattle(result);
                                                         }
-                                                    }
-                                                })).open();
+                                                    }, function () {}, {
+                                                        showWait: true
+                                                    });
+                                                }
                                             }
                                         } else {
                                             (new Mojo.com.CommonDialog(undefined, {
@@ -26751,6 +28190,8 @@ function trackClient(appkeys) {
                                                 }
                                             })).open();
                                         }
+                                    }, function () {}, {
+                                        showWait: true
                                     });
                                 }
                             });
@@ -26906,13 +28347,17 @@ function trackClient(appkeys) {
                         }
                     }, function () {
                         self._useBtn.disable(false);
+                    }, {
+                        showWait: true
                     });
                 } else if (response && response.errorCode == 200082 || response.errorCode == 200088 || response.errorCode == 200089 || response.errorCode == 200083) {
                     self._nonRMBClickCallback(data, forceWarElement, buffType, 1);
                 } else {
                     self._createFailedDlg(response);
                 }
-            }, function () {});
+            }, function () {}, {
+                showWait: true
+            });
         },
         _addHeaderToListPanel: function () {
             var self = this;
@@ -28043,12 +29488,10 @@ function trackClient(appkeys) {
                     text: self._options.atackBtnText,
                     click: function () {
                         self._attackBtn.disable(true);
-                        Mojo.gap.battleAnimationPlay(self._data.player_army, self._data.opponent_army);
                         if (self._options.pk_mode) {
                             Mojo.ajax('/friend/Pk', {
                                 friend_id: self._options.opponent_id,
                             }, function (result) {
-                                Mojo.gap.showbattleskip();
                                 if (result.errorCode == 0) {
                                     (new Mojo.com.BattleResultDialog(result.data, {
                                         opponent_id: self._options.opponent_id,
@@ -28075,7 +29518,6 @@ function trackClient(appkeys) {
                                     entity_id: self._options.entity_id,
                                     message_id: self._options.message_id,
                                 }, function (result) {
-                                    Mojo.gap.showbattleskip();
                                     if (result.errorCode == 0) {
                                         if (result.data.win == 1) {
                                             Mojo.track.onEvent('07_042');
@@ -28085,19 +29527,6 @@ function trackClient(appkeys) {
                                             self._options.callback(self._options.entity_id, 0, '');
                                         }
                                         self._options.fightProfile.data(result.data.player);
-                                        var brdlg = new Mojo.com.BattleResultDialog(result.data, {
-                                            prevDlg_atackBtnText: Mojo.utils.locale('rob', 'rob'),
-                                            prevDlg_title: Mojo.utils.locale('rob', 'rob result preview'),
-                                            opponent_id: self._options.opponent_id,
-                                            opponent_name: self._options.opponent_name,
-                                            entity_id: self._options.entity_id,
-                                            message_id: self._options.message_id,
-                                            fightProfile: self._options.fightProfile,
-                                            callback: function (entity_id, entity_valid, entity_img) {
-                                                self._options.callback(entity_id, entity_valid, entity_img);
-                                            },
-                                            show_detail_first: true,
-                                        });
                                         self.close();
                                         var dlgtitle = '';
                                         if (result.data.win == 1) {
@@ -28106,25 +29535,47 @@ function trackClient(appkeys) {
                                             dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_lose');
                                         }
                                         setTimeout(function () {
-                                            Mojo.ajax('/battle/Detail', {}, function (response) {
+                                            Mojo.ajax('/battle/Detail', {
+                                                oid: self._options.opponent_id
+                                            }, function (response) {
                                                 if (response.errorCode == 0) {
-                                                    (new Mojo.com.BattleDetailDialog(response.data, {
-                                                        title: dlgtitle,
-                                                        pid: self._options.opponent_id,
-                                                        entityId: self._options.entity_id,
-                                                        vm: result.data.vm,
-                                                        xp: result.data.xp,
-                                                        entity: result.data.entity,
-                                                        show_detail_first: true,
-                                                        close: function () {
-                                                            brdlg.open(true);
-                                                        },
-                                                    })).open(true);
+                                                    Mojo.ui.BattleAnimation.onclose = function () {
+                                                        var brdlg = new Mojo.com.BattleResultDialog(result.data, {
+                                                            prevDlg_atackBtnText: Mojo.utils.locale('rob', 'rob'),
+                                                            prevDlg_title: Mojo.utils.locale('rob', 'rob result preview'),
+                                                            opponent_id: self._options.opponent_id,
+                                                            opponent_name: self._options.opponent_name,
+                                                            entity_id: self._options.entity_id,
+                                                            message_id: self._options.message_id,
+                                                            fightProfile: self._options.fightProfile,
+                                                            callback: function (entity_id, entity_valid, entity_img) {
+                                                                self._options.callback(entity_id, entity_valid, entity_img);
+                                                            },
+                                                            show_detail_first: true,
+                                                            rBtnClickCallback: function (that) {
+                                                                var detailDlg = new Mojo.com.BattleDetailDialog(response.data, {
+                                                                    title: dlgtitle,
+                                                                    pid: self._options.opponent_id,
+                                                                    entityId: self._options.entity_id,
+                                                                    vm: result.data.vm,
+                                                                    xp: result.data.xp,
+                                                                    entity: result.data.entity,
+                                                                    show_detail_first: true,
+                                                                    close: function () {
+                                                                        that.show();
+                                                                    },
+                                                                });
+                                                                detailDlg.open();
+                                                            }
+                                                        });
+                                                        brdlg.open(true);
+                                                    };
+                                                    Mojo.ui.BattleAnimation.openBattle(response);
                                                 } else {}
                                             }, function () {}, {
                                                 showWait: true
                                             });
-                                        }, 500);
+                                        }, 100);
                                     } else {
                                         (new Mojo.com.TipsDialog({
                                             title: Mojo.utils.locale('common', 'tips'),
@@ -28146,24 +29597,12 @@ function trackClient(appkeys) {
                                     message_id: self._options.message_id,
                                     from: self._options.from
                                 }, function (result) {
-                                    Mojo.gap.showbattleskip();
                                     if (result.errorCode == 0) {
                                         if (self._options.fightProfile) {
                                             self._options.fightProfile.data(result.data.player);
                                         } else if (self._options.forceProfile) {
                                             self._options.forceProfile.updatePlayerProfile(result.data.player);
                                         }
-                                        var brdlg = new Mojo.com.BattleResultDialog(result.data, {
-                                            prevDlg_atackBtnText: Mojo.utils.locale('battle', 'action'),
-                                            prevDlg_title: Mojo.utils.locale('battle', 'battle result preview'),
-                                            opponent_id: self._options.opponent_id,
-                                            opponent_name: self._options.opponent_name,
-                                            message_id: self._options.message_id,
-                                            fightProfile: self._options.fightProfile,
-                                            forceProfile: self._options.forceProfile,
-                                            type: self._options.type,
-                                            show_detail_first: true,
-                                        });
                                         self.close();
                                         var dlgtitle = '';
                                         if (result.data.win == 1) {
@@ -28172,18 +29611,38 @@ function trackClient(appkeys) {
                                             dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_lose');
                                         }
                                         setTimeout(function () {
-                                            Mojo.ajax('/battle/Detail', {}, function (response) {
+                                            Mojo.ajax('/battle/Detail', {
+                                                oid: self._options.opponent_id
+                                            }, function (response) {
                                                 if (response.errorCode == 0) {
-                                                    (new Mojo.com.BattleDetailDialog(response.data, {
-                                                        title: dlgtitle,
-                                                        pid: self._options.opponent_id,
-                                                        vm: result.data.vm,
-                                                        xp: result.data.xp,
-                                                        show_detail_first: true,
-                                                        close: function () {
-                                                            brdlg.open(true);
-                                                        },
-                                                    })).open(true);
+                                                    Mojo.ui.BattleAnimation.onclose = function () {
+                                                        var brdlg2 = new Mojo.com.BattleResultDialog(result.data, {
+                                                            prevDlg_atackBtnText: Mojo.utils.locale('battle', 'action'),
+                                                            prevDlg_title: Mojo.utils.locale('battle', 'battle result preview'),
+                                                            opponent_id: self._options.opponent_id,
+                                                            opponent_name: self._options.opponent_name,
+                                                            message_id: self._options.message_id,
+                                                            fightProfile: self._options.fightProfile,
+                                                            forceProfile: self._options.forceProfile,
+                                                            type: self._options.type,
+                                                            show_detail_first: true,
+                                                            rBtnClickCallback: function (that) {
+                                                                var detailDlg2 = new Mojo.com.BattleDetailDialog(response.data, {
+                                                                    title: dlgtitle,
+                                                                    pid: self._options.opponent_id,
+                                                                    vm: result.data.vm,
+                                                                    xp: result.data.xp,
+                                                                    show_detail_first: true,
+                                                                    close: function () {
+                                                                        that.show();
+                                                                    },
+                                                                });
+                                                                detailDlg2.open();
+                                                            }
+                                                        });
+                                                        brdlg2.open(true);
+                                                    };
+                                                    Mojo.ui.BattleAnimation.openBattle(response);
                                                 } else {}
                                             }, function () {}, {
                                                 showWait: true
@@ -28520,6 +29979,7 @@ function trackClient(appkeys) {
                         if (self._options.pk_mode) {
                             Mojo.ajax('/battle/Detail', {
                                 type: 'pk',
+                                oid: self._options.opponent_id
                             }, function (result) {
                                 if (result.errorCode == 0) {
                                     self.hide();
@@ -28542,7 +30002,9 @@ function trackClient(appkeys) {
                                 if (self._data.win == 1) {} else {
                                     Mojo.track.onEvent('07_044');
                                 }
-                                Mojo.ajax('/battle/detail', {}, function (result) {
+                                Mojo.ajax('/battle/detail', {
+                                    oid: self._options.opponent_id
+                                }, function (result) {
                                     if (result.errorCode == 0) {
                                         self.hide();
                                         (new Mojo.com.BattleDetailDialog(result.data, {
@@ -28565,7 +30027,9 @@ function trackClient(appkeys) {
                                 } else {
                                     Mojo.track.onEvent('08_064');
                                 }
-                                Mojo.ajax('/battle/detail', {}, function (result) {
+                                Mojo.ajax('/battle/detail', {
+                                    oid: self._options.opponent_id
+                                }, function (result) {
                                     if (result.errorCode == 0) {
                                         self.hide();
                                         (new Mojo.com.BattleDetailDialog(result.data, {
@@ -28620,7 +30084,17 @@ function trackClient(appkeys) {
         _addHandleButtons2: function () {
             var self = this;
             if (self._options.entity_id != '' && self._data.entity != null && self._data.entity.valid != -1) {} else {
-                if (self._options.tutorial_mode || (self._options.pk_mode == false && self._data.times >= 3)) {} else {
+                if (self._options.tutorial_mode || (self._options.pk_mode == false && self._data.times >= 3)) {
+                    this._footer.append((this._attackBtn = new Mojo.ui.Button('close-btn', {
+                        text: Mojo.utils.locale('battle', 'formation detail'),
+                        click: function () {
+                            self.hide();
+                            if (self._options.rBtnClickCallback instanceof Function) {
+                                self._options.rBtnClickCallback(self);
+                            }
+                        },
+                    })).element());
+                } else {
                     this._footer.append((this._attackBtn = new Mojo.ui.Button('attack-btn', {
                         special: 'button-big-red',
                         text: Mojo.utils.locale('common', 'attack_again'),
@@ -28740,30 +30214,24 @@ function trackClient(appkeys) {
                 }
             }
             if (this._options.tutorial_mode === false) {
-                if (self._data.win == 0) {
-                    this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
-                        text: Mojo.utils.locale('battle', 'formation'),
-                        click: function () {
-                            Mojo.app.redirect('/package');
-                        },
-                        special: 'button-big-red',
-                    })).element());
-                } else {
+                if (self._data.times >= 3) {
                     this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
                         text: Mojo.utils.locale('ui', 'Close'),
                         click: function () {
                             self.close();
                         },
                     })).element());
+                } else {
+                    this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
+                        text: Mojo.utils.locale('battle', 'formation detail'),
+                        click: function () {
+                            self.hide();
+                            if (self._options.rBtnClickCallback instanceof Function) {
+                                self._options.rBtnClickCallback(self);
+                            }
+                        },
+                    })).element());
                 }
-            }
-            if (self._options.entity_id != '' && self._data.entity != null && self._data.entity.valid != -1) {} else {
-                if (self._options.tutorial_mode === true || (self._options.pk_mode == false && self._data.times >= 3)) {} else {}
-            }
-            if (self._data.win == 0) {
-                this._detailBtn.element().addClass('button-big-red');
-                this._attackBtn.element().removeClass('button-big-red');
-                this._footer.append(this._attackBtn.element());
             }
         },
         _getDefaultOptions: function () {
@@ -29976,7 +31444,6 @@ function trackClient(appkeys) {
                         showtip: false,
                         actionCallback: function (that) {
                             that.close();
-                            Mojo.gap.battleAnimationPlay(response.data.player_army, response.data.opponent_army);
                             var c = self._channel.getLatestChat();
                             var mid = 0;
                             if (c != null) {
@@ -29987,7 +31454,6 @@ function trackClient(appkeys) {
                                 msgid: mid,
                                 skip_cd: is_skip_cd
                             }, function (result) {
-                                Mojo.gap.showbattleskip();
                                 if (result && result.errorCode === 0) {
                                     var resultTitle = "";
                                     var resultTip = "";
@@ -30005,11 +31471,6 @@ function trackClient(appkeys) {
                                     }
                                     self._refreshForceBossStatus(true);
                                     var resultDlg = undefined;
-                                    if (result.data.rewards.entity != undefined) {
-                                        resultDlg = self._showAwardResult(result);
-                                    } else {
-                                        resultDlg = self._showGrainAwardResult(result);
-                                    }
                                     var dlgtitle = '';
                                     if (result.data.status == 1) {
                                         dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_win');
@@ -30020,17 +31481,15 @@ function trackClient(appkeys) {
                                         Mojo.ajax('/battle/Detail', {}, function (res) {
                                             if (res.errorCode == 0) {
                                                 res.data.defender.player.level = self._persistenceData.boss.level;
-                                                (new Mojo.com.BattleDetailDialog(res.data, {
-                                                    title: dlgtitle,
-                                                    pid: self._options.opponent_id,
-                                                    pkMode: true,
-                                                    vm: '+0',
-                                                    xp: '+0',
-                                                    show_detail_first: true,
-                                                    entity: null,
-                                                    non_show_base_def: true,
-                                                })).open();
-                                                resultDlg.open();
+                                                Mojo.ui.BattleAnimation.onclose = function () {
+                                                    if (result.data.rewards.entity != undefined) {
+                                                        resultDlg = self._showAwardResult(result, res, dlgtitle);
+                                                    } else {
+                                                        resultDlg = self._showGrainAwardResult(result, res, dlgtitle);
+                                                    }
+                                                    resultDlg.open();
+                                                };
+                                                Mojo.ui.BattleAnimation.openBattle(res);
                                             } else {}
                                         }, function () {}, {
                                             showWait: true
@@ -30038,12 +31497,6 @@ function trackClient(appkeys) {
                                     }, 500);
                                 } else if (result.errorCode === self._CHALLENGE_FINISH_CODE) {
                                     clearTimeout(self._forceBattleHandle);
-                                    var resultDlg2 = self._showForceWarResultDialog(result, function () {
-                                        Mojo.app.redirect('/force', {
-                                            index: 1,
-                                            selected: 1
-                                        });
-                                    });
                                     var dlgtitle = '';
                                     if (result.data.status == 1) {
                                         dlgtitle = Mojo.utils.locale('battle', 'battle_result_formation_title_win');
@@ -30054,17 +31507,15 @@ function trackClient(appkeys) {
                                         Mojo.ajax('/battle/Detail', {}, function (res) {
                                             if (res.errorCode == 0) {
                                                 res.data.defender.player.level = self._persistenceData.boss.level;
-                                                (new Mojo.com.BattleDetailDialog(res.data, {
-                                                    title: dlgtitle,
-                                                    pid: self._options.opponent_id,
-                                                    pkMode: true,
-                                                    vm: '+0',
-                                                    xp: '+0',
-                                                    show_detail_first: true,
-                                                    entity: null,
-                                                    non_show_base_def: true,
-                                                })).open();
-                                                resultDlg2.open();
+                                                Mojo.ui.BattleAnimation.onclose = function () {
+                                                    var resultDlg2 = self._showForceWarResultDialog(result, function () {
+                                                        Mojo.app.redirect('/force', {
+                                                            index: 1,
+                                                            selected: 1
+                                                        });
+                                                    }, res, dlgtitle);
+                                                };
+                                                Mojo.ui.BattleAnimation.openBattle(res);
                                             } else {}
                                         }, function () {}, {
                                             showWait: true
@@ -30160,7 +31611,7 @@ function trackClient(appkeys) {
                 }
             }, function () {}, true);
         },
-        _showAwardResult: function (result) {
+        _showAwardResult: function (result, res, dlgtitle) {
             var self = this;
             var resultDlg = undefined;
             if (result && result.errorCode === 0) {
@@ -30184,16 +31635,36 @@ function trackClient(appkeys) {
                 this._grain.text(result.data.rewards.grain);
                 this._grain.element().appendTo(tip2);
                 new Mojo.ui.Button(undefined, {
-                    text: Mojo.utils.locale('common', 'ok'),
+                    text: Mojo.utils.locale('force', 'formation detail'),
+                    click: function () {
+                        resultDlg.element().hide();
+                        var detailDlg = new Mojo.com.BattleDetailDialog(res.data, {
+                            title: dlgtitle,
+                            pid: self._options.opponent_id,
+                            pkMode: true,
+                            vm: '+0',
+                            xp: '+0',
+                            show_detail_first: true,
+                            entity: null,
+                            non_show_base_def: true,
+                            close: function () {
+                                resultDlg.element().show();
+                            }
+                        });
+                        detailDlg.open(true);
+                    },
+                    special: 'button-big-red',
+                }).element().appendTo(resultDlg._footer);
+                new Mojo.ui.Button(undefined, {
+                    text: Mojo.utils.locale('common', 'close'),
                     click: function () {
                         resultDlg.close();
                     },
-                    special: 'button-big-red',
                 }).element().appendTo(resultDlg._footer);
             }
             return resultDlg;
         },
-        _showGrainAwardResult: function (result) {
+        _showGrainAwardResult: function (result, res, dlgtitle) {
             var self = this;
             var resultDlg = undefined;
             if (result && result.errorCode === 0) {
@@ -30222,6 +31693,24 @@ function trackClient(appkeys) {
                     title: title,
                     content: content,
                     classes: ['force-boss-challenge-dlg-with-label'],
+                    leftBtnText: Mojo.utils.locale('force', 'formation detail'),
+                    leftBtnClick: function (that) {
+                        that.hide();
+                        var detailDlg = new Mojo.com.BattleDetailDialog(res.data, {
+                            title: dlgtitle,
+                            pid: self._options.opponent_id,
+                            pkMode: true,
+                            vm: '+0',
+                            xp: '+0',
+                            show_detail_first: true,
+                            entity: null,
+                            non_show_base_def: true,
+                            close: function () {
+                                that.show();
+                            }
+                        });
+                        detailDlg.open(true);
+                    },
                     rightBtnText: Mojo.utils.locale('common', 'close'),
                     rightBtnClick: function (that) {
                         that.close();
@@ -30415,7 +31904,7 @@ function trackClient(appkeys) {
                             index: 1,
                             selected: 1
                         });
-                    }, true);
+                    });
                 } else {
                     if (success instanceof Function) {
                         success(response);
@@ -30429,11 +31918,34 @@ function trackClient(appkeys) {
                 showWait: ashowWait
             });
         },
-        _showForceWarResultDialog: function (result, callback, isopen) {
+        _showForceWarResultDialog: function (result, callback, res, dlgtitle) {
             var self = this;
             var resultDlg = undefined;
             var content = $('<div class="tip"></div>');
             var title = "";
+            var rightBtnText = Mojo.utils.locale('common', 'close');
+            var rightBtnClick = function (that) {
+                that.close();
+            };
+            if (res != undefined && dlgtitle != undefined) {
+                rightBtnText = Mojo.utils.locale('force', 'formation detail');
+                rightBtnClick = function (that) {
+                    that.hide();
+                    (new Mojo.com.BattleDetailDialog(res.data, {
+                        title: dlgtitle,
+                        pid: self._options.opponent_id,
+                        pkMode: true,
+                        vm: '+0',
+                        xp: '+0',
+                        show_detail_first: true,
+                        entity: null,
+                        non_show_base_def: true,
+                        close: function () {
+                            that.show();
+                        }
+                    })).open(true);
+                };
+            }
             if (result.data.status == 1) {
                 if (result.data.rewards != undefined) {
                     title = Mojo.utils.locale('force', 'force_boss_challenge_final_win');
@@ -30528,9 +32040,9 @@ function trackClient(appkeys) {
                                 index: 3
                             });
                         },
-                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnText: rightBtnText,
                         rightBtnClick: function (that) {
-                            that.close();
+                            rightBtnClick(that);
                         },
                     });
                 } else {
@@ -30556,9 +32068,9 @@ function trackClient(appkeys) {
                                 index: 3
                             });
                         },
-                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnText: rightBtnText,
                         rightBtnClick: function (that) {
-                            that.close();
+                            rightBtnClick(that);
                         },
                     });
                 }
@@ -30576,16 +32088,13 @@ function trackClient(appkeys) {
                             callback();
                         }
                     },
-                    rightBtnText: Mojo.utils.locale('common', 'close'),
+                    rightBtnText: rightBtnText,
                     rightBtnClick: function (that) {
-                        that.close();
+                        rightBtnClick(that);
                     },
                 });
             }
-            if (isopen == true) {
-                resultDlg.open();
-            }
-            return resultDlg;
+            resultDlg.open();
         },
         _setCard: function (item, _car) {
             var self = this;

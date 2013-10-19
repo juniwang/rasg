@@ -14884,9 +14884,15 @@ function trackClient(appkeys) {
         },
         auto_finish: function(fn){
             var self = this;
-            var fi = self._fn.indexOf(fn);
-            if(fi>=0){
-                self._fn.splice(fi,1);
+            var found=-1;
+            $.each(self._fn, function(i, f){
+                if(f.indexOf(fn)>=0){
+                    found = i;
+                    return false;
+                }
+            })
+            if(found>=0){
+                self._fn.splice(found,1);
             }
             if(self._fn.length<=0){
                 Mojo.app.toast.show2("本轮自动任务已全部完成,4秒后切换下一个账号");
@@ -15012,6 +15018,7 @@ function trackClient(appkeys) {
             var time = new Date().getTime() / 1000;
 
             var auto_fuben_iv = setInterval(function(){
+                // Mojo.app.toast.show2("cur_fuben_index="+cur_fuben_index);
                 if(to_ref.length>0){
                     Mojo.ajax('/fuben/fbTasks', {fuben_id:to_ref[0].id,fuben_refresh:1}, function (result) {
                         if(result.errorCode == 0){
