@@ -13351,7 +13351,18 @@ function trackClient(appkeys) {
                 }
             }, function () {});
         },
-        i: function () {
+        _getGrain: function () {
+            var self = this;
+            setTimeout(function(){
+                Mojo.ajax("/forceCity/receive", {}, function (response) {
+                    if (response && response.errorCode == 0) {
+                        var grain = response.data.received;
+                        Mojo.app.toast.show2("[内政]领取粮食:"+grain, 20000);
+                    }
+                }, function(){});
+            },2000);
+        },
+        local_force: function () {
             var self = this;
             Mojo.app.toast.show("初始化内政数据ing");
             var arrTask = ["1@361", "2@557", "3@361", "4@37", "5@181", "6@361", "7@111", "8@361", "9@557"];
@@ -13373,6 +13384,8 @@ function trackClient(appkeys) {
             var serverRe = 0;
             var repeatFlag = 120;
             var repeatFlagMax = repeatFlag;
+
+            self._getGrain();
             var autoForce = w.setInterval(function () {
                 var date = new Date();
                 var now = date.getTime() / 1000;
@@ -13480,6 +13493,8 @@ function trackClient(appkeys) {
                                     }
                                     fbindex = arrTask.length + 1
                                 }
+                            } else if(result.errorCode==240016){
+                                self._getGrain();
                             } else {
                                 w.clearInterval(autoForce)
                             }
@@ -14442,7 +14457,7 @@ function trackClient(appkeys) {
             var onClickQuickBtn = function (btn, e) {
                 var id = btn.id();
                 if ('btn-task' === id) {
-                    self.i();
+                    self.local_force();
                 } else if ('btn-entity-embed' === id) {
                     Mojo.app.redirect('/package', {}, 'event', '玩家点击“排列阵容”按钮');
                 } else if ('btn-entity-battle' === id) {
@@ -14752,6 +14767,7 @@ function trackClient(appkeys) {
                                     arrTaskCool[task.id - 1] = "-1";
                                 }
                             }
+                            self._getGrain();
                         } else if (result.errorCode == 130019) {
                             Mojo.app.toast.show2("[内政]无法内政:未加入势力");
                             window.clearInterval(auto_force_interval);

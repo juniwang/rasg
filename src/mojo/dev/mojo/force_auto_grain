@@ -33,7 +33,7 @@ _nonRMBClickCallback: function (data, forceWarElement, buffType, re_buff) {
                             percent: contribute
                         }));
                     }
-                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},200);
+                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},100);
                 } else if (response && response.errorCode == 10200 && Mojo.utils.isNone(response.data) == false) {
                     Mojo.ajax('/entity/Use', {
                         id: response.data.props.id
