@@ -77,12 +77,15 @@ namespace sgll.net.Core.Bridge
             req.Accept = "";
             req.ContentType = "application/x-www-form-urlencoded";
             req.KeepAlive = true;
-            req.Headers.Add("Accept-Language", "zh_cn");
+            req.Headers.Add("Accept-Language", "zh-cn");
             req.Headers.Add("X-Mojo", "");
             req.Headers.Add("clientversion", "1.9");
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
             req.Headers.Add("Signature", AutoSig.Signature);
+
             req.AllowAutoRedirect = false;
+            req.ServicePoint.Expect100Continue = false;
+            req.KeepAlive = true;
             if (!string.IsNullOrWhiteSpace(contents))
             {
                 var bytes = Encoding.UTF8.GetBytes(contents);
@@ -143,7 +146,7 @@ namespace sgll.net.Core.Bridge
                 if (resp != null)
                     resp.Close();
             }
-        } 
+        }
         #endregion
 
         #region ValidatePassword
@@ -160,6 +163,8 @@ namespace sgll.net.Core.Bridge
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
             string contents = "UserLoginForm%5Busername%5D=" + user.Username + "&UserLoginForm%5Bpassword%5D=" + user.Password + "&ajax=validate-form";
             req.AllowAutoRedirect = false;
+            req.ServicePoint.Expect100Continue = false;
+            req.KeepAlive = true;
 
             var bytes = Encoding.UTF8.GetBytes(contents);
             req.GetRequestStream().Write(bytes, 0, bytes.Length);
@@ -216,7 +221,7 @@ namespace sgll.net.Core.Bridge
                 if (resp != null)
                     resp.Close();
             }
-        } 
+        }
         #endregion
 
         #region SwitchAccount
@@ -279,7 +284,7 @@ namespace sgll.net.Core.Bridge
                 if (resp != null)
                     resp.Close();
             }
-        } 
+        }
         #endregion
 
         #region Post
@@ -294,7 +299,7 @@ namespace sgll.net.Core.Bridge
             {
                 url = AjaxBase + "/" + url.TrimStart('/');
             }
-            url = url + "?_=" + DateTime.Now.Ticks.ToString();
+            //url = url + "?_=" + DateTime.Now.Ticks.ToString();
 
             HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(url);
             req.Method = "post";
@@ -308,20 +313,24 @@ namespace sgll.net.Core.Bridge
             req.Referer = "http://wsa.sg21.redatoms.com/mojo/ipad/home";
             req.KeepAlive = true;
             req.Headers.Add("gamelanguage", "zh_cn");
-            req.Headers.Add("Accept-Language", "zh_cn");
+            req.Headers.Add("Accept-Language", "zh-cn");
+            req.Headers.Add("Accept-Encoding", "gzip, deflate");
             req.Headers.Add("X-Mojo", "");
             req.Headers.Add("clientversion", "1.9");
             req.Headers.Add("X-Requested-With", "XMLHttpRequest");
             req.Headers.Add("Signature", AutoSig.Signature);
             req.Headers.Add("Mojo-A-T", user.Token);
-            req.Headers.Add("origin", "http://wsa.sg21.redatoms.com");
+            req.Headers.Add("Origin", "http://wsa.sg21.redatoms.com");
+            req.ProtocolVersion = HttpVersion.Version10;
+            req.ServicePoint.Expect100Continue = false;
 
             req.CookieContainer = user.Cookies;
-            req.AllowAutoRedirect = true;
+            req.AllowAutoRedirect = false;
             if (!string.IsNullOrWhiteSpace(contents))
             {
                 var bytes = Encoding.UTF8.GetBytes(contents);
                 req.GetRequestStream().Write(bytes, 0, bytes.Length);
+                req.ContentLength = bytes.Length;
             }
 
             HttpWebResponse resp = null;
@@ -470,7 +479,7 @@ namespace sgll.net.Core.Bridge
                 if (resp != null)
                     resp.Close();
             }
-        } 
+        }
         #endregion
     }
 }
