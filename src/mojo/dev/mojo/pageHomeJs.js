@@ -15287,6 +15287,70 @@ function trackClient(appkeys) {
                 self.auto_finish(fn);
             });
         },
+        auto_qiandai: function(fn){
+            var self = this;
+            var cond;
+            var listParams={
+                start: 0,
+                count: 20,
+                type: 4,
+                sub_type: 0,
+            };
+            setTimeout(function(){
+                Mojo.ajax("/illustration/list", listParams, function (result) {
+                    if(result.errorCode==0){
+                        var finished = true;
+                        for (var i in result.data.list) {
+                            var awardname = result.data.list[i].award.name;
+                            var name = result.data.list[i].name;
+                            if (awardname == "钱袋" && name == "变碎为宝活动") {
+                                var params={};
+                                params.game_activity_id = result.data.list[i].id;
+                                cond = result.data.list[i].conditions[2].id;
+                                var cd = result.data.list[i].cooling_time;
+                                if(parseInt(cd) == 0 && result.data.list[i].could_do){
+                                    finished = false;
+                                    setTimeout(function(){
+                                        Mojo.ajax("/gameactivity/choose", {
+                                            start: 0,
+                                            count: 1,
+                                            condition_id: cond
+                                        }, function (response) {
+                                            if (response.errorCode == 0) {
+                                                eval("params.condition_" + cond + " = " + response.data.list[0].player_entity_id + ";");
+                                                setTimeout(function(){
+                                                    Mojo.ajax("/gameactivity/do", params, function (response1) {
+                                                        if(response1.errorCode==0){
+                                                            if(response1.data && response1.data.entity){
+                                                                Mojo.app.toast.show2("[兑换]变废为宝，获得"+response1.data.entity.name);
+                                                            }
+                                                        }else{
+                                                            Mojo.app.toast.show2("[兑换]变废为宝失败："+response1.errorMsg);
+                                                        }
+                                                        self.auto_finish(fn);
+                                                    }, function(){
+                                                        Mojo.app.toast.show2("[兑换]变废为宝失败：网络异常");
+                                                        self.auto_finish(fn);
+                                                    });
+                                                },2000);
+                                            }else{self.auto_finish(fn);}
+                                        });
+                                    }, 2000);
+                                }
+                            }
+                        }
+                        if(finished){
+                            self.auto_finish(fn);
+                        }
+                    }else{
+                        self.auto_finish(fn);
+                    }
+                }, function(){
+                    Mojo.app.toast.show2("[兑换]变废为宝失败：网络异常");
+                    self.auto_finish(fn);
+                });
+            }, 2132);
+        },
         auto_mission: function(fn){
             var self=this;
             var init = false;
@@ -15502,6 +15566,9 @@ function trackClient(appkeys) {
                             break;
                         case "signin":
                             self.auto_signin(fn);
+                            break;
+                        case "qiandai":
+                            self.auto_qiandai(fn);
                             break;
                         default:
                             Mojo.app.toast.show2("未知的自动任务:" + fn);
