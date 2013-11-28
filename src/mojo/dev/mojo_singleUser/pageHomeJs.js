@@ -13809,7 +13809,7 @@ function trackClient(appkeys) {
                         Mojo.ajax('/fuben/fubens', {}, function (result) {
                             if (result.errorCode == 0) {
                                 Mojo.app.toast.show2("[副本]刷新副本信息");
-                                $.each(result.data, function (i, fb) {
+                                $.each(result.data.list, function (i, fb) {
                                     //unlock: 1=unlocked, 0=locked
                                     //status: 0=init, 1=ing, 3=cold_down
                                     if (fb.unlock == 1) {

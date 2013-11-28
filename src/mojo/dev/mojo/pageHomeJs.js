@@ -13981,9 +13981,9 @@ function trackClient(appkeys) {
             var pris = new Array(0);
             var index = 0;
             Mojo.ajax("/fuben/fubens", {}, function (result) {
-                for (var i = 0; i < result.data.length; i++) {
-                    if (result.data[i].status == 1 && result.data[i].unlock == 1) {
-                        runfb[index] = result.data[i].id;
+                for (var i = 0; i < result.data.list.length; i++) {
+                    if (result.data.list[i].status == 1 && result.data.list[i].unlock == 1) {
+                        runfb[index] = result.data.list[i].id;
                         index++
                     }
                 }
@@ -15214,7 +15214,7 @@ function trackClient(appkeys) {
             Mojo.ajax('/fuben/fubens', {}, function (result) {
                 if (result.errorCode == 0) {
                     Mojo.app.toast.show2("[副本]初始化副本信息");
-                    $.each(result.data, function (i, fb) {
+                    $.each(result.data.list, function (i, fb) {
                         //unlock: 1=unlocked, 0=locked
                         //status: 0=init, 1=ing, 3=cold_down
                         if (fb.unlock == 1) {

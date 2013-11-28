@@ -46,7 +46,7 @@ _nonRMBClickCallback: function (data, forceWarElement, buffType, re_buff) {
                     }, function () {
                         self._useBtn.disable(false);
                     }, {
-                        showWait: true
+                        showWait: false
                     });
                 } else if (response && response.errorCode == 200082 || response.errorCode == 200088 || response.errorCode == 200089 || response.errorCode == 200083) {
                     self._nonRMBClickCallback(data, forceWarElement, buffType, 1);
@@ -54,6 +54,6 @@ _nonRMBClickCallback: function (data, forceWarElement, buffType, re_buff) {
                     self._createFailedDlg(response);
                 }
             }, function () {}, {
-                showWait: true
+                showWait: false
             });
         },

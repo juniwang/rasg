@@ -191,6 +191,7 @@
             'confirm quit': '',
             'count': '數量：',
             'create_new_player': '',
+            'create_player': '',
             'create_player_tips': '',
             'day': '天',
             'days': '天',
@@ -307,6 +308,10 @@
             'price_title': '售價：',
             'priceless': '無價之寶，不可購買',
             'recharge': '加值',
+            'recharge_fail_dlg_btn1': '',
+            'recharge_fail_dlg_btn2': '',
+            'recharge_fail_dlg_tip': '',
+            'recharge_fail_dlg_title': '',
             'relation': '（連結{{:platform}}）',
             'relation_guest': '未預設email的用戶請聯繫客服<br>客服email：support@redatoms.com',
             'repeat_login': '',
@@ -412,6 +417,7 @@
             'confirm quit': '确认退出',
             'count': '数量：',
             'create_new_player': '创建新角色',
+            'create_player': '创建角色',
             'create_player_tips': '创建角色数：{{:players}}/{{:maxPlayers}}',
             'day': '天',
             'days': '天',
@@ -528,6 +534,10 @@
             'price_title': '售价：',
             'priceless': '无价之宝，不可购得。',
             'recharge': '充值',
+            'recharge_fail_dlg_btn1': '充值帮助',
+            'recharge_fail_dlg_btn2': '联系客服',
+            'recharge_fail_dlg_tip': '主公~如果您为游戏充值无法完成，可以参考\"充值帮助\"或联系我们，我们会尽全力帮您解决问题。',
+            'recharge_fail_dlg_title': '温馨提示',
             'relation': '（关联{{:platform}}）',
             'relation_guest': '邮箱未绑定的用户请联系客服<br>客服邮箱：support@redatoms.com',
             'repeat_login': '重复登录',
@@ -570,7 +580,7 @@
             'unlock_slot_count': '上阵将领卡槽：{{:old}} → <span>{{:new}}</span>',
             'use': '使用',
             'userbuff': '个人称号：',
-            'username_tip': '最多十个字',
+            'username_tip': '最多六个汉字',
             'username_too_long': '角色名太长',
             'view': '查看',
             'vm': '银币：',
@@ -830,6 +840,7 @@
             'batch_buy_dlg_tip': '',
             'batch_buy_num_tip': '',
             'buy': '購買',
+            'buy-again': '',
             'buy_entity_content': '主公～您購買的東東已經放入包裹，可以從【首頁-卡牌】中查收～',
             'buy_fail_title': '購買失敗！',
             'buy_props_content': '主公～您購買的東東已經放入包裹，可以從【首頁-道具】中查收～',
@@ -860,7 +871,9 @@
             'need_rm': '主公～您的元寶不夠啦，荷包存點錢再來吧！',
             'need_vm': '主公～您的銀幣不夠啦，荷包存點錢再來吧！',
             'new_goods_flag': '新品',
+            'niuyige': '',
             'not_tip': '',
+            'open_ext_tip': '',
             'open_minis_result': '開啟扭蛋',
             'open_minis_tip': '主公～您扭出了【{{name}}】，可以從【首頁-卡牌】中查收～',
             'open_minis_tip1': '主公～您扭出了【{{name}}】，可以從【首頁-圖鑒-活動】中查收～',
@@ -877,6 +890,8 @@
             'play_minis': '打開扭蛋',
             'price_title': '{{name}}商城售價：',
             'rm_not_enough': '',
+            'shilianchou': '',
+            'shilianchou-title': '',
             'spend_rm': '',
             'spend_vm': '',
             'sure_buy': '確定購買',
@@ -892,6 +907,7 @@
             'batch_buy_dlg_tip': '主公~请输入我军要购买此东东的数量~',
             'batch_buy_num_tip': '购买数量：',
             'buy': '购买',
+            'buy-again': '再次购买',
             'buy_entity_content': '主公～您购买的东东已经放入包裹，可以从【首页-卡牌】中查收～',
             'buy_fail_title': '购买失败！',
             'buy_props_content': '主公～您购买的东东已经放送达，可以从【商城-道具】中查收～',
@@ -922,10 +938,12 @@
             'need_rm': '主公～您的元宝不够啦，快去充值吧！',
             'need_vm': '主公～您的银币不够啦，攒点钱再来吧！',
             'new_goods_flag': '新品',
+            'niuyige': '扭一个',
             'not_tip': '不再提示',
+            'open_ext_tip': '主公~您扭出了十张卡牌，包含一张五星卡【{{:name}}】，可以在【首页-卡牌】中查收~',
             'open_minis_result': '开启扭蛋',
             'open_minis_tip': '主公～您扭出了【{{name}}】，可以从【首页-卡牌】中查收～',
-            'open_minis_tip1': '主公～您扭出了【{{name}}】，可以从【首页-图鉴-活动】中查收～',
+            'open_minis_tip1': '主公～您扭出了【{{name}}】，可以从【首页-活动中心】中查收～',
             'pay_tips': '充值失败小贴士',
             'pay_tips_1': '<span class = "pay_tips_home"><br>1、充值时，提示：“你的付款方式卡被拒绝”或提示“请联络iTunes支持人员以完成交易”。</span>',
             'pay_tips_2': '<span class = "pay_tips_home"><br>2、充值时，提示：“ipa buy failed”。</span>',
@@ -939,6 +957,8 @@
             'play_minis': '打开扭蛋',
             'price_title': '{{name}}商城售价：',
             'rm_not_enough': '主公~您的元宝不足~',
+            'shilianchou': '十连扭',
+            'shilianchou-title': '十连扭更划算，必得五星卡！',
             'spend_rm': '消耗元宝：',
             'spend_vm': '消耗银币：',
             'sure_buy': '确定购买',
@@ -1525,6 +1545,7 @@
             'create_succ_weibo': '我在#三國來了#創建了勢力【{{:name}}】！你還是一個人在戰鬥嗎？快來加入我們吧！',
             'create_tip': '為您的勢力取一個威震八方的名字吧',
             'create_use_rebirth': '捐獻68顆轉生丹即可免費創建勢力~',
+            'current_chanllenge_get': '',
             'current_level': '{{:level}}級',
             'default_chat_message': '點擊進入勢力聊天',
             'defence_lose': '',
@@ -1589,6 +1610,8 @@
             'force_assistant_start': '',
             'force_assistant_title': '',
             'force_assistant_title1': '',
+            'force_assistant_title2': '',
+            'force_assistant_title3': '',
             'force_become_slave': '',
             'force_become_slave_seize_lose': '',
             'force_boss_challenge': '',
@@ -1667,6 +1690,23 @@
             'force_boss_name_level': '',
             'force_boss_name_level2': '',
             'force_capitulate_fail': '',
+            'force_challenge_model_alert': '',
+            'force_challenge_model_attack': '',
+            'force_challenge_model_bossinfo_defence': '',
+            'force_challenge_model_bossinfo_life': '',
+            'force_challenge_model_bossinfo_name': '',
+            'force_challenge_model_bossinfo_skill': '',
+            'force_challenge_model_bossinfo_title': '',
+            'force_challenge_model_deadGod': '',
+            'force_challenge_model_duration': '',
+            'force_challenge_model_easy': '',
+            'force_challenge_model_hard': '',
+            'force_challenge_model_huangjin': '',
+            'force_challenge_model_normal': '',
+            'force_challenge_model_skill_easy': '',
+            'force_challenge_model_skill_hard': '',
+            'force_challenge_model_skill_normal': '',
+            'force_challenge_model_title': '',
             'force_city_all_citys': '',
             'force_city_attack_cd_notice': '',
             'force_city_attack_header_notice1': '',
@@ -2204,7 +2244,7 @@
             'city_placate_special_tip': '提示：民心越高，据点守将在夺城战中防御越强哦~',
             'city_protect_cd': '保护：{{:timespan}}',
             'city_rank': '【{{:forcename}}】占领{{:timespan}}',
-            'city_siege_record': '纪录：【{{:name}}】占领{{:time}}',
+            'city_siege_record': '【{{:name}}】占领{{:time}}',
             'collect_tax': '收税',
             'con_capitulate': '继续劝降',
             'con_capitulated': '劝降',
@@ -2229,6 +2269,7 @@
             'create_succ_weibo': '我在#三国来了#创建了势力【{{:name}}】！你还是一个人在战斗吗？快来加入我们吧！',
             'create_tip': '为您的势力取一个惊艳的名字吧',
             'create_use_rebirth': '捐献68个转生丹即可免费创建势力~',
+            'current_chanllenge_get': '&#149<span style="font-weight: bold">势力拥有军令：{{:now}}/{{:all}}</span>',
             'current_level': '{{:level}}级',
             'default_chat_message': '点击进入势力聊天',
             'defence_lose': '防御失败',
@@ -2257,7 +2298,7 @@
             'exchange_failed_content': '主公，您的粮饷不够啦！势力主可以把势力粮饷分发给成员哦~',
             'exchange_failed_title': '兑换失败',
             'exchange_special': '特殊',
-            'exchange_successful_content': '主公~您兑换的东东已经送达，可以<br/>从【首页-图鉴-活动】中查收~',
+            'exchange_successful_content': '主公~您兑换的东东已经送达，可以<br/>从【首页-活动中心】中查收~',
             'exchange_successful_content2': '主公~您兑换的东东已经送达，可以<br/>从【商城-道具】中查收~',
             'exchange_successful_title': '兑换成功',
             'exchange_warning_content': '主公~您要兑换此东东吗？',
@@ -2292,7 +2333,9 @@
             'force_assistant_prompt_title': '温馨提示',
             'force_assistant_start': '开启',
             'force_assistant_title': '内政小助手',
-            'force_assistant_title1': '<span class="assis_title">内政小助手：</span><span>可以自动完成内政~</span>',
+            'force_assistant_title1': '<span class="assis_title">内政小助手：</span><span class="assistant-status">可以自动完成内政~</span>',
+            'force_assistant_title2': '<span class="assis_title">内政小助手：</span><span class="assistant-status assis_state_in">开启中</span>',
+            'force_assistant_title3': '<span class="assis_title">内政小助手：</span><span class="assistant-status assis_state_out">未开启</span>',
             'force_become_slave': '主公~我方势力成为了【{{:name}}】的太守！',
             'force_become_slave_seize_lose': '主公~我方势力成为了【{{:name}}】的太守！<br>对【{{:name2}}】的霸占失败！',
             'force_boss_challenge': '挑战',
@@ -2308,7 +2351,7 @@
             'force_boss_challenge_cd': '冷却中：{{:time}}',
             'force_boss_challenge_cd_content': '主公~冷却时间内不能【战斗】哦~',
             'force_boss_challenge_detail': '详细',
-            'force_boss_challenge_detail_content': '【开启规则】<br>•一品以上官员可以开启挑战<br>•每天可以银币挑战1次黄巾军<br>•银币挑战次数用完后可以用元宝召唤黄巾军挑战<br>•挑战黄巾军会在每天0点重置<br><br>【战斗规则】<br>•战斗时间：60分钟<br>•势力成员均可以参战<br>•势力等级越高，黄巾军等级越高<br><br>【奖励】<br>•参加战斗能获得粮饷奖励，击败黄巾军后参战成员和势力均能获得丰厚奖励<br>•每次击败黄巾军，势力全员均可在【兑换】中购买5折四星扭蛋<br>•击败高等级的黄巾军能获得更多奖励',
+            'force_boss_challenge_detail_content': '【开启规则】<br>•一品以上官员可以开启挑战<br>•每天可以银币挑战1次黄巾军<br>•每次可以选择3种挑战模式<br>•银币挑战次数用完后可以用元宝召唤黄巾军挑战<br>•挑战黄巾军会在每天0点重置<br><br>【战斗规则】<br>•势力成员均可以参战<br>•势力等级越高，黄巾军等级越高<br><br>【奖励】<br>•参加战斗能获得粮饷奖励，击败黄巾军后参战成员和势力均能获得丰厚奖励<br>•每次击败黄巾军，势力全员均可在【兑换】中购买5折四星扭蛋<br>•击败高等级的黄巾军能获得更多奖励',
             'force_boss_challenge_detail_dlg': '规则说明',
             'force_boss_challenge_exchange_answer': '击败黄巾军',
             'force_boss_challenge_exchange_fail': '不能兑换',
@@ -2338,7 +2381,7 @@
             'force_boss_challenge_limit2': '今日剩余元宝挑战次数：{{:num}}',
             'force_boss_challenge_msg_content': '{{:name}}击杀了{{:num}}名{{:boss}}。',
             'force_boss_challenge_msg_content2': '（{{:time}}前）',
-            'force_boss_challenge_no_right': '一品以上官员才能开始挑战哦~',
+            'force_boss_challenge_no_right': '一品以上官员才能开启挑战哦。',
             'force_boss_challenge_no_right2': '主公~今日挑战次数已达上限哦~',
             'force_boss_challenge_notice': '击杀黄巾军能开启【兑换】中的5折四星扭蛋哦~',
             'force_boss_challenge_notice2': '【战斗】一次可能击杀100~300名黄巾军，相应获得5~15粮饷哦~',
@@ -2371,6 +2414,23 @@
             'force_boss_name_level': '{{:name}}<span class="challenge-highlight">({{:level}}级)</span>',
             'force_boss_name_level2': '{{:name}}{{:level}}级',
             'force_capitulate_fail': '不能劝降',
+            'force_challenge_model_alert': '点击【进攻黄巾军】后，选择想要挑战的模式。',
+            'force_challenge_model_attack': '进攻黄巾军',
+            'force_challenge_model_bossinfo_defence': '【防御】{{:min}}~{{:max}}',
+            'force_challenge_model_bossinfo_life': '【人数】{{:life}}',
+            'force_challenge_model_bossinfo_name': '{{:name}}({{:level}}级)',
+            'force_challenge_model_bossinfo_skill': '【技能】<br>{{:skill}}',
+            'force_challenge_model_bossinfo_title': 'BOSS信息',
+            'force_challenge_model_deadGod': '“苍天已死，黄天当立。岁在甲子，天下大吉！”黄巾军散步谣言，四处作乱，请各路诸侯前去征讨。',
+            'force_challenge_model_duration': '战斗时间：{{:duration}}分钟',
+            'force_challenge_model_easy': '【简单模式 {{:name}}({{:level}}级)】',
+            'force_challenge_model_hard': '【困难模式 {{:name}}({{:level}}级)】',
+            'force_challenge_model_huangjin': '黄巾军',
+            'force_challenge_model_normal': '【普通模式 {{:name}}({{:level}}级)】',
+            'force_challenge_model_skill_easy': '描述：简单模式的黄巾军更容易击杀，击杀时间不会计入排行榜。',
+            'force_challenge_model_skill_hard': '描述：击杀困难模式黄巾军可获得更多粮饷，击杀时间会计入{{:level}}级排行榜。',
+            'force_challenge_model_skill_normal': '描述：击杀普通模式黄巾军会计入排行榜。',
+            'force_challenge_model_title': '选择挑战模式',
             'force_city_all_citys': '所有城池',
             'force_city_attack_cd_notice': '您的战斗次数已经用光啦~',
             'force_city_attack_header_notice1': '（已占据点）',
@@ -2993,11 +3053,29 @@
             this._addButtons();
             this._refreshRestoreStatus();
         },
-        _refreshParagraph: function () {
+        _refreshParagraph: function (flag) {
+            var self = this;
+            if (flag == true) {
+                clearTimeout(self._handle);
+                this._allRestoreTime = (this._options.stamina - this._options.restoreCount - 1) * this._options.allRestoreTime + this._nextRestoreTime;
+                this._refreshRestoreStatus();
+                return;
+            }
             if (this._paragraph == undefined) {
                 this._paragraph = $('<div class="paragraph"></div>').appendTo(this._content);
             }
-            var html = this._options.needBuyTip + '<br/>' + this._options.nextRestoreText + Mojo.utils.formatTime(this._nextRestoreTime) + '<br/>' + this._options.allRestoreText + Mojo.utils.formatTime(this._allRestoreTime) + '<br/>';
+            var html = this._options.needBuyTip + '<br/>';
+            if (self._options.goods.goods_id == 'sp0011') {
+                html = html + Mojo.utils.locale('force', 'current_chanllenge_get', {
+                    now: self._options.restoreCount,
+                    all: self._options.stamina
+                }) + '<br/>';
+            }
+            if (this._allRestoreTime < 0) {
+                html = html + this._options.nextRestoreText + Mojo.utils.locale('common', 'has reached the maximum') + '<br/>' + this._options.allRestoreText + Mojo.utils.locale('common', 'has reached the maximum') + '<br/>';
+            } else {
+                html = html + this._options.nextRestoreText + Mojo.utils.formatTime(this._nextRestoreTime) + '<br/>' + this._options.allRestoreText + Mojo.utils.formatTime(this._allRestoreTime) + '<br/>';
+            }
             this._paragraph.html(html);
         },
         _refreshGoods: function () {
@@ -3012,7 +3090,7 @@
             }
             self._goods.find('.count').html(self._options.goods.count);
             if (self._useBtn) {
-                if (self._options.goods.count > 0) {
+                if (self._options.goods.count > 0 && self._options.restoreCount < self._options.stamina) {
                     self._useBtn.disable(false);
                 } else {
                     self._useBtn.disable(true);
@@ -3033,17 +3111,41 @@
                     Mojo.ajax('/entity/Use', {
                         id: self._options.goods.id
                     }, function (result) {
-                        if (result.errorCode == 0) {
-                            self._options.goods.count -= 1;
-                            self._refreshGoods();
-                            if (self._options.goods.count > 0) {
-                                self._useBtn.disable(false);
-                            }
-                            if (self._options.useBtnClick instanceof Function) {
-                                self._options.useBtnClick(self, result);
+                        if (self._options.goods.goods_id == 'sp0011') {
+                            if (result.errorCode == 0) {
+                                self._options.goods.count -= 1;
+                                self._options.restoreCount += 1;
+                                self._refreshParagraph(true);
+                                self._refreshGoods();
+                                if (self._options.goods.count > 0 && self._options.restoreCount < self._options.stamina) {
+                                    self._useBtn.disable(false);
+                                }
+                                if (self._options.useBtnClick instanceof Function) {
+                                    self._options.useBtnClick(self, result);
+                                }
+                                if (self._options.restoreCount == self._options.stamina) {
+                                    self.close();
+                                }
+                            } else {
+                                if (result.errorCode == 130060) {
+                                    self._options.restoreCount = self._options.stamina;
+                                    self._refreshParagraph(true);
+                                }
+                                Mojo.app.toast.show(result.errorMsg);
                             }
                         } else {
-                            Mojo.app.toast.show(result.errorMsg);
+                            if (result.errorCode == 0) {
+                                self._options.goods.count -= 1;
+                                self._refreshGoods();
+                                if (self._options.goods.count > 0) {
+                                    self._useBtn.disable(false);
+                                }
+                                if (self._options.useBtnClick instanceof Function) {
+                                    self._options.useBtnClick(self, result);
+                                }
+                            } else {
+                                Mojo.app.toast.show(result.errorMsg);
+                            }
                         }
                     }, function () {
                         self._useBtn.disable(false);
@@ -3058,66 +3160,124 @@
                 special: 'button-big-red',
                 click: function () {
                     self.hide();
-                    var buyWarningDialog = new Mojo.ui.Dialog(undefined, {
-                        title: Mojo.utils.locale('common', 'buy_warning_title'),
-                        content: $('<div class="tip">' + Mojo.utils.locale('common', 'buy_warning_content') + '</div>'),
-                        deviceaware: true
-                    });
-                    new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('common', 'sure_buy'),
-                        special: "button-big-red",
-                        click: function () {
-                            buyWarningDialog.close();
-                            self.show();
-                            Mojo.ajax('/mall/Buy', {
-                                id: self._options.goods.goods_id
-                            }, function (result) {
-                                self._buyBtn.disable(false);
-                                if (result.errorCode == 0) {
-                                    if (self._options.buyBtnClick instanceof Function) {
-                                        self._options.buyBtnClick(self, result);
-                                    }
-                                    self._options.goods.count = parseInt(self._options.goods.count) + 1;
-                                    self._options.goods.id = result.data.entities[0].player_entity_id;
-                                    self._refreshGoods();
-                                    Mojo.app.toast.show(Mojo.utils.locale("common", "buy_something_success", {
-                                        name: self._options.goods.goods_name
-                                    }));
-                                } else {
-                                    if (result && result.errorCode == '10005') {
-                                        (new Mojo.com.BuyFailDialog({
-                                            message: result.errorMsg,
-                                            close: function () {
-                                                self.show();
-                                            },
-                                        })).open(true);
+                    if (self._options.goods.goods_id == 'sp0011') {
+                        var price = self._options.goods.goods_rm;
+                        var dlg = new Mojo.com.GoodsBatchBuyDlg({
+                            title: Mojo.utils.locale("mall", "buy_warning_title"),
+                            type: 'rm',
+                            rm: self._options.data.player_rm,
+                            price: parseInt(price),
+                            onBuy: function (count) {
+                                dlg.close();
+                                self.show();
+                                Mojo.ajax('/mall/Buy', {
+                                    id: self._options.goods.goods_id,
+                                    count: count
+                                }, function (result) {
+                                    self._buyBtn.disable(false);
+                                    if (result.errorCode == 0) {
+                                        if (self._options.buyBtnClick instanceof Function) {
+                                            self._options.buyBtnClick(self, result);
+                                        }
+                                        self._options.goods.count = parseInt(self._options.goods.count) + parseInt(count);
+                                        self._options.goods.id = result.data.entities[0].player_entity_id;
+                                        self._options.data.player_rm = result.data.player.rm;
+                                        self._refreshGoods();
+                                        Mojo.app.toast.show(Mojo.utils.locale("common", "buy_something_success", {
+                                            name: self._options.goods.goods_name
+                                        }));
                                     } else {
-                                        Mojo.app.toast.show(result.errorMsg);
+                                        if (result && result.errorCode == '10005') {
+                                            (new Mojo.com.BuyFailDialog({
+                                                message: result.errorMsg,
+                                                close: function () {
+                                                    self.show();
+                                                },
+                                            })).open(true);
+                                        } else {
+                                            Mojo.app.toast.show(result.errorMsg);
+                                        }
                                     }
-                                }
-                            });
-                            self._buyBtn.disable(true);
-                        }
-                    }).element().appendTo(buyWarningDialog._footer);
-                    new Mojo.ui.Button(undefined, {
-                        text: Mojo.utils.locale('common', 'think_again'),
-                        special: 'button-big-blue',
-                        click: function () {
-                            buyWarningDialog.close();
-                            self.show();
-                        }
-                    }).element().appendTo(buyWarningDialog._footer);
-                    buyWarningDialog.open(true);
+                                });
+                                self._buyBtn.disable(true);
+                            },
+                            onClose: function () {
+                                self.show();
+                            },
+                            deviceaware: true
+                        });
+                        dlg.open(true);
+                    } else {
+                        var buyWarningDialog = new Mojo.ui.Dialog(undefined, {
+                            title: Mojo.utils.locale('common', 'buy_warning_title'),
+                            content: $('<div class="tip">' + Mojo.utils.locale('common', 'buy_warning_content') + '</div>'),
+                            deviceaware: true
+                        });
+                        new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('common', 'sure_buy'),
+                            special: "button-big-red",
+                            click: function () {
+                                buyWarningDialog.close();
+                                self.show();
+                                Mojo.ajax('/mall/Buy', {
+                                    id: self._options.goods.goods_id
+                                }, function (result) {
+                                    self._buyBtn.disable(false);
+                                    if (result.errorCode == 0) {
+                                        if (self._options.buyBtnClick instanceof Function) {
+                                            self._options.buyBtnClick(self, result);
+                                        }
+                                        self._options.goods.count = parseInt(self._options.goods.count) + 1;
+                                        self._options.goods.id = result.data.entities[0].player_entity_id;
+                                        self._refreshGoods();
+                                        Mojo.app.toast.show(Mojo.utils.locale("common", "buy_something_success", {
+                                            name: self._options.goods.goods_name
+                                        }));
+                                    } else {
+                                        if (result && result.errorCode == '10005') {
+                                            (new Mojo.com.BuyFailDialog({
+                                                message: result.errorMsg,
+                                                close: function () {
+                                                    self.show();
+                                                },
+                                            })).open(true);
+                                        } else {
+                                            Mojo.app.toast.show(result.errorMsg);
+                                        }
+                                    }
+                                });
+                                self._buyBtn.disable(true);
+                            }
+                        }).element().appendTo(buyWarningDialog._footer);
+                        new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('common', 'think_again'),
+                            special: 'button-big-blue',
+                            click: function () {
+                                buyWarningDialog.close();
+                                self.show();
+                            }
+                        }).element().appendTo(buyWarningDialog._footer);
+                        buyWarningDialog.open(true);
+                    }
                 }
             });
             this._buyBtn.element().appendTo(this._footer);
         },
         _refreshRestoreStatus: function () {
             var self = this;
+            if (this._options.stamina == this._options.restoreCount) {
+                self._allRestoreTime = -1;
+                self._refreshParagraph();
+                return;
+            }
             self._nextRestoreTime -= 1;
             self._allRestoreTime -= 1;
             if (self._nextRestoreTime < 0) {
                 self._nextRestoreTime = self._options.allRestoreTime - 1;
+                self._options.restoreCount = parseInt(self._options.restoreCount) + 1;
+                if (self._allRestoreTime < 0) {
+                    self._refreshParagraph();
+                }
             }
             if (self._allRestoreTime >= 0) {
                 self._refreshParagraph();
@@ -3856,7 +4016,7 @@
                 }
             }
             _tip = $('<div class="words-tip"></div>').html(self._options.maxlength).appendTo(_titleTip);
-            _border = $('<div class="border"></div>').addClass('force-notice').appendTo(this._paragraph);
+            var _border = $('<div class="border"></div>').addClass('force-notice').appendTo(this._paragraph);
             var _content = $('<form name="form" method="post" action=""><textarea name="textarea' + flag + '" class="textarea' + flag + '" maxlength="' + self._options.maxlength + '" id="message-content" cols="45" rows="5">' + text + '</textarea></form>').appendTo(_border);
             _textArea = this._content.find('.textarea' + flag).focus(function (e) {
                 var hintText = e.target.className == 'textarea1' ? self._options.hintText1 : self._options.hintText2;
@@ -3908,8 +4068,9 @@
                         Mojo.app.toast.show(Mojo.utils.locale('common', 'no content'));
                         return;
                     }
+                    var content2;
                     if (self._options.showNotice == true) {
-                        var content2 = self._textArea2.attr('value');
+                        content2 = self._textArea2.attr('value');
                         if (content2 == self._options.hintText && !self._options.hasDefaultMsg) {
                             content2 = '';
                         }
@@ -4051,7 +4212,6 @@
         _addAssistantHeader: function () {
             var self = this;
             var forceAssistant = $("<div  class = 'assistant-header'></div>");
-            $("<div class = 'label'></div>").html(Mojo.utils.locale('force', 'force_assistant_title1')).appendTo(forceAssistant);
             var showBtn = new Mojo.ui.Button(undefined, {
                 classes: ['assistant-show-btn'],
                 text: Mojo.utils.locale('force', 'force_view'),
@@ -4061,6 +4221,27 @@
             });
             showBtn.element().appendTo(forceAssistant);
             forceAssistant.appendTo(this._list._header);
+        },
+        _setAssistantStatusStr: function (status) {
+            this._setAssistantStatusHtml(this._getAssistantStatusStr(status));
+        },
+        _getAssistantStatusStr: function (status) {
+            switch (status) {
+            case '0':
+                return Mojo.utils.locale('force', 'force_assistant_title1');
+            case '1':
+                return Mojo.utils.locale('force', 'force_assistant_title2');
+            case '2':
+                return Mojo.utils.locale('force', 'force_assistant_title3');
+            }
+        },
+        _setAssistantStatusHtml: function (dom) {
+            var label = this._list._header.find('.assistant-header .label');
+            if (label && label.length > 0) {
+                label.html(dom);
+            } else {
+                $("<div class = 'label'></div>").html(dom).appendTo(this._list._header.find('.assistant-header'));
+            }
         },
         _showAssistantClick: function () {
             var self = this;
@@ -4080,7 +4261,7 @@
                             self.assistantRunning = 0;
                             self.assistantDialog._options.leftBtnClick = function (that) {
                                 Mojo.app.toast.show(Mojo.utils.locale('force', 'force_assistant_alert1'));
-                            }
+                            };
                         } else {
                             if (is_assist_open == 1) {
                                 self._endShowAssistant(function () {
@@ -4136,10 +4317,12 @@
             var self = this;
             Mojo.ajax('/assist/forceTask', {}, function (result) {
                 if (result.errorCode == 0) {
-                    callback && callback();
+                    if (callback) callback();
                     if (result.data.finish == 1) {
+                        self._setAssistantStatusStr('2');
                         self.assistantDialog.leftButton.element().html(Mojo.utils.locale('force', 'force_assistant_start'));
                     } else {
+                        self._setAssistantStatusStr('1');
                         self.assistantDialog.leftButton.element().html(Mojo.utils.locale('force', 'force_assistant_end'));
                         self._intervalAssistantLog();
                     }
@@ -4156,8 +4339,10 @@
             Mojo.ajax('/assist/GetForceTaskLog', {}, function (result) {
                 if (result.errorCode == 0) {
                     if (result.data.finish == 1) {
+                        self._setAssistantStatusStr('2');
                         self.assistantDialog.leftButton.element().html(Mojo.utils.locale('force', 'force_assistant_start'));
                     } else {
+                        self._setAssistantStatusStr('1');
                         self.assistantDialog.leftButton.element().html(Mojo.utils.locale('force', 'force_assistant_end'));
                         self._intervalAssistantLog();
                     }
@@ -4179,9 +4364,11 @@
                 Mojo.ajax('/assist/GetForceTaskLog', {}, function (result) {
                     if (result.errorCode == 0) {
                         if (result.data.finish == 1) {
+                            self._setAssistantStatusStr('2');
                             self.assistantDialog.leftButton.element().html(Mojo.utils.locale('force', 'force_assistant_start'));
                             window.clearInterval(self.intervalAssistantLog);
                         } else {
+                            self._setAssistantStatusStr('1');
                             self.assistantDialog.leftButton.element().html(Mojo.utils.locale('force', 'force_assistant_end'));
                         }
                         self._showAssistantContent.html('');
@@ -4191,13 +4378,14 @@
                         Mojo.app.toast.show(result.errorMsg);
                     }
                 }, function () {});
-            }, 36000)
+            }, 36000);
         },
         _endShowAssistant: function (callback) {
             var self = this;
             Mojo.ajax('/assist/intermitForceTask', {}, function (result) {
                 if (result.errorCode == 0) {
-                    callback && callback();
+                    self._setAssistantStatusStr('2');
+                    if (callback) callback();
                 } else {
                     Mojo.app.toast.show(result.errorMsg);
                 }
@@ -4230,7 +4418,7 @@
                     self.assistantRunning = 0;
                     self.assistantDialog._options.leftBtnClick = function (that) {
                         Mojo.app.toast.show(Mojo.utils.locale('force', 'force_assistant_alert1'));
-                    }
+                    };
                 } else {
                     if (self.isFinish == 0) {
                         self._endShowAssistant(function () {
@@ -4251,7 +4439,7 @@
                         });
                     }
                 }
-            }
+            };
             for (var i = 0; i < d.length; i++) {
                 var ele = d[i];
                 var status = ele.status;
@@ -4315,7 +4503,7 @@
                     self._showAssistantContent.html(Mojo.utils.locale('force', 'force_assistant_content1'));
                     break;
                 }
-                htmls.push(_div)
+                htmls.push(_div);
             }
             if (htmls.length > 0) {
                 self._showAssistantContent.append(htmls.join(''));
@@ -4351,6 +4539,15 @@
                     self.forceInternalListData = data;
                     Mojo.app.data.is_assist_finish = self.forceInternalListData.is_assist_finish;
                     Mojo.app.data.tasks_finish = self.forceInternalListData.tasks_finish;
+                    if (self.forceInternalListData.is_assist == '0') {
+                        self._setAssistantStatusStr('0');
+                    } else if (self.forceInternalListData.is_assist == '1') {
+                        if (self.forceInternalListData.is_assist_open == '1' && self.forceInternalListData.is_assist_finish == '0') {
+                            self._setAssistantStatusStr('1');
+                        } else if (self.forceInternalListData.is_assist_open == '0' || self.forceInternalListData.is_assist_finish == '1') {
+                            self._setAssistantStatusStr('2');
+                        }
+                    }
                     self._addRefreshButton();
                     if (data.tips.length != 0) {
                         self._addBuffHeader(data);
@@ -4463,6 +4660,9 @@
                         self._inRefreshing = false;
                         if (result.errorCode == 0) {
                             Mojo.app.data.tasks_finish = self.forceInternalListData.tasks_finish = 0;
+                            if (self.forceInternalListData.is_assist == '1') {
+                                self._setAssistantStatusStr('2');
+                            }
                             var i = 0,
                                 player = {};
                             if (parseInt(data.vm) > 0) {
@@ -10663,6 +10863,7 @@
                                 (new Mojo.com.NeedBuyDialog(undefined, {
                                     title: Mojo.utils.locale('force', 'forcewar_tip_title'),
                                     goods: response.data.props,
+                                    data: response.data,
                                     stamina: response.data.cp_total,
                                     restoreCount: response.data.cp_current,
                                     allRestoreText: Mojo.utils.locale('force', 'all_chanllenge_get'),
@@ -10672,7 +10873,6 @@
                                     restoreText: response.errorMsg,
                                     needBuyTip: response.errorMsg,
                                     useBtnClick: function (that, result) {
-                                        that.close();
                                         if (result && result.errorCode === 0) {
                                             Mojo.page.Force.getController().diffForce({
                                                 challenge: parseInt(result.data.challenge)
@@ -11389,6 +11589,7 @@
                                                                 (new Mojo.com.NeedBuyDialog(undefined, {
                                                                     title: Mojo.utils.locale('force', 'forcewar_tip_title'),
                                                                     goods: response.data.props,
+                                                                    data: response.data,
                                                                     stamina: response.data.cp_total,
                                                                     restoreCount: response.data.cp_current,
                                                                     allRestoreText: Mojo.utils.locale('force', 'all_chanllenge_get'),
@@ -11398,7 +11599,6 @@
                                                                     restoreText: response.errorMsg,
                                                                     needBuyTip: response.errorMsg,
                                                                     useBtnClick: function (that, result) {
-                                                                        that.close();
                                                                         if (result && result.errorCode === 0) {
                                                                             Mojo.page.Force.getController().diffForce({
                                                                                 challenge: parseInt(result.data.challenge)
@@ -11719,6 +11919,7 @@
                 (new Mojo.com.NeedBuyDialog(undefined, {
                     title: Mojo.utils.locale('force', 'forcewar_tip_title'),
                     goods: response.data.props,
+                    data: response.data,
                     stamina: response.data.cp_total,
                     restoreCount: response.data.cp_current,
                     allRestoreText: Mojo.utils.locale('force', 'all_chanllenge_get'),
@@ -11728,7 +11929,6 @@
                     restoreText: response.errorMsg,
                     needBuyTip: response.errorMsg,
                     useBtnClick: function (that, result) {
-                        that.close();
                         if (result && result.errorCode === 0) {
                             Mojo.page.Force.getController().diffForce({
                                 challenge: parseInt(result.data.challenge)
@@ -14497,6 +14697,12 @@
         },
         _refresh: function () {
             var data = this._options.dataProvider();
+            for (var key in data) {
+                var v = data[key];
+                if (Mojo.utils.isNumeric(v)) {
+                    data[key] = parseFloat(v);
+                }
+            }
             this._tips.empty();
             this._genTooltip(data);
         },
@@ -15262,6 +15468,9 @@
             this._coldDownWarning = options.coldDownWarning;
             this._forceBossWarning = options.forceBossWarning;
             this._exchangeClass = (options.exchangeClass != undefined ? options.exchangeClass : 'go-buy-btn');
+            if (this._data.mallTypeId == 2) {
+                this._exchangeClass = '';
+            }
             this._card = undefined;
             this.element().append('<div class="goods-detail"></div>');
             var self = this;
@@ -15269,55 +15478,41 @@
                 this._hasbuy = $("<div class = 'has-buy'></div>").html(Mojo.utils.locale('mall', 'has_buy'));
                 this.element().append(this._hasbuy);
             } else {
+                var btnTitle = null;
+                if (this._data.mallTypeId == 2) {
+                    function getBtnTitle(localeKey, rm) {
+                        var btnDiv = $('<div class="niuyige-btn"></div>');
+                        btnDiv.append($('<div class="t"></div>').html(Mojo.utils.locale('mall', localeKey)));
+                        btnDiv.append($('<div class="price"><span class="icon"></span><span class="price-value"></span></div>'));
+                        btnDiv.find('.price-value').html(rm);
+                        return btnDiv;
+                    }
+                    var extType = this._data.extType;
+                    if (extType != 0) {
+                        $('<div class="shilianniu-content"></div>').html(this._data.extContent).appendTo(this.element());
+                        this._shilianButton = new Mojo.ui.Button(undefined, {
+                            text: getBtnTitle('shilianchou', this._data.extRm),
+                            classes: ['shilian-button'],
+                            special: "button-big-red",
+                            click: function () {
+                                self.shilianBtnClick = true;
+                                self._clickBuyBtn();
+                            }
+                        });
+                        this.element().append(this._shilianButton.element());
+                    }
+                    btnTitle = getBtnTitle('niuyige', this._data.rm);
+                } else {
+                    btnTitle = Mojo.utils.locale(self._goButtonLabelCat, self._goButtonLabelKey);
+                }
                 this._goButton = new Mojo.ui.Button(undefined, {
-                    text: Mojo.utils.locale(self._goButtonLabelCat, self._goButtonLabelKey),
-                    classes: ['go-button'],
+                    text: btnTitle,
                     click: function () {
                         if (self._data.id == 'sp0105' || self._data.id == 'sp0107' || self._data.id == 'sp1111' || self._data.id == 'sp2222') {
-                            var discount = parseInt((self._data.discount ? self._data.discount : 100));
-                            var price = self._data.vm;
-                            var dlg = new Mojo.com.GoodsBatchBuyDlg({
-                                title: Mojo.utils.locale(self._buyWarningTitleCat, self._buyWarningTitleKey),
-                                vm: self._options.getPlayerVm(),
-                                price: parseInt((discount * price) / 100),
-                                onBuy: function (count) {
-                                    if (self._options.type == "secret_treasure") {
-                                        self._options.onBuy(count, self);
-                                    } else {
-                                        self._options.onBuy(count);
-                                    }
-                                },
-                                deviceaware: true
-                            });
-                            dlg.open();
+                            self._goodsBatchBuyBtnClick();
                         } else {
-                            var buyWarningDialog = new Mojo.ui.Dialog(undefined, {
-                                title: Mojo.utils.locale(self._buyWarningTitleCat, self._buyWarningTitleKey),
-                                content: $('<div class="tip">' + Mojo.utils.locale(self._buyWarningCat, self._buyWarningKey) + '</div>'),
-                                deviceaware: true
-                            });
-                            new Mojo.ui.Button(undefined, {
-                                text: Mojo.utils.locale(self._buyButtonLabelCat, self._buyButtonLabelKey),
-                                special: "button-big-red",
-                                click: function () {
-                                    buyWarningDialog.close();
-                                    if (self._options.onBuy instanceof Function) {
-                                        if (self._options.type == "secret_treasure") {
-                                            self._options.onBuy(undefined, self);
-                                        } else {
-                                            self._options.onBuy();
-                                        }
-                                    }
-                                }
-                            }).element().appendTo(buyWarningDialog._footer);
-                            new Mojo.ui.Button(undefined, {
-                                text: Mojo.utils.locale('common', 'think_again'),
-                                special: 'button-big-blue',
-                                click: function () {
-                                    buyWarningDialog.close();
-                                }
-                            }).element().appendTo(buyWarningDialog._footer);
-                            buyWarningDialog.open();
+                            self.shilianBtnClick = false;
+                            self._clickBuyBtn();
                         }
                     },
                     disableClick: function () {
@@ -15335,6 +15530,11 @@
                     special: self._exchangeClass
                 });
                 this.element().append(this._goButton.element());
+                if (this._data.mallTypeId == 2) {
+                    this._goButton.element().addClass('niuyige-button');
+                } else {
+                    this._goButton.element().addClass('go-button');
+                }
                 var status = parseInt(self._data.status || Mojo.utils.getSomething("gstatus"));
                 if (status == 5) {
                     if (parseInt(this._data.cold_down) < 0) {
@@ -15350,6 +15550,57 @@
             this._setDetail();
             this._setAdvertising();
             this._initEvent();
+        },
+        _goodsBatchBuyBtnClick: function () {
+            var self = this;
+            var discount = parseInt((self._data.discount ? self._data.discount : 100));
+            var price = self._data.vm;
+            var dlg = new Mojo.com.GoodsBatchBuyDlg({
+                title: Mojo.utils.locale(self._buyWarningTitleCat, self._buyWarningTitleKey),
+                vm: self._options.getPlayerVm(),
+                price: parseInt((discount * price) / 100),
+                onBuy: function (count) {
+                    if (self._options.type == "secret_treasure") {
+                        self._options.onBuy(count, self);
+                    } else {
+                        self._options.onBuy(count, undefined, self);
+                    }
+                },
+                deviceaware: true
+            });
+            dlg.open();
+        },
+        _clickBuyBtn: function () {
+            var self = this;
+            var buyWarningDialog = new Mojo.ui.Dialog(undefined, {
+                title: Mojo.utils.locale(self._buyWarningTitleCat, self._buyWarningTitleKey),
+                content: $('<div class="tip">' + Mojo.utils.locale(self._buyWarningCat, self._buyWarningKey) + '</div>'),
+                deviceaware: true
+            });
+            new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale(self._buyButtonLabelCat, self._buyButtonLabelKey),
+                special: "button-big-red",
+                click: function () {
+                    buyWarningDialog.close();
+                    if (self._options.onBuy instanceof Function) {
+                        if (self._options.type == "secret_treasure") {
+                            self._options.onBuy(undefined, self);
+                        } else if (self._data.mallTypeId == 2) {
+                            self._options.onBuy(undefined, self.shilianBtnClick == true, self);
+                        } else {
+                            self._options.onBuy(undefined, '2', self);
+                        }
+                    }
+                }
+            }).element().appendTo(buyWarningDialog._footer);
+            new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'think_again'),
+                special: 'button-big-blue',
+                click: function () {
+                    buyWarningDialog.close();
+                }
+            }).element().appendTo(buyWarningDialog._footer);
+            buyWarningDialog.open();
         },
         _setCard: function () {
             var self = this;
@@ -15373,7 +15624,9 @@
             if (self._options.priceTitle != undefined) {
                 params.priceTitle = self._options.priceTitle;
             }
-            (new Mojo.com.Price(this._data, params)).element().appendTo(this.element().find(".goods-detail"));
+            if (this._data.mallTypeId != 2) {
+                (new Mojo.com.Price(this._data, params)).element().appendTo(this.element().find(".goods-detail"));
+            }
             if (this.hasColdDown && this._data.cold_down && this._data.cold_down > 0) {
                 this.cd = this._data.cold_down;
                 this.showCd();
@@ -16034,7 +16287,7 @@
                         Mojo.gap.niudanAnimationPlay(goods.entity.rarity_id);
                         var entity = response.data.entities[0];
                         var t = Mojo.utils.locale('mall', 'open_minis_result');
-                        if (response.data.extra_entity) {
+                        if (false === Mojo.utils.isNone(response.data.extra_entity)) {
                             t = Mojo.utils.locale('mall', 'heaven_bless');
                         }
                         var entityDetailDialog = new Mojo.ui.Dialog(undefined, {
@@ -16042,7 +16295,7 @@
                             content: (new Mojo.com.LargeEntity(entity)).element()
                         });
                         var tip = undefined;
-                        if (response.data.extra_entity) {
+                        if (false === Mojo.utils.isNone(response.data.extra_entity)) {
                             tip = Mojo.utils.locale('mall', 'open_minis_tip2', {
                                 __default__: '主公~您扭出了【{{:name}}】~',
                                 name: entity.name
@@ -16053,13 +16306,13 @@
                             tip = Mojo.utils.locale('mall', 'open_minis_tip').replace(/\{\{name\}\}/g, entity.name);
                         }
                         $('<div></div>').addClass('tip').html(tip).appendTo(entityDetailDialog._content);
-                        if (response.data.extra_entity) {
+                        if (false === Mojo.utils.isNone(response.data.extra_entity)) {
                             entityDetailDialog.element().addClass("with-extra-entity");
                             var extraDiv = $('<div class="extra-entity tip"></div>').appendTo(entityDetailDialog._content);
                             $('<div class="txt"></div>').html(Mojo.utils.locale('mall', 'get', {
                                 __default__: '并获得：'
                             })).appendTo(extraDiv);
-                            $('<div class="txt name"></div>').html(response.data.extra_entity.name).appendTo(extraDiv);
+                            $('<div class="txt name"></div>').html(response.data.extra_entity[0].name).appendTo(extraDiv);
                         }
                         new Mojo.ui.Button(undefined, {
                             text: Mojo.utils.locale('force', 'continue_exchange'),
@@ -16799,7 +17052,7 @@
         },
         afterPublish: function () {},
         _getImgurl: function () {
-            var loc = location.href;
+            var loc = window.location.href;
             var a = loc.indexOf('/mojo');
             var b = loc.substring(0, a);
             var url = b + '/mojo/resources/classic/mobile/image/ui/icon.jpg';
@@ -18328,7 +18581,7 @@
                             percent: contribute
                         }));
                     }
-                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},50);
+                    setTimeout(function(){self._nonRMBClickCallback(data, forceWarElement, buffType, 1);},100);
                 } else if (response && response.errorCode == 10200 && Mojo.utils.isNone(response.data) == false) {
                     Mojo.ajax('/entity/Use', {
                         id: response.data.props.id
@@ -18341,7 +18594,7 @@
                     }, function () {
                         self._useBtn.disable(false);
                     }, {
-                        showWait: true
+                        showWait: false
                     });
                 } else if (response && response.errorCode == 200082 || response.errorCode == 200088 || response.errorCode == 200089 || response.errorCode == 200083) {
                     self._nonRMBClickCallback(data, forceWarElement, buffType, 1);
@@ -18349,7 +18602,7 @@
                     self._createFailedDlg(response);
                 }
             }, function () {}, {
-                showWait: true
+                showWait: false
             });
         },
         _addHeaderToListPanel: function () {
@@ -18445,6 +18698,7 @@
                     (new Mojo.com.NeedBuyDialog(undefined, {
                         title: Mojo.utils.locale('force', 'forcewar_tip_title'),
                         goods: response.data.props,
+                        data: response.data,
                         stamina: response.data.cp_total,
                         restoreCount: response.data.cp_current,
                         allRestoreText: Mojo.utils.locale('force', 'all_chanllenge_get'),
@@ -20855,7 +21109,7 @@
                     this.element().addClass('super-month-ticket');
                 }
             }
-            if (this._data.sub_id && (this._data.sub_id.toString().indexOf('vip_recharge') >= 0)) {
+            if (this._data.sub_id && (('' + this._data.sub_id).indexOf('vip_recharge') >= 0)) {
                 this.element().addClass('vip-recharge');
             }
             this._nameDiv = $('<div class="name"></div>').appendTo(this.element());
@@ -20899,7 +21153,7 @@
                         btnTxt = Mojo.utils.locale('mall', 'has_buy');
                     }
                     btnDisable = true;
-                } else if (this._data.sub_id.toString().indexOf('vip_recharge') >= 0 && 3 == parseInt(this._data.status)) {
+                } else if (('' + this._data.sub_id).indexOf('vip_recharge') >= 0 && 3 == parseInt(this._data.status)) {
                     btnTxt = Mojo.utils.locale('mall', 'wait_buy_result');
                     btnDisable = true;
                 }
@@ -20932,7 +21186,7 @@
                 }
             }));
             buyBtn.element().addClass("payment-btn").appendTo(this.element());
-            if (this._data.sub_id && this._data.sub_id.toString().indexOf('vip_recharge') >= 0) {
+            if (this._data.sub_id && ('' + this._data.sub_id).indexOf('vip_recharge') >= 0) {
                 var showAllVipRechargeBtn = new Mojo.ui.Button(undefined, {
                     text: Mojo.utils.locale('mall', 'show_all_vip_recharge', {
                         '__default__': '查看各级礼包'
@@ -21077,6 +21331,7 @@
                     self._data = response.data;
                     self._createPreChallengePanel();
                 } else if (response && response.errorCode == self._IN_CHALLENGE_CODE) {
+                    response.data.boss = response.data.boss[response.data.battle.bossLevel];
                     self._data = response.data;
                     self._persistenceData = response.data;
                     self._createInChallengePanel();
@@ -21111,9 +21366,8 @@
             this._bossNameAndLevel = new Mojo.Object(undefined, {
                 classes: ['com-force-challenge-boss-name']
             });
-            this._bossNameAndLevel.element().html(Mojo.utils.locale('force', 'force_boss_name_level', {
-                name: self._data.boss.name,
-                level: self._data.boss.level
+            this._bossNameAndLevel.element().html(Mojo.utils.locale('force', 'force_boss_name_level_title', {
+                '__default__': Mojo.utils.locale('force', 'force_challenge_model_huangjin')
             }));
             preContent.append(this._bossNameAndLevel.element());
             this._detailButton = new Mojo.ui.Button('detail-btn', {
@@ -21128,148 +21382,151 @@
             this._bossImage = new Mojo.Object(undefined, {
                 classes: ['com-force-challenge-boss-img']
             });
-            $('<img />').addClass("card-image-url").bind("load", function () {
-                self._bossImage.element().find(".card-image-url").show();
-            }).hide().appendTo(this._bossImage.element()).attr({
-                src: self._data.boss.image
-            });
-            $('<img />').bind("load", function () {}).hide().appendTo(this._bossImage.element()).attr({
-                src: self._data.boss.large_image
-            });
             preContent.append(this._bossImage.element());
             this._bossInformation = new Mojo.Object(undefined, {
                 classes: ['com-force-challenge-boss-information']
             });
-            this._bossInformation.element().html(Mojo.utils.locale('force', 'force_boss_challenge_profile', {
-                name: self._data.boss.name,
-                time: self._data.duration,
-                num: self._data.boss.life,
-                defencemin: self._data.boss.defence.min,
-                defencemax: self._data.boss.defence.max,
-                skill: self._data.boss.skill
+            this._bossInformation.element().html(Mojo.utils.locale('force', 'force_boss_challenge_txt', {
+                '__default__': Mojo.utils.locale('force', 'force_challenge_model_deadGod')
             }));
             preContent.append(this._bossInformation.element());
+            this._bossChallengeNotice = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-challenge-notice']
+            });
+            this._bossChallengeNotice.element().html(Mojo.utils.locale('force', 'force_boss_challenge_btntip', {
+                '__default__': Mojo.utils.locale('force', 'force_challenge_model_alert')
+            }));
+            preContent.append(this._bossChallengeNotice.element());
             this._challengeButton = new Mojo.ui.Button('challenge-btn', {
-                text: Mojo.utils.locale('force', 'force_boss_challenge_start'),
+                text: Mojo.utils.locale('force', 'force_boss_challenge_newstart', {
+                    '__default__': Mojo.utils.locale('force', 'force_challenge_model_attack')
+                }),
                 special: 'button-big-red',
                 click: function () {
-                    var dlg = new Mojo.com.ForceBossChallengePreviewDialog({
-                        challenge_num: self._data.challenge.free,
-                        challenge_rm: self._data.challenge.rm,
-                        challenge_vm: self._data.challenge.vm,
-                        niudanlist: self._data.rewards,
-                        niudanId: self._data.rewards[0].id,
-                        callback: function (niudanId) {
-                            if ((self._data.challenge.free > 0 && 　parseInt(self._playerProfile.vm) < parseInt(self._data.challenge.vm)) || (self._data.challenge.free == 0 && parseInt(self._playerProfile.rm) < parseInt(self._data.challenge.rm))) {
-                                var failDialog = new Mojo.ui.Dialog(undefined, {
-                                    title: Mojo.utils.locale('force', "force_boss_challenge_lack_title")
-                                });
-                                if (self._data.challenge.free > 0) {
-                                    $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_vm")).appendTo(failDialog._content);
-                                    new Mojo.ui.Button(undefined, {
-                                        text: Mojo.utils.locale('mall', 'go_vm'),
-                                        special: "button-big-red",
-                                        click: function () {
-                                            failDialog.close();
-                                            Mojo.app.redirect("/mall", {
-                                                selected: 2
-                                            });
-                                        }
-                                    }).element().appendTo(failDialog._footer);
-                                } else if (self._data.challenge.free == 0) {
-                                    $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_rm")).appendTo(failDialog._content);
-                                    new Mojo.ui.Button(undefined, {
-                                        text: Mojo.utils.locale('mall', 'go_payment'),
-                                        special: "button-big-red",
-                                        click: function () {
-                                            failDialog.close();
-                                            Mojo.app.redirect("/mall", {
-                                                selected: 4
-                                            });
-                                        }
-                                    }).element().appendTo(failDialog._footer);
-                                }
-                                new Mojo.ui.Button(undefined, {
-                                    text: Mojo.utils.locale('common', 'close'),
-                                    special: "button-big-blue",
-                                    click: function () {
-                                        failDialog.close();
-                                    }
-                                }).element().appendTo(failDialog._footer);
-                                failDialog.open();
-                                return;
-                            }
-                            var skip_cd = 0;
-                            if (self._data.challenge.free == 0) {
-                                skip_cd = 1;
-                            }
-                            self._forceWarAjax("/forceBoss/challenge", {
-                                niudan_id: niudanId,
-                                skip_cd: skip_cd
-                            }, function (response) {
-                                if (response && response.errorCode === 0) {
-                                    self._createChallengePanel();
-                                    new Mojo.com.CommonDialog(undefined, {
-                                        title: Mojo.utils.locale('force', 'force_boss_challenge_start5'),
-                                        content: $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_tip_content').replace('{{:opponent_force}}', self._data.boss.name)),
-                                        leftBtnText: Mojo.utils.locale('force', 'usurp_war_help'),
-                                        leftBtnClick: function (that) {
-                                            that.close();
-                                            new Mojo.com.ForceNoticeDialog({}, {
-                                                title: Mojo.utils.locale('force', 'force_boss_challenge_start5'),
-                                                hasDefaultMsg: true,
-                                                hintText: Mojo.utils.locale('force', 'force_boss_challenge_hint_text'),
-                                                okBtnClick: function (that) {
-                                                    that.close();
-                                                    Mojo.ajax("/forceBoss/callingMember", {
-                                                        content: that.getContent()
-                                                    }, function (response) {
-                                                        Mojo.app.toast.show(Mojo.utils.locale('common', 'suggestion_has_send'));
+                    var bossLevelSelectDlg = new Mojo.com.ForceBossChallengeLevelSelectDialog(self._data, {
+                        startChallenge: function (boss) {
+                            bossLevelSelectDlg.close();
+                            var dlg = new Mojo.com.ForceBossChallengePreviewDialog({
+                                challenge_num: self._data.challenge.free,
+                                challenge_rm: self._data.challenge.rm,
+                                challenge_vm: self._data.challenge.vm,
+                                niudanlist: self._data.rewards,
+                                niudanId: self._data.rewards[0].id,
+                                callback: function (niudanId) {
+                                    if ((self._data.challenge.free > 0 && parseInt(self._playerProfile.vm) < parseInt(self._data.challenge.vm)) || (self._data.challenge.free == 0 && parseInt(self._playerProfile.rm) < parseInt(self._data.challenge.rm))) {
+                                        var failDialog = new Mojo.ui.Dialog(undefined, {
+                                            title: Mojo.utils.locale('force', "force_boss_challenge_lack_title")
+                                        });
+                                        if (self._data.challenge.free > 0) {
+                                            $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_vm")).appendTo(failDialog._content);
+                                            new Mojo.ui.Button(undefined, {
+                                                text: Mojo.utils.locale('mall', 'go_vm'),
+                                                special: "button-big-red",
+                                                click: function () {
+                                                    failDialog.close();
+                                                    Mojo.app.redirect("/mall", {
+                                                        selected: 2
                                                     });
                                                 }
-                                            }).open();
-                                        },
-                                        rightBtnText: Mojo.utils.locale('common', 'close'),
-                                        rightBtnClick: function (that) {
-                                            that.close();
-                                        },
-                                    }).open();
-                                    self._options.getController().getProfile().sync();
-                                } else {
-                                    if (response.errorCode == 230201) {
-                                        var t = Mojo.utils.locale('force', 'forcewar_tip_title');
-                                        if (response.data != undefined && response.data.title != undefined) {
-                                            t = response.data.title;
+                                            }).element().appendTo(failDialog._footer);
+                                        } else if (self._data.challenge.free == 0) {
+                                            $('<div class="tip"></div>').html(Mojo.utils.locale('force', "force_boss_challenge_lack_rm")).appendTo(failDialog._content);
+                                            new Mojo.ui.Button(undefined, {
+                                                text: Mojo.utils.locale('mall', 'go_payment'),
+                                                special: "button-big-red",
+                                                click: function () {
+                                                    failDialog.close();
+                                                    Mojo.app.redirect("/mall", {
+                                                        selected: 4
+                                                    });
+                                                }
+                                            }).element().appendTo(failDialog._footer);
                                         }
-                                        (new Mojo.com.CommonDialog(undefined, {
-                                            title: t,
-                                            content: $('<div class="tip"></div>').html(response.errorMsg),
-                                            leftBtnText: Mojo.utils.locale('common', 'ok'),
-                                            leftBtnClick: function (that) {
-                                                that.close();
-                                                Mojo.app.redirect('/force', {
-                                                    index: 7
-                                                });
+                                        new Mojo.ui.Button(undefined, {
+                                            text: Mojo.utils.locale('common', 'close'),
+                                            special: "button-big-blue",
+                                            click: function () {
+                                                failDialog.close();
                                             }
-                                        })).open();
-                                    } else {
-                                        if (Mojo.utils.isNone(response.errorMsg) || response.errorMsg == '') {
-                                            response.errorMsg = Mojo.utils.locale('common', 'action_error');
-                                        }
-                                        (new Mojo.com.CommonDialog(undefined, {
-                                            title: response.data ? response.data.title : Mojo.utils.locale('force', 'forcewar_tip_title'),
-                                            content: $('<div class="tip"></div>').html(response.errorMsg),
-                                            leftBtnText: Mojo.utils.locale('common', 'ok'),
-                                            leftBtnClick: function (that) {
-                                                that.close();
-                                            }
-                                        })).open();
+                                        }).element().appendTo(failDialog._footer);
+                                        failDialog.open();
+                                        return;
                                     }
+                                    var skip_cd = 0;
+                                    if (self._data.challenge.free == 0) {
+                                        skip_cd = 1;
+                                    }
+                                    self._forceWarAjax("/forceBoss/challenge", {
+                                        niudan_id: niudanId,
+                                        skip_cd: skip_cd,
+                                        boss_level: boss.level
+                                    }, function (response) {
+                                        if (response && response.errorCode === 0) {
+                                            self._createChallengePanel();
+                                            new Mojo.com.CommonDialog(undefined, {
+                                                title: Mojo.utils.locale('force', 'force_boss_challenge_start5'),
+                                                content: $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_tip_content').replace('{{:opponent_force}}', boss.name)),
+                                                leftBtnText: Mojo.utils.locale('force', 'usurp_war_help'),
+                                                leftBtnClick: function (that) {
+                                                    that.close();
+                                                    new Mojo.com.ForceNoticeDialog({}, {
+                                                        title: Mojo.utils.locale('force', 'force_boss_challenge_start5'),
+                                                        hasDefaultMsg: true,
+                                                        hintText: Mojo.utils.locale('force', 'force_boss_challenge_hint_text'),
+                                                        okBtnClick: function (that) {
+                                                            that.close();
+                                                            Mojo.ajax("/forceBoss/callingMember", {
+                                                                content: that.getContent()
+                                                            }, function (response) {
+                                                                Mojo.app.toast.show(Mojo.utils.locale('common', 'suggestion_has_send'));
+                                                            });
+                                                        }
+                                                    }).open();
+                                                },
+                                                rightBtnText: Mojo.utils.locale('common', 'close'),
+                                                rightBtnClick: function (that) {
+                                                    that.close();
+                                                },
+                                            }).open();
+                                            self._options.getController().getProfile().sync();
+                                        } else {
+                                            if (response.errorCode == 230201) {
+                                                var t = Mojo.utils.locale('force', 'forcewar_tip_title');
+                                                if (response.data != undefined && response.data.title != undefined) {
+                                                    t = response.data.title;
+                                                }
+                                                (new Mojo.com.CommonDialog(undefined, {
+                                                    title: t,
+                                                    content: $('<div class="tip"></div>').html(response.errorMsg),
+                                                    leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                                    leftBtnClick: function (that) {
+                                                        that.close();
+                                                        Mojo.app.redirect('/force', {
+                                                            index: 7
+                                                        });
+                                                    }
+                                                })).open();
+                                            } else {
+                                                if (Mojo.utils.isNone(response.errorMsg) || response.errorMsg == '') {
+                                                    response.errorMsg = Mojo.utils.locale('common', 'action_error');
+                                                }
+                                                (new Mojo.com.CommonDialog(undefined, {
+                                                    title: response.data ? response.data.title : Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                                    content: $('<div class="tip"></div>').html(response.errorMsg),
+                                                    leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                                    leftBtnClick: function (that) {
+                                                        that.close();
+                                                    }
+                                                })).open();
+                                            }
+                                        }
+                                    });
                                 }
                             });
-                        }
+                            dlg.open();
+                        },
                     });
-                    dlg.open();
+                    bossLevelSelectDlg.open();
                 },
                 disableClick: function () {
                     if (parseInt(self._playerProfile.position_id) > 3) {
@@ -21277,30 +21534,9 @@
                     } else if (self._data.limit == 0) {
                         Mojo.app.toast.show(Mojo.utils.locale('force', 'force_boss_challenge_no_right2'));
                     }
-                }
+                },
             });
             preContent.append(this._challengeButton.element());
-            this._rm = new Mojo.ui.Label(undefined, {
-                classes: ['rm'],
-                text: '0',
-            });
-            this._rm.text(self._data.challenge.rm);
-            if (parseInt(self._data.challenge.free) == 0 && self._data.limit > 0) {
-                this._challengeButton.element().append(this._rm.element());
-                if (parseInt(self._data.challenge.rm) < 10) {
-                    this._challengeButton.element().addClass("challenge-button-with-rm1");
-                } else if (parseInt(self._data.challenge.rm) < 100) {
-                    this._challengeButton.element().addClass("challenge-button-with-rm2");
-                } else if (parseInt(self._data.challenge.rm) < 1000) {
-                    this._challengeButton.element().addClass("challenge-button-with-rm3");
-                } else if (parseInt(self._data.challenge.rm) < 10000) {
-                    this._challengeButton.element().addClass("challenge-button-with-rm4");
-                } else if (parseInt(self._data.challenge.rm) < 100000) {
-                    this._challengeButton.element().addClass("challenge-button-with-rm5");
-                } else {
-                    this._challengeButton.element().addClass("challenge-button-with-rm");
-                }
-            }
             if (parseInt(self._playerProfile.position_id) > 3 || self._data.limit == 0) {
                 self._challengeButton.disable(true);
             }
@@ -21741,6 +21977,9 @@
                     msgid: mid
                 }, function (response) {
                     if (response && response.errorCode === self._IN_CHALLENGE_CODE) {
+                        if (response.data.boss) {
+                            response.data.boss = response.data.boss[response.data.battle.bossLevel];
+                        }
                         if (Mojo.utils.isNone(response.data) == false) {
                             self._data = response.data;
                             self._forceBattleTime = self._data.battle.timeout;
@@ -22148,6 +22387,189 @@
         localeCat: function () {
             return 'force';
         }
+    });
+})(window, jQuery);
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossChallengeLevelSelectDialog = Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.ForceBossChallengeLevelSelectDialog";
+        },
+        init: function (data, options) {
+            this._super('com-force-challenge-levelselectdialog', options);
+            this._data = data;
+            this._list = undefined;
+            this._title.html(Mojo.utils.locale("force", "force_challenge_model_title"));
+            this.refresh();
+        },
+        refresh: function () {
+            this._refreshList();
+        },
+        _refreshList: function () {
+            var self = this;
+            if (false === Mojo.utils.isNone(this._list)) {
+                this._list.element().remove();
+            }
+            this._list = new Mojo.ui.ListPanel('boss-level-select-listpanel', {
+                showMore: false,
+                scrollable: true,
+                loadFunc: function (l, s, p, that) {
+                    for (var bossIndex in self._data.boss) {
+                        var boss = self._data.boss[bossIndex];
+                        boss.duration = self._data.duration;
+                        that.appendData(boss);
+                    }
+                },
+                drawFunc: function (boss) {
+                    var bossObj = new Mojo.Object(undefined, {
+                        classes: ['challenge-level-element', 'box-inner']
+                    });
+                    $('<img />').hide().appendTo(bossObj.element()).attr({
+                        src: boss.large_image
+                    });
+                    var bossImage = new Mojo.Object(undefined, {
+                        classes: ['com-force-challenge-boss-img']
+                    });
+                    bossImage.element().bind("click", function () {
+                        self.element().hide();
+                        new Mojo.com.ForceBossInfoDialog(boss, {
+                            rightBtnText: Mojo.utils.locale('common', 'close'),
+                            rightBtnClick: function (that) {
+                                that.close();
+                            },
+                            close: function () {
+                                self.element().show();
+                            }
+                        }).open(true);
+                    })
+                    bossObj.element().append(bossImage.element());
+                    var bossInfo = new Mojo.Object(undefined, {
+                        classes: ['com-force-callenge-boss-info']
+                    });
+                    $('<div></div>').addClass('level').html(Mojo.utils.locale("force", "force_challenge_model_" + boss.difficulty, {
+                        name: boss.name,
+                        level: boss.level
+                    })).appendTo(bossInfo.element());
+                    $('<div></div>').addClass('duration').html(Mojo.utils.locale("force", "force_challenge_model_duration", {
+                        "duration": boss.duration
+                    })).appendTo(bossInfo.element());
+                    var str = "";
+                    if (boss.difficulty == "hard") {
+                        str = Mojo.utils.locale("force", "force_challenge_model_skill_hard", {
+                            level: boss.level - 5
+                        });
+                    } else {
+                        str = Mojo.utils.locale("force", "force_challenge_model_skill_" + boss.difficulty);
+                    }
+                    $('<div></div>').addClass('skill').html(str).appendTo(bossInfo.element());
+                    bossObj.element().append(bossInfo.element());
+                    var challengeButton = new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('force', 'force_boss_challenge_start'),
+                        click: function () {
+                            self._options.startChallenge(boss);
+                        }
+                    });
+                    var challengeButtonEle = challengeButton.element();
+                    challengeButtonEle.appendTo(bossObj.element());
+                    if (parseInt(self._data.challenge.free) == 0 && self._data.limit > 0) {
+                        self._rm = new Mojo.ui.Label(undefined, {
+                            classes: ['rm'],
+                            text: '0',
+                        });
+                        self._rm.text(self._data.challenge.rm);
+                        challengeButtonEle.append(self._rm.element());
+                        if (parseInt(self._data.challenge.rm) < 10) {
+                            challengeButtonEle.addClass("challenge-button-with-rm1");
+                        } else if (parseInt(self._data.challenge.rm) < 100) {
+                            challengeButtonEle.addClass("challenge-button-with-rm2");
+                        } else if (parseInt(self._data.challenge.rm) < 1000) {
+                            challengeButtonEle.addClass("challenge-button-with-rm3");
+                        } else if (parseInt(self._data.challenge.rm) < 10000) {
+                            challengeButtonEle.addClass("challenge-button-with-rm4");
+                        } else if (parseInt(self._data.challenge.rm) < 100000) {
+                            challengeButtonEle.addClass("challenge-button-with-rm5");
+                        } else {
+                            challengeButtonEle.addClass("challenge-button-with-rm");
+                        }
+                    }
+                    return bossObj;
+                }
+            });
+            if (parseInt(self._data.challenge.free) > 0) {
+                this._list._header.html(Mojo.utils.locale('force', 'force_boss_challenge_limit', {
+                    num: self._data.challenge.free
+                }));
+            } else {
+                this._list._header.html(Mojo.utils.locale('force', 'force_boss_challenge_limit2', {
+                    num: self._data.limit
+                }));
+            }
+            setTimeout(function () {
+                self._list.element().appendTo(self._content);
+                self._list.resize();
+            });
+        },
+        _getDefaultOptions: function () {
+            var self = this;
+            return $.extend(true, this._super(), {
+                id: undefined,
+                startChallenge: $.noop,
+            });
+        },
+    });
+})(window, jQuery);
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceBossInfoDialog = Mojo.com.CommonDialog.extend({
+        clsname: function () {
+            return "com.ForceBossInfoDialog";
+        },
+        init: function (data, options) {
+            this._super('com-force-challenge-bossinfodialog', options);
+            this._data = data;
+            this._list = undefined;
+            this._title.html(Mojo.utils.locale("force", "force_challenge_model_bossinfo_title"));
+            this._addContent(data);
+        },
+        _addContent: function (boss) {
+            var bossObj = new Mojo.Object(undefined, {
+                classes: ['boss-info-content', 'box-inner']
+            });
+            var bossInfo = new Mojo.Object(undefined, {
+                classes: ['com-force-callenge-boss-info']
+            });
+            bossObj.element().append(bossInfo.element());
+            var bossImage = new Mojo.Object(undefined, {
+                classes: ['boss-info-content-img']
+            });
+            bossInfo.element().append(bossImage.element());
+            var bossInfoText = new Mojo.Object(undefined, {
+                classes: ['com-force-callenge-boss-text']
+            });
+            bossInfoText.element().appendTo(bossInfo.element());
+            $('<div></div>').addClass('level').html(Mojo.utils.locale("force", "force_challenge_model_bossinfo_name", {
+                "name": boss.name,
+                "level": boss.level
+            })).appendTo(bossInfoText.element());
+            $('<div></div>').addClass('life').html(Mojo.utils.locale("force", "force_challenge_model_bossinfo_life", {
+                "life": boss.life
+            })).appendTo(bossInfoText.element());
+            $('<div></div>').addClass('defence').html(Mojo.utils.locale("force", "force_challenge_model_bossinfo_defence", {
+                min: boss.defence.min,
+                max: boss.defence.max
+            })).appendTo(bossInfoText.element());
+            bossObj.element().append(bossInfo.element());
+            var bossSkill = new Mojo.Object(undefined, {
+                classes: ['com-force-challenge-boss-skill']
+            });
+            bossSkill.element().html(Mojo.utils.locale("force", "force_challenge_model_bossinfo_skill", {
+                skill: boss.skill
+            }));
+            bossSkill.element().appendTo(bossObj.element());
+            this._content.append(bossObj.element());
+        },
     });
 })(window, jQuery);;
 (function (w, $, undefined) {
@@ -22811,6 +23233,7 @@
                     citySearch.element().remove();
                     forcePage.showCurrent();
                 },
+                from: 'forcecity',
                 viewMode: true,
                 citySearchParams: {},
                 cityListOptions: {
@@ -23988,6 +24411,9 @@
                 if (this._options.targetForceId) {
                     params["targetForceId"] = this._options.targetForceId;
                 }
+                if (self._options.from == 'forcecity') {
+                    params["simple"] = '1';
+                }
             } else if (self._options.type == 'search') {
                 url = '/force/search';
                 $.extend(true, params, self._options.forceSearchByLevelParams);
@@ -24071,7 +24497,11 @@
                 selected: 0
             });
             $.each(this._panels, function (i, p) {
-                self._tabs.addTab(Mojo.utils.locale('force', 'siege'));
+                if (self._options.from == 'forcecity') {
+                    self._tabs.addTab(Mojo.utils.locale('force', 'city'));
+                } else {
+                    self._tabs.addTab(Mojo.utils.locale('force', 'siege'));
+                }
             });
             this.element().append(this._tabs.element());
             this._tabs.element().find('.panel').addClass('box-outter');
@@ -24083,6 +24513,7 @@
             if (p.list == undefined || p.list == null) {
                 var defaultCityListOptions = {
                     type: 'battle',
+                    from: self._options.from,
                     showBtn: true,
                     onBtnClick: $.noop,
                     alwaysMore: false,
@@ -24226,6 +24657,169 @@
         },
         localeCat: function () {
             return 'force';
+        },
+    });
+})(window, jQuery);;;
+(function (w, $) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.GoodsBatchBuyDlg = w.Mojo.ui.Dialog.extend({
+        init: function (options) {
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-goodsbatchbuydlg');
+            this._disableTip = undefined;
+            this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
+            this._addContent();
+            this._addButtons();
+            this._checkInput();
+        },
+        close: function () {
+            this._super();
+            if (this._options.onClose instanceof Function) {
+                this._options.onClose();
+            }
+            w.scrollTo(0);
+        },
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                buyLimit: 10
+            });
+        },
+        _addContent: function () {
+            var self = this;
+            $('<div id="batchbuydlgtip" class="batch-buy-dlg-tip"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('mall', 'batch_buy_dlg_tip'));
+            if (self._options.vm != undefined && self._options.price != undefined) {
+                var currentVm = $('<div id="lastgrain" class="lastgrain"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('mall', 'current_vm'));
+                this._currentVmValue = new Mojo.ui.Label(undefined, {
+                    classes: self._options.type == 'rm' ? ['rm'] : ['vm'],
+                    text: parseInt(self._options.vm)
+                });
+                this._currentVmValue.element().appendTo(currentVm);
+                var costVm = $('<div id="lastration" class="lastration"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('mall', 'cost_vm'));
+                this._costVmValue = new Mojo.ui.Label(undefined, {
+                    classes: self._options.type == 'rm' ? ['rm'] : ['vm'],
+                    text: self._options.price
+                });
+                this._costVmValue.element().appendTo(costVm);
+            }
+            if (self._options.rm != undefined && self._options.price != undefined) {
+                var currentVm = $('<div id="lastgrain" class="lastgrain"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('mall', 'current_rm'));
+                this._currentVmValue = new Mojo.ui.Label(undefined, {
+                    classes: ['rm'],
+                    text: parseInt(self._options.rm)
+                });
+                this._currentVmValue.element().appendTo(currentVm);
+                var costVm = $('<div id="lastration" class="lastration"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('mall', 'cost_vm'));
+                this._costVmValue = new Mojo.ui.Label(undefined, {
+                    classes: ['rm'],
+                    text: self._options.price
+                });
+                this._costVmValue.element().appendTo(costVm);
+            }
+            var batchBuyNumTip = $('<div id="batchbuynumtip" class="batch-buy-num-tip"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('mall', 'batch_buy_num_tip'));
+            this._addInput('goods_num_input');
+            this._paragraph.find('.shareitem .input input').click(function () {
+                this.selectionStart = 0;
+                this.selectionEnd = this.value.length;
+            });
+            this._paragraph.find('.shareitem .input input').bind("input change keyup paste", function () {
+                self._checkInput();
+            });
+        },
+        _reset: function () {
+            var self = this;
+            self._invalid = false;
+            self._okBtn.disable(false);
+        },
+        _checkInput: function () {
+            var self = this;
+            self._reset();
+            var num = 0;
+            self._paragraph.find('.shareitem .input input').each(function (i, e) {
+                var v = $(e).val().trim();
+                if (self._isValid(v)) {
+                    num = v == "" ? 0 : parseInt($(e).val(), 10);
+                } else {
+                    self._invalid = true;
+                    return false;
+                }
+            });
+            if (self._invalid) {
+                self._okBtn.disable(true);
+                self._disableTip = Mojo.utils.locale('mall', 'batch_buy_dlg_tip', {
+                    '__default__': '请填写正确的购买数量'
+                });
+            } else if (num == 0) {
+                self._okBtn.disable(true);
+                self._disableTip = Mojo.utils.locale('mall', 'batch_buy_dlg_tip', {
+                    '__default__': '请填写正确的购买数量'
+                });
+            } else {
+                var cost = parseInt(self._options.price) * num;
+                if (self._options.vm != undefined && parseInt(self._options.vm) < cost) {
+                    self._disableTip = Mojo.utils.locale('mall', 'need_vm', {
+                        '__default__': '主公～您的银币不够啦，攒点钱再来吧！'
+                    });
+                    num = (parseInt(self._options.vm) - ((parseInt(self._options.vm)) % (self._options.price))) / (self._options.price);
+                }
+                if (self._options.rm != undefined && parseInt(self._options.rm) < cost) {
+                    self._disableTip = Mojo.utils.locale('mall', 'rm_not_enough', {
+                        '__default__': '主公～您的元宝不够啦，去充值吧！'
+                    });
+                    num = (parseInt(self._options.rm) - ((parseInt(self._options.rm)) % (self._options.price))) / (self._options.price);
+                }
+                if (num > self._options.buyLimit) {
+                    num = self._options.buyLimit;
+                }
+                self._paragraph.find('.shareitem .input input').val(num);
+                cost = self._options.price * num;
+                self._costVmValue.text(cost);
+                if (num < 1) {
+                    self._okBtn.disable(true);
+                }
+            }
+        },
+        _isValid: function (v) {
+            var regex = /^\d{0,6}$/;
+            return regex.test(v);
+        },
+        _addInput: function (label) {
+            var self = this;
+            var element = $("<div class='shareitem'></div>");
+            var inputarea = $("<div class='input'></div>");
+            var _input = $("<input type='text' maxlength='6' value='1'/>");
+            _input.attr('name', label);
+            _input.appendTo(inputarea);
+            $('<span>(1~10)</span>').appendTo(inputarea);
+            inputarea.appendTo(element);
+            element.appendTo(this._paragraph);
+        },
+        _addButtons: function () {
+            var self = this;
+            this._okBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('mall', 'sure_buy'),
+                special: "button-big-red",
+                click: function () {
+                    self.close();
+                    var count = self._paragraph.find('input[name="goods_num_input"]').val();
+                    if (self._options.onBuy instanceof Function) {
+                        self._options.onBuy(count);
+                    }
+                },
+                disableClick: function () {
+                    if (self._disableTip) {
+                        Mojo.app.toast.show(self._disableTip);
+                    }
+                }
+            });
+            this._okBtn.element().appendTo(this._footer);
+            new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'think_again'),
+                special: 'button-big-blue',
+                click: function () {
+                    self.close();
+                }
+            }).element().appendTo(this._footer);
         },
     });
 })(window, jQuery);
