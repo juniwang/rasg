@@ -14898,6 +14898,24 @@ function trackClient(appkeys) {
                 });
             },1300);
         },
+        auto_force_exchange: function(fn, params){
+            var self = this;
+            setTimeout(function(){
+                Mojo.ajax('/force/exchange', {
+                    id: "dh0101"
+                }, function (result) {
+                    if (result.errorCode == 0) {
+                        Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
+                    } else {
+                        Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
+                    }
+                    self.auto_finish(fn);
+                }, function () {
+                    Mojo.app.toast.show2("[兑换]兑换祝福石失败");
+                    self.auto_finish(fn);
+                });
+            },1300);
+        },
         auto_finish: function(fn){
             var self = this;
             var found=-1;

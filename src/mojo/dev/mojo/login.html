@@ -249,8 +249,9 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 	// /fuben/do
 	// /force/playerTasks
 	var ajax_test = {};
+	ajax_test.type=4;
 
-	// Mojo.ajax("/fuben/fubens", ajax_test, function (result) {
+	// Mojo.ajax("/illustration/list", ajax_test, function (result) {
 	// 	var show = result;
 	// 	$("<div />").html(JSON.stringify(show)).appendTo($("#page-default-login"));
 	// }, function(){});
@@ -302,8 +303,7 @@ Mojo.track.init({appKey : "1337137488698383",ruid : "",channel : "html",});Mojo.
 					
 					if(result.errorMsg.UserLoginForm_password != undefined){
 						$("#pwdErrMsg").html(result.errorMsg.UserLoginForm_password);
-					}
-					
+					}					
 					user = Mojo.app.automode.getNextUser();
 					$("<div/>").html("<br/>当前为自动登录模式，<span id='splogins'>5</span>秒后自动登陆:" + user.name).appendTo($("#mojo-default-login"));
 					$("#UserLoginForm_username").val(user.name);
