@@ -14878,7 +14878,7 @@ function trackClient(appkeys) {
                         self.auto_finish(fn);
                     }
                 }
-            }, 4000);
+            }, self.auto_time(fn));
         },
         auto_zhufushi: function(fn){
             var self = this;
@@ -14899,22 +14899,112 @@ function trackClient(appkeys) {
             },1300);
         },
         auto_force_exchange: function(fn, params){
+            //25女将蛋
             var self = this;
             setTimeout(function(){
                 Mojo.ajax('/force/exchange', {
                     id: "dh0101"
                 }, function (result) {
                     if (result.errorCode == 0) {
-                        Mojo.app.toast.show2("[兑换]势力兑换成功，获得祝福石");
+                        var msg = "[兑换]势力兑换成功";
+                        if(result.data && result.data.entities && result.data.entities.length>0){
+                            msg += "，获得:" + result.data.entities[0].name;
+                        }
+                        Mojo.app.toast.show2(msg);
                     } else {
-                        Mojo.app.toast.show2("[兑换]兑换祝福石失败：" + result.errorMsg);
+                        Mojo.app.toast.show2("[兑换]势力兑换失败：" + result.errorMsg);
                     }
                     self.auto_finish(fn);
                 }, function () {
-                    Mojo.app.toast.show2("[兑换]兑换祝福石失败");
+                    Mojo.app.toast.show2("[兑换]势力兑换失败");
                     self.auto_finish(fn);
                 });
-            },1300);
+            }, self.auto_time(fn));
+        },
+        auto_activity: funtion(fn){
+            // 活动兑换，只兑换:蒋干＋蒙古马＋银币. 自动购买蒋干/蒙古马, 但需要自己留够银币
+            var self = this;
+            var flag = true;
+            var activities = [];
+            var buy1 = false;
+            var buy2 = false;
+            var params = {};
+            var ac = null;
+            var conditions = [];
+            var activity_iv = setInterval(function(){
+                if(flag){
+                    var listParams={
+                        start: 0,
+                        count: 20,
+                        type: 4,
+                        sub_type: 0,
+                    };
+                    Mojo.ajax("/illustration/list", listParams, function(result){
+                        if(result.errorCode==0 && result.data && result.data.list){
+                            flag = false;
+                            $.each(result.data.list, function(i, item){
+                                var jg = false;
+                                var mgm = false;
+                                var yb = false;
+                                $.each(item.conditions, function(i,cond){
+                                    if(cond.entity && cond.entity.name=="蒋干"){
+                                        jg = true;
+                                        buy1 = cond.entity_count < 10;
+                                    }
+                                    if(cond.entity && cond.entity.name=="蒙古马"){
+                                        mgm = true;
+                                        buy2 = cond.entity_count < 10;
+                                    }
+                                    if(cond.entity && cond.entity.name=="银币"){
+                                        yb = true;
+                                    }
+                                });
+
+                                if(item.could_do && jg && mgm && yb){
+                                    activities.push(item);
+                                }
+                            });
+                        }else{
+                            window.clearInterval(activity_iv);
+                            self.auto_finish(fn);
+                        }
+                    }, function(){
+                        Mojo.app.toast.show2("[活动]同步活动信息失败");
+                        window.clearInterval(activity_iv);
+                        self.auto_finish(fn);
+                    });
+                }else if (buy1){
+                    buy1 = false;
+                    //购买蒋干
+                    Mojo.ajax("/mall/buy", {"id":"sp0105"}, function(result){
+                        if(result.errorCode == 0){
+                            Mojo.app.toast.show2("[活动]自动购买一大波蒋干成功");
+                        }else{
+                            Mojo.app.toast.show2("[活动]自动购买蒋干失败:" + result.errorMsg);                            
+                        }
+                    }, function(){
+                        Mojo.app.toast.show2("[活动]自动购买蒋干失败");
+                    })
+                }else if (buy2){
+                    buy2 = false;
+                    //购买蒙古马
+                    Mojo.ajax("/mall/buy", {"id":"sp0107"}, function(result){
+                        if(result.errorCode == 0){
+                            Mojo.app.toast.show2("[活动]自动购买一大波蒙古马成功");
+                        }else{
+                            Mojo.app.toast.show2("[活动]自动购买蒙古马失败:" + result.errorMsg);                            
+                        }
+                    }, function(){
+                        Mojo.app.toast.show2("[活动]自动购买蒙古马失败");
+                    })
+                }else if(activities.length > 0){
+                    ac = activities[0];
+                    params = {};
+                    params.game_activity_id = ac.id;
+                }else{
+                    self.auto_finish(fn);
+                }
+            }, self.auto_time(fn));
         },
         auto_finish: function(fn){
             var self = this;
@@ -14974,7 +15064,7 @@ function trackClient(appkeys) {
                                         Mojo.app.toast.show2("[活动]兑换活动碎片网络异常");
                                         self.auto_finish(fn);
                                     });
-                                }, 2000);
+                                }, self.auto_time(fn));
                             }
                         }else{
                             Mojo.app.toast.show2("[活动]未发现活动碎片");
@@ -14989,7 +15079,7 @@ function trackClient(appkeys) {
                     Mojo.app.toast.show2("[活动]获取活动碎片id异常");
                     self.auto_finish(fn);
                 });
-            },2000);  
+            }, self.auto_time(fn));  
         },
         auto_collect: function(fn){
             var self=this;
@@ -15036,7 +15126,7 @@ function trackClient(appkeys) {
                         compositestart = !compositestart;
                     }, function () {}, {});
                 }
-            },3000);
+            }, self.auto_time(fn));
         },
         auto_fuben_internal: function(fn, fubens, fubens_refresh, fn_param){
             var self = this;
@@ -15046,7 +15136,7 @@ function trackClient(appkeys) {
             var cur_fb_task_group;
             var is_boss_group = false;
             var boss_award = (fn_param == "award");
-            var iv_time = 2800;
+            var iv_time = self.auto_time(fn);
             var runs=0;
             var needwait=false;
             var time = new Date().getTime() / 1000;
@@ -15290,7 +15380,7 @@ function trackClient(appkeys) {
                                         Mojo.app.toast.show2("[兑换]变废为宝失败：网络异常");
                                         self.auto_finish(fn);
                                     });
-                                },2500);
+                                }, self.auto_time("bswb"));
                             }
                         }
                     }
@@ -15367,7 +15457,7 @@ function trackClient(appkeys) {
                     Mojo.app.toast.show2("[兑换]变废为宝失败：网络异常");
                     self.auto_finish(fn);
                 });
-            }, 2132);
+            }, self.auto_time(fn));
         },
         auto_mission: function(fn){
             var self=this;
@@ -15449,7 +15539,7 @@ function trackClient(appkeys) {
                         self.auto_finish(fn);
                     }
                 }
-            }, 4285);
+            }, self.auto_time(fn));
         },
         auto_huangjin: function(fn){
             var self=this;
@@ -15496,7 +15586,7 @@ function trackClient(appkeys) {
                     Mojo.app.toast.show2("[黄巾]获取黄巾宝藏失败");
                     self.auto_finish(fn);
                 });
-            },5500);
+            }, self.auto_time(fn));
         },
         auto_signin: function(fn){
             var self=this;
@@ -15515,7 +15605,26 @@ function trackClient(appkeys) {
                     Mojo.app.toast.show2("[签到]签到异常");
                     self.auto_finish(fn);
                 });
-            },3300);
+            }, self.auto_time(fn));
+        },
+        auto_time: function(fn){
+            //manage the timeout or interval
+            var self = this;
+            switch(fn){
+                case "zhufushi": return 1250;
+                case "signin": return 1750;
+                case "huangjin": return 2250;
+                case "qiandai": return 2750;
+                case "bswb": return 3250;
+                case "suipian": return 3750;
+                case "fex": return 4250;
+                case "fuben": return 3800; //interval
+                case "collect": return 3600;//interval
+                case "force": return 4000; //interval
+                case "mission": return 4200; // interval
+                case "activity": return 4400;//inverval
+                default: return 4000;
+            }
         },
         load: function () {
             this._super();
@@ -15587,6 +15696,12 @@ function trackClient(appkeys) {
                             break;
                         case "qiandai":
                             self.auto_qiandai(fn);
+                            break;
+                        case "fex":
+                            self.auto_force_exchange(fn, fn_param);
+                            break;
+                        case "activity":
+                            self.auto_activity(fn);
                             break;
                         default:
                             Mojo.app.toast.show2("未知的自动任务:" + fn);
