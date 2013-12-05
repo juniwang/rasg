@@ -14921,7 +14921,7 @@ function trackClient(appkeys) {
                 });
             }, self.auto_time(fn));
         },
-        auto_activity: funtion(fn){
+        auto_activity: function(fn){
             // 活动兑换，只兑换:蒋干＋蒙古马＋银币. 自动购买蒋干/蒙古马, 但需要自己留够银币
             var self = this;
             var flag = true;
@@ -14951,11 +14951,11 @@ function trackClient(appkeys) {
                                 $.each(item.conditions, function(i,cond){
                                     if(cond.entity && cond.entity.name=="蒋干"){
                                         jg = true;
-                                        buy1 = cond.entity_count < 10;
+                                        if(cond.player_entity_count<10)buy1=true;
                                     }
                                     if(cond.entity && cond.entity.name=="蒙古马"){
                                         mgm = true;
-                                        buy2 = cond.entity_count < 10;
+                                        if(cond.player_entity_count<10)buy2=true;
                                     }
                                     if(cond.entity && cond.entity.name=="银币"){
                                         yb = true;
@@ -15040,6 +15040,8 @@ function trackClient(appkeys) {
                             }else{
                                 Mojo.app.toast.show2("[活动]兑换"+ac.name+"失败："+response1.errorMsg);
                             }
+                            activities=[];
+                            window.clearInterval(activity_iv);
                             self.auto_finish(fn);
                         }, function(){
                             Mojo.app.toast.show2("[活动]兑换"+ac.name+"失败:网络异常");
@@ -15663,7 +15665,7 @@ function trackClient(appkeys) {
                 case "qiandai": return 2750;
                 case "bswb": return 3250;
                 case "suipian": return 3750;
-                case "fex": return 4250;
+                case "fex": return 5250;
                 case "fuben": return 3800; //interval
                 case "collect": return 3600;//interval
                 case "force": return 4000; //interval

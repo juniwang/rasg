@@ -12,7 +12,9 @@
     // "mission":自动任务
     // "huangjin":黄巾宝藏祝福石、转生丹
     // "signin": 自动签到
-    // "qiandai": 变碎为宝钱袋
+    // "qiandai": 钱袋
+    // "fex": 25粮食蛋，女将
+    // "activity": 活动兑换。蒋干+蒙古马+银币，自动买蒋干、蒙古马（需留够钱）
     g.automode.accounts = {
 		"common": {
 			"pass": "公共密码",
