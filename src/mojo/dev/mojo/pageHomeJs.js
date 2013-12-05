@@ -14928,6 +14928,7 @@ function trackClient(appkeys) {
             var activities = [];
             var buy1 = false;
             var buy2 = false;
+
             var params = {};
             var ac = null;
             var conditions = [];
@@ -14942,6 +14943,7 @@ function trackClient(appkeys) {
                     Mojo.ajax("/illustration/list", listParams, function(result){
                         if(result.errorCode==0 && result.data && result.data.list){
                             flag = false;
+                            Mojo.app.toast.show2("[活动]同步活动信息");
                             $.each(result.data.list, function(i, item){
                                 var jg = false;
                                 var mgm = false;
@@ -14960,10 +14962,23 @@ function trackClient(appkeys) {
                                     }
                                 });
 
-                                if(item.could_do && jg && mgm && yb){
+                                if(item.could_do && jg && mgm && yb && parseInt(item.cooling_time)==0){
                                     activities.push(item);
                                 }
                             });
+
+                            if(activities.length >0){
+                                ac = activities[0];
+                                params = {};
+                                conditions= [];
+                                params.game_activity_id = ac.id;
+                                $.each(ac.conditions, function(i, cond){
+                                    if(cond.need_choose) conditions.push(cond);
+                                });
+                            }else{
+                                window.clearInterval(activity_iv);
+                                self.auto_finish(fn);
+                            }
                         }else{
                             window.clearInterval(activity_iv);
                             self.auto_finish(fn);
@@ -14998,10 +15013,41 @@ function trackClient(appkeys) {
                         Mojo.app.toast.show2("[活动]自动购买蒙古马失败");
                     })
                 }else if(activities.length > 0){
-                    ac = activities[0];
-                    params = {};
-                    params.game_activity_id = ac.id;
+                    if(conditions.length>0){
+                        var cond = conditions[0].id;
+                        Mojo.ajax("/gameactivity/choose", {
+                            start: 0,
+                            count: 1,
+                            condition_id: cond
+                        }, function(response){
+                            if(response.errorCode == 0){
+                                eval("params.condition_" + cond + " = " + response.data.list[0].player_entity_id + ";");
+                                conditions.splice(0,1);
+                            }else{
+                                window.clearInterval(activity_iv);
+                                self.auto_finish(fn);
+                            }
+                        } , function(){
+                            window.clearInterval(activity_iv);
+                            self.auto_finish(fn);
+                        });
+                    }else{
+                        Mojo.ajax("/gameactivity/do", params, function (response1) {
+                            if(response1.errorCode==0){
+                                if(response1.data && response1.data.entity){
+                                    Mojo.app.toast.show2("[活动]兑换"+ac.name+"成功，获得"+response1.data.entity.name);
+                                }
+                            }else{
+                                Mojo.app.toast.show2("[活动]兑换"+ac.name+"失败："+response1.errorMsg);
+                            }
+                            self.auto_finish(fn);
+                        }, function(){
+                            Mojo.app.toast.show2("[活动]兑换"+ac.name+"失败:网络异常");
+                            self.auto_finish(fn);
+                        });
+                    }
                 }else{
+                    window.clearInterval(activity_iv);
                     self.auto_finish(fn);
                 }
             }, self.auto_time(fn));
