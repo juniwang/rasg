@@ -14486,6 +14486,8 @@ function trackClient(appkeys) {
                         Mojo.app.saveStorage("auto-mode", "true");
                         self.load();
                     }
+                } else if('btn-battleground' === id) {
+                    Mojo.app.redirect('/bg');
                 }
             };
             var btns = [{
@@ -14505,8 +14507,8 @@ function trackClient(appkeys) {
                 id: 'btn-fuben',
                 text: 'Fuben'
             }, {
-                id: 'btn-intensify',
-                text: 'Intensify'
+                id: 'btn-battleground',
+                text: '战场'
             }];
             $.each(btns, function (i, b) {
                 self._quickButtons.append((new Mojo.ui.Button(b.id, {
@@ -14527,7 +14529,7 @@ function trackClient(appkeys) {
                 } else if ('btn-entity-browse' === id) {
                     Mojo.app.redirect('/entity', {}, 'event', '04_051');
                 } else if ('btn-intensify' === id) {
-                    Mojo.app.redirect('/intensify');
+                    Mojo.app.redirect('/intensify', {}, 'event', '04_044');
                 } else if ('btn-props' === id) {
                     Mojo.app.redirect('/mall', {
                         selected: 2
@@ -14565,13 +14567,17 @@ function trackClient(appkeys) {
                 text: 'Illustration',
                 cl: 'task-pic'
             }, {
-                id: 'btn-auto-collect',
-                text: '合成',
-                cl: 'task-friend'
+                id: 'btn-intensify',
+                text: 'Intensify',
+                cl: 'task-intensify'
             }, {
                 id: 'btn-messages',
                 text: 'Messages',
                 cl: 'task-news'
+            }, {
+                id: 'btn-auto-collect',
+                text: '合成',
+                cl: 'task-friend'
             }, {
                 id: 'btn-chat',
                 text: 'Chat',
@@ -15655,6 +15661,55 @@ function trackClient(appkeys) {
                 });
             }, self.auto_time(fn));
         },
+        auto_salary: function(fn){
+            var self=this;
+            setTimeout(function(){
+                Mojo.ajax("/bg/salary", {}, function (result) {
+                    if (result.errorCode == 0) {
+                        var msg="[俸禄]自动领取俸禄";
+                        if(result.data)msg+=",获得金币："+result.data.gold;
+                        Mojo.app.toast.show2(msg);
+                    } else {
+                        Mojo.app.toast.show2("[俸禄]领取失败:"+result.errorMsg);
+                    }
+                    self.auto_finish(fn);
+                },function(){
+                    Mojo.app.toast.show2("[俸禄]领取俸禄异常");
+                    self.auto_finish(fn);
+                });
+            }, self.auto_time(fn));
+        },
+        auto_bgexchange: function(fn, fn_param){
+            var self = this;
+            var bgtext={"1":"转生丹","2":"祝福石","8":"体力大还丹","7":"超级宝物蛋","3":"三星将领蛋","4":"三星装备蛋","5":"四星将领蛋","6":"四星装备蛋","16":"轮回符"};
+            var bgex_list = "1,2";
+            if(fn_param)bgex_list=fn_param;
+            var bg = bgex_list.split(",");
+            var index = 0;
+            var auto_bgexchange_iv = setInterval(function(){
+                if(index < bg.length){
+                    var msg = "[战场兑换]兑换";
+                    if(bgtext[bg[index]])msg+=bgtext[bg[index]];
+                    Mojo.ajax("/bg/doExchange", {"id": bg[index]}, function(result){
+                        if(result.errorCode == 0){
+                            msg += "成功";
+                            if(result.data && result.data.entities && result.data.entities.length>0){
+                                msg += ",获得:"+ result.data.entities[0].name;
+                            }
+                            Mojo.app.toast.show2(msg);
+                        }else{
+                            Mojo.app.toast.show2(msg + "失败:"+result.errorMsg);
+                        }
+                        index = index+1;
+                    }, function(){
+                        Mojo.app.toast.show2(msg+"失败:网络异常");
+                        index = index+1;
+                    });
+                }else{
+                    self.auto_finish(fn);
+                }
+            }, self.auto_time(fn));
+        },
         auto_time: function(fn){
             //manage the timeout or interval
             var self = this;
@@ -15665,12 +15720,14 @@ function trackClient(appkeys) {
                 case "qiandai": return 2750;
                 case "bswb": return 3250;
                 case "suipian": return 3750;
+                case "salary": return 4250;
                 case "fex": return 5250;
                 case "fuben": return 3800; //interval
                 case "collect": return 3600;//interval
                 case "force": return 4000; //interval
                 case "mission": return 4200; // interval
                 case "activity": return 4400;//inverval
+                case "bgexchange": return 4600; //interval
                 default: return 4000;
             }
         },
@@ -15750,6 +15807,12 @@ function trackClient(appkeys) {
                             break;
                         case "activity":
                             self.auto_activity(fn);
+                            break;
+                        case "salary"://领俸禄
+                            self.auto_salary(fn);
+                            break;
+                        case "bgexchange":
+                            self.auto_bgexchange(fn, fn_param);
                             break;
                         default:
                             Mojo.app.toast.show2("未知的自动任务:" + fn);
