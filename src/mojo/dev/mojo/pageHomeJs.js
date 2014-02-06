@@ -14904,27 +14904,41 @@ function trackClient(appkeys) {
                 });
             },1300);
         },
-        auto_force_exchange: function(fn, params){
+        auto_force_exchange: function(fn, fn_param){
             //25女将蛋
             var self = this;
-            setTimeout(function(){
-                Mojo.ajax('/force/exchange', {
-                    id: "dh0101"
-                }, function (result) {
-                    if (result.errorCode == 0) {
-                        var msg = "[兑换]势力兑换成功";
-                        if(result.data && result.data.entities && result.data.entities.length>0){
-                            msg += "，获得:" + result.data.entities[0].name;
+            var fex_text={"dh0001":"祝福石","dh0002":"分解卷","dh0101":"三星女将扭蛋","dh0102":"三星将领扭蛋","dh0103":"四星装备扭蛋","dh0104":"三星东汉扭蛋","dh0105":"四星东汉扭蛋","dh0137":"四星求仙问道扭蛋"};
+            var fex_list = "dh0001,dh0002";
+            if(fn_param)fex_list=fn_param;
+            var fex = fex_list.split(',');
+            var index = 0;
+
+            var fex_iv = setInterval(function(){
+                if(index < fex.length){
+                    var fid = fex[index];
+                    var msg = "[势力兑换]兑换";
+                    if(fex_text[fid])msg+=fex_text[fid];
+
+                    Mojo.ajax('/force/exchange', {id: fid}, function (result) {
+                        if (result.errorCode == 0) {
+                            msg += "成功";
+                            if(result.data && result.data.entities && result.data.entities.length>0){
+                                msg += "，获得:" + result.data.entities[0].name;
+                            }
+                            Mojo.app.toast.show2(msg);
+                        } else {
+                            msg+="失败:"+result.errorMsg;
+                            Mojo.app.toast.show2(msg);
                         }
-                        Mojo.app.toast.show2(msg);
-                    } else {
-                        Mojo.app.toast.show2("[兑换]势力兑换失败：" + result.errorMsg);
-                    }
+                        index = index+1;
+                    }, function () {
+                        Mojo.app.toast.show2("[兑换]势力兑换失败");
+                        self.auto_finish(fn);
+                    });
+                }else{
+                    window.clearInterval(fex_iv);
                     self.auto_finish(fn);
-                }, function () {
-                    Mojo.app.toast.show2("[兑换]势力兑换失败");
-                    self.auto_finish(fn);
-                });
+                }
             }, self.auto_time(fn));
         },
         auto_activity: function(fn){
@@ -15686,6 +15700,7 @@ function trackClient(appkeys) {
             if(fn_param)bgex_list=fn_param;
             var bg = bgex_list.split(",");
             var index = 0;
+            
             var auto_bgexchange_iv = setInterval(function(){
                 if(index < bg.length){
                     var msg = "[战场兑换]兑换";
@@ -15706,6 +15721,7 @@ function trackClient(appkeys) {
                         index = index+1;
                     });
                 }else{
+                    window.clearInterval(auto_bgexchange_iv);
                     self.auto_finish(fn);
                 }
             }, self.auto_time(fn));
@@ -15721,13 +15737,13 @@ function trackClient(appkeys) {
                 case "bswb": return 3250;
                 case "suipian": return 3750;
                 case "salary": return 4250;
-                case "fex": return 5250;
                 case "fuben": return 3800; //interval
                 case "collect": return 3600;//interval
                 case "force": return 4000; //interval
                 case "mission": return 4200; // interval
                 case "activity": return 4400;//inverval
                 case "bgexchange": return 4600; //interval
+                case "fex": return 4800;//interval
                 default: return 4000;
             }
         },
@@ -15808,7 +15824,7 @@ function trackClient(appkeys) {
                         case "activity":
                             self.auto_activity(fn);
                             break;
-                        case "salary"://领俸禄
+                        case "salary":
                             self.auto_salary(fn);
                             break;
                         case "bgexchange":
