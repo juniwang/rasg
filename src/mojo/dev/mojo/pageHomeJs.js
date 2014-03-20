@@ -15087,10 +15087,10 @@ function trackClient(appkeys) {
                 self._fn.splice(found,1);
             }
             if(self._fn.length<=0){
-                Mojo.app.toast.show2("本轮自动任务已全部完成,4秒后切换下一个账号");
+                Mojo.app.toast.show2("本轮自动任务已全部完成,2秒后切换下一个账号");
                 setTimeout(function () {
                     Mojo.app.redirect("/default/login");
-                }, 4000);
+                }, 2000);
             }
         },
         auto_force_suipian: function(fn){
@@ -15618,7 +15618,7 @@ function trackClient(appkeys) {
                         var goods;
                         if(result.data && result.data.list){
                             $.each(result.data.list, function(gi,good){
-                                if(good.money_type=="1" && (good.entities.name=="转生丹"||good.entities.name=="祝福石")){
+                                if(good.money_type=="1" && (good.entities.name=="转生丹"||good.entities.name=="祝福石"||good.entities.name=="体力大还丹"||good.entities.name=="钱箱")){
                                     goods=good;
                                     return false;
                                 }

@@ -21,6 +21,8 @@
             'Fight Informations': '戰鬥資訊',
             'For Help': '求援',
             'For Help Again': '再次求援',
+            'Force Diplomacy': '',
+            'Force Exchange': '',
             'Force Invite': '勢力邀請',
             'Force War': '勢力戰',
             'Friend Assist Request': '好友求援',
@@ -62,6 +64,7 @@
             'ago': '前',
             'day': '天',
             'days': '天',
+            'forcebroadcastNotice': '',
             'hour': '小時',
             'hours': '小時',
             'lost_title': '',
@@ -69,6 +72,8 @@
             'minutes': '分鐘',
             'second': '秒',
             'seconds': '秒',
+            'send_diplomacy_success': '',
+            'send_diplomacy_to': '',
             'ui War': '勢力戰',
         },
         'zh_cn': {
@@ -90,6 +95,8 @@
             'Fight Informations': '战斗信息',
             'For Help': '求援',
             'For Help Again': '再次求援',
+            'Force Diplomacy': '势力外交消息',
+            'Force Exchange': '去兑换',
             'Force Invite': '势力邀请',
             'Force War': '抢粮战',
             'Friend Assist Request': '好友求援',
@@ -131,6 +138,7 @@
             'ago': '前',
             'day': '天',
             'days': '天',
+            'forcebroadcastNotice': '势力群发消息',
             'hour': '小时',
             'hours': '小时',
             'lost_title': '失去称号',
@@ -138,6 +146,8 @@
             'minutes': '分钟',
             'second': '秒',
             'seconds': '秒',
+            'send_diplomacy_success': '消息发送成功~',
+            'send_diplomacy_to': '留言给{{:receiveForceName}}',
             'ui War': '抢粮战',
         },
     };
@@ -167,8 +177,13 @@
             'base_defence': '基礎防禦力：{{:old}} → <span>{{:new}}</span>',
             'battle': '去征討',
             'battle_search': '輸入玩家暱稱搜索',
+            'battleground_down_msg': '',
+            'battleground_up_gold': '',
+            'battleground_up_msg': '',
+            'battleground_up_tip1': '',
             'before_login_data': '',
             'bind': '預設',
+            'bind email': '',
             'bind_tip1': '主公，請預設您的email。Email將作為密碼找回的工具，且不可更改<div class="tip">所以請務必確認email正確有效哦~</div>',
             'bind_tip2': '預設email 7天後，即可通過email找回密碼哦~',
             'bind_tip3': '',
@@ -178,6 +193,7 @@
             'buy ep succ': '精力大還丹購買成功',
             'buy sp succ': '體力大還丹購買成功',
             'buy_fail_title': '購買失敗！',
+            'buy_fail_title2': '',
             'buy_something_success': '{{:name}}購買成功',
             'buy_warning_content': '',
             'buy_warning_title': '',
@@ -203,6 +219,7 @@
             'diaochan_new_player': '',
             'diaochan_rob_guide': '',
             'discount': '折',
+            'do_it': '',
             'do_task_update': '',
             'email': 'email',
             'email bind tips': '',
@@ -241,14 +258,19 @@
             'go_download': '',
             'go_embed': '直接上陣',
             'go_fuben': '去闖關',
+            'go_home': '',
             'go_intensify': '去強化',
             'go_look': '',
+            'go_mission': '',
             'go_neizheng': '',
+            'go_open_level_awards': '',
             'go_package_card': '',
             'go_payment': '去加值',
             'go_rebirth': '去轉生',
             'go_sale': '去出售',
+            'go_to_choose_group': '',
             'go_vm': '去換錢',
+            'gold': '',
             'grain': '糧餉：',
             'has reached the maximum': '已達最大值',
             'hot': '熱',
@@ -263,6 +285,7 @@
             'intensify': '強化',
             'invite_friend': '好友邀請',
             'level': '級別：',
+            'level_en': '',
             'level_up': '恭喜主公達到等級{{:level}}',
             'level_up_title': '恭喜升級',
             'login_forget_description': '若註冊時未填寫手機號碼或手機號碼有誤，請聯繫客服。',
@@ -298,7 +321,9 @@
             'not enough ep': '提示: 主公如有體力,請前去征討',
             'not enough sp': '提示: 主公如有精力,請執行任務',
             'not_bind': '暫不預設',
+            'not_open': '',
             'ok': '確定',
+            'owner': '',
             'player num max prompt': '',
             'playerId': '',
             'player_role': '',
@@ -312,12 +337,21 @@
             'recharge_fail_dlg_btn2': '',
             'recharge_fail_dlg_tip': '',
             'recharge_fail_dlg_title': '',
+            'regret': '',
+            'regret_bless': '',
+            'regret_fail': '',
+            'regret_no_rm': '',
+            'regret_rebirth': '',
+            'regret_result': '',
+            'regret_result_sucess': '',
+            'regret_sucess': '',
             'relation': '（連結{{:platform}}）',
             'relation_guest': '未預設email的用戶請聯繫客服<br>客服email：support@redatoms.com',
             'repeat_login': '',
             'reset_avoid_war': '使用成功，免戰時間重置為{{:avoid_war_time}}',
             'revocation_of_war_free': '撤銷免戰',
             'rm': '元寶：',
+            'rm_not_enouph': '',
             'rob': '去奪寶',
             'sanguo_coming': '',
             'search': '搜',
@@ -393,17 +427,23 @@
             'base_defence': '基础防御力：{{:old}} → <span>{{:new}}</span>',
             'battle': '去征讨',
             'battle_search': '输入玩家昵称或ID搜索',
+            'battleground_down_msg': '主公~十分不幸，由于你最近在战场上落败太多，爵位被降为【{{:rank}}】，主公不要灰心，胜败乃兵家常事~',
+            'battleground_up_gold': '爵位每日俸禄：<div class="icon"></div> {{:gold}}',
+            'battleground_up_msg': '金币可用来兑换各种道具，记得每天领取哦~',
+            'battleground_up_tip1': '恭喜主公，你获得了爵位：',
             'before_login_data': '上次登录：',
             'bind': '绑定',
+            'bind email': '绑定邮箱',
             'bind_tip1': '主公，请绑定您的电子邮箱。电子邮箱将作为密码找回的工具，且不可更改<div class="tip">所以请务必保证邮箱真实有效哦~</div>',
             'bind_tip2': '绑定邮箱7天后，即可通过邮箱找回密码哦~',
-            'bind_tip3': '主公~为了您的账户安全,请前往设置中进行游戏账户绑定,绑定后可获额外奖励哦~',
+            'bind_tip3': '主公~为了您的账户安全,请去绑定邮箱,绑定后可用邮箱登录游戏，并且会获得额外奖励哦~',
             'bind_title': '账户信息绑定',
             'bind_weibo': '绑定微博',
             'buy': '购买',
             'buy ep succ': '精力大还丹购买成功',
             'buy sp succ': '体力大还丹购买成功',
             'buy_fail_title': '购买失败！',
+            'buy_fail_title2': '执行失败！',
             'buy_something_success': '{{:name}}购买成功',
             'buy_warning_content': '主公～我军要购入此东东吗？',
             'buy_warning_title': '购买确认',
@@ -429,6 +469,7 @@
             'diaochan_new_player': 'Hi~主公~<br/>我是貂蝉~<br/>我将陪伴您通过<span class="special-text">【任务】</span>体验三国穿越之旅哦~<div class="goBtn">点击继续</div>',
             'diaochan_rob_guide': '主公~您的精力不足啦~<br>你还可通过<span class="special-text">【夺宝】</span>提升实力哦~<div class="goBtn">点击继续</div>',
             'discount': '折',
+            'do_it': '执行',
             'do_task_update': '做【任务】升到{{:level}}级就能解锁哦~',
             'email': '电子邮箱',
             'email bind tips': '微博已被绑定',
@@ -451,7 +492,7 @@
             'force_message': '势力消息',
             'force_war_tip2': '贡献值{{:contribute}}及以上的势力成员可以参战哦~',
             'forcewar_lose_grain': '【{{:forcename}}】率众偷袭我方势力，夺走了{{:grain}}粮饷',
-            'forcewar_notice_members1': '[<span>{{:title}}</span>]{{:ownername}}向【{{:forcename}}】发起挑战，号召你加入战斗！',
+            'forcewar_notice_members1': '{{:ownername}}向【{{:forcename}}】发起挑战，号召你加入战斗！',
             'forcewar_win_grain': '我方势力轻松击败【{{:forcename}}】，夺得{{:grain}}粮饷',
             'forgetpwd': '忘记密码',
             'friend_search': '输入好友昵称搜索',
@@ -467,14 +508,19 @@
             'go_download': '去下载',
             'go_embed': '直接上阵',
             'go_fuben': '去闯关',
+            'go_home': '回首页',
             'go_intensify': '去强化',
             'go_look': '去看看',
+            'go_mission': '去任务',
             'go_neizheng': '做内政',
+            'go_open_level_awards': '开礼包',
             'go_package_card': '去上阵',
             'go_payment': '去充值',
             'go_rebirth': '去转生',
             'go_sale': '去出售',
+            'go_to_choose_group': '去选择',
             'go_vm': '去换钱',
+            'gold': '金币：',
             'grain': '粮饷：',
             'has reached the maximum': '已达最大值',
             'hot': '热',
@@ -489,6 +535,7 @@
             'intensify': '强化',
             'invite_friend': '好友邀请',
             'level': '级别：',
+            'level_en': 'LV:',
             'level_up': '恭喜主公达到等级{{:level}}',
             'level_up_title': '恭喜升级',
             'login_forget_description': '若注册时未填写手机号码或手机号码输入有误，请联系客服。',
@@ -524,7 +571,9 @@
             'not enough ep': '提示: 主公如有体力,请前去征讨',
             'not enough sp': '提示: 主公如有精力,请前去任务',
             'not_bind': '暂不绑定',
+            'not_open': '功能未解锁',
             'ok': '确定',
+            'owner': '势力主：',
             'player num max prompt': '主公~最多只能创建{{:maxplayer}}个角色哦~',
             'playerId': '玩家ID：',
             'player_role': '游戏昵称是您在游戏中的名字：',
@@ -538,12 +587,21 @@
             'recharge_fail_dlg_btn2': '联系客服',
             'recharge_fail_dlg_tip': '主公~如果您为游戏充值无法完成，可以参考\"充值帮助\"或联系我们，我们会尽全力帮您解决问题。',
             'recharge_fail_dlg_title': '温馨提示',
+            'regret': '逆天改命',
+            'regret_bless': '主公~<span class = "text-red">花费30元宝</span>，可使本次祝福的卡牌变回祝福前状态（<span class = "text-red">已消耗的祝福材料不会恢复</span>），您确定吗？',
+            'regret_fail': '逆天改命失败',
+            'regret_no_rm': '您的元宝不足，无法进行逆天改命。',
+            'regret_rebirth': '主公~<span class = "text-red">花费30元宝</span>，可使本次转生卡牌的称谓和技能变回转生前状态（<span class = "text-red">已消耗的转生材料不会恢复</span>），您确定吗？',
+            'regret_result': '改命结果',
+            'regret_result_sucess': '改命成功',
+            'regret_sucess': '逆天改命成功',
             'relation': '（关联{{:platform}}）',
             'relation_guest': '邮箱未绑定的用户请联系客服<br>客服邮箱：support@redatoms.com',
             'repeat_login': '重复登录',
             'reset_avoid_war': '使用成功，免战时间重置为{{:avoid_war_time}}',
             'revocation_of_war_free': '撤销免战',
             'rm': '元宝：',
+            'rm_not_enouph': '元宝不足',
             'rob': '去夺宝',
             'sanguo_coming': '三国来了',
             'search': '搜',
@@ -690,7 +748,7 @@
             'Your weibo account has been binded, do you want to use it binding current': '主公~您的微博已绑定过游戏，是否将角色：<span style="color:#A80E0E">{{:nickname}}</span>合并到此微博下，<span style="color:#A80E0E">合并后将只能用此微博({{:weibo}})登录该角色</span>，确定合并该角色吗？',
             'Your weibo account has expired!': '新浪微博已过期',
             'bind exist': '主公~该微博已经被绑定在其他游戏账户上，无法再次绑定，请更换微博重试。',
-            'bind message': '主公～你还没有绑定微博，现在就去绑定吧～<br>也可以在【首页-设置】中自行绑定～<br>PS:发送微博将获得银币奖励哦～',
+            'bind message': '主公~你还没有绑定微博，现在就去绑定吧~<br>也可以在【首页-设置】中自行绑定~<br>PS:首次绑定微博可额外解锁一个将领卡槽，发送微博也可获得银币奖励哦~',
             'bind succeed': '绑定成功',
             'bind succeed 7 day ago has card': '恭喜主公~微博将在7天后绑定成功!绑定成功后只能使用微博(<span style="color:#A80E0E">{{:weibo}}</span>)登录游戏。绑定成功后您可开启1个卡槽位,并额外获得转生丹×10的奖励哦~',
             'bind succeed 7 day ago no card': '恭喜主公~微博将在7天后绑定成功!绑定成功后只能使用微博(<span style="color:#A80E0E">{{:weibo}}</span>)登录游戏。绑定成功后可额外获得转生丹×10的奖励哦~',
@@ -837,12 +895,15 @@
     };
     w.Mojo.lang['mall'] = {
         'zh_tw': {
+            'arm_count': '',
+            'arm_lucky_tips': '',
             'batch_buy_dlg_tip': '',
             'batch_buy_num_tip': '',
             'buy': '購買',
             'buy-again': '',
             'buy_entity_content': '主公～您購買的東東已經放入包裹，可以從【首頁-卡牌】中查收～',
             'buy_fail_title': '購買失敗！',
+            'buy_fail_title2': '',
             'buy_props_content': '主公～您購買的東東已經放入包裹，可以從【首頁-道具】中查收～',
             'buy_rm': '購買元寶',
             'buy_success_body': 'PS:您購買的東東已經放入包裹。',
@@ -852,21 +913,39 @@
             'buy_tips_pp': '',
             'buy_vm': '購買銀幣',
             'buy_warning_content': '主公～我軍要購入此東東嗎？',
+            'buy_warning_content2': '',
             'buy_warning_title': '購買確認',
+            'buy_warning_title2': '',
+            'contact_service': '',
             'continue_mall': '繼續購物',
+            'continue_mall2': '',
             'cost_vm': '',
             'current_rm': '',
             'current_vm': '',
+            'defence_count': '',
             'discount_goods_flag': '%<br/>折扣',
             'discount_goods_flag_new': '{{:discount}}折',
+            'do-again': '',
+            'do_it': '',
+            'find_general': '',
+            'find_token_not_enough': '',
+            'find_token_not_enough_content': '',
+            'find_treasure': '',
+            'general_count': '',
+            'general_lucky_tips': '',
+            'gift_packge': '',
             'go_accept': '查收',
             'go_payment': '去加值',
             'go_see': '',
             'go_vm': '去換錢',
             'goods_detail_title': '商品資訊',
             'has_buy': '已購買',
+            'has_do': '',
             'heaven_bless': '',
+            'horse_count': '',
             'hot_goods_flag': '熱賣',
+            'jaibreak_tehui_giveto': '',
+            'mall_endtime': '',
             'needCount': '',
             'need_rm': '主公～您的元寶不夠啦，荷包存點錢再來吧！',
             'need_vm': '主公～您的銀幣不夠啦，荷包存點錢再來吧！',
@@ -895,6 +974,7 @@
             'spend_rm': '',
             'spend_vm': '',
             'sure_buy': '確定購買',
+            'sure_buy2': '',
             'tavern_update_time': '酒館更新倒數計時 %hhu %mmu %ssu',
             'tehui_bought': '',
             'tehui_endTime': '',
@@ -904,12 +984,15 @@
             'warm_tips': '',
         },
         'zh_cn': {
+            'arm_count': '把武器～',
+            'arm_lucky_tips': '前两次执行四星任务必送四星及以上装备哦~',
             'batch_buy_dlg_tip': '主公~请输入我军要购买此东东的数量~',
             'batch_buy_num_tip': '购买数量：',
             'buy': '购买',
             'buy-again': '再次购买',
             'buy_entity_content': '主公～您购买的东东已经放入包裹，可以从【首页-卡牌】中查收～',
             'buy_fail_title': '购买失败！',
+            'buy_fail_title2': '执行失败！',
             'buy_props_content': '主公～您购买的东东已经放送达，可以从【商城-道具】中查收～',
             'buy_rm': '购买元宝',
             'buy_success_body': 'PS:您购买的东东已经放入包裹。',
@@ -919,31 +1002,49 @@
             'buy_tips_pp': '主公～您还可以购买{{:name}}，{{:money}}(pp币)即可获得200元宝和稀有卡牌，每位主公仅限购一次哦～',
             'buy_vm': '购买银币',
             'buy_warning_content': '主公～我军要购入此东东吗？',
+            'buy_warning_content2': '主公~我军要确定执行此任务吗？',
             'buy_warning_title': '购买确认',
+            'buy_warning_title2': '执行确认',
+            'contact_service': '联系客服',
             'continue_mall': '继续购物',
+            'continue_mall2': '继续执行',
             'cost_vm': '预计花费：',
             'current_rm': '现有元宝：',
             'current_vm': '现有银币：',
+            'defence_count': '个防具～',
             'discount_goods_flag': '%<br/>折扣',
             'discount_goods_flag_new': '{{:discount}}折',
+            'do-again': '继续执行',
+            'do_it': '执行',
+            'find_general': '寻将',
+            'find_token_not_enough': '寻访令不足',
+            'find_token_not_enough_content': '主公～您的寻访令不足哦～<br />已有{{:has}}个寻访令，尚需{{:need}}个寻访令可完成此任务，确定要购买寻访令并使用它吗？',
+            'find_treasure': '寻宝',
+            'general_count': '名将领～',
+            'general_lucky_tips': '前两次执行四星任务必送四星及以上将领哦~',
+            'gift_packge': '礼包',
             'go_accept': '查收',
             'go_payment': '去充值',
             'go_see': '去查看',
             'go_vm': '去换钱',
             'goods_detail_title': '商品信息',
             'has_buy': '已购买',
+            'has_do': '已执行',
             'heaven_bless': '天降鸿福',
+            'horse_count': '匹坐骑～',
             'hot_goods_flag': '热卖',
+            'jaibreak_tehui_giveto': '获得赠品：{{:entityName}} × {{:count}}',
+            'mall_endtime': '结束时间：{{:endtime}}',
             'needCount': '本次更名消耗道具数：{{:needCount}}',
             'need_rm': '主公～您的元宝不够啦，快去充值吧！',
             'need_vm': '主公～您的银币不够啦，攒点钱再来吧！',
             'new_goods_flag': '新品',
-            'niuyige': '扭一个',
+            'niuyige': '执行一次',
             'not_tip': '不再提示',
-            'open_ext_tip': '主公~您扭出了十张卡牌，包含一张五星卡【{{:name}}】，可以在【首页-卡牌】中查收~',
-            'open_minis_result': '开启扭蛋',
-            'open_minis_tip': '主公～您扭出了【{{name}}】，可以从【首页-卡牌】中查收～',
-            'open_minis_tip1': '主公～您扭出了【{{name}}】，可以从【首页-活动中心】中查收～',
+            'open_ext_tip': '恭喜主公~您获得奖励：【{{:moneyname}}】×{{:count}}，并额外获得了10',
+            'open_minis_result': '获得奖励',
+            'open_minis_tip': '恭喜主公~您获得奖励：【{{:moneyname}}】×{{:count}}，并额外获得了【{{:name}}】～',
+            'open_minis_tip1': '恭喜主公~您获得奖励：【{{:moneyname}}】×{{:count}}，并额外获得了【{{:name}}】～',
             'pay_tips': '充值失败小贴士',
             'pay_tips_1': '<span class = "pay_tips_home"><br>1、充值时，提示：“你的付款方式卡被拒绝”或提示“请联络iTunes支持人员以完成交易”。</span>',
             'pay_tips_2': '<span class = "pay_tips_home"><br>2、充值时，提示：“ipa buy failed”。</span>',
@@ -957,11 +1058,12 @@
             'play_minis': '打开扭蛋',
             'price_title': '{{name}}商城售价：',
             'rm_not_enough': '主公~您的元宝不足~',
-            'shilianchou': '十连扭',
+            'shilianchou': '执行十次',
             'shilianchou-title': '十连扭更划算，必得五星卡！',
             'spend_rm': '消耗元宝：',
             'spend_vm': '消耗银币：',
             'sure_buy': '确定购买',
+            'sure_buy2': '确定',
             'tavern_update_time': '酒馆更新倒计时 %hhu %mmu %ssu',
             'tehui_bought': '已购买该礼包~',
             'tehui_endTime': '剩余时间：{{:time}}',
@@ -988,12 +1090,20 @@
             'The task is completed!': '主公～該任務已經完成～',
             'You have to complete the previous task group!': '需要完成上一任務鏈方能解鎖～',
             'action': '',
+            'award_desc': '',
+            'award_tips': '',
             'battle result preview': '',
             'battle_result_fail': '',
             'battle_result_formation_title_lose': '',
             'battle_result_formation_title_win': '',
+            'can_get_repeatly': '',
+            'cannot_get_award': '',
             'formation': '',
             'formation detail': '',
+            'get_award': '',
+            'in_cd': '',
+            'mission_award': '',
+            'mission_progress': '',
             'new_player_gift_title': '',
             'win_card': '',
         },
@@ -1005,7 +1115,7 @@
             'Gained': '获得',
             'Get Another Collection': '恭喜，百姓们仰慕主公，献上了传家之宝【{{:name}}】～',
             'Get Another Generals': '恭喜，【{{:name}}】仰慕主公，前来投奔～',
-            'Get One Collection': '恭喜主公，我军在废弃的房舍里面发现了【{{:name}}】～',
+            'Get One Collection': '恭喜主公，我军在废弃的房舍里面发现了【{{:name}}】',
             'Get One Generals': '恭喜主公，我军招募到了【{{:name}}】～',
             'Please complete the tasko_kr above!': '需要完成以上全部任务才能执行此任务～',
             'Please complete the tasks above!': '需要完成以上全部任务才能执行此任务～',
@@ -1013,12 +1123,20 @@
             'The task is completed!': '主公～该任务已经完成～',
             'You have to complete the previous task group!': '需要完成上一任务链方能解锁～',
             'action': '出征',
+            'award_desc': '【{{:name}}】任务奖励：',
+            'award_tips': '完成更高难度任务可减少该章节领奖的冷却时间',
             'battle result preview': '征讨结果预览',
             'battle_result_fail': '我军战败了，可以强化将领或调整阵容后再来试试哦~',
             'battle_result_formation_title_lose': '战斗失败',
             'battle_result_formation_title_win': '战斗胜利',
+            'can_get_repeatly': '可重复',
+            'cannot_get_award': '需完成{{:name}}的任务才能领取哦~',
             'formation': '调整阵容',
             'formation detail': '阵容对比',
+            'get_award': '领取奖励',
+            'in_cd': '主公~还不能领取这个东东哦~',
+            'mission_award': '任务奖励',
+            'mission_progress': '任务进度',
             'new_player_gift_title': '强者奖励',
             'win_card': '主公~您有可能获得将领卡哦~',
         },
@@ -1027,6 +1145,7 @@
         'zh_tw': {
             'All': '所有',
             'Battle': '戰鬥',
+            'Force': '',
             'Friend': '好友',
             'Handle': '處理',
             'Messages': '消息',
@@ -1036,12 +1155,16 @@
             'Send succeed!': '發送成功！',
             'System': '系統',
             'attack': '攻擊力：{{:min}}-{{:max}}',
+            'fuben disabled': '',
+            'fuben disabled describtion': '',
             'level': '級別：{{:level}}級',
             'nick': '昵稱：{{:nick}}',
+            'readed': '',
         },
         'zh_cn': {
             'All': '所有',
             'Battle': '战斗',
+            'Force': '势力',
             'Friend': '好友',
             'Handle': '处理',
             'Messages': '消息',
@@ -1051,8 +1174,11 @@
             'Send succeed!': '发送成功！',
             'System': '系统',
             'attack': '攻击力：{{:min}}-{{:max}}',
+            'fuben disabled': '闯关活动已结束',
+            'fuben disabled describtion': '主公~【{{:fubenName}}】已经关闭，请等待下次活动开启哦~',
             'level': '级别：{{:level}}级',
             'nick': '昵称：{{:nick}}',
+            'readed': '（已处理）',
         },
     };
     w.Mojo.lang['battle'] = {
@@ -1070,6 +1196,7 @@
             'battle result preview': '戰鬥結果預覽',
             'battle_fail_content': '',
             'battle_fail_title': '',
+            'battle_friend_or_colleague_tip': '',
             'battle_result_formation_title_lose': '',
             'battle_result_formation_title_win': '',
             'battle_result_title': '戰鬥結果',
@@ -1114,6 +1241,7 @@
             'battle result preview': '征讨结果预览',
             'battle_fail_content': '主公，对方在战斗中哦，请稍等一会再来吧！',
             'battle_fail_title': '不能征讨',
+            'battle_friend_or_colleague_tip': '主公~该玩家和你是好友或者同势力成员哦~',
             'battle_result_formation_title_lose': '战斗失败',
             'battle_result_formation_title_win': '战斗胜利',
             'battle_result_title': '战斗结果',
@@ -1121,7 +1249,7 @@
             'battle_result_title_rob_lose': '夺宝失败',
             'battle_result_title_rob_win': '夺宝奖励',
             'battle_result_title_win': '征讨奖励',
-            'battle_tip': '攻击等级高、存钱多的玩家能抢到更多银币哦~',
+            'battle_tip': '小贴士：攻击存钱多的玩家能抢到更多银币哦~',
             'be_restraint': '被克',
             'force_none': '未加入势力',
             'formation': '调整阵容',
@@ -1316,12 +1444,12 @@
             'poptip_choose_treasure': '请选择你要装备的宝物～',
             'shield_detail_title': '防具信息',
             'skill': '技能',
-            'slot_unlock_award': '恭喜主公开启新的将领卡槽~<br>现在可以免费扭蛋一次哦~',
-            'start_niudan': '开始扭蛋',
+            'slot_unlock_award': '恭喜主公开启新的将领卡槽~<br>现在可以免费执行一次寻将任务哦~',
+            'start_niudan': '免费执行',
             'sword_detail_title': '武器信息',
             'title_info': '称号效果',
             'treasure_detail_title': '宝物信息',
-            'unlock_egg': '开启新将领卡槽，能免费扭一次【三星将领扭蛋】！',
+            'unlock_egg': '开启新将领卡槽，能免费执行一次【三星寻将任务】！',
             'unlock_next': '将解锁下一个上阵将领卡槽！',
         },
     };
@@ -1337,11 +1465,13 @@
             'delete_friend_title': '',
             'deleted': '',
             'do_with_friend': '要和你的好友{{:name}}做些什麼呢？',
+            'find_friend_in_chat_page': '',
             'formation': '好友陣容',
             'friend': '好友',
             'friend not found': '',
             'friend_detail': '好友交流',
             'friend_numbers': '好友數量：',
+            'go_to_chat': '',
             'has invited': '已飛鴿傳書，請等待回復！',
             'has sended': '已飛鴿傳書！',
             'invite': '邀請',
@@ -1354,6 +1484,7 @@
             'no content': '無字天書別人是看不懂的！',
             'no friends': '主公～我們現在還沒有盟友，速速加上幾位好友吧～人多好辦事啊！',
             'not found': '這個世界查無此人～',
+            'not_tip': '',
             'order': '',
             'order_friend': '',
             'order_type': '',
@@ -1377,11 +1508,13 @@
             'delete_friend_title': '割袍断义',
             'deleted': '已删除',
             'do_with_friend': '要和你的好友<span>{{:name}}</span>做些什么呢？',
+            'find_friend_in_chat_page': '主公，在世界频道大吼，可以更容易地找到志同道合的好友哦~',
             'formation': '好友阵容',
             'friend': '好友',
             'friend not found': '好友{{:name}}不存在～',
             'friend_detail': '好友交流',
             'friend_numbers': '好友数量：',
+            'go_to_chat': '去聊天',
             'has invited': '已飞鸽传书，请等待回复！',
             'has sended': '已飞鸽传书！',
             'invite': '邀请',
@@ -1394,6 +1527,7 @@
             'no content': '无字天书别人是看不懂的！',
             'no friends': '主公～我们现在还没有盟友，速速去加上几个好友吧～人多好办事儿！',
             'not found': '这个世界查无此人～',
+            'not_tip': '不再提示',
             'order': '排序',
             'order_friend': '排序',
             'order_type': '排序条件',
@@ -1409,6 +1543,10 @@
     };
     w.Mojo.lang['force'] = {
         'zh_tw': {
+            'Off': '',
+            'On': '',
+            'accept_refresh': '',
+            'add_challenge_tip': '',
             'adjust': '',
             'adjust_official': '調整官職',
             'adjust_tax_rate': '',
@@ -1421,6 +1559,7 @@
             'adjust_times_title': '',
             'after_leave': '',
             'alert_cooling_time_battle': '',
+            'alert_cooling_time_defence': '',
             'alert_cooling_time_if_leave': '',
             'all_chanllenge_get': '&#149全部挑戰書獲得：',
             'alliance': '',
@@ -1448,6 +1587,7 @@
             'assistSlave_win_content': '',
             'assist_lose': '',
             'assist_win': '',
+            'auto_sell_log': '',
             'base_info': '基礎資料',
             'battle': '',
             'battle_fail': '',
@@ -1465,6 +1605,10 @@
             'boycott_lose': '',
             'boycott_succ': '',
             'break_alliance': '',
+            'broadcastNotice': '',
+            'broadcastNoticeSucess': '',
+            'broadcastNoticetip': '',
+            'by_position': '',
             'call_toge_member': '',
             'can_as_title_count': '',
             'can_not_ally': '',
@@ -1476,7 +1620,10 @@
             'cannot_adjust_owner': '主公~對方等級不足50級，還無法擔任勢力主哦~',
             'cannot_allocatetitle': '',
             'cannot_change': '',
+            'cannot_defence': '',
+            'cannot_defence_coldtime': '',
             'cannot_do_it': '主公～您已不在勢力中，無法進行該操作哦～',
+            'cannot_refrsh_internal': '',
             'capitulate': '',
             'capitulate_beforeend': '',
             'capitulate_declaration': '',
@@ -1526,6 +1673,7 @@
             'con_capitulated': '',
             'contact': '交流',
             'continue_exchange': '繼續兌換',
+            'cost_find_token': '',
             'cost_grain': '花費糧餉：',
             'cost_rm': '',
             'count_challenge': '挑戰書：',
@@ -1533,6 +1681,17 @@
             'count_officer_1': '一品官數量：',
             'count_officer_2': '二品官數量：',
             'count_officer_3': '三品官數量：',
+            'count_officer_4': '',
+            'count_officer_5': '',
+            'count_officer_6': '',
+            'count_officer_7': '',
+            'count_officer_name_1': '',
+            'count_officer_name_2': '',
+            'count_officer_name_3': '',
+            'count_officer_name_4': '',
+            'count_officer_name_5': '',
+            'count_officer_name_6': '',
+            'count_officer_name_7': '',
             'counterattack': '',
             'crazywar_attack_retreat_answer': '',
             'crazywar_defence_retreat_answer': '',
@@ -1547,6 +1706,7 @@
             'create_use_rebirth': '捐獻68顆轉生丹即可免費創建勢力~',
             'current_chanllenge_get': '',
             'current_level': '{{:level}}級',
+            'dang_memberCount': '',
             'default_chat_message': '點擊進入勢力聊天',
             'defence_lose': '',
             'defence_succ': '',
@@ -1560,6 +1720,9 @@
             'deny_capture': '',
             'deny_resign_apply': '',
             'depose': '',
+            'diplomacy': '',
+            'diplomacy_description': '',
+            'diplomacy_tip': '',
             'do_with_member': '要和{{:honor}}{{:name}}做些什麼呢？',
             'edit_force_fobbiden': '主公~二品以上官員才能編輯公告哦~',
             'electioneer_officer': '',
@@ -1587,6 +1750,7 @@
             'food_description': '',
             'force': '勢力',
             'force_alliance': '',
+            'force_alliance_content': '',
             'force_appling': '主公～您已經申請該勢力～',
             'force_apply': '勢力申請',
             'force_apply_fail': '申請失敗',
@@ -1612,6 +1776,12 @@
             'force_assistant_title1': '',
             'force_assistant_title2': '',
             'force_assistant_title3': '',
+            'force_autosellcard': '',
+            'force_battle_detail': '',
+            'force_battle_detail_attack_count': '',
+            'force_battle_detail_attack_lose': '',
+            'force_battle_detail_attacker': '',
+            'force_battle_detail_lodgment': '',
             'force_become_slave': '',
             'force_become_slave_seize_lose': '',
             'force_boss_challenge': '',
@@ -1633,12 +1803,17 @@
             'force_boss_challenge_exchange_fail': '',
             'force_boss_challenge_exchange_reason': '',
             'force_boss_challenge_final_des1': '',
+            'force_boss_challenge_final_des1_superbonus': '',
             'force_boss_challenge_final_des2': '',
+            'force_boss_challenge_final_des2_superbonus': '',
             'force_boss_challenge_final_des3': '',
             'force_boss_challenge_final_des4': '',
             'force_boss_challenge_final_des5': '',
             'force_boss_challenge_final_des6': '',
+            'force_boss_challenge_final_des6_superbonus': '',
             'force_boss_challenge_final_des7': '',
+            'force_boss_challenge_final_des7_superbonus': '',
+            'force_boss_challenge_final_des8': '',
             'force_boss_challenge_final_goexchange': '',
             'force_boss_challenge_final_goexchange2': '',
             'force_boss_challenge_final_goviewcity': '',
@@ -1690,6 +1865,7 @@
             'force_boss_name_level': '',
             'force_boss_name_level2': '',
             'force_capitulate_fail': '',
+            'force_capture_content': '',
             'force_challenge_model_alert': '',
             'force_challenge_model_attack': '',
             'force_challenge_model_bossinfo_defence': '',
@@ -1726,9 +1902,17 @@
             'force_disband': '',
             'force_dismiss': '',
             'force_empty': '主公～沒有找到相關的勢力哦～',
+            'force_entry_without_permission': '',
+            'force_entry_without_permission2': '',
+            'force_entry_without_permission_btn': '',
+            'force_entry_without_permission_lebel': '',
+            'force_entry_without_permission_owner_perform': '',
+            'force_entry_without_permission_title1': '',
+            'force_entry_without_permission_title2': '',
             'force_event_alliance_notice': '',
             'force_exchange_unavailable': '主公~現在還不能兌換該物品哦~',
             'force_exchange_unavailable_forceboss': '',
+            'force_forcewar_content': '',
             'force_free': '',
             'force_grain': '勢力糧餉：',
             'force_id': '',
@@ -1750,16 +1934,22 @@
             'force_name_max': '最多5個字',
             'force_num': '/人（共{{:count}}人）',
             'force_owner': '勢力主：',
+            'force_protected': '',
+            'force_protected_tips': '',
             'force_ranking_empty': '',
             'force_search_noresult': '主公～沒有找到相關的勢力哦～',
+            'force_siege_content': '',
             'force_slave': '',
+            'force_usurp_content': '',
             'force_vice_owner': '副勢力主：',
             'force_view': '',
             'force_war': '勢力戰',
             'force_war_tip': '挑戰等級高、存糧多的勢力能搶到更多糧餉哦~',
             'force_war_tip2': '',
             'force_war_tip3': '',
+            'forcebroadcastNotice': '',
             'forcebuff': '',
+            'forcewar': '',
             'forcewar_action': '挑戰',
             'forcewar_alliancemember': '',
             'forcewar_battle': '戰鬥',
@@ -1819,9 +2009,44 @@
             'foreign': '外務',
             'formation detail': '',
             'free_only_owner_can_ask_alliance': '',
+            'free_only_owner_can_ask_diplomacy': '',
             'free_only_ownerorvice_can_ask_surrender': '',
             'free_only_ownerorvice_can_start_battle': '',
             'from': '',
+            'g_back_changeBtn': '',
+            'g_benqigongxian': '',
+            'g_changedItem': '',
+            'g_condition_txt': '',
+            'g_faliang_detail_confirm': '',
+            'g_faliang_detail_confirm2': '',
+            'g_faliang_detail_count': '',
+            'g_faliang_detail_t': '',
+            'g_faliang_sender': '',
+            'g_faliang_t': '',
+            'g_filtertype1': '',
+            'g_filtertype10': '',
+            'g_filtertype11': '',
+            'g_filtertype33': '',
+            'g_filtertype4': '',
+            'g_filtertype5': '',
+            'g_filtertype55': '',
+            'g_filtertype9': '',
+            'g_gongxianyuanbao': '',
+            'g_level_bodys': '',
+            'g_level_bodys2': '',
+            'g_level_bodys3': '',
+            'g_level_grain': '',
+            'g_moreLabel': '',
+            'g_order1': '',
+            'g_order2': '',
+            'g_remainderGrain': '',
+            'g_remainderGrain2': '',
+            'g_selectMember': '',
+            'g_selectedTxt': '',
+            'g_sendgrain_ok': '',
+            'g_setNumber': '',
+            'g_xLevel': '',
+            'g_xNum': '',
             'gained': '獲得貢獻：',
             'get_officer': '',
             'get_out_of_force': '退出勢力',
@@ -1854,6 +2079,7 @@
             'hour': '',
             'how_to_adjust_official': '如何調整{{:honor}}{{:name}}的官職？',
             'id': '',
+            'in_force_protected': '',
             'in_force_rest': '',
             'in_war': '參戰',
             'info': '勢力資料',
@@ -1865,6 +2091,7 @@
             'info_vice_owner': '副勢力主',
             'input_message_call_toge': '',
             'internal': '內政',
+            'invite_member': '',
             'is_submission': '',
             'its_alliance': '',
             'its_master': '',
@@ -1879,10 +2106,16 @@
             'last_grain': '剩餘糧餉',
             'leve_updated': '恭喜主公，勢力升到{{:level}}級',
             'level': '級別：',
+            'level1': '',
+            'level2': '',
+            'level3': '',
+            'level4': '',
+            'level5': '',
             'level_full': '已滿級',
             'level_full_tip': '勢力已滿級',
             'levelinfo': '級別{{:level}}',
             'login': '登入：',
+            'login2': '',
             'lose_lodgment_defender': '我軍不敵{{:defendername}}，沒能攻佔據點【{{:lodgment}}】～',
             'lose_officer': '',
             'lose_title': '',
@@ -1916,6 +2149,8 @@
             'nextday': '',
             'no enemy force': '',
             'no_allocatebuff': '',
+            'no_more_member': '',
+            'no_suitable_player': '',
             'non_rmb_player_add_defense': '',
             'non_rmb_player_assist_attack': '',
             'non_rmb_player_assist_defense': '',
@@ -1937,25 +2172,34 @@
             'officer_first': '一品官',
             'officer_second': '二品官',
             'officer_third': '三品官',
+            'official': '',
             'official1': '轉讓勢力主',
             'official100': '無官職',
+            'official14': '',
+            'official15': '',
+            'official16': '',
+            'official17': '',
+            'official18': '',
+            'official19': '',
             'official2': '副勢力主',
             'official3': '一品官',
-            'official4': '二品官',
-            'official5': '三品官',
             'ok_submission': '',
             'only_official_can_refresh': '一品以上官員才能刷新內政任務',
+            'only_ownerandvice_broadcast': '',
             'order': '排名：{{:order}}',
             'order_condition': '',
+            'order_conditions': '',
             'order_force': '',
             'other': '其它',
             'other_prefect_message': '',
             'out': '退隱',
             'out_force': '請出勢力',
+            'out_force_default_message': '',
             'out_force_message': '將{{:honor}}{{:name}}請出勢力後，他對勢力的貢獻將被清空，您確定要這麼做嗎？',
             'out_force_tip': '主公~只能請出官職低於自身的成員哦~',
             'over': '',
             'owner': '勢力主：[<span class=\"official\">{{:title}}</span>]{{:name}}',
+            'owner_bg': '',
             'owner_name': '',
             'owner_title': '勢力主稱號：',
             'pass_resign_apply': '',
@@ -1969,6 +2213,14 @@
             'price': '花費：',
             'prince_message': '',
             'profile_level': '級別：',
+            'quanxian_yilan': '',
+            'qx_1': '',
+            'qx_2': '',
+            'qx_3': '',
+            'qx_4': '',
+            'qx_5': '',
+            'qx_6': '',
+            'qx_7': '',
             'ranking': '排行',
             'rebel': '',
             'rebel_attack_disband': '',
@@ -1994,6 +2246,8 @@
             'rece_invite': '',
             'receive_capitulate': '',
             'refresh': '刷新',
+            'refreshTime1': '',
+            'refreshTime2': '',
             'refresh_award': '恭喜您成功幫勢力成員刷新內政任務！',
             'refresh_award1': '獲得回報：',
             'refresh_cost': '刷新花費：',
@@ -2002,6 +2256,10 @@
             'refresh_info1': '主公～您願意給所有勢力成員施加恩惠，幫他們刷新內政任務嗎？',
             'refresh_info3': '(下次花費{{:cost}}{{:yb}}，每日{{:point}}點重置)',
             'refresh_info4': '報～主公～{{:official}}{{:name}}花重金為勢力刷新內政任務，您願意接受刷新嗎？<br>(刷新後可重新做任務，獲得更多獎勵～)',
+            'refresh_info5': '',
+            'refresh_info6': '',
+            'refresh_info7': '',
+            'refresh_info8': '',
             'refresh_internal_mission': '刷新內政任務',
             'refresh_text': '每日24點刷新內政任務',
             'relation': '',
@@ -2033,13 +2291,19 @@
             'select_assign_title': '',
             'send_already': '已飛鴿傳書，請等待回覆！',
             'send_apply': '發送',
+            'send_definedgrain': '',
+            'send_diplomacy_success': '',
+            'send_diplomacy_to': '',
             'send_weibo': '分享',
             'set_resttime_sucess': '',
             'share_grain': '發放糧餉',
+            'share_grain2': '',
+            'show_detail': '',
             'siege': '',
             'siege_battle_notice': '',
             'siege_button_disable_msg': '',
             'siege_button_disable_msg2': '',
+            'siege_button_disable_msg3': '',
             'siege_button_resiege_txt': '',
             'siege_button_txt': '',
             'siege_city_war_lose': '',
@@ -2066,6 +2330,7 @@
             'tip1': '主公~二品以上官員才能編輯公告哦~',
             'title': '',
             'to_msg': '',
+            'today_offer': '',
             'turning_point_condition': '',
             'uniterebel': '',
             'uniterebel_attack_disband': '',
@@ -2095,6 +2360,7 @@
             'update_only_owner': '主公~只有勢力主才能升級勢力哦~',
             'update_succ_weibo': '我在#三國來了#把勢力【{{:name}}】升到了{{:level}}級！又向稱霸三國邁近一步，兄弟們快來投奔我吧！',
             'update_tip': '主公，您確定要提升勢力等級嗎？',
+            'userDefinedBtn': '',
             'usurp': '',
             'usurp_assist_notice': '',
             'usurp_attack_disband': '',
@@ -2133,6 +2399,10 @@
             'win_lodgment_without_defender': '恭喜主公～我軍成功攻佔據點【{{:lodgment}}】～',
         },
         'zh_cn': {
+            'Off': '已关',
+            'On': '已开',
+            'accept_refresh': '接受刷新',
+            'add_challenge_tip': '主公~使用军令可增加进攻次数哦~',
             'adjust': '调整',
             'adjust_official': '调整官职',
             'adjust_tax_rate': '调整税率',
@@ -2145,6 +2415,7 @@
             'adjust_times_title': '休整时间调整',
             'after_leave': '退出后：',
             'alert_cooling_time_battle': '<br>·需等待24小时才能参与势力战斗。',
+            'alert_cooling_time_defence': '<br>·需等待24小时才能成为据点守将。',
             'alert_cooling_time_if_leave': '<br>·需等待{{:cooling}}才能加入新的势力。',
             'all_chanllenge_get': '&#149全部军令获得：',
             'alliance': '结盟',
@@ -2172,6 +2443,7 @@
             'assistSlave_win_content': '通过我方势力成员的协助，【{{:sibling}}】成功击退了【{{:opponent_force}}】对TA的霸占！',
             'assist_lose': '协助失败',
             'assist_win': '协助成功',
+            'auto_sell_log': '<div class="p"><div class="time"><span>{{:time}}</span></div><div class="fontWaitColor">出售：{{:sellCards}}</div><div class="gets fontWaitColor">获得：银币×{{:vm}}</div></div>',
             'base_info': '基础信息',
             'battle': '征讨',
             'battle_fail': '不能抢粮',
@@ -2189,6 +2461,10 @@
             'boycott_lose': '联合反叛失败',
             'boycott_succ': '联合反叛成功',
             'break_alliance': '解除盟约',
+            'broadcastNotice': '群发消息',
+            'broadcastNoticeSucess': '群发消息成功！',
+            'broadcastNoticetip': '请输入要群发给势力成员的内容。',
+            'by_position': '按官职',
             'call_toge_member': '召集帮众',
             'can_as_title_count': '剩余数量：',
             'can_not_ally': '不能结盟',
@@ -2200,7 +2476,10 @@
             'cannot_adjust_owner': '主公~对方等级不足50级，还无法担任势力主哦~',
             'cannot_allocatetitle': '不能分配',
             'cannot_change': '不能更换',
+            'cannot_defence': 'TA上次退出势力不满24小时，不能成为守将',
+            'cannot_defence_coldtime': 'TA还需等待{{:hour}}小时{{:minutes}}分钟才能成为守将',
             'cannot_do_it': '主公～您不在势力中，无法进行该操作哦～',
+            'cannot_refrsh_internal': '主公~没有可接受的刷新哦~',
             'capitulate': '劝降',
             'capitulate_beforeend': '劝降成功后我方势力将不能结盟、接受劝降。',
             'capitulate_declaration': '主公~您的劝降宣言已经成功发送到【{{:name}}】！请静候佳音哦~',
@@ -2227,16 +2506,16 @@
             'city_grain': '个人存粮：',
             'city_grain2': '{{:self_grain}}/{{:max_grain}}',
             'city_heart': '民心：{{:city_heart}}(防{{:city_heart_defence}}%)',
-            'city_heart2': '民心：<span class="city-heart-highlight">{{:city_heart}}(防{{:city_heart_defence}}%)</span>',
+            'city_heart2': '民心：<span class="city-heart-highlight">{{:city_heart}}/{{:city_heart_max}}(防{{:city_heart_defence}}%)</span>',
             'city_heart3': '(防{{:city_heart_defence}}%)',
-            'city_introduce': '•通过【外务】可抢夺三国名城，开启扭蛋兑换！<br>•城池可提高内政产出，同时额外累积个人存粮。<br>•个人存粮不能超过存储上限，但可随时领取。',
+            'city_introduce': '•通过【外务】可抢夺三国名城，开启新的兑换！<br>•城池可提高内政产出，同时额外累积个人存粮。<br>•个人存粮不能超过存储上限，但可随时领取。',
             'city_my_protect_time': '免战保护：{{:time}}',
             'city_my_siege_time': '已占领：{{:time}}',
             'city_name': '一个小村庄',
             'city_name_and_level': '{{:name}}({{:minlevel}}~{{:maxlevel}}级)',
             'city_name_and_level2': '{{:name}}<span class="city-name-highlight">({{:minlevel}}~{{:maxlevel}}级)</span>',
             'city_placate': '安抚',
-            'city_placate_dlg_content': '主公~您确定要花费{{:rm}}元宝安抚民心，使民心提升5点吗？',
+            'city_placate_dlg_content': '主公~您确定要花费{{:rm}}元宝安抚民心吗？<br>每次安抚可提升5点民心，但民心最多不超过{{:popular}}点哦~',
             'city_placate_dlg_title': '安抚民心',
             'city_placate_fail_title': '安抚失败',
             'city_placate_no_right': '只有势力官员才能安抚民心哦~',
@@ -2250,13 +2529,25 @@
             'con_capitulated': '劝降',
             'contact': '交流',
             'continue_exchange': '继续兑换',
+            'cost_find_token': '花费寻访令：',
             'cost_grain': '花费粮饷：',
             'cost_rm': '花费元宝：',
             'count_challenge': '军令：',
             'count_member': '成员数：',
-            'count_officer_1': '一品官数量：',
-            'count_officer_2': '二品官数量：',
-            'count_officer_3': '三品官数量：',
+            'count_officer_1': '内务官数量：',
+            'count_officer_2': '外务官数量：',
+            'count_officer_3': '财务官数量：',
+            'count_officer_4': '行政官数量：',
+            'count_officer_5': '外交官数量：',
+            'count_officer_6': '先锋数量：',
+            'count_officer_7': '护卫数量：',
+            'count_officer_name_1': '内务官',
+            'count_officer_name_2': '外务官',
+            'count_officer_name_3': '财务官',
+            'count_officer_name_4': '行政官',
+            'count_officer_name_5': '外交官',
+            'count_officer_name_6': '先锋',
+            'count_officer_name_7': '护卫',
             'counterattack': '反击',
             'crazywar_attack_retreat_answer': '主公~我方势力已成功退兵，{{:action}}状态解除！',
             'crazywar_defence_retreat_answer': '【{{:opponent_force}}】偷袭我方势力，不料踢到铁板，落荒而逃！',
@@ -2271,6 +2562,7 @@
             'create_use_rebirth': '捐献68个转生丹即可免费创建势力~',
             'current_chanllenge_get': '&#149<span style="font-weight: bold">势力拥有军令：{{:now}}/{{:all}}</span>',
             'current_level': '{{:level}}级',
+            'dang_memberCount': '第{{:level}}档成员数：{{:count}}',
             'default_chat_message': '点击进入势力聊天',
             'defence_lose': '防御失败',
             'defence_succ': '防御成功',
@@ -2284,8 +2576,11 @@
             'deny_capture': '主公~您拒绝了【{{:name}}】的劝降！',
             'deny_resign_apply': '主公~您拒绝了【{{:name}}】的请辞申请，TA仍是我方势力的太守！',
             'depose': '罢免',
-            'do_with_member': '要和{{:honor}}<span class=\"overstriking\">{{:name}}</span>做些什么呢？',
-            'edit_force_fobbiden': '主公~三品以上官员才能编辑公告哦~',
+            'diplomacy': '外交',
+            'diplomacy_description': '与其他势力交流，无需消耗粮饷或军令',
+            'diplomacy_tip': '•请输入势力名称或ID来搜索您想要外交的势力<br/>•消息发送后，双方势力的势力主/外交官均将收到消息。',
+            'do_with_member': '要和<div class="pname"></div>做些什么呢？',
+            'edit_force_fobbiden': '您没有权限编辑公告哦~',
             'electioneer_officer': '竞选州牧',
             'electioneer_officer_lose': '竞选州牧失败',
             'electioneer_officer_succ': '竞选州牧成功',
@@ -2311,6 +2606,7 @@
             'food_description': '抢夺其它势力的粮饷，需消耗军令',
             'force': '势力',
             'force_alliance': '[结盟势力]',
+            'force_alliance_content': '主公～与其它势力结盟会使本势力保护期提前结束，届时其它势力将攻击本势力，是否确定结盟？',
             'force_appling': '主公～您已经申请该势力～',
             'force_apply': '势力申请',
             'force_apply_fail': '申请失败',
@@ -2336,6 +2632,12 @@
             'force_assistant_title1': '<span class="assis_title">内政小助手：</span><span class="assistant-status">可以自动完成内政~</span>',
             'force_assistant_title2': '<span class="assis_title">内政小助手：</span><span class="assistant-status assis_state_in">开启中</span>',
             'force_assistant_title3': '<span class="assis_title">内政小助手：</span><span class="assistant-status assis_state_out">未开启</span>',
+            'force_autosellcard': '自动出售获得3星及以下卡牌',
+            'force_battle_detail': '战斗统计',
+            'force_battle_detail_attack_count': '次数',
+            'force_battle_detail_attack_lose': '未被攻破',
+            'force_battle_detail_attacker': '据点攻破者',
+            'force_battle_detail_lodgment': '据点',
             'force_become_slave': '主公~我方势力成为了【{{:name}}】的太守！',
             'force_become_slave_seize_lose': '主公~我方势力成为了【{{:name}}】的太守！<br>对【{{:name2}}】的霸占失败！',
             'force_boss_challenge': '挑战',
@@ -2351,18 +2653,23 @@
             'force_boss_challenge_cd': '冷却中：{{:time}}',
             'force_boss_challenge_cd_content': '主公~冷却时间内不能【战斗】哦~',
             'force_boss_challenge_detail': '详细',
-            'force_boss_challenge_detail_content': '【开启规则】<br>•一品以上官员可以开启挑战<br>•每天可以银币挑战1次黄巾军<br>•每次可以选择3种挑战模式<br>•银币挑战次数用完后可以用元宝召唤黄巾军挑战<br>•挑战黄巾军会在每天0点重置<br><br>【战斗规则】<br>•势力成员均可以参战<br>•势力等级越高，黄巾军等级越高<br><br>【奖励】<br>•参加战斗能获得粮饷奖励，击败黄巾军后参战成员和势力均能获得丰厚奖励<br>•每次击败黄巾军，势力全员均可在【兑换】中购买5折四星扭蛋<br>•击败高等级的黄巾军能获得更多奖励',
+            'force_boss_challenge_detail_content': '【开启规则】<br>•一品以上官员可以开启挑战<br>•每天可以银币挑战1次黄巾军<br>•每次可以选择3种挑战模式<br>•银币挑战次数用完后可以用元宝召唤黄巾军挑战<br>•挑战黄巾军会在每天0点重置<br><br>【战斗规则】<br>•势力成员均可以参战<br>•势力等级越高，黄巾军等级越高<br><br>【奖励】<br>•参加战斗能获得粮饷奖励，击败黄巾军后参战成员和势力均能获得丰厚奖励<br>•每次击败黄巾军，势力全员均可在【兑换】中进行5折兑换啦<br>•击败高等级的黄巾军能获得更多奖励',
             'force_boss_challenge_detail_dlg': '规则说明',
             'force_boss_challenge_exchange_answer': '击败黄巾军',
             'force_boss_challenge_exchange_fail': '不能兑换',
             'force_boss_challenge_exchange_reason': '开启条件：',
             'force_boss_challenge_final_des1': '恭喜主公，我方势力击败了{{:level}}级{{:name}}，您获得了参与奖，共获得：',
+            'force_boss_challenge_final_des1_superbonus': '恭喜主公，我方势力击败了{{:level}}级{{:name}}，您获得了参与奖、超级大奖，共获得：',
             'force_boss_challenge_final_des2': '恭喜主公，我军给予{{:level}}级{{:name}}最后一击！您获得了参与奖、击杀奖，共获得：',
-            'force_boss_challenge_final_des3': '现在可以扭5折四星扭蛋啦！',
+            'force_boss_challenge_final_des2_superbonus': '恭喜主公，我军给予{{:level}}级{{:name}}最后一击！您获得了参与奖、击杀奖及超级大奖，共获得：',
+            'force_boss_challenge_final_des3': '现在可以进行5折兑换啦！',
             'force_boss_challenge_final_des4': '主公~{{:level}}级{{:name}}已逃走，下次召集更多人来参战吧~',
-            'force_boss_challenge_final_des5': '我方势力战胜了{{:level}}级{{:name}}，势力获得了{{:num}}粮饷！现在可以前往【兑换】中购买5折扭蛋啦！',
+            'force_boss_challenge_final_des5': '我方势力战胜了{{:level}}级{{:name}}，势力获得了{{:num}}粮饷！现在可以前往【兑换】中进行5折兑换啦！',
             'force_boss_challenge_final_des6': '恭喜主公，我方势力击败了{{:level}}级{{:name}}，您获得了参与奖及幸运奖，共获得：',
+            'force_boss_challenge_final_des6_superbonus': '恭喜主公，我方势力击败了{{:level}}级{{:name}}，您获得了参与奖、幸运奖及超级大奖，共获得：',
             'force_boss_challenge_final_des7': '恭喜主公，我军给予{{:level}}级{{:name}}最后一击！您获得了参与奖、击杀奖及幸运奖，共获得：',
+            'force_boss_challenge_final_des7_superbonus': '恭喜主公，我军给予{{:level}}级{{:name}}最后一击！您获得了参与奖、击杀奖、幸运奖及超级大奖，共获得：',
+            'force_boss_challenge_final_des8': '主公~您挑战{{:boss}}获得了超级大奖【{{:name}}】，可以从【首页-卡牌】中查收',
             'force_boss_challenge_final_goexchange': '去兑换',
             'force_boss_challenge_final_goexchange2': '兑换',
             'force_boss_challenge_final_goviewcity': '查看城池',
@@ -2381,20 +2688,20 @@
             'force_boss_challenge_limit2': '今日剩余元宝挑战次数：{{:num}}',
             'force_boss_challenge_msg_content': '{{:name}}击杀了{{:num}}名{{:boss}}。',
             'force_boss_challenge_msg_content2': '（{{:time}}前）',
-            'force_boss_challenge_no_right': '一品以上官员才能开启挑战哦。',
+            'force_boss_challenge_no_right': '势力主/副势力主/内务官才能开启哦~',
             'force_boss_challenge_no_right2': '主公~今日挑战次数已达上限哦~',
-            'force_boss_challenge_notice': '击杀黄巾军能开启【兑换】中的5折四星扭蛋哦~',
+            'force_boss_challenge_notice': '击杀黄巾军能开启5折兑换哦~',
             'force_boss_challenge_notice2': '【战斗】一次可能击杀100~300名黄巾军，相应获得5~15粮饷哦~',
-            'force_boss_challenge_preview_choose_niudan': '请选择击败黄巾军后开启的5折扭蛋：',
+            'force_boss_challenge_preview_choose_niudan': '请选择击败黄巾军后开启的5折兑换：',
             'force_boss_challenge_preview_cost': '挑战消耗：',
             'force_boss_challenge_preview_header': '主公~开始挑战黄巾军后，势力全员可参与战斗，是否要开始挑战？',
-            'force_boss_challenge_preview_niudan1': '四星蜀国将领扭蛋',
-            'force_boss_challenge_preview_niudan2': '四星魏国将领扭蛋',
-            'force_boss_challenge_preview_niudan3': '四星吴国将领扭蛋',
-            'force_boss_challenge_preview_niudan4': '四星群雄将领扭蛋',
-            'force_boss_challenge_preview_niudan5': '四星武器扭蛋',
-            'force_boss_challenge_preview_niudan6': '四星防具扭蛋',
-            'force_boss_challenge_preview_niudan7': '四星坐骑扭蛋',
+            'force_boss_challenge_preview_niudan1': '四星蜀国寻将任务',
+            'force_boss_challenge_preview_niudan2': '四星魏国寻将任务',
+            'force_boss_challenge_preview_niudan3': '四星吴国寻将任务',
+            'force_boss_challenge_preview_niudan4': '四星群雄寻将任务',
+            'force_boss_challenge_preview_niudan5': '四星寻宝任务-武器',
+            'force_boss_challenge_preview_niudan6': '四星寻宝任务-防具',
+            'force_boss_challenge_preview_niudan7': '四星寻宝任务-坐骑',
             'force_boss_challenge_profile': '{{:name}}存在时间：{{:time}}分钟<br>【人数】：{{:num}}<br>【防御】：{{:defencemin}}~{{:defencemax}}<br>【技能】<br>{{:skill}}',
             'force_boss_challenge_reward': '挑战奖励',
             'force_boss_challenge_reward_des': '恭喜主公，我军击杀了{{:num}}名{{:name}}！',
@@ -2414,6 +2721,7 @@
             'force_boss_name_level': '{{:name}}<span class="challenge-highlight">({{:level}}级)</span>',
             'force_boss_name_level2': '{{:name}}{{:level}}级',
             'force_capitulate_fail': '不能劝降',
+            'force_capture_content': '主公～劝降其它势力会使本势力保护期提前结束，届时其它势力将攻击本势力，是否确定劝降？',
             'force_challenge_model_alert': '点击【进攻黄巾军】后，选择想要挑战的模式。',
             'force_challenge_model_attack': '进攻黄巾军',
             'force_challenge_model_bossinfo_defence': '【防御】{{:min}}~{{:max}}',
@@ -2421,7 +2729,7 @@
             'force_challenge_model_bossinfo_name': '{{:name}}({{:level}}级)',
             'force_challenge_model_bossinfo_skill': '【技能】<br>{{:skill}}',
             'force_challenge_model_bossinfo_title': 'BOSS信息',
-            'force_challenge_model_deadGod': '“苍天已死，黄天当立。岁在甲子，天下大吉！”黄巾军散步谣言，四处作乱，请各路诸侯前去征讨。',
+            'force_challenge_model_deadGod': '“苍天已死，黄天当立。岁在甲子，天下大吉！”黄巾军散布谣言，四处作乱，请各路诸侯前去征讨。',
             'force_challenge_model_duration': '战斗时间：{{:duration}}分钟',
             'force_challenge_model_easy': '【简单模式 {{:name}}({{:level}}级)】',
             'force_challenge_model_hard': '【困难模式 {{:name}}({{:level}}级)】',
@@ -2450,9 +2758,17 @@
             'force_disband': '势力解散',
             'force_dismiss': '势力解散',
             'force_empty': '主公～没有找到相关的势力哦～',
+            'force_entry_without_permission': '申请此势力可直接加入，此势力主曾在{{:time}}前登录',
+            'force_entry_without_permission2': '可直接加入',
+            'force_entry_without_permission_btn': '去势力',
+            'force_entry_without_permission_lebel': '自动同意势力申请',
+            'force_entry_without_permission_owner_perform': '主公~只有势力主或副势力主才能操作哦~',
+            'force_entry_without_permission_title1': '加入势力',
+            'force_entry_without_permission_title2': '发送申请成功',
             'force_event_alliance_notice': '结盟后，我方势力将不能劝降、霸占、接受劝降。',
             'force_exchange_unavailable': '主公~现在还不能兑换该物品哦~',
             'force_exchange_unavailable_forceboss': '主公~请先击败黄巾军哦~',
+            'force_forcewar_content': '主公～挑战其它势力会使本势力保护期提前结束，届时其它势力将攻击本势力，是否确定挑战？',
             'force_free': '[自由势力]',
             'force_grain': '势力粮饷：',
             'force_id': '势力ID：',
@@ -2474,16 +2790,22 @@
             'force_name_max': '最多5个汉字',
             'force_num': '/人（共{{:count}}人）',
             'force_owner': '势力主：',
+            'force_protected': '保护期：',
+            'force_protected_tips': '温馨提示',
             'force_ranking_empty': '暂时无人进榜~',
             'force_search_noresult': '主公～没有找到相关的势力哦～',
+            'force_siege_content': '主公～夺城会使本势力保护期提前结束，届时其它势力将攻击本势力，是否确定夺城？',
             'force_slave': '[太守势力]',
+            'force_usurp_content': '主公～霸占其它势力会使本势力保护期提前结束，届时其它势力将攻击本势力，是否确定霸占？',
             'force_vice_owner': '副势力主：',
             'force_view': '查看',
             'force_war': '抢粮战',
             'force_war_tip': '挑战等级高、存粮多的势力能抢到更多粮饷哦~',
             'force_war_tip2': '贡献值{{:contribute}}及以上的势力成员可以参战哦~',
             'force_war_tip3': '霸占成功后，我方势力将不能结盟、接受劝降。',
+            'forcebroadcastNotice': '势力群发消息',
             'forcebuff': '势力称号：',
+            'forcewar': '挑战',
             'forcewar_action': '挑战',
             'forcewar_alliancemember': '联盟成员',
             'forcewar_battle': '战斗',
@@ -2523,9 +2845,9 @@
             'forcewar_march_header': '请势力主召集成员积极备战',
             'forcewar_no_battle': '势力拥有军令:{{:challenge}}/{{:challenge_limit}}',
             'forcewar_notice_members': '{{:ownername}}向【{{:forcename}}】发起挑战，号召你加入战斗！{{:content}}',
-            'forcewar_notice_members1': '[<span>{{:title}}</span>]{{:ownername}}向【{{:forcename}}】发起挑战，号召你加入战斗！',
-            'forcewar_only_owner_change_defender': '主公~只有势力主才能更换据点守将哦~',
-            'forcewar_only_owner_start': '只有势力主、副势力主才能发起抢粮战~',
+            'forcewar_notice_members1': '<span>{{:title}}</span>{{:ownername}}向【{{:forcename}}】发起挑战，号召你加入战斗！',
+            'forcewar_only_owner_change_defender': '势力主/副势力主/外务官才能更换守将哦~',
+            'forcewar_only_owner_start': '势力主/副势力主/外务官才能发起抢粮战~',
             'forcewar_preview': '挑战结果预览',
             'forcewar_preview_city_in_battle_tip': '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;主公~有其它势力正在抢夺【{{:name}}】~',
             'forcewar_retreat': '退兵',
@@ -2538,14 +2860,49 @@
             'forcewar_tip_title': '提示',
             'forcewar_win': '挑战胜利',
             'forcewar_win_commend': '特此表彰以下成员：<br/>',
-            'forcewar_win_content': '我方势力轻松击败【{{:forcename}}】，<br/>夺得势力粮饷：',
+            'forcewar_win_content': '我方势力轻松击败【{{:forcename}}】，夺得势力粮饷：',
             'forcewar_win_grain': '我方势力轻松击败【{{:forcename}}】，夺得{{:grain}}粮饷',
             'foreign': '外务',
             'formation detail': '阵容对比',
             'free_only_owner_can_ask_alliance': '主公~只有势力主才能结盟哦~',
+            'free_only_owner_can_ask_diplomacy': '势力主/外交官才能外交哦~',
             'free_only_ownerorvice_can_ask_surrender': '主公~只有势力主、副势力主才能劝降哦~',
             'free_only_ownerorvice_can_start_battle': '只有势力主、副势力主才能发起霸占~',
             'from': '从',
+            'g_back_changeBtn': '返回调整',
+            'g_benqigongxian': '本期贡献：自上次发粮后，增加的贡献值；',
+            'g_changedItem': '已选成员：{{:num}}/{{:count}}',
+            'g_condition_txt': '显示已分配档次的成员',
+            'g_faliang_detail_confirm': '主公~您确定按如下分配发放粮饷吗？',
+            'g_faliang_detail_confirm2': '（发放粮饷后需要冷却3天哦~）',
+            'g_faliang_detail_count': '第{{:level}}档包含成员：',
+            'g_faliang_detail_t': '第{{:level}}档每人获得{{:grain}}粮饷，共{{:num}}人：',
+            'g_faliang_sender': '{{:sender}}将{{:grain}}点势力粮饷分配给势力成员：',
+            'g_faliang_t': '发粮详情',
+            'g_filtertype1': '官职',
+            'g_filtertype10': '贡献元宝',
+            'g_filtertype11': '官职：',
+            'g_filtertype33': '本期贡献：',
+            'g_filtertype4': '爵位',
+            'g_filtertype5': '分配档次',
+            'g_filtertype55': '贡献元宝：',
+            'g_filtertype9': '本期贡献',
+            'g_gongxianyuanbao': '贡献元宝：自上次发粮后，为势力花费的元宝数；',
+            'g_level_bodys': '第{{:level}}档（共{{:num}}人）',
+            'g_level_bodys2': '第{{:level}}档 {{:grain}}/人（共{{:num}}人）',
+            'g_level_bodys3': '<span style="color:#A80E0E">未分配（共{{:num}}人）</span>',
+            'g_level_grain': '每人获得{{:num}}粮饷',
+            'g_moreLabel': '全选未分配成员',
+            'g_order1': '降序',
+            'g_order2': '升序',
+            'g_remainderGrain': '剩余粮饷：{{:grainNum}}',
+            'g_remainderGrain2': '<span style="color:#CC3513">剩余粮饷：{{:grainNum}}</span>',
+            'g_selectMember': '选择成员',
+            'g_selectedTxt': '第{{:level}}档：{{:grain}}粮',
+            'g_sendgrain_ok': '成功发放粮饷~',
+            'g_setNumber': '设定数量',
+            'g_xLevel': '第{{:level}}档',
+            'g_xNum': ' / 人（共{{:num}}人）',
             'gained': '获得贡献：',
             'get_officer': '夺得州牧',
             'get_out_of_force': '退出势力',
@@ -2576,8 +2933,9 @@
             'help_defense_member_change': '协防人事变更',
             'help_defense_time_finish': '协防时间已到',
             'hour': '时',
-            'how_to_adjust_official': '如何调整{{:honor}}{{:name}}的官职？',
+            'how_to_adjust_official': '如何调整<div class="pname"></div>的官职？',
             'id': 'ID：',
+            'in_force_protected': '保护中',
             'in_force_rest': '休整中',
             'in_war': '参战',
             'info': '势力信息',
@@ -2589,6 +2947,7 @@
             'info_vice_owner': '副势力主',
             'input_message_call_toge': '主公~请输入留言召集帮众：',
             'internal': '内政',
+            'invite_member': '邀请',
             'is_submission': '是否归顺',
             'its_alliance': 'TA的盟友',
             'its_master': 'TA的诸侯',
@@ -2596,17 +2955,23 @@
             'join_already': '主公～您已经申请该势力～',
             'join_apply': '申请加入',
             'join_apply_force': '申请加入势力',
-            'join_event_privilege': '只有官员才能处理势力申请哦~',
+            'join_event_privilege': '势力主/副势力主/行政官才能处理哦~',
             'join_force': '加入势力',
             'join_slogen': '请发表入伙宣言！',
             'lake_grain': '粮饷不足',
-            'last_grain': '剩余粮饷',
+            'last_grain': '剩余粮饷：',
             'leve_updated': '恭喜主公，势力升级到{{:level}}级',
             'level': '级别: ',
+            'level1': '一',
+            'level2': '二',
+            'level3': '三',
+            'level4': '四',
+            'level5': '五',
             'level_full': '已满级',
             'level_full_tip': '势力已满级',
             'levelinfo': '级别{{:level}}',
             'login': '登录：',
+            'login2': '登录',
             'lose_lodgment_defender': '我军不敌{{:defendername}}，没能攻占据点【{{:lodgment}}】～',
             'lose_officer': '失去州牧',
             'lose_title': '失去称号',
@@ -2640,6 +3005,8 @@
             'nextday': '次日',
             'no enemy force': '近期风平浪静，未受到外来攻击。',
             'no_allocatebuff': '主公~这个称号已经没有多余的数量了哦~',
+            'no_more_member': '没有更多成员啦~',
+            'no_suitable_player': '没有符合条件的玩家哦~',
             'non_rmb_player_add_defense': '已加固{{:percent}}%',
             'non_rmb_player_assist_attack': '挖墙脚',
             'non_rmb_player_assist_defense': '固城防',
@@ -2661,25 +3028,34 @@
             'officer_first': '一品官',
             'officer_second': '二品官',
             'officer_third': '三品官',
+            'official': '官职：',
             'official1': '转让势力主',
             'official100': '无官职',
+            'official14': '外务官',
+            'official15': '财务官',
+            'official16': '行政官',
+            'official17': '外交官',
+            'official18': '先锋',
+            'official19': '护卫',
             'official2': '副势力主',
-            'official3': '一品官',
-            'official4': '二品官',
-            'official5': '三品官',
+            'official3': '内务官',
             'ok_submission': '确认归顺',
-            'only_official_can_refresh': '一品以上官员才能刷新内政任务',
+            'only_official_can_refresh': '势力主/副势力主/内务官才能刷新哦~',
+            'only_ownerandvice_broadcast': '只有势力主/副势力主可以群发消息哦~',
             'order': '排名：{{:order}}',
             'order_condition': '筛选条件',
+            'order_conditions': '排序条件',
             'order_force': '排序',
             'other': '其它',
             'other_prefect_message': '其他太守消息',
             'out': '退隐',
             'out_force': '请出势力',
-            'out_force_message': '将{{:honor}}{{:name}}请出势力后，TA的贡献值将被清空，您确定要这么做吗？',
+            'out_force_default_message': '请告诉Ta请出的原因吧。',
+            'out_force_message': '将<div class="pname"></div>请出势力后，TA的贡献值将被清空，您确定要这么做吗？',
             'out_force_tip': '主公～只能请出官职低于自身的成员哦～',
             'over': '结束',
             'owner': '势力主：[<span class=\"official\">{{:title}}</span>]{{:name}}',
+            'owner_bg': '势力主：',
             'owner_name': '城主：{{:owner_name}}',
             'owner_title': '势力主称号：',
             'pass_resign_apply': '主公~您批准了【{{:name}}】的请辞，TA不再是我方势力的太守了！',
@@ -2693,6 +3069,14 @@
             'price': '花费：',
             'prince_message': '诸侯消息',
             'profile_level': '级别：',
+            'quanxian_yilan': '权限一览',
+            'qx_1': '<span class="h-3">副势力主：</span>拥有发起抢粮、夺城、劝降、霸占、更换据点守将、刷新内政任务、开启黄巾军挑战、编辑公告、群发留言、自动同意势力申请、处理加入势力申请、踢出势力主/副势力主以外成员的权力。',
+            'qx_2': '<span class="h-3">内务官：</span>拥有刷新内政任务、开启黄巾军挑战、编辑公告的权力。',
+            'qx_3': '<span class="h-3">外务官：</span>拥有发起抢粮、夺城、更换据点守将、编辑公告的权力。',
+            'qx_4': '<span class="h-3">财务官：</span>拥有发放粮饷、编辑公告的权力。',
+            'qx_5': '<span class="h-3">行政官：</span>拥有处理加入势力申请、踢出普通成员、编辑公告的权力。',
+            'qx_6': '<span class="h-3">外交官：</span>拥有和其它势力外交、编辑公告的权力。',
+            'qx_7': '<span class="h-3">先锋/护卫：</span>无权力。',
             'ranking': '排行',
             'rebel': '反叛',
             'rebel_attack_disband': '时来运转，我方诸侯势力由于内部动荡导致解散，我方势力反叛成功，恢复了自由！',
@@ -2718,14 +3102,20 @@
             'rece_invite': '接受邀请',
             'receive_capitulate': '接受劝降',
             'refresh': '刷新',
+            'refreshTime1': '于{{:hour}}点{{:minutes}}分',
+            'refreshTime2': '{{:hour}}点{{:minutes}}分',
             'refresh_award': '恭喜您成功帮势力成员刷新内政任务！',
             'refresh_award1': '获得回报：',
             'refresh_cost': '刷新花费：',
             'refresh_fail': '内政刷新失败',
             'refresh_fail_tip': '报主公，您所在的势力存在不断加人踢人以恶意刷粮的行为，导致每日自动刷新内政的机会被用光啦~您可以找势力主探明究竟，或另寻势力加入哦~',
             'refresh_info1': '主公～您愿意给所有势力成员施加恩惠，帮他们刷新内政任务吗？',
-            'refresh_info3': '(下次花费{{:cost}}{{:yb}}，每日{{:point}}点重置)',
-            'refresh_info4': '报～主公～{{:official}}{{:name}}花重金为势力刷新内政任务，您愿意接受刷新吗？<br>(刷新后可重新做任务，获得更多奖励～)',
+            'refresh_info3': '(下次花费{{:cost}}{{:yb}}，多次刷新内政，势力成员可依次接受，不会覆盖，每日{{:point}}点重置)',
+            'refresh_info4': '报～主公～<div class="pname"></div>花重金为势力刷新内政任务，您愿意接受刷新吗？<br>(刷新后可重新做任务，获得更多奖励～)',
+            'refresh_info5': '主公~今日',
+            'refresh_info6': '花重金共刷新了<span class = "dark-red">{{:totaltime}}</span>次内政，您还可以接受<span class = "dark-red">{{:remaintime}}</span>次刷新内政，确定刷新吗？',
+            'refresh_info7': '（刷新后可重新做内政任务，获得更多奖励~未接受的刷新会在每日24点清空哦~）',
+            'refresh_info8': '主公~今日还没有官员刷新过内政哦~',
             'refresh_internal_mission': '刷新内政任务',
             'refresh_text': '每日24点刷新内政任务',
             'relation': '关系',
@@ -2747,7 +3137,7 @@
             'revolt_succ': '反叛成功',
             'reward': '势力收获',
             'rm': '元宝',
-            'salary_only_owner': '主公~只有势力主才能发放粮饷哦~',
+            'salary_only_owner': '势力主/财务官才能发放粮饷哦~',
             'search': '搜',
             'seize': '霸占',
             'seize_evacuate': '霸占撤退',
@@ -2757,13 +3147,19 @@
             'select_assign_title': '请选择分配给{{:honor}}{{:name}}的称号',
             'send_already': '已飞鸽传书，请等待回复！',
             'send_apply': '发送',
+            'send_definedgrain': '自定义发粮',
+            'send_diplomacy_success': '消息发送成功~',
+            'send_diplomacy_to': '留言给{{:receiveForceName}}',
             'send_weibo': '发送微博',
             'set_resttime_sucess': '设置休整时间成功！',
-            'share_grain': '发放粮饷',
+            'share_grain': '按官职发粮',
+            'share_grain2': '发放粮饷',
+            'show_detail': '查看详细',
             'siege': '夺城',
             'siege_battle_notice': '抢夺【{{:city}}】 ({{:battle_schedule}}) - {{:battle_time}}',
             'siege_button_disable_msg': '您的势力等级不符合要求哦~',
             'siege_button_disable_msg2': '城池易主未久，不要趁火打劫哦~',
+            'siege_button_disable_msg3': '势力主/副势力主/外务官才能发起夺城战~',
             'siege_button_resiege_txt': '弃旧夺新',
             'siege_button_txt': '抢夺',
             'siege_city_war_lose': '夺城失败',
@@ -2773,7 +3169,7 @@
             'siege_description': '争夺三国名城，抢个体面的根据地，需消耗军令',
             'siege_help_content': '号召势力成员参加夺城战吧！',
             'siege_help_title': '号召参加夺城战',
-            'siege_only_owner_start': '只有势力主、副势力主才能发起夺城战~',
+            'siege_only_owner_start': '势力主/副势力主/外务官才能发起夺城战~  ',
             'siege_preivew_dlg_title': '抢夺结果预览',
             'siege_preview_dlg_lose': '【{{:name}}】民心-1',
             'siege_preview_dlg_win': '占领城池【{{:name}}】',
@@ -2790,6 +3186,7 @@
             'tip1': '主公～二品以上官员才能编辑公告哦～',
             'title': '称号',
             'to_msg': '留言',
+            'today_offer': '(今日{{:offer}})',
             'turning_point_condition': '我方倒计时停止条件：占领据点',
             'uniterebel': '联合反叛',
             'uniterebel_attack_disband': '时来运转，我方诸侯势力由于内部动荡导致解散，我方势力及{{:sibling}}联合反叛成功，恢复了自由身！',
@@ -2819,6 +3216,7 @@
             'update_only_owner': '主公~只有势力主才能升级势力哦~',
             'update_succ_weibo': '我在#三国来了#把势力【{{:name}}】升到了{{:level}}级！又向称霸三国迈近一步，亲们快来投奔我吧！',
             'update_tip': '主公，您确定要提升势力等级么？',
+            'userDefinedBtn': '自定义',
             'usurp': '霸占',
             'usurp_assist_notice': '我方正在协助抵抗【{{:opponent_force}}】中 ({{:battle_schedule}})',
             'usurp_attack_disband': '我方势力声势浩大，吓得某不知名势力解散，本次霸占失败！',
@@ -2839,11 +3237,11 @@
             'usurp_defence_win': '防御成功',
             'usurp_defence_win_content': '经过我方势力成员的不懈努力，我方成功防守住了【{{:opponent_force}}】的霸占，毫发无伤！',
             'usurp_defenceer_win_momentum': '<br/>总算夺回一个据点了，死也要守住啊～',
-            'usurp_description': '强行占领其它势力并征税，行军两小时后开始战斗，消耗粮饷和军令',
+            'usurp_description': '强行占领其它势力并征税，行军两小时后开始战斗，消耗军令',
             'usurp_fail': '不能霸占',
             'usurp_fail_forcerest': '主公~对方势力正在休整中，还不能霸占TA哦~',
             'usurp_preview_tip': '霸占时，优先扣除粮饷哦~',
-            'usurp_tip': '主公~发起霸占需要用2个小时来行军准备，并扣除粮饷和军令，确定要霸占这个势力吗？',
+            'usurp_tip': '主公~发起霸占需要用2个小时来行军准备，并扣除军令，确定要霸占这个势力吗？',
             'usurp_war_help': '号召',
             'usurp_war_help_subhead': '主公~请输入留言召集帮众：',
             'usurp_war_help_title': '召集帮众',
@@ -2963,72 +3361,6 @@
                 });
             }
         },
-    });
-})(window, jQuery);;
-(function (w, $, undefined) {
-    w.Mojo = w.Mojo || {};
-    w.Mojo.com = w.Mojo.com || {};
-    w.Mojo.com.CommonDialog = w.Mojo.ui.Dialog.extend({
-        clsname: function () {
-            return "com.CommonDialog";
-        },
-        init: function (id, options) {
-            this._super(id, options);
-            this.element().addClass("mojo-com-commondialog");
-            this.leftButton = undefined;
-            this.rightButton = undefined;
-            this._addButtons();
-        },
-        _getDefaultOptions: function () {
-            return $.extend(true, this._super(), {
-                leftBtnText: undefined,
-                leftBtnDisabled: false,
-                leftBtnClick: undefined,
-                leftBtnDisabledClick: undefined,
-                rightBtnText: undefined,
-                rightBtnDisabled: false,
-                rightBtnClick: undefined,
-                rightBtnDisabledClick: undefined
-            });
-        },
-        _addButtons: function () {
-            var self = this;
-            if (self._options.leftBtnText) {
-                self.leftButton = new Mojo.ui.Button(undefined, {
-                    text: self._options.leftBtnText,
-                    disabled: self._options.leftBtnDisabled,
-                    special: "button-big-red",
-                    click: function () {
-                        if (self._options.leftBtnClick instanceof Function) {
-                            self._options.leftBtnClick(self);
-                        }
-                    },
-                    disableClick: function () {
-                        if (self._options.leftBtnDisabledClick instanceof Function) {
-                            self._options.leftBtnDisabledClick(self);
-                        }
-                    }
-                });
-                self.leftButton.element().appendTo(self._footer);
-            }
-            if (self._options.rightBtnText) {
-                self.rightButton = new Mojo.ui.Button(undefined, {
-                    text: self._options.rightBtnText,
-                    disabled: self._options.rightBtnDisabled,
-                    click: function () {
-                        if (self._options.rightBtnClick instanceof Function) {
-                            self._options.rightBtnClick(self);
-                        }
-                    },
-                    disableClick: function () {
-                        if (self._options.rightBtnDisabledClick instanceof Function) {
-                            self._options.rightBtnDisabledClick(self);
-                        }
-                    }
-                });
-                self.rightButton.element().appendTo(self._footer);
-            }
-        }
     });
 })(window, jQuery);;
 (function (w, $, undefined) {
@@ -3161,52 +3493,81 @@
                 click: function () {
                     self.hide();
                     if (self._options.goods.goods_id == 'sp0011') {
-                        var price = self._options.goods.goods_rm;
-                        var dlg = new Mojo.com.GoodsBatchBuyDlg({
-                            title: Mojo.utils.locale("mall", "buy_warning_title"),
-                            type: 'rm',
-                            rm: self._options.data.player_rm,
-                            price: parseInt(price),
-                            onBuy: function (count) {
-                                dlg.close();
-                                self.show();
-                                Mojo.ajax('/mall/Buy', {
-                                    id: self._options.goods.goods_id,
-                                    count: count
-                                }, function (result) {
-                                    self._buyBtn.disable(false);
-                                    if (result.errorCode == 0) {
-                                        if (self._options.buyBtnClick instanceof Function) {
-                                            self._options.buyBtnClick(self, result);
-                                        }
-                                        self._options.goods.count = parseInt(self._options.goods.count) + parseInt(count);
-                                        self._options.goods.id = result.data.entities[0].player_entity_id;
-                                        self._options.data.player_rm = result.data.player.rm;
-                                        self._refreshGoods();
-                                        Mojo.app.toast.show(Mojo.utils.locale("common", "buy_something_success", {
-                                            name: self._options.goods.goods_name
-                                        }));
-                                    } else {
-                                        if (result && result.errorCode == '10005') {
-                                            (new Mojo.com.BuyFailDialog({
-                                                message: result.errorMsg,
-                                                close: function () {
-                                                    self.show();
-                                                },
-                                            })).open(true);
-                                        } else {
-                                            Mojo.app.toast.show(result.errorMsg);
-                                        }
-                                    }
+                        Mojo.ajax('/force/checkPlayerBuyedRm', {
+                            type: 'buyitem'
+                        }, function (res2) {
+                            if (res2.errorCode == 0) {
+                                var price = self._options.goods.goods_rm;
+                                var dlg = new Mojo.com.GoodsBatchBuyDlg({
+                                    title: Mojo.utils.locale("mall", "buy_warning_title"),
+                                    type: 'rm',
+                                    rm: self._options.data.player_rm,
+                                    price: parseInt(price),
+                                    onBuy: function (count) {
+                                        dlg.close();
+                                        self.show();
+                                        Mojo.ajax('/mall/Buy', {
+                                            id: self._options.goods.goods_id,
+                                            count: count
+                                        }, function (result) {
+                                            self._buyBtn.disable(false);
+                                            if (result.errorCode == 0) {
+                                                if (self._options.buyBtnClick instanceof Function) {
+                                                    self._options.buyBtnClick(self, result);
+                                                }
+                                                self._options.goods.count = parseInt(self._options.goods.count) + parseInt(count);
+                                                self._options.goods.id = result.data.entities[0].player_entity_id;
+                                                self._options.data.player_rm = result.data.player.rm;
+                                                self._refreshGoods();
+                                                Mojo.app.toast.show(Mojo.utils.locale("common", "buy_something_success", {
+                                                    name: self._options.goods.goods_name
+                                                }));
+                                            } else {
+                                                if (result && result.errorCode == '10005') {
+                                                    (new Mojo.com.BuyFailDialog({
+                                                        message: result.errorMsg,
+                                                        close: function () {
+                                                            self.show();
+                                                        },
+                                                    })).open(true);
+                                                } else if (result && result.errorCode == 130109) {
+                                                    (new Mojo.com.CommonDialog(undefined, {
+                                                        title: result.data ? result.data.title : Mojo.utils.locale('force', 'force_assistant_prompt_title'),
+                                                        content: $('<div class="tip"></div>').html(result.errorMsg),
+                                                        leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                                        leftBtnClick: function (that) {
+                                                            that.close();
+                                                        }
+                                                    })).open(true);
+                                                } else {
+                                                    Mojo.app.toast.show(result.errorMsg);
+                                                }
+                                            }
+                                        });
+                                        self._buyBtn.disable(true);
+                                    },
+                                    onClose: function () {
+                                        self.show();
+                                    },
+                                    deviceaware: true
                                 });
-                                self._buyBtn.disable(true);
-                            },
-                            onClose: function () {
-                                self.show();
-                            },
-                            deviceaware: true
+                                dlg.open(true);
+                            } else {
+                                (new Mojo.com.CommonDialog(undefined, {
+                                    title: res2.data ? res2.data.title : Mojo.utils.locale('force', 'force_assistant_prompt_title'),
+                                    content: $('<div class="tip"></div>').html(res2.errorMsg),
+                                    leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                    leftBtnClick: function (that) {
+                                        that.close();
+                                    },
+                                    close: function () {
+                                        self.close();
+                                    }
+                                })).open(true);
+                            }
+                        }, function () {}, {
+                            showWait: true
                         });
-                        dlg.open(true);
                     } else {
                         var buyWarningDialog = new Mojo.ui.Dialog(undefined, {
                             title: Mojo.utils.locale('common', 'buy_warning_title'),
@@ -3526,26 +3887,27 @@
             this._addViewButton();
             this._addNavButton();
             this._refresh();
+            this._player = Mojo.page.Force.getController().getPlayerProfile();
             this.force_text = '';
         },
         _addBase: function () {
             var self = this;
             self.nameclass = '';
-            var lasttext = '';
+            self.lastlbltext = '';
             var lbl1class = '';
             var forcetype = this._options.getController().getForceProfile().type;
             switch (parseInt(forcetype)) {
             case 2:
                 self.nameclass = 'allyfriend';
-                lasttext = 'ally_friend';
+                self.lastlbltext = 'ally_friend';
                 break;
             case 3:
                 self.nameclass = 'taxrate';
-                lasttext = 'tax_rate';
+                self.lastlbltext = 'tax_rate';
                 break;
             case 4:
                 self.nameclass = 'precount';
-                lasttext = 'prefect_count';
+                self.lastlbltext = 'prefect_count';
                 break;
             default:
                 self.nameclass = 'other';
@@ -3563,10 +3925,7 @@
             default:
                 lbl1class = 'owner';
             }
-            this._lbl1 = new Mojo.ui.Label(undefined, {
-                classes: ['lbl', lbl1class],
-                text: self.locale('chairman')
-            });
+            this._lbl1 = $('<div class="lbl"></div>');
             this._lbl3 = new Mojo.ui.Label(undefined, {
                 classes: ['lbl', 'member'],
                 text: self.locale('member_count_txt')
@@ -3575,11 +3934,7 @@
                 classes: ['fgrain'],
                 text: self.locale('grain'),
             });
-            this._lastlbl = new Mojo.ui.Label(undefined, {
-                classes: [self.nameclass],
-                text: self.locale(lasttext),
-            });
-            intro.append(this._fname).append(this._lbl1.element()).append(this._lbl3.element()).append(this._fgrain.element()).append(this._lastlbl.element());
+            intro.append(this._fname).append(this._lbl1).append(this._lbl3.element()).append(this._fgrain.element());
             this._fname.append(this._fnametext);
             this._restoreInterval = w.setInterval(function () {
                 self._calcSpAndGrain();
@@ -3635,13 +3990,14 @@
             if (Mojo.utils.isNone(self._player)) {
                 return;
             }
-            if (self._player.position_id <= 4) {
+            if (this._player.force_rights.__all__ || this._player.force_rights.edit_announcement) {
                 editable = true;
-            } else {}
+            }
             (new Mojo.com.ForceNoticeDialog(self._force, {
                 getController: self._options.getController,
                 editable: editable,
                 showNotice: true,
+                showBroadcastNotice: true,
                 okBtnText: Mojo.utils.locale('force', 'notice_edit_btn')
             })).open();
         },
@@ -3697,7 +4053,6 @@
                 text: 'city',
                 index: 8,
                 refresh: 1,
-                isNew: true,
                 eventCode: '24_311'
             }, {
                 id: 'btn-member',
@@ -3813,43 +4168,82 @@
             self._force = force;
             self._player = player;
             self._force.challenge_second = force.time_to_restore_challenge;
-            self._lbl1.text(self.locale('chairman', {
-                title: force.owner.title,
-                name: force.owner.name
-            }));
+            self._lbl1.empty();
+            self._lbl1.addClass("mojo-ui-label");
+            var pn = new Mojo.com.PlayerName(force.title_info ? force.title_info : {
+                player_name: force.owner.name
+            }, {
+                title: true
+            }).element().appendTo(self._lbl1);
+            pn.find('.nobility_name').toggleClass().addClass('nobility_name highlight');
+            pn.find('.position_icon').after(pn.find('.pn_title').remove());
             if (force.name.length > 3) {
                 this._fname.removeClass('short').addClass('long');
             }
             self._lbl3.text(self.locale('member_count_txt') + force.member_num + "/" + force.member_num_limit);
             self._fgrain.text(self.locale('grain') + force.grain);
             self._fnameicon.removeClass(this.nameclass);
-            self._lastlbl.element().removeClass(this.nameclass);
+            if (this._lastlbl != undefined) {
+                self._lastlbl.element().removeClass(this.nameclass);
+            }
             switch (parseInt(force.type)) {
             case 2:
-                self._lastlbl.text(self.locale('ally_friend') + force.alliance_num + '/' + force.max_alliance);
+                self.lastlbltext = self.locale('ally_friend') + force.alliance_num + '/' + force.max_alliance;
                 self.nameclass = 'allyfriend';
                 self.force_text = Mojo.utils.locale('force', 'force_alliance');
                 break;
             case 3:
-                self._lastlbl.text(self.locale('tax_rate') + force.tax_ratio + '%');
+                self.lastlbltext = self.locale('tax_rate') + force.tax_ratio + '%';
                 self.nameclass = 'taxrate';
                 self.force_text = Mojo.utils.locale('force', 'force_slave');
                 break;
             case 4:
-                self._lastlbl.text(self.locale('prefect_count') + force.slave_num + '/' + force.max_slave);
+                self.lastlbltext = self.locale('prefect_count') + force.slave_num + '/' + force.max_slave;
                 self.nameclass = 'precount';
                 self.force_text = Mojo.utils.locale('force', 'force_master');
                 break;
             default:
                 self.nameclass = 'other';
-                self._lastlbl.text("");
+                self.lastlbltext = "";
                 self.force_text = Mojo.utils.locale('force', 'force_free');
             }
             self._fnameicon.addClass(this.nameclass);
-            self._lastlbl.element().addClass(this.nameclass);
             self._fnametext.html(self.force_text + force.name + '(' + Mojo.utils.locale('force', 'current_level', {
                 level: force.level
             }) + ')');
+            if (parseInt(force.protect_status) == 0) {
+                if (self._lblpro != undefined) {
+                    self._lblpro.element().remove();
+                    self._lblpro = undefined;
+                }
+                if (self._lastlbl == undefined) {
+                    self._lastlbl = new Mojo.ui.Label(undefined, {
+                        classes: [self.nameclass],
+                        text: self.locale(self.lastlbltext),
+                    });
+                    $('.intro').append(this._lastlbl.element());
+                } else {
+                    self._lastlbl.text(self.lastlbltext);
+                    self._lastlbl.element().addClass(this.nameclass);
+                }
+            } else {
+                w.clearInterval(this.proInterval);
+                if (self._lastlbl != undefined) {
+                    self._lastlbl.element().remove();
+                    self._lastlbl = undefined;
+                }
+                if (this._lblpro == undefined) {
+                    this._lblpro = new Mojo.ui.Label(undefined, {
+                        classes: ['force-protected'],
+                        text: self.locale(Mojo.utils.locale('force', 'force_protected')),
+                    });
+                    $('.intro').append(this._lblpro.element());
+                }
+                self.pro_time = parseInt(force.remain_protect_time);
+                self.proInterval = w.setInterval(function () {
+                    self._proTime();
+                }, 1000);
+            }
             self._header.find('span').html(self.locale('notice_title'));
             if (Mojo.utils.trim(force.announcement) == '') {
                 self._header.find('marquee').html(self.locale('empty_notice_default_text'));
@@ -3870,11 +4264,10 @@
                 for (var i = 0; i < force.force_chat.length; i++) {
                     var data = force.force_chat[i];
                     var chatmsg = $('<div class="chatmsg"></div>');
-                    var honor = '';
-                    if (data.forceTitle != undefined && data.forceTitle != '') {
-                        honor = '[<span class="official">' + data.forceTitle + '</span>]';
-                    }
-                    chatmsg.html(honor + '<span class="name">' + data.name + '</span>: ' + data.message);
+                    new Mojo.com.PlayerName(data.title_info ? data.title_info : {
+                        player_name: data.name
+                    }).element().appendTo(chatmsg);
+                    $('<div class="msg"></div>').html("：" + data.message).appendTo(chatmsg);
                     chatmsg.appendTo(self._chatlist);
                     if (chatmsg.height() > self._getR('chatMsgHeight')) ch++;
                 }
@@ -3912,6 +4305,40 @@
                     return false;
                 }
             });
+        },
+        _proTime: function () {
+            var self = this;
+            if (self.pro_time > 0) {
+                self._lblpro.text(Mojo.utils.locale('force', 'force_protected') + self._formatTime(this.pro_time));
+                self.pro_time--;
+            } else {
+                w.clearInterval(this.proInterval);
+                self._lblpro.text(Mojo.utils.locale('force', 'force_protected') + '0');
+                self._lblpro.element().remove();
+                self._lblpro = undefined;
+                self._lastlbl = new Mojo.ui.Label(undefined, {
+                    classes: [self.nameclass],
+                    text: self.locale(self.lastlbltext),
+                });
+                $('.intro').append(this._lastlbl.element());
+            }
+        },
+        _formatTime: function (sec) {
+            var str = '';
+            var dd = parseInt(sec / 86400);
+            var hh = parseInt((sec % 86400) / 3600);
+            var mm = parseInt((sec % 3600) / 60);
+            var ss = sec % 60;
+            if (dd > 0) {
+                str = dd + Mojo.utils.locale('common', 'day') + hh + Mojo.utils.locale('common', 'hour');
+            } else if (hh > 0) {
+                str = hh + Mojo.utils.locale('common', 'hour') + mm + Mojo.utils.locale('common', 'minute');
+            } else if (mm > 0) {
+                str = mm + Mojo.utils.locale('common', 'minute') + ss + Mojo.utils.locale('common', 'second');
+            } else {
+                str = ss + Mojo.utils.locale('common', 'second');
+            }
+            return str;
         },
         refreshData: function () {
             var self = this;
@@ -4018,14 +4445,9 @@
             _tip = $('<div class="words-tip"></div>').html(self._options.maxlength).appendTo(_titleTip);
             var _border = $('<div class="border"></div>').addClass('force-notice').appendTo(this._paragraph);
             var _content = $('<form name="form" method="post" action=""><textarea name="textarea' + flag + '" class="textarea' + flag + '" maxlength="' + self._options.maxlength + '" id="message-content" cols="45" rows="5">' + text + '</textarea></form>').appendTo(_border);
-            _textArea = this._content.find('.textarea' + flag).focus(function (e) {
-                var hintText = e.target.className == 'textarea1' ? self._options.hintText1 : self._options.hintText2;
-                if (self._options.hintText) {
-                    hintText = self._options.hintText;
-                }
-                if (this.value == hintText) {
-                    this.value = '';
-                }
+            _textArea = this._content.find('.textarea' + flag).click(function () {
+                this.selectionStart = 0;
+                this.selectionEnd = this.value.length;
             });
             _textArea.bind("focus input propertychange", function () {
                 var maxLength = $(this).attr('maxlength');
@@ -4091,6 +4513,8 @@
                                     Mojo.track.onEvent('24_302');
                                     self._options.getController().sync();
                                     self.close();
+                                } else if (response.errorCode == 130039) {
+                                    Mojo.app.toast.show(Mojo.utils.locale('force', 'edit_force_fobbiden'));
                                 }
                             }, function (e) {}, {
                                 showWait: true
@@ -4103,20 +4527,61 @@
                     Mojo.app.toast.show(Mojo.utils.locale('force', 'edit_force_fobbiden'));
                 },
             });
-            if (self._options.editable == false) {
+            if (this._options.editable == false) {
                 editBtn.disable(true);
             }
             this._footer.append(editBtn.element());
-            this._footer.append((new Mojo.ui.Button('close-btn', {
-                text: Mojo.utils.locale('ui', 'Close'),
-                click: function () {
-                    if (self._options.closeBtnClick instanceof Function) {
-                        self._options.closeBtnClick(self);
-                    } else {
+            if (self._options.showBroadcastNotice) {
+                this._footer.append((new Mojo.ui.Button('close-btn', {
+                    text: Mojo.utils.locale('force', 'broadcastNotice'),
+                    disabled: parseInt(Mojo.page.Force.getController().getPlayerProfile().position_id) > 2,
+                    disableClick: function () {
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'only_ownerandvice_broadcast'));
+                    },
+                    click: function () {
                         self.close();
-                    }
-                },
-            })).element());
+                        var broadcastDlg = new Mojo.com.MsgInputDialog({
+                            title: Mojo.utils.locale('force', 'forcebroadcastNotice'),
+                            defaultText: Mojo.utils.locale('force', 'broadcastNoticetip'),
+                            leftBtnText: Mojo.utils.locale('ui', 'Send'),
+                            leftBtnClick: function (value, that) {
+                                if (value == "") {
+                                    Mojo.app.toast.show(Mojo.utils.locale('common', 'no content'));
+                                    return;
+                                }
+                                that.close();
+                                Mojo.ajax('/force/memberNotice', {
+                                    content: value,
+                                }, function (result) {
+                                    if (result.errorCode == 0) {
+                                        Mojo.app.toast.show(Mojo.utils.locale('force', 'broadcastNoticeSucess'));
+                                    } else {
+                                        Mojo.app.toast.show(result.errorMsg);
+                                    }
+                                });
+                            },
+                            close: function () {
+                                self.close();
+                            },
+                        });
+                        broadcastDlg.open();
+                        setTimeout(function () {
+                            Mojo.utils.center(broadcastDlg.element());
+                        }, 10)
+                    },
+                })).element());
+            } else {
+                this._footer.append((new Mojo.ui.Button('close-btn', {
+                    text: Mojo.utils.locale('ui', 'Close'),
+                    click: function () {
+                        if (self._options.closeBtnClick instanceof Function) {
+                            self._options.closeBtnClick(self);
+                        } else {
+                            self.close();
+                        }
+                    },
+                })).element());
+            }
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
@@ -4130,7 +4595,10 @@
                 hintText: '',
                 id: '',
                 callback: $.noop,
-                deviceaware: true
+                deviceaware: true,
+                close: function () {
+                    window.scrollTo(0, 0);
+                }
             });
         },
         getContent: function () {
@@ -4158,6 +4626,10 @@
             this._playerProfile = this._options.getController().getPlayerProfile();
             this._addTabs();
             this._addButton();
+            var self = this;
+            Mojo.page.Force.getController().getProfile().addSyncHandle(function (data) {
+                self._setRefreshTimes(data);
+            });
         },
         _createInternalPanel: function (selected) {
             this._createList(selected);
@@ -4259,9 +4731,7 @@
                     leftBtnClick: function (that) {
                         if (Mojo.app.data.tasks_finish == 1) {
                             self.assistantRunning = 0;
-                            self.assistantDialog._options.leftBtnClick = function (that) {
-                                Mojo.app.toast.show(Mojo.utils.locale('force', 'force_assistant_alert1'));
-                            };
+                            Mojo.app.toast.show(Mojo.utils.locale('force', 'force_assistant_alert1'));
                         } else {
                             if (is_assist_open == 1) {
                                 self._endShowAssistant(function () {
@@ -4288,6 +4758,31 @@
                         window.clearInterval(self.intervalAssistantLog);
                     }
                 });
+                var footer = $('<div class="content-footer"></div>');
+                footer.appendTo(self.assistantDialog._content);
+                var chooseBtn = new Mojo.ui.Button(undefined, {
+                    text: '',
+                    classes: ['choose-button'],
+                    special: 'combo',
+                    click: function () {
+                        self._ajaxForceTaskAutoSell(function (result) {
+                            var btnEle = chooseBtn.element();
+                            var cls = "combo-selected-class";
+                            if (result.data.auto_sell == 1) {
+                                self.forceInternalListData.auto_sell = 1;
+                                btnEle.addClass(cls);
+                            } else {
+                                self.forceInternalListData.auto_sell = 0;
+                                btnEle.removeClass(cls);
+                            }
+                        });
+                    }
+                });
+                chooseBtn.element().appendTo(footer);
+                if ("" + self.forceInternalListData.auto_sell == "1") {
+                    chooseBtn.element().addClass("combo-selected-class");
+                }
+                $('<div class="label"></div>').html(Mojo.utils.locale('force', 'force_autosellcard')).appendTo(footer);
                 self.assistantDialog.open();
                 if (self.forceInternalListData.is_assist_open == 0) {
                     self._showAssistantContent.html(Mojo.utils.locale('force', 'force_assistant_content1'));
@@ -4301,8 +4796,8 @@
                     content: $('<div class="paragraph wordBreak"></div>').html(Mojo.utils.locale('force', 'force_assistant_content2')),
                     leftBtnText: Mojo.utils.locale('force', 'force_assistant_buyCard'),
                     leftBtnClick: function (that) {
-                        Mojo.app.redirect('/mall', {
-                            selected: 3
+                        Mojo.app.redirect('/newmall', {
+                            selected: 5
                         });
                         that.close();
                     },
@@ -4312,6 +4807,19 @@
                     }
                 }).open();
             }
+        },
+        _ajaxForceTaskAutoSell: function (callback) {
+            Mojo.ajax('/assist/forceTaskAutoSell', {}, function (result) {
+                if (result.errorCode == 0) {
+                    if (callback && callback instanceof Function) {
+                        callback(result);
+                    }
+                } else {
+                    Mojo.app.toast.show(result.errorMsg);
+                }
+            }, function () {}, {
+                showWait: true
+            });
         },
         _startShowAssistant: function (callback) {
             var self = this;
@@ -4416,9 +4924,7 @@
             self.assistantDialog._options.leftBtnClick = function (that) {
                 if (Mojo.app.data.tasks_finish == 1) {
                     self.assistantRunning = 0;
-                    self.assistantDialog._options.leftBtnClick = function (that) {
-                        Mojo.app.toast.show(Mojo.utils.locale('force', 'force_assistant_alert1'));
-                    };
+                    Mojo.app.toast.show(Mojo.utils.locale('force', 'force_assistant_alert1'));
                 } else {
                     if (self.isFinish == 0) {
                         self._endShowAssistant(function () {
@@ -4469,29 +4975,42 @@
                     break;
                 case '5':
                     self.assistantRunning = 1;
-                    var contribute = reward.contribute;
-                    var grain = reward.grain;
-                    var vm = reward.vm;
-                    var entity = reward.entity;
-                    var gets = [];
-                    if (contribute) {
-                        gets.push(Mojo.utils.locale('force', 'offer1') + '×' + contribute);
+                    var autoSell = reward.auto_sell;
+                    if (autoSell) {
+                        var vm = autoSell.vm;
+                        var name = autoSell.name;
+                        var count = autoSell.count;
+                        var sellCards = name + "×" + count;
+                        _div = Mojo.utils.locale('force', 'auto_sell_log', {
+                            time: time,
+                            sellCards: sellCards,
+                            vm: vm
+                        });
+                    } else {
+                        var contribute = reward.contribute;
+                        var grain = reward.grain;
+                        var vm = reward.vm;
+                        var entity = reward.entity;
+                        var gets = [];
+                        if (contribute) {
+                            gets.push(Mojo.utils.locale('force', 'offer1') + '×' + contribute);
+                        }
+                        if (grain) {
+                            gets.push(Mojo.utils.locale('force', 'force_boss_challenge_final_win_grain') + '×' + grain);
+                        }
+                        if (vm) {
+                            gets.push(Mojo.utils.locale('force', 'vm') + '×' + vm);
+                        }
+                        if (entity) {
+                            gets.push(entity + '×' + 1);
+                        }
+                        _div = Mojo.utils.locale('force', 'force_assistant_log1', {
+                            time: time,
+                            task_name: task_name,
+                            percent: percent,
+                            gets: gets.join('，')
+                        });
                     }
-                    if (grain) {
-                        gets.push(Mojo.utils.locale('force', 'force_boss_challenge_final_win_grain') + '×' + grain);
-                    }
-                    if (vm) {
-                        gets.push(Mojo.utils.locale('force', 'vm') + '×' + vm);
-                    }
-                    if (entity) {
-                        gets.push(entity + '×' + 1);
-                    }
-                    _div = Mojo.utils.locale('force', 'force_assistant_log1', {
-                        time: time,
-                        task_name: task_name,
-                        percent: percent,
-                        gets: gets.join('，')
-                    });
                     break;
                 case '6':
                     _div = Mojo.utils.locale('force', 'force_assistant_auto_end');
@@ -4554,62 +5073,41 @@
                     } else {
                         self._header.html(Mojo.utils.locale('force', 'refresh_text'));
                     }
-                    if (data != undefined && data.has_refresh == 1) {
-                        var official = '';
-                        if (data.refresh_player_title != '' && data.refresh_player_title != null && data.refresh_player_title != undefined) {
-                            official = '[<span class="official">' + data.refresh_player_title + '</span>]';
-                        }
-                        var refreshdlg = new Mojo.com.HandleDialog({
-                            title: Mojo.utils.locale('force', 'refresh_internal_mission'),
-                            message: Mojo.utils.locale('force', 'refresh_info4', {
-                                official: official,
-                                name: data.refresh_player_name
-                            }),
-                            btn1: Mojo.utils.locale('common', 'ok'),
-                            handle1: function () {
-                                if (Mojo.app.data.tasks_finish == 0) {
-                                    new Mojo.com.CommonDialog(undefined, {
-                                        title: Mojo.utils.locale('force', 'force_assistant_title'),
-                                        content: $("<div class='paragraph'></div>").html(Mojo.utils.locale('force', 'force_assistant_content3')),
-                                        leftBtnText: Mojo.utils.locale('force', 'refresh'),
-                                        rightBtnText: Mojo.utils.locale('common', 'cancel'),
-                                        leftBtnClick: function (that) {
-                                            Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
-                                                if (result.errorCode == 0) {
-                                                    Mojo.app.data.is_assist_finish = 1;
-                                                    Mojo.track.onEvent('24_602');
-                                                    self._list.refresh(result.data);
-                                                } else {
-                                                    Mojo.app.toast.show(result.errorMsg);
-                                                }
-                                            });
-                                            that.close();
-                                        },
-                                        rightBtnClick: function (that) {
-                                            that.close();
-                                        }
-                                    }).open();
-                                } else {
-                                    Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
-                                        if (result.errorCode == 0) {
-                                            Mojo.app.data.tasks_finish = 0;
-                                            Mojo.track.onEvent('24_602');
-                                            self._list.refresh(result.data);
-                                        } else {
-                                            Mojo.app.toast.show(result.errorMsg);
-                                        }
-                                    });
-                                }
-                            },
-                        });
-                        refreshdlg.open();
-                    }
+                    self._setRefreshTimes(data);
                 },
             });
             this._tabs.setPanel(selected, this._list);
         },
+        _setRefreshTimes: function (data) {
+            if (!this.forceInternalListData) {
+                this.forceInternalListData = {};
+            }
+            $('.internal-accept-btn').find('.count').remove();
+            this.forceInternalListData.can_accepts = data.can_accepts;
+            if (parseInt(data.can_accepts) > 0) {
+                $('<div class="count"></div>').html(data.can_accepts).appendTo(this._acceptBtn.element());
+            }
+        },
         _addButton: function () {
             var self = this;
+            this._acceptBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('force', 'accept_refresh'),
+                click: function () {
+                    Mojo.ajax('/force/refreshes', {}, function (result) {
+                        if (result.errorCode == 0) {
+                            self._setRefreshTimes(result.data);
+                            self._acceptRefresh(result.data);
+                        } else {
+                            Mojo.app.toast.show(result.errorMsg);
+                        }
+                    });
+                },
+                disableClick: function () {
+                    Mojo.app.toast.show(Mojo.utils.locale('force', 'cannot_refrsh_internal'));
+                },
+                classes: ['force-back-btn internal-accept-btn'],
+            });
+            this._acceptBtn.element().appendTo(this.element());
             this._backBtn = new Mojo.ui.Button(undefined, {
                 text: Mojo.utils.locale('common', 'back'),
                 click: function () {
@@ -4623,6 +5121,138 @@
             });
             this._backBtn.element().appendTo(this.element());
         },
+        _acceptRefresh: function (data) {
+            var self = this;
+            Mojo.app.data.tasks_finish = data.tasks_finish;
+            if (parseInt(data.refresh_num) < 1) {
+                new Mojo.com.CommonDialog(undefined, {
+                    title: Mojo.utils.locale('force', 'refresh_internal_mission'),
+                    content: $("<div class='paragraph'>" + Mojo.utils.locale('force', 'refresh_info8') + "<span class = 'refresh-msg-tip'>" + Mojo.utils.locale('force', 'refresh_info7') + "</span>" + "</div>"),
+                    rightBtnText: Mojo.utils.locale('common', 'cancel'),
+                    rightBtnClick: function (that) {
+                        that.close();
+                    }
+                }).open();
+                return;
+            }
+            var msg = $("<div class='msgContent paragraph'></div>").html(Mojo.utils.locale('force', 'refresh_info5'));
+            if (data && data.titles) {
+                var i = 0;
+                for (var index in data.titles) {
+                    var title_info = data.titles[index];
+                    if (i > 0) {
+                        msg.append('，');
+                    }
+                    msg.append(new Mojo.com.PlayerName(title_info ? title_info : {
+                        player_name: data.refresh_player_name
+                    }).element());
+                    msg.append(self._formateTime(data.titles[index].create_time));
+                    i++;
+                }
+            }
+            msg.append(Mojo.utils.locale('force', 'refresh_info6', {
+                totaltime: data.refresh_num,
+                remaintime: data.can_accepts
+            })).append($("<div class='refresh-msg-tip'></div>").html(Mojo.utils.locale('force', 'refresh_info7')));
+            var refreshdlg = new Mojo.com.CommonDialog('refresh-internal-dlg', {
+                title: Mojo.utils.locale('force', 'refresh_internal_mission'),
+                content: msg,
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                leftBtnClick: function (that) {
+                    if (Mojo.app.data.tasks_finish == 0) {
+                        var acceptRefreshTask_time = Mojo.app.getStorage('acceptRefreshTask-time');
+                        if (acceptRefreshTask_time) {
+                            var _nowTime = new Date().getTime();
+                            var tmp = _nowTime - acceptRefreshTask_time;
+                            tmp = tmp / 1000;
+                            tmp = tmp / 60;
+                            if (tmp < 1) {
+                                Mojo.app.toast.show('您刚刚已接受刷新，还是先做做内政吧~');
+                                return;
+                            }
+                        }
+                        that.close();
+                        new Mojo.com.CommonDialog(undefined, {
+                            title: Mojo.utils.locale('force', 'refresh_internal_mission'),
+                            content: $("<div class='paragraph'></div>").html(Mojo.utils.locale('force', 'force_assistant_content3')),
+                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                            rightBtnText: Mojo.utils.locale('common', 'cancel'),
+                            leftBtnClick: function (that) {
+                                Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
+                                    if (result.errorCode == 0) {
+                                        var nowTime = new Date().getTime();
+                                        Mojo.app.saveStorage('acceptRefreshTask-time', nowTime);
+                                        Mojo.app.data.is_assist_finish = 1;
+                                        if (self.forceInternalListData.is_assist == '1') {
+                                            self._setAssistantStatusStr('2');
+                                        }
+                                        Mojo.track.onEvent('24_602');
+                                        self._list.refresh(result.data);
+                                        if (parseInt(self.forceInternalListData.can_accepts) > 0) {
+                                            self.forceInternalListData.can_accepts = self.forceInternalListData.can_accepts - 1;
+                                            self._setRefreshTimes(self.forceInternalListData);
+                                        }
+                                    } else {
+                                        Mojo.app.toast.show(result.errorMsg);
+                                    }
+                                });
+                                that.close();
+                            },
+                            rightBtnClick: function (that) {
+                                that.close();
+                            }
+                        }).open();
+                    } else {
+                        that.close();
+                        Mojo.ajax('/force/acceptRefreshTask', {}, function (result) {
+                            if (result.errorCode == 0) {
+                                Mojo.app.data.tasks_finish = 0;
+                                Mojo.track.onEvent('24_602');
+                                self._list.refresh(result.data);
+                                if (parseInt(self.forceInternalListData.can_accepts) > 0) {
+                                    self.forceInternalListData.can_accepts = self.forceInternalListData.can_accepts - 1;
+                                    self._setRefreshTimes(self.forceInternalListData);
+                                }
+                            } else {
+                                Mojo.app.toast.show(result.errorMsg);
+                            }
+                        });
+                    }
+                },
+                leftBtnDisabled: parseInt(data.can_accepts) < 1,
+                leftBtnDisabledClick: function () {
+                    Mojo.app.toast.show(Mojo.utils.locale('force', 'cannot_refrsh_internal'));
+                },
+                rightBtnText: Mojo.utils.locale('common', 'close'),
+                rightBtnClick: function (that) {
+                    that.close();
+                },
+            });
+            refreshdlg.open();
+        },
+        _formateTime: function (timeArr) {
+            var self = this;
+            if (!timeArr || timeArr.length <= 0) {
+                return;
+            }
+            var str = '';
+            for (var index in timeArr) {
+                var h = parseInt(timeArr[index] / 3600);
+                var m = parseInt((timeArr[index] % 3600) / 60);
+                if (index == 0) {
+                    str += Mojo.utils.locale('force', 'refreshTime1', {
+                        hour: h,
+                        minutes: m
+                    });
+                } else {
+                    str += '、' + Mojo.utils.locale('force', 'refreshTime2', {
+                        hour: h,
+                        minutes: m
+                    });
+                }
+            }
+            return str;
+        },
         _addRefreshButton: function () {
             var self = this;
             var refreshTxt = Mojo.utils.locale('force', 'refresh_internal_mission');
@@ -4633,14 +5263,18 @@
                     Mojo.ajax('/force/refreshTaskPreview', {}, function (result) {
                         if (result.errorCode == 0) {
                             self._showRefreshDialog(result.data);
+                        } else {
+                            Mojo.app.toast.show(result.errorMsg);
                         }
+                    }, function () {}, {
+                        showWait: true
                     });
                 },
                 disableClick: function () {
                     Mojo.app.toast.show(Mojo.utils.locale('force', 'only_official_can_refresh'));
                 },
             });
-            if (parseInt(self._playerProfile.position_id) > 3) {
+            if (!(this._playerProfile.force_rights.__all__ || this._playerProfile.force_rights.refresh_task)) {
                 self.refreshBtn.disable(true);
             }
             self.refreshBtn.element().appendTo(self._list._list).show();
@@ -4660,9 +5294,6 @@
                         self._inRefreshing = false;
                         if (result.errorCode == 0) {
                             Mojo.app.data.tasks_finish = self.forceInternalListData.tasks_finish = 0;
-                            if (self.forceInternalListData.is_assist == '1') {
-                                self._setAssistantStatusStr('2');
-                            }
                             var i = 0,
                                 player = {};
                             if (parseInt(data.vm) > 0) {
@@ -4673,13 +5304,12 @@
                                 player.rm = -i;
                             }
                             self._onTrack(i);
-                            self._list.refresh(result.data.taskList);
                             var grain = result.data.awardGrain;
                             Mojo.page.Force.getController().diffPlayer({
                                 grain: grain
                             });
-                            self._list._scroll.scrollTo(0, 0);
                             self._options.getController().diffPlayer(player);
+                            self._setRefreshTimes(result.data);
                             var c = $("<div class='paragraph'></div>").html(Mojo.utils.locale('force', 'refresh_award'));
                             var tip2 = $("<div class='info2'></div>").appendTo(c).html(Mojo.utils.locale('force', 'refresh_award1'));
                             new Mojo.ui.Label(undefined, {
@@ -4698,6 +5328,33 @@
                                 }
                             }).element().appendTo(dlg._footer);
                             dlg.open();
+                        } else if (result.errorCode == 130108) {
+                            (new Mojo.com.CommonDialog(undefined, {
+                                title: result.data ? result.data.title : Mojo.utils.locale('force', 'force_assistant_prompt_title'),
+                                content: $('<div class="tip"></div>').html(result.errorMsg),
+                                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                leftBtnClick: function (that) {
+                                    that.close();
+                                }
+                            })).open();
+                        } else if (result.errorCode == 138000) {
+                            (new Mojo.com.CommonDialog(undefined, {
+                                title: result.data && result.data.title ? result.data.title : Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                content: $('<div class="tip"></div>').html(result.errorMsg),
+                                rightBtnText: Mojo.utils.locale('ui', 'Close'),
+                                rightBtnClick: function (that) {
+                                    that.close();
+                                }
+                            })).open();
+                        } else if (result.errorCode == 130101) {
+                            (new Mojo.com.CommonDialog(undefined, {
+                                title: result.data && result.data.title ? result.data.title : Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                content: $('<div class="tip"></div>').html(result.errorMsg),
+                                rightBtnText: Mojo.utils.locale('ui', 'Close'),
+                                rightBtnClick: function (that) {
+                                    that.close();
+                                }
+                            })).open();
                         } else {
                             (new Mojo.com.BuyFailDialog({
                                 message: result.errorMsg,
@@ -5690,6 +6347,7 @@
             document.onkeydown = function (event) {
                 if (event.keyCode == 13) {
                     $('#search-btn').click();
+                    $('#friend-search-condition').blur()
                     return false;
                 }
             };
@@ -5792,7 +6450,9 @@
                         element._btn.element().remove();
                         element._hiddenTxt.html(self.getL("force", "deleted"));
                         self._forceProfile.member_num = self._forceProfile.member_num - 1;
-                        self._header.text(Mojo.utils.locale('force', 'member_count') + self._forceProfile.member_num + '/' + self._forceProfile.member_num_limit);
+                        if (self._header) {
+                            self._header.text(Mojo.utils.locale('force', 'member_count') + self._forceProfile.member_num + '/' + self._forceProfile.member_num_limit);
+                        }
                     } else {
                         self.refresh();
                     }
@@ -5800,7 +6460,11 @@
                 },
                 updateCallback: function (data) {
                     self.update(data);
-                }
+                },
+                refreshForceInviteList: function () {
+                    self._tabs.element().hide();
+                    self._addForceInviteTabs();
+                },
             };
             if (Mojo.utils.isNone(this._options.forceMemberElementOptions) == false) {
                 forceMemberListOptions["forceMemberElementOptions"] = this._options.forceMemberElementOptions;
@@ -5827,9 +6491,6 @@
       </form>\
      </div>\
     </div>';
-            $("#friend-search-condition").click(function () {
-                $("#friend-search-condition").val("");
-            });
             self._searchBtn = new Mojo.ui.Button('search-btn', {
                 text: Mojo.utils.locale('common', 'search'),
                 click: function () {
@@ -5845,6 +6506,12 @@
             var s = $(search);
             s.appendTo(p);
             self._searchBtn.element().appendTo(s);
+            setTimeout(function () {
+                $("#friend-search-condition").click(function () {
+                    this.selectionStart = 0;
+                    this.selectionEnd = this.value.length;
+                });
+            }, 100)
         },
         _refreshFilter: function () {
             var filter = Mojo.cache.get('forceFiter');
@@ -5865,7 +6532,7 @@
                 },
                 classes: ['force-back-btn'],
             });
-            this._backBtn.element().appendTo(this.element());
+            this._backBtn.element().appendTo(this._tabs.element());
             if (Mojo.utils.isNone(this._options.showSearch) == false && this._options.showSearch == false) {
                 return;
             }
@@ -5876,6 +6543,7 @@
                     var forceFilterDialog = new Mojo.com.ForceFilterDialog({
                         typeId: self._param.typeId,
                         type: self._param.type,
+                        showAll: true,
                         orderId: self._param.orderId,
                         callback: function (tid, oid) {
                             if (self._param.typeId == tid && self._param.orderId == oid)
@@ -5912,7 +6580,7 @@
                     forceFilterDialog.open();
                 },
             });
-            self.orderBtn.element().appendTo(this.element());
+            self.orderBtn.element().appendTo(this._tabs.element());
         },
         refresh: function () {
             var self = this;
@@ -5926,6 +6594,92 @@
             this.forceMemberList = undefined;
             this._createList();
         },
+        _addBackToBtn: function () {
+            var self = this;
+            this._backToBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'back'),
+                click: function () {
+                    self._forceInviteTabs.element().remove();
+                    self._tabs.element().show();
+                },
+                classes: ['force-back-btn'],
+            });
+            this._backToBtn.element().appendTo(this._forceInviteTabs.element());
+        },
+        _addForceInviteTabs: function () {
+            var self = this;
+            this._forceInviteTabs = new Mojo.ui.Tabs('tabs-member', {
+                selectionChange: function (index) {
+                    self._refreshForceInviteList();
+                }
+            });
+            this._forceInviteTabs.addTab(this.locale('invite_member'));
+            this.element().append(this._forceInviteTabs.element());
+            this._ForceInvitePanel = this._forceInviteTabs.element().find('.panel').eq(0).addClass('box-outter');
+            this._forceInviteTabs._select(0);
+            this._addBackToBtn();
+        },
+        _ForceInviteDataAjax: function (start, count) {
+            var self = this;
+            Mojo.ajax('/force/ForceInvitePlayer', {
+                count: count
+            }, function (result) {
+                if (result.errorCode == 0) {
+                    self._forceInviteList.appendData(result.data);
+                    if (start == 0 && Mojo.utils.isNone(result.data)) {
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'no_suitable_player'));
+                    }
+                    self._forceInviteList.resize();
+                } else {
+                    self._forceInviteList.appendData(null);
+                }
+            }, function () {
+                self._forceInviteList.appendData(null);
+            });
+        },
+        _refreshForceInviteList: function () {
+            var self = this;
+            this._forceInviteList = new Mojo.ui.ListPanel(undefined, {
+                pageSize: 10,
+                scrollable: true,
+                alwaysMore: true,
+                refreshable: true,
+                showMore: true,
+                moreLabel: Mojo.utils.locale('friend', 'refresh'),
+                emptyLabel: Mojo.utils.locale('force', 'no_suitable_player'),
+                loadFunc: function (start, count) {
+                    self._ForceInviteDataAjax(start, count);
+                },
+                drawFunc: function (data) {
+                    return new Mojo.com.ForceInviteElement(data, {
+                        button1: Mojo.utils.locale('force', 'invite_member'),
+                        classButton1: 'go-communicate-btn',
+                        clickButton1: function (data, element) {
+                            var dlg = new Mojo.com.MsgInputDialog({
+                                title: Mojo.utils.locale('force', 'force_invite'),
+                                defaultText: Mojo.utils.locale('friend', 'default_text'),
+                                maxlen: 100,
+                                leftBtnText: Mojo.utils.locale('force', 'send_apply'),
+                                leftBtnClick: function (value) {
+                                    Mojo.ajax('/message/messageForceRequest', {
+                                        receiverId: data.id,
+                                        content: value
+                                    }, function (response) {
+                                        if (response.errorCode == 0) {
+                                            dlg.close();
+                                            element.element().remove();
+                                            Mojo.app.toast.show(self.getL('force', 'send_already'));
+                                        }
+                                    });
+                                }
+                            });
+                            dlg.open();
+                        },
+                    });
+                },
+            });
+            this._forceInviteList.element().appendTo(this._ForceInvitePanel);
+        },
         _getDefaultOptions: function () {
             var self = this;
             return {
@@ -5933,7 +6687,9 @@
                     self.element().hide();
                     self._options.getController().switchToHome();
                 },
-                forceMemberElementOptions: undefined,
+                forceMemberElementOptions: {
+                    showOfficial: true,
+                },
                 forceMemberListOptions: undefined,
             };
         },
@@ -5969,11 +6725,26 @@
             this._player = Mojo.page.Force.getController().getPlayerProfile();
             this._force = Mojo.page.Force.getController().getForceProfile();
         },
+        _addInviteBtn: function () {
+            var self = this;
+            this._inviteBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('force', 'invite_member'),
+                click: function () {
+                    self._options.refreshForceInviteList();
+                }
+            });
+            this._inviteBtn.element().appendTo(this._list).addClass('button-big-red').addClass("footer-btn");
+        },
         _getDefaultOptions: function () {
             var self = this;
             return $.extend(true, this._super(), {
                 pageSize: 10,
                 moreLabel: Mojo.utils.locale('force', 'member_more'),
+                showMore: true,
+                alwaysMore: true,
+                onLoaded: function (list) {
+                    self._more.element().removeClass('more').addClass("more-btn footer-btn");
+                },
                 loadFunc: function (start, count, params) {
                     if (params != undefined) {
                         self._flag = true;
@@ -5988,22 +6759,34 @@
                         search: $("#friend-search-condition").val(),
                     }, function (result) {
                         if (result.errorCode == 0) {
-                            if (result.data.list != undefined && result.data.list.length == self._options.pageSize) {
-                                self._more.show();
-                            } else {
-                                self._more.hide();
+                            if (result.data.list != undefined && result.data.list.length == self._options.pageSize) {} else {
                                 self._options.emptyLabel = Mojo.utils.locale('force', 'not_this_member');
                                 if (self._flag) {
                                     setTimeout(function () {
-                                        params._searchBtn.disable(false);
+                                        if (params._searchBtn) {
+                                            params._searchBtn.disable(false);
+                                        }
                                     }, 1000);
                                 }
                             }
-                            self.appendData(result.data.list);
+                            setTimeout(function () {
+                                if (result.data.list != undefined && result.data.list.length == self._options.pageSize) {
+                                    self._more.disable(false);
+                                } else {
+                                    self._more.disable(true);
+                                    self._more._options.disableClick = function () {
+                                        Mojo.app.toast.show(Mojo.utils.locale('force', 'no_more_member'));
+                                    };
+                                }
+                            }, 100);
+                            self.appendData(result.data.list, true);
                             self._options.updateCallback(result.data);
                             self.resize();
                             if (self._flag) {
                                 self._scroll.scrollTo(0, 0);
+                            }
+                            if (self._inviteBtn == undefined) {
+                                self._addInviteBtn();
                             }
                         }
                     });
@@ -6029,7 +6812,7 @@
                                     handle1: function () {
                                         Mojo.ajax('/force/quit', {}, function (result) {
                                             if (result.errorCode == 0) {
-                                                Mojo.app.redirect('/home', {}, 'event', '24_404');
+                                                Mojo.app.redirect('/home', {});
                                             }
                                         });
                                     }
@@ -6043,6 +6826,7 @@
                                             });
                                         }
                                         str += Mojo.utils.locale('force', 'alert_cooling_time_battle');
+                                        str += Mojo.utils.locale('force', 'alert_cooling_time_defence');
                                         dlg.setAlertMessage(str);
                                         Mojo.utils.center(dlg.element());
                                     }
@@ -6087,6 +6871,9 @@
         _addAttributes: function () {
             var self = this;
             var attack, defence;
+            if (parseInt(this._data.is_self) == 1) {
+                this.element().addClass('self');
+            }
             if (parseInt(this._data.attack_min) > parseInt(this._data.attack_max)) {
                 attack = this._data.attack_min;
             } else {
@@ -6100,9 +6887,9 @@
             if (this._options.showLevel == false) {
                 this.element().append('<div class="force-member-level">' + Mojo.utils.locale('common', 'lv') + this._data.level + '</div>');
             }
-            var title = '';
-            if (this._data.title != undefined && this._data.title != '') title = '[<span class="official">' + this._data.title + '</span>]';
-            this.element().append('<div class="force-member-name">' + title + this._data.name + '</div>');
+            new Mojo.com.PlayerName(this._data.title_info ? this._data.title_info : {
+                player_name: this._data.name
+            }).element().appendTo($('<div class="force-member-name"></div>').appendTo(this.element()));
             if (this._options.showHr) {
                 $('<hr>').appendTo(this.element());
             }
@@ -6112,11 +6899,55 @@
             if (this._options.showLevel) {
                 this.element().append('<div class="force-member-level">' + Mojo.utils.locale('force', 'level') + this._data.level + '</div>');
             }
-            if (this._options.showOffer) {
-                this.element().append('<div class="force-member-offer">' + Mojo.utils.locale('force', 'offer') + this._data.contribute + '</div>');
+            var official = undefined;
+            if (this._options.showOfficial && this._data.title_info && Mojo.utils.isNone(this._data.title_info.position_id) == false) {
+                switch (parseInt(this._data.title_info.position_id)) {
+                case 1:
+                    official = Mojo.utils.locale('force', 'info_owner');
+                    break;
+                case 2:
+                    official = Mojo.utils.locale('force', 'info_vice_owner');
+                    break;
+                case 3:
+                    official = Mojo.utils.locale('force', 'count_officer_name_1');
+                    break;
+                case 14:
+                    official = Mojo.utils.locale('force', 'count_officer_name_2');
+                    break;
+                case 15:
+                    official = Mojo.utils.locale('force', 'count_officer_name_3');
+                    break;
+                case 16:
+                    official = Mojo.utils.locale('force', 'count_officer_name_4');
+                    break;
+                case 17:
+                    official = Mojo.utils.locale('force', 'count_officer_name_5');
+                    break;
+                case 18:
+                    official = Mojo.utils.locale('force', 'count_officer_name_6');
+                    break;
+                case 19:
+                    official = Mojo.utils.locale('force', 'count_officer_name_7');
+                    break;
+                default:
+                    official = undefined;
+                    break;
+                }
+                if (official != undefined) {
+                    this.element().append('<div class="force-member-official">' + Mojo.utils.locale('force', 'official') + official + '</div>');
+                }
             }
             if (this._options.showLogin) {
-                this.element().append('<div class="force-member-login">' + Mojo.utils.locale('force', 'login') + Mojo.utils.getFromNowTime(this._data.last_login_time) + '</div>');
+                this.element().append('<div class="force-member-login">' + Mojo.utils.getFromNowTime(this._data.last_login_time) + Mojo.utils.locale('force', 'login2') + '</div>');
+            }
+            if (this._options.showOffer && official != undefined) {
+                this.element().append('<div class="force-member-offer-with-official">' + Mojo.utils.locale('force', 'offer') + this._data.contribute + Mojo.utils.locale('force', 'today_offer', {
+                    offer: self._data.today_contribute
+                }) + '</div>');
+            } else if (this._options.showOffer && official == undefined) {
+                this.element().append('<div class="force-member-offer">' + Mojo.utils.locale('force', 'offer') + this._data.contribute + Mojo.utils.locale('force', 'today_offer', {
+                    offer: self._data.today_contribute
+                }) + '</div>');
             }
             if (this._options.showAttack) {
                 this.element().append('<div class="force-member-attack">' + Mojo.utils.locale('common', 'simple_attack') + attack + '</div>');
@@ -6133,6 +6964,22 @@
             self._btn = new Mojo.ui.Button(null, {
                 classes: self._options.goBtnClass,
                 text: self._options.goBtnText,
+                disabled: self._options.disableNewForcePlayer && (self._data.cold_time != 0),
+                disableClick: function () {
+                    if (self._options.disableNewForcePlayer && (self._data.cold_time != 0)) {
+                        if (self._data.cold_time == -1) {
+                            Mojo.app.toast.show(Mojo.utils.locale('force', 'cannot_defence'));
+                        } else {
+                            var cold_time = 86400 - self._data.cold_time;
+                            var h = parseInt(cold_time / 3600);
+                            var m = parseInt((cold_time % 3600) / 60);
+                            Mojo.app.toast.show(Mojo.utils.locale('force', 'cannot_defence_coldtime', {
+                                hour: h,
+                                minutes: m
+                            }));
+                        }
+                    }
+                },
                 click: function () {
                     self._options.clickFunc(self);
                 },
@@ -6170,14 +7017,11 @@
             this.element().addClass('mojo-com-forcememberdetaildlg');
             var self = this;
             this._player = Mojo.page.Force.getController().getPlayerProfile();
-            var title = '';
-            if (this._data.title != undefined && this._data.title != '') {
-                title = '[<span class="official">' + this._data.title + '</span>]';
-            }
-            this._name = $('<div class="name"></div>').html(Mojo.utils.locale('force', 'do_with_member', {
-                honor: title,
-                name: this._data.name
-            })).appendTo(this._content);
+            this._name = $('<div class="name"></div>').append(Mojo.utils.locale('force', 'do_with_member'));
+            this._name.find('.pname').append(new Mojo.com.PlayerName(this._data.title_info ? this._data.title_info : {
+                player_name: this._data.name
+            }).element());
+            this._name.appendTo(this._content);
             if (this._player.position_id == 100 && this._data.is_friend == 1) {
                 this._actions = self._footer;
                 this._name.css('height', 60);
@@ -6270,7 +7114,7 @@
                 })).element());
                 btn_num++;
             }
-            if (this._player.position_id >= 1 && this._player.position_id <= 5) {
+            if (this._hasOutForceRight(this._player.position_id, this._data.position_id)) {
                 this._actions.append((new Mojo.ui.Button('out-btn', {
                     text: Mojo.utils.locale('force', 'out_force'),
                     click: function () {
@@ -6293,30 +7137,40 @@
                 })).element());
             }
         },
+        _hasOutForceRight: function (positionId1, positionId2) {
+            var right = false;
+            switch (parseInt(positionId1)) {
+            case 1:
+                right = true;
+                break;
+            case 2:
+                right = positionId2 != 2;
+                break;
+            case 16:
+                right = positionId2 == 100;
+                break;
+            }
+            return right;
+        },
         _showOutForceDialog: function () {
             var self = this;
-            var msg = '';
-            if (self._data.title != undefined && self._data.title != '') {
-                msg = Mojo.utils.locale('force', 'out_force_message', {
-                    honor: '[<span class="official">' + self._data.title + '</span>]',
-                    name: self._data.name
-                });
-            } else {
-                msg = Mojo.utils.locale('force', 'out_force_message', {
-                    honor: '',
-                    name: self._data.name
-                });
-            }
-            (new Mojo.com.HandleDialog({
+            var msg = $('<div></div>').append(Mojo.utils.locale('force', 'out_force_message'));
+            msg.find('.pname').append(new Mojo.com.PlayerName(this._data.title_info ? this._data.title_info : {
+                player_name: this._data.name
+            }).element());
+            (new Mojo.com.MsgInputDialog({
                 title: Mojo.utils.locale('force', 'out_force'),
-                message: msg,
-                btn1: Mojo.utils.locale('common', 'ok'),
-                handle1: function () {
+                warnText: msg,
+                defaultText: Mojo.utils.locale('force', 'out_force_default_message'),
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                leftBtnClick: function (value, that) {
                     Mojo.ajax('/force/kickPlayer', {
-                        player_id: self._data.id
+                        player_id: self._data.id,
+                        content: value == "" ? undefined : value,
                     }, function (result) {
                         if (result.errorCode == 0) {
                             Mojo.track.onEvent('24_403');
+                            that.close();
                             self._options.callback('outforce');
                         } else {
                             Mojo.app.toast.show(result.errorMsg);
@@ -6347,15 +7201,32 @@
             this._data = data;
             this._super(undefined, options);
             this.element().addClass('mojo-com-friendformationdlg');
+            this.slotDataArr = [];
             var self = this;
-            var panel = new Mojo.ui.PagePanel(null, {
+            self.panel = self._pagePanel = new Mojo.ui.PagePanel(null, {
+                showWait: false,
+                scrollable: true,
+                needLoad: false,
+                direction: 1,
                 selector: (new Mojo.com.BaseSlotList({
                     classes: ['general-list-bg-border'],
                     isMine: false,
                     showUnlock: false,
                     friendId: self._options.frd_id,
                     onSelect: function (that, index) {
-                        panel.selector(index);
+                        self.panel.selector(index);
+                    },
+                    onLoaded: function (base_slot_list) {
+                        var len = base_slot_list.slotCount;
+                        for (var i = 0; i < len; i++) {
+                            self._pagePanel.addData(i, i);
+                        }
+                        self._pagePanel._panel.css({
+                            width: (self._pagePanel.element().find('.pagepanel-scroll > .wrapper').outerWidth()) * (base_slot_list.slotCount),
+                            height: self._pagePanel.element().find(".pagepanel-scroll > .wrapper").outerHeight()
+                        });
+                        self._pagePanel.refreshScroll();
+                        self._pagePanel.selector(self._selected);
                     }
                 })),
                 loadFunc: function (that, current) {
@@ -6368,24 +7239,14 @@
                     } else {
                         selected = current;
                     }
-                    Mojo.ajax("/embed", {
-                        pid: self._options.frd_id,
-                        start: current,
-                        count: 1
-                    }, function (result) {
-                        if (result && result.errorCode === 0) {
-                            panel._options.count = result.data.total;
-                            panel.addData(result.data.base_slots, current, true);
-                        }
-                        if (current >= result.data.total) {
-                            selected = "_end";
-                        }
-                        panel.selector(selected);
-                    }, function () {
-                        panel.selector(0);
-                    });
+                    self._loadData(current, true);
                 },
                 drawFunc: function (that, data) {
+                    if (typeof data != 'object') {
+                        var o = new Mojo.Object();
+                        $('<div class="waiting"></div>').appendTo(o.element().addClass("panel-element"));
+                        return o;
+                    }
                     if (data.is_barracks != 1) {
                         return (new Mojo.com.Package(data, {
                             isMine: false,
@@ -6404,7 +7265,49 @@
                     }
                 }
             });
-            this._content.append(panel.element());
+            this._content.append(self.panel.element());
+        },
+        _loadData: function (index, display) {
+            var self = this;
+            var selected = index;
+            if (self.slotDataArr[index] && display) {
+                self.panel._options.count = self.slotDataArr[index].total;
+                self.panel.addData(self.slotDataArr[index].base_slots, index, true);
+                if (index >= self.slotDataArr[index].total) {
+                    selected = "_end";
+                }
+                self.panel.selector(selected);
+                if (self.slotDataArr[index + 1] == undefined) {
+                    self._loadData(index + 1, false);
+                }
+                return;
+            }
+            Mojo.ajax("/embed", {
+                pid: self._options.frd_id,
+                start: index,
+                count: 1
+            }, function (result) {
+                if (result && result.errorCode === 0) {
+                    if (display) {
+                        self.panel._options.count = result.data.total;
+                        self.panel.addData(result.data.base_slots, index, true);
+                        if (self.slotDataArr[index + 1] == undefined) {
+                            self._loadData(index + 1, false);
+                        }
+                    }
+                    self.slotDataArr[index] = result.data;
+                }
+                if (index >= result.data.total && display) {
+                    selected = "_end";
+                }
+                if (display) {
+                    self.panel.selector(selected);
+                }
+            }, function () {
+                if (display) {
+                    self.panel.selector(0);
+                }
+            });
         },
         _generalClick: function (general) {
             var self = this;
@@ -6485,6 +7388,7 @@
             this._lastSelected = undefined;
             this._scrollDistX = 0;
             this._max_army = 1;
+            this.slotCount = 0;
             var self = this;
             var params = (this._options.isMine ? {} : {
                 pid: this._options.friendId
@@ -6496,7 +7400,8 @@
                     Mojo.ajax('/embed/simple', params, function (result) {
                         self._max_army = result.data.max_army;
                         if (result.errorCode == 0) {
-                            Mojo.app.baseSlotsCount = result.data.base_slots.length;
+                            self.slotCount = Mojo.app.baseSlotsCount = result.data.base_slots.length;
+                            Mojo.app.simpleData = result.data;
                             if (result.data.base_slots.length < 4) {
                                 for (; result.data.base_slots.length < 4;) {
                                     result.data.base_slots.push(undefined);
@@ -6597,6 +7502,9 @@
                 army_id: index
             }, function (response) {
                 if (response.errorCode == 0) {
+                    if (self._options.updateSlotArr instanceof Function) {
+                        self._options.updateSlotArr();
+                    }
                     self.reLoad();
                     self.dlg.close();
                     self._options.onPackageChange();
@@ -6610,11 +7518,15 @@
         },
         reLoad: function (index) {
             this._list.element().find(".mojo-com-baseslotlist-element").remove();
+            this._list._hasLoaded = false;
             this._hasLoaded = false;
             this._baseSlots = {};
             this._lastSelected = undefined;
             this._scrollDistX = 0;
             this._list._load();
+            if (this._options.onReload instanceof Function) {
+                this._options.onReload(this);
+            }
         },
         refreshAll: function (data) {
             if (Array.isArray(data.list)) {
@@ -6630,6 +7542,7 @@
                         slotObj.element().children().remove();
                         if (d.player_entity_id == null || d.player_entity_id == "") {
                             slotObj.element().append('<div class="card-slot ' + selected + '"></div>');
+                            slotObj.element().removeClass('mojo-com-light');
                         } else {
                             slotObj.element().append('<img src="' + d.small_image + '">');
                             slotObj.element().append('<div class="card-border ' + selected + '"></div>');
@@ -6651,7 +7564,8 @@
                 isMine: true,
                 friendId: undefined,
                 onPackageChange: $.noop,
-                showSwitch: false
+                showSwitch: false,
+                onReload: undefined
             });
         },
         _getBaseSlotEntity: function (data) {
@@ -6669,6 +7583,9 @@
                 this._baseSlots[baseSlotId] = obj;
                 if (data.player_entity_id == null || data.player_entity_id == "") {
                     obj.element().append('<div class="card-slot"></div>');
+                    if (this._options.isMine) {
+                        Mojo.light.showLight('empty-card-border|1');
+                    }
                 } else {
                     obj.element().append('<img src="' + data.small_image + '">');
                     obj.element().append('<div class="card-border"></div>');
@@ -6680,7 +7597,9 @@
                 this._lastSelected.find(".card-border").addClass("selected");
             }
             obj.element().click(function () {
-                if (data == undefined) {} else if (data.player_entity_id == null) {} else {}
+                if (data == undefined) {} else if (data.player_entity_id == null) {
+                    obj.element().removeClass('mojo-com-light');
+                } else {}
                 self._lastSelected.find(".card-border").removeClass("selected");
                 self._lastSelected.find(".card-slot").removeClass("selected");
                 self._lastSelected.find("img").removeClass("img-class");
@@ -6699,6 +7618,10 @@
             if (Mojo.utils.isNone(self._lastSelected) == false) {
                 self._lastSelected.find(".card-border").removeClass("selected");
                 self._lastSelected.find(".card-slot").removeClass("selected");
+                self._lastSelected.find("img").removeClass("img-class");
+            }
+            if (this._options.isMine) {
+                Mojo.light.showLight('empty-card-border|1');
             }
             $.each(this.element().find(".mojo-com-baseslotlist-element"), function (i, e) {
                 if (current == i) {
@@ -6706,6 +7629,9 @@
                     $(e).find(".card-slot").addClass("selected");
                     $(e).find("img").addClass("img-class");
                     self._lastSelected = $(e);
+                    if (self._lastSelected.find('.card-slot').hasClass('mojo-com-light')) {
+                        self._lastSelected.find('.card-slot').removeClass('mojo-com-light');
+                    }
                     var listleft = self._scroll.scrollerLeft();
                     if (self._options.unitWidth > 0) {
                         var r = i - Math.abs(listleft / self._options.unitWidth);
@@ -6872,11 +7798,14 @@
                         isMine: self._options.isMine,
                         click: function (entity) {
                             if (self._options.entityClick instanceof Function) {
-                                self._options.entityClick(entity);
+                                self._options.entityClick(entity, self._data);
                             }
                         }
                     });
                     self[entityId].element().appendTo(self._entity);
+                    if (d.type_id == '' + self._data.light) {
+                        self[entityId].element().find('.no-entity').addClass('mojo-com-light');
+                    }
                 } else {
                     self[entityId].refresh(d);
                 }
@@ -7077,7 +8006,8 @@
                 direction: 1,
                 classes: ['all-small-card-border', 'left-army'],
                 showArrow: true,
-                step: self._options.unitWidth
+                step: self._options.unitWidth,
+                isStopPropagation: true
             });
             return _scroll;
         },
@@ -7159,11 +8089,11 @@
                                 Mojo.app.redirect("/intensify", {
                                     entity: data.player_entity_id,
                                     selected: 1
-                                }, 'event', '06_024');
+                                });
                             } else {
                                 Mojo.app.redirect("/intensify", {
                                     entity: data.player_entity_id
-                                }, 'event', '06_024');
+                                });
                             }
                         }
                     }
@@ -7886,11 +8816,12 @@
             if (this._data.player_entity_id) {
                 this.element().find(".no-entity").hide();
                 self.element().find(".card").children().remove();
-                new Mojo.com.SmallEntity(this._data, {
+                this.smallEntity = new Mojo.com.SmallEntity(this._data, {
                     callback: function (card) {
                         self.element().find(".card").show().append(card.element());
                     }
                 });
+                this.setLevel();
                 var index1 = this._data.name.indexOf("·");
                 var aname = this._data.name.substring(index1 + 1);
                 if (this._data.rebirth_sum == 4) {
@@ -7904,6 +8835,20 @@
                 }
             } else {
                 this.clear();
+            }
+        },
+        setLevel: function (level) {
+            if (this._options.isMine) {
+                level = level || this._data.level;
+                if (this.smallEntity && this._data && this._data.level) {
+                    var levelEle = this.smallEntity.element().find('.level');
+                    if (levelEle.length > 0) {
+                        levelEle.html(level);
+                    } else {
+                        levelEle = $('<div class="level"></div>').html(level);
+                        levelEle.appendTo(this.smallEntity.element());
+                    }
+                }
             }
         },
         getData: function (d) {
@@ -7973,9 +8918,12 @@
             self._border = $('<div class="border"></div>').appendTo(paragraph);
             self._postcontent = $('<form name="form" method="post" action=""><textarea name="textarea" maxlength="' + self._options.maxlength + '" id="message-content" cols="45" rows="5">' + self._options.hintText + '</textarea></form>').appendTo(self._border);
             paragraph.appendTo(this._content);
-            this._textarea = this._content.find('textarea').focus(function () {
+            this._textarea = this._content.find('textarea').click(function () {
                 if (this.value == self._options.hintText) {
                     this.value = '';
+                } else {
+                    this.selectionStart = 0;
+                    this.selectionEnd = this.value.length;
                 }
             });
             this._textarea.bind("change paste keyup input", function () {
@@ -8021,6 +8969,26 @@
                             if (result.errorCode == 0) {} else {}
                         });
                         self.close();
+                    } else if (self._options.isForceDiplomacy == true) {
+                        if (Mojo.utils.trim(content) == '') {
+                            Mojo.app.toast.show(Mojo.utils.locale('common', 'no content'));
+                            return;
+                        }
+                        var params = {
+                            receiveForceId: self._options.receiveForceId,
+                            content: content,
+                        }
+                        if (false === Mojo.utils.isNone(self._options.forceDiplomacyMessageId)) {
+                            params['messageId'] = self._options.forceDiplomacyMessageId;
+                        }
+                        Mojo.ajax('/forceCrazy/diplomacy', params, function (result) {
+                            if (result.errorCode == 0) {
+                                Mojo.app.toast.show(Mojo.utils.locale('ui', 'send_diplomacy_success'));
+                            } else {
+                                Mojo.app.toast.show(result.errorMsg);
+                            }
+                        });
+                        self.close();
                     } else {
                         if (Mojo.utils.trim(content) == '') {
                             Mojo.app.toast.show(Mojo.utils.locale('friend', 'no content'));
@@ -8053,6 +9021,9 @@
                 callback: $.noop,
                 isFriendRequest: false,
                 isSuggestion: false,
+                isForceDiplomacy: false,
+                receiveForceId: undefined,
+                forceDiplomacyMessageId: undefined,
             });
         },
     });
@@ -8095,12 +9066,24 @@
             this._content.find('.top-left > .player_level').html(Mojo.utils.locale('common', 'level') + self._data.attacker.player.level);
             this._content.find('.top-left > .player_sum').html(Mojo.utils.locale('battle', 'sum attack') + self._data.attacker.player.sum_attack);
             this._content.find('.top-left > .player_base').html(Mojo.utils.locale('battle', 'base attack') + self._data.attacker.player.base_attack);
+            if (self._options.showBgTire && self._data.attacker.player.tire && parseInt(self._data.attacker.player.tire) > 0) {
+                var playerTireValue = $('<div class = "player_tire"></div>').appendTo(this._content.find('.top-left'));
+                var text = Mojo.utils.locale('battleground', 'tire_value') + self._data.attacker.player.tire;
+                if (self._data.attacker.player.tire_percent && parseInt(self._data.attacker.player.tire_percent) < 0) {
+                    text = Mojo.utils.locale('battleground', 'detail_tire', {
+                        tirevalue: self._data.attacker.player.tire,
+                        percent: self._data.attacker.player.tire_percent
+                    });
+                }
+                playerTireValue.html(text);
+                var opponentTireValue = $('<div class = "opponent_tire"></div>').appendTo(this._content.find('.top-right'));
+            }
             this._content.find('.top-right > .player_name').html(self._data.defender.player.name);
             if (self._options.non_show_def_lever == undefined || self._options.non_show_def_lever == false) {
                 this._content.find('.top-right > .player_level').html(Mojo.utils.locale('common', 'level') + self._data.defender.player.level);
             }
             this._content.find('.top-right > .player_sum').html(Mojo.utils.locale('battle', 'sum defence') + self._data.defender.player.sum_defence);
-            if (self._options.non_show_base_def == undefined || self._options.non_show_base_def == false) {
+            if ((self._options.non_show_base_def == undefined || self._options.non_show_base_def == false) && self._data.defender.player.base_defence) {
                 this._content.find('.top-right > .player_base').html(Mojo.utils.locale('battle', 'base defence') + self._data.defender.player.base_defence);
             }
             this._army = $('<div class="army"></div>').appendTo(this._content);
@@ -8267,6 +9250,7 @@
                 backCallback: $.noop,
                 xp: '',
                 vm: '',
+                gold: '',
                 entity: null,
             });
         },
@@ -8304,14 +9288,10 @@
         },
         _addHeader: function () {
             this._paragraph = $('<div class="paragraph"></div>').appendTo(this._content);
-            var title = '';
-            if (this._data.title != undefined && this._data.title != '') {
-                title = '[<span class="official">' + this._data.title + '</span>]';
-            }
-            this._header = $('<div class="header"></div>').html(Mojo.utils.locale('force', 'how_to_adjust_official', {
-                honor: title,
-                name: this._data.name
-            }));
+            this._header = $('<div class="header"></div>').append(Mojo.utils.locale('force', 'how_to_adjust_official'));
+            this._header.find('.pname').append(new Mojo.com.PlayerName(this._data.title_info ? this._data.title_info : {
+                player_name: this._data.name
+            }).element());
             this._header.appendTo(this._paragraph);
         },
         _addContent: function () {
@@ -8320,20 +9300,40 @@
                 type: 100,
                 name: Mojo.utils.locale('force', 'official100')
             }, {
-                type: 5,
-                name: Mojo.utils.locale('force', 'official5'),
-                cur: this._force.third_class_officer_num,
-                total: this._force.third_class_officer_num_limit
+                type: 19,
+                name: Mojo.utils.locale('force', 'count_officer_name_7'),
+                cur: this._force.position_19_num,
+                total: this._force.position_19_num_limit
             }, {
-                type: 4,
-                name: Mojo.utils.locale('force', 'official4'),
-                cur: this._force.second_class_officer_num,
-                total: this._force.second_class_officer_num_limit
+                type: 18,
+                name: Mojo.utils.locale('force', 'count_officer_name_6'),
+                cur: this._force.position_18_num,
+                total: this._force.position_18_num_limit
+            }, {
+                type: 17,
+                name: Mojo.utils.locale('force', 'count_officer_name_5'),
+                cur: this._force.position_17_num,
+                total: this._force.position_17_num_limit
+            }, {
+                type: 16,
+                name: Mojo.utils.locale('force', 'count_officer_name_4'),
+                cur: this._force.position_16_num,
+                total: this._force.position_16_num_limit
+            }, {
+                type: 15,
+                name: Mojo.utils.locale('force', 'count_officer_name_3'),
+                cur: this._force.position_15_num,
+                total: this._force.position_15_num_limit
+            }, {
+                type: 14,
+                name: Mojo.utils.locale('force', 'count_officer_name_2'),
+                cur: this._force.position_14_num,
+                total: this._force.position_14_num_limit
             }, {
                 type: 3,
-                name: Mojo.utils.locale('force', 'official3'),
-                cur: this._force.first_class_officer_num,
-                total: this._force.first_class_officer_num_limit
+                name: Mojo.utils.locale('force', 'count_officer_name_1'),
+                cur: this._force.position_3_num,
+                total: this._force.position_3_num_limit
             }, {
                 type: 2,
                 name: Mojo.utils.locale('force', 'official2'),
@@ -8343,7 +9343,7 @@
                 type: 1,
                 name: Mojo.utils.locale('force', 'official1')
             }];
-            this._officials = $('<div class="officials"></div>').appendTo(this._paragraph);
+            this._officials = $('<div class="officials"></div>');
             for (var i = 0; i < officials.length; i++) {
                 var o = officials[i];
                 var so = $('<div class="sub-official"></div>').appendTo(this._officials);
@@ -8375,6 +9375,13 @@
                     self._official = o;
                 }
             }
+            var s = new Mojo.ui.Scroll(undefined, this._officials, {
+                direction: 2
+            });
+            s.element().appendTo(this._paragraph);
+            setTimeout(function () {
+                s.refresh();
+            });
         },
         _addButtons: function () {
             var self = this;
@@ -8389,7 +9396,7 @@
                                 message: Mojo.utils.locale('force', 'cannot_adjust_owner'),
                                 close: function () {
                                     self.show();
-                                },
+                                }
                             })).open(true);
                             return;
                         }
@@ -8409,16 +9416,44 @@
                 special: 'button-big-red'
             })).element().appendTo(this._footer);
             (new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('common', 'close'),
+                text: Mojo.utils.locale('force', 'quanxian_yilan'),
                 click: function () {
-                    self.close();
-                },
+                    self._quanxianDlg();
+                }
             })).element().appendTo(this._footer);
+        },
+        _quanxianDlg: function () {
+            var self = this;
+            self.hide();
+            var quanxianCon = $("<div class='quanxianCon'></div>");
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_1')).appendTo(quanxianCon);
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_2')).appendTo(quanxianCon);
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_3')).appendTo(quanxianCon);
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_4')).appendTo(quanxianCon);
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_5')).appendTo(quanxianCon);
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_6')).appendTo(quanxianCon);
+            $('<div class="info"></div>').html(Mojo.utils.locale('force', 'qx_7')).appendTo(quanxianCon);
+            var args = Mojo.utils.showScrollDialog({
+                'dlgID': 'quanxian_yilan',
+                'scrollContent': quanxianCon,
+                'dlgParams': {
+                    title: Mojo.utils.locale('force', 'quanxian_yilan'),
+                    rightBtnText: Mojo.utils.locale('common', 'close'),
+                    rightBtnClick: function (that) {
+                        that.close();
+                    },
+                    close: function () {
+                        self.show();
+                    }
+                }
+            });
+            args.dialog.open(true);
+            args.scroll.refresh();
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
                 title: Mojo.utils.locale('force', 'adjust_official'),
-                callback: $.noop,
+                callback: $.noop
             });
         },
     });
@@ -8484,6 +9519,53 @@
                         return self._options.getController();
                     },
                 });
+                if (index == 1) {
+                    var isOn = parseInt(self._options.getController().getForceProfile().auto_agree_apply);
+                    var auto_agree_apply = $("<div  class = 'auto-agree-apply'></div>");
+                    $("<div class = 'label'></div>").html(Mojo.utils.locale('force', 'force_entry_without_permission_lebel')).appendTo(auto_agree_apply);
+                    var btn = new Mojo.ui.Button(undefined, {
+                        classes: ['auto-agree-apply-btn'],
+                        text: isOn == 1 ? Mojo.utils.locale('force', 'On') : Mojo.utils.locale('force', 'Off'),
+                        click: function () {
+                            Mojo.ajax("/force/autoAgreeApply", {
+                                forceId: self._options.getController().getForceProfile().id,
+                                isOpen: isOn == 1 ? 0 : 1
+                            }, function (response) {
+                                if (response.errorCode == 0) {
+                                    if (isOn == 1) {
+                                        self._options.getController().updateForceProfile({
+                                            auto_agree_apply: 0
+                                        });
+                                        isOn = parseInt(self._options.getController().getForceProfile().auto_agree_apply);
+                                        btn.text(Mojo.utils.locale('force', 'Off'));
+                                        btn.element().removeClass('button-big-red');
+                                    } else {
+                                        self._options.getController().updateForceProfile({
+                                            auto_agree_apply: 1
+                                        });
+                                        isOn = parseInt(self._options.getController().getForceProfile().auto_agree_apply);
+                                        btn.text(Mojo.utils.locale('force', 'On'));
+                                        btn.element().addClass('button-big-red');
+                                    }
+                                }
+                            });
+                        },
+                        disableClick: function () {
+                            Mojo.app.toast.show(Mojo.utils.locale('force', 'force_entry_without_permission_owner_perform'));
+                        }
+                    });
+                    if (isOn == 1) {
+                        btn.element().addClass('button-big-red');
+                    } else {
+                        btn.element().removeClass('button-big-red');
+                    }
+                    var positionId = parseInt(self._options.getController().getPlayerProfile().position_id);
+                    if (positionId != 1 && positionId != 2) {
+                        btn.disable(true);
+                    }
+                    btn.element().appendTo(auto_agree_apply);
+                    auto_agree_apply.appendTo(p.list._header);
+                }
                 this._tabs.setPanel(index, p.list);
             }
         },
@@ -8552,25 +9634,13 @@
         },
         _retrieveMessages: function (start, count) {
             var self = this;
-            var params = {};
-            if (self._readedStart > 0) {
-                params = {
-                    force_id: 1,
-                    start: self._readedStart,
-                    count: count,
-                    total: self._total + count,
-                    type: self._options.type,
-                    onlyreaded: true,
-                };
-            } else {
-                params = {
-                    force_id: 1,
-                    start: start,
-                    count: count,
-                    total: self._total + count,
-                    type: this._options.type
-                };
-            }
+            var params = {
+                force_id: 1,
+                start: start,
+                count: count,
+                total: self._total + count,
+                type: this._options.type
+            };
             Mojo.ajax('/force/messageList', params, function (result) {
                 if (result.errorCode == 0) {
                     self.appendData(result.data.messages);
@@ -8631,6 +9701,9 @@
                             }
                         })).element().appendTo(dlg._footer);
                         dlg.open();
+                    } else if (result.errorCode == 130006) {
+                        msg.status = 0;
+                        Mojo.app.toast.show(result.errorMsg);
                     } else {
                         msg.status = 2;
                         self._hasHandledThisMsg(msgcom);
@@ -9109,124 +10182,29 @@
                     id: msg.id,
                     handle: 2,
                 }, function (result) {
-                    msg.status = 2;
-                    self._hasHandledThisMsg(msgcom);
-                    if (result.errorCode == 0) {} else {
+                    if (result.errorCode == 0) {
+                        msg.status = 2;
+                        self._hasHandledThisMsg(msgcom);
+                    } else if (result.errorCode == 130006) {
+                        msg.status = 0;
+                        Mojo.app.toast.show(result.errorMsg);
+                    } else {
+                        msg.status = 2;
+                        self._hasHandledThisMsg(msgcom);
                         Mojo.app.toast.show(result.errorMsg);
                     }
                 });
                 break;
+            case 80:
+                this._showCustomGrainMsg(msg);
+                break;
             case 93:
             case 13:
-                var forceMember = new Mojo.com.ForceEnemyMember({
-                    title: Mojo.utils.locale('force', 'enemy_figthters', {
-                        '__default__': '攻占据点的人员'
-                    }),
-                    getController: function () {
-                        return self._options.getController();
-                    },
-                    forceMemberListOptions: {
-                        loadFunc: function (l, s, p, that) {
-                            Mojo.ajax("/force/enemyFighters", {
-                                ids: msg.str_data
-                            }, function (response) {
-                                if (response && response.errorCode === 0) {
-                                    that.appendData(response.data.list);
-                                    if (response.data != undefined && response.data.list.length == that._options.pageSize) {
-                                        that._more.show();
-                                    } else {
-                                        that._more.hide();
-                                    }
-                                    that.resize();
-                                } else {
-                                    (new Mojo.com.TipsDialog({
-                                        title: Mojo.utils.locale('common', 'tips'),
-                                        message: response.errorMsg,
-                                    })).open();
-                                    forceMember.close();
-                                }
-                            }, function () {});
-                        }
-                    },
-                    backCallback: function () {
-                        forceMember.close();
-                    },
-                    forceMemberElementOptions: {
-                        showAttack: true,
-                        showDefence: "?",
-                        showOffer: false,
-                        showLogin: false,
-                        showLevel: false,
-                        showHr: true,
-                        goBtnClass: ['go-button', 'go-attack-btn'],
-                        goSpecialClass: '',
-                        subClass: '',
-                        goBtnText: Mojo.utils.locale('force', 'revenge'),
-                        clickFunc: function (forceMemberElement) {
-                            Mojo.ajax('/battle/preview', {
-                                opponent_id: forceMemberElement._data.id,
-                            }, function (result) {
-                                forceMember.close();
-                                if (result.errorCode == 0) {
-                                    (new Mojo.com.BattlePreviewDialog(result.data, {
-                                        title: Mojo.utils.locale('force', 'revenge result preview'),
-                                        opponent_id: forceMemberElement._data.id,
-                                        opponent_name: forceMemberElement._data.name,
-                                        message_id: self._options.message_id,
-                                        forceProfile: self._options.getController(),
-                                        type: 'fight',
-                                        isForceEnemy: true,
-                                        from: 'force'
-                                    })).open();
-                                } else if (result.errorCode == 10003) {
-                                    (new Mojo.com.SpDialog(result.data, {
-                                        title: Mojo.utils.locale('common', 'no enough stamina'),
-                                        message: result.errorMsg,
-                                        forceProfile: self._options.getController(),
-                                        isForceEnemy: true,
-                                    })).open();
-                                } else if (result.errorCode == 30007) {
-                                    (new Mojo.com.AvoidWarDialog({
-                                        message: Mojo.utils.locale('common', 'avoid_war_content', {
-                                            avoid_war_time: Mojo.utils.formatTime(result.data)
-                                        }),
-                                        avoid_war_time: result.data,
-                                        callback: function () {
-                                            self._options.callback();
-                                        },
-                                    })).open();
-                                } else if (result.errorCode == 160003) {
-                                    var dlg = new Mojo.com.CommonDialog(undefined, {
-                                        title: Mojo.utils.locale('common', 'capacify_lack'),
-                                        content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'capacify_lack_tip')),
-                                        leftBtnText: Mojo.utils.locale('common', 'go_intensify'),
-                                        leftBtnClick: function () {
-                                            Mojo.app.redirect('/intensify');
-                                        },
-                                        rightBtnText: Mojo.utils.locale('common', 'go_sale'),
-                                        rightBtnClick: function () {
-                                            Mojo.app.redirect('/entity', {
-                                                selected: 3
-                                            });
-                                        },
-                                        close: function () {
-                                            Mojo.app.redirect('/home');
-                                        }
-                                    });
-                                    dlg.open();
-                                } else {
-                                    (new Mojo.com.TipsDialog({
-                                        title: Mojo.utils.locale('common', 'tips'),
-                                        message: result.errorMsg,
-                                    })).open();
-                                }
-                            }, function () {}, {
-                                showWait: true
-                            });
-                        }
-                    }
-                });
-                forceMember.open();
+                if (parseInt(msg.force_war_id) && parseInt(msg.int_data)) {
+                    self._showForceBattleDetail(msg, msgcom);
+                } else {
+                    self._doRevenge(msg, msgcom);
+                }
                 break;
             case 52:
                 Mojo.app.redirect('/force', {
@@ -9392,14 +10370,281 @@
             case 134:
                 Mojo.app.redirect('/relation');
                 break;
+            case 217:
+                self._showForceBattleDetail(msg, msgcom);
+                break;
             }
+        },
+        _showForceBattleDetail: function (msg, msgcom) {
+            var self = this;
+            var dlg = new Mojo.ui.Dialog('force-battle-detail-dlg', {
+                title: Mojo.utils.locale('force', 'force_battle_detail', {
+                    '__default__': '战斗统计'
+                }),
+            });
+            var list = new Mojo.ui.ListPanel(undefined, {
+                showMore: false,
+                scrollable: true,
+                loadFunc: function (l, s, p, that) {
+                    var params = {
+                        force_id: msg.int_data,
+                        fb_id: msg.force_war_id
+                    };
+                    if (93 == msg.type) {
+                        params['fb_type'] = 'forcecity';
+                    }
+                    if (217 == msg.type) {
+                        params['fb_id'] = msg.str_data;
+                        params['fb_type'] = 'forcecrazy';
+                    }
+                    Mojo.ajax("/force/forceBattleDetail", params, function (response) {
+                        if (response && response.errorCode === 0) {
+                            if (217 == msg.type) {
+                                msg.__str_data__ = "";
+                                for (var i in response.data) {
+                                    var d = response.data[i];
+                                    if (d && d.attacker && d.attacker.player_id) {
+                                        msg.__str_data__ += d.attacker.player_id + ',';
+                                    }
+                                }
+                            }
+                            that.appendData(response.data);
+                        } else {
+                            that.appendData(null);
+                        }
+                    }, function () {
+                        that.appendData(null);
+                    });
+                },
+                drawFunc: function (data) {
+                    var obj = new Mojo.Object();
+                    var bg = $('<div class="force-battle-detail"></div>').appendTo(obj.element());
+                    $('<div class="lodgment-name"></div>').html(data.name).appendTo(bg);
+                    $('<div class="attack-count"></div>').html(data.count).appendTo(bg);
+                    if (0 == data.count || !data.status || !data.attacker) {
+                        $('<div class="attacker no-attacker"></div>').html(Mojo.utils.locale('force', 'force_battle_detail_attack_lose', {
+                            '__default__': '未被攻破'
+                        })).appendTo(bg);
+                    } else {
+                        var attacker = $('<div class="attacker"></div>').appendTo(bg);
+                        (new Mojo.com.PlayerName(data.attacker, {
+                            showIcon: false,
+                            maxNameLength: 6
+                        })).element().appendTo(attacker);
+                    }
+                    return obj;
+                },
+            });
+            var header = $('<div class="force-battle-detail-header"></div>').appendTo(list._header);
+            $('<div class="lodgment-name"></div>').html(Mojo.utils.locale('force', 'force_battle_detail_lodgment', {
+                '__default__': '据点'
+            })).appendTo(header);
+            $('<div class="attack-count"></div>').html(Mojo.utils.locale('force', 'force_battle_detail_attack_count', {
+                '__default__': '被攻击次数'
+            })).appendTo(header);
+            $('<div class="attacker no-attacker"></div>').html(Mojo.utils.locale('force', 'force_battle_detail_attacker', {
+                '__default__': '攻击者'
+            })).appendTo(header);
+            list.element().appendTo(dlg._content);
+            (new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('ui', 'revenge', {
+                    '__default__': '寻仇'
+                }),
+                special: "button-big-red",
+                click: function () {
+                    dlg.close();
+                    self._doRevenge(msg, msgcom);
+                }
+            })).element().appendTo(dlg._footer);
+            (new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'close'),
+                click: function () {
+                    dlg.close();
+                }
+            })).element().appendTo(dlg._footer);
+            dlg.open();
+        },
+        _doRevenge: function (msg, msgcom) {
+            var self = this;
+            var forceMember = new Mojo.com.ForceEnemyMember({
+                title: Mojo.utils.locale('force', 'enemy_figthters', {
+                    '__default__': '攻占据点的人员'
+                }),
+                getController: function () {
+                    return self._options.getController();
+                },
+                forceMemberListOptions: {
+                    loadFunc: function (l, s, p, that) {
+                        var params = {
+                            ids: msg.str_data
+                        };
+                        if (217 == msg.type && false === Mojo.utils.isNone(msg.__str_data__)) {
+                            params = {
+                                ids: msg.__str_data__
+                            };
+                        }
+                        Mojo.ajax("/force/enemyFighters", params, function (response) {
+                            if (response && response.errorCode === 0) {
+                                that.appendData(response.data.list);
+                                if (response.data != undefined && response.data.list.length == that._options.pageSize) {
+                                    that._more.show();
+                                } else {
+                                    that._more.hide();
+                                }
+                                that.resize();
+                            } else {
+                                (new Mojo.com.TipsDialog({
+                                    title: Mojo.utils.locale('common', 'tips'),
+                                    message: response.errorMsg,
+                                })).open();
+                                forceMember.close();
+                            }
+                        }, function () {});
+                    }
+                },
+                backCallback: function () {
+                    forceMember.close();
+                },
+                forceMemberElementOptions: {
+                    showAttack: true,
+                    showDefence: "?",
+                    showOffer: false,
+                    showLogin: false,
+                    showLevel: false,
+                    showHr: true,
+                    goBtnClass: ['go-button', 'go-attack-btn'],
+                    goSpecialClass: '',
+                    subClass: '',
+                    goBtnText: Mojo.utils.locale('force', 'revenge'),
+                    clickFunc: function (forceMemberElement) {
+                        Mojo.ajax('/battle/preview', {
+                            opponent_id: forceMemberElement._data.id,
+                        }, function (result) {
+                            forceMember.close();
+                            if (result.errorCode == 0) {
+                                (new Mojo.com.BattlePreviewDialog(result.data, {
+                                    title: Mojo.utils.locale('force', 'revenge result preview'),
+                                    opponent_id: forceMemberElement._data.id,
+                                    opponent_name: forceMemberElement._data.name,
+                                    message_id: self._options.message_id,
+                                    forceProfile: self._options.getController(),
+                                    type: 'fight',
+                                    isForceEnemy: true,
+                                    from: 'force'
+                                })).open();
+                            } else if (result.errorCode == 10003) {
+                                (new Mojo.com.SpDialog(result.data, {
+                                    title: Mojo.utils.locale('common', 'no enough stamina'),
+                                    message: result.errorMsg,
+                                    forceProfile: self._options.getController(),
+                                    isForceEnemy: true,
+                                })).open();
+                            } else if (result.errorCode == 30007) {
+                                (new Mojo.com.AvoidWarDialog({
+                                    message: Mojo.utils.locale('common', 'avoid_war_content', {
+                                        avoid_war_time: Mojo.utils.formatTime(result.data)
+                                    }),
+                                    avoid_war_time: result.data,
+                                    callback: function () {
+                                        self._options.callback();
+                                    },
+                                })).open();
+                            } else if (result.errorCode == 160003) {
+                                var dlg = new Mojo.com.CommonDialog(undefined, {
+                                    title: Mojo.utils.locale('common', 'capacify_lack'),
+                                    content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('common', 'capacify_lack_tip')),
+                                    leftBtnText: Mojo.utils.locale('common', 'go_intensify'),
+                                    leftBtnClick: function () {
+                                        Mojo.app.redirect('/intensify');
+                                    },
+                                    rightBtnText: Mojo.utils.locale('common', 'go_sale'),
+                                    rightBtnClick: function () {
+                                        Mojo.app.redirect('/entity', {
+                                            selected: 3
+                                        });
+                                    },
+                                    close: function () {
+                                        Mojo.app.redirect('/home');
+                                    }
+                                });
+                                dlg.open();
+                            } else {
+                                (new Mojo.com.TipsDialog({
+                                    title: Mojo.utils.locale('common', 'tips'),
+                                    message: result.errorMsg,
+                                })).open();
+                            }
+                        }, function () {}, {
+                            showWait: true
+                        });
+                    }
+                }
+            });
+            forceMember.open();
         },
         _hasHandledThisMsg: function (msgcom) {
             if (msgcom.hasHandledShadow() == true) {
                 return;
             }
-            msgcom.element().addClass('msg-overlay');
+            var msgtime = msgcom.element().find('.left > .time');
+            msgtime.html(msgtime.html() + Mojo.utils.locale('message', 'readed'));
         },
+        _showCustomGrainMsg: function (msg) {
+            Mojo.utils.ajaxUtil({
+                url: '/force/assignGrainDetail',
+                params: {
+                    forceId: msg.force_id,
+                    messageId: msg.id
+                },
+                callback: function (result) {
+                    var d = result.data
+                    var sender = d.sender;
+                    var senderPN = Mojo.utils.playerNameHtmlStr(sender);
+                    var totalGrain = d.totalGrain;
+                    var dlg = new Mojo.com.CommonDialog('com-profile-base-dialog', {
+                        title: Mojo.utils.locale('force', 'g_faliang_t'),
+                        classes: ['g_faliang_detail_dlg'],
+                        content: paragraph,
+                        rightBtnText: Mojo.utils.locale('common', 'close'),
+                        rightBtnClick: function () {
+                            dlg.close();
+                        }
+                    })
+                    var content = dlg._content;
+                    var paragraph = $("<div class='paragraph'></div>").appendTo(content);
+                    var s = new Mojo.ui.Scroll(undefined, content, {
+                        direction: 2
+                    });
+                    s.element().appendTo(dlg.element());
+                    var senderHtml = Mojo.utils.locale('force', 'g_faliang_sender', {
+                        sender: senderPN,
+                        grain: totalGrain
+                    });
+                    paragraph.append(senderHtml);
+                    var list = d.list;
+                    for (var i = 1; i <= 5; i++) {
+                        var item = list[i];
+                        if (item.count > 0) {
+                            var level = Mojo.utils.locale('force', 'level' + i);
+                            var dang = $('<div class="dang"></div>').appendTo(paragraph);
+                            var t = $('<div class="dang-t"></div>').html(Mojo.utils.locale('force', 'g_faliang_detail_t', {
+                                level: level,
+                                grain: item.grain,
+                                num: item.count
+                            })).appendTo(dang);
+                            var titles = item.titles;
+                            for (var j = 0; j <= titles.length; j++) {
+                                var titleInfo = titles[j];
+                                var pn = Mojo.utils.playerNameHtmlStr(titleInfo);
+                                dang.append(pn);
+                            }
+                        }
+                    }
+                    dlg.open();
+                    s.refresh();
+                }
+            });
+        }
     });
 })(window, jQuery);;
 (function (w, $, undefined) {
@@ -9503,6 +10748,7 @@
             this.data.type = parseInt(this.data.type);
             this._super('event_message', options);
             this.element().addClass('mojo-com-msgdlg');
+            this._player = Mojo.page.Force.getController().getPlayerProfile();
             var self = this;
             this._addContent();
             this._addHandleButtons();
@@ -9832,10 +11078,10 @@
             var self = this;
             var l1 = this._getBtn1Label();
             var l2 = this._getBtn2Label();
-            if (this.data.type != 200 && this.data.type != 201 && this.data.type != 202 && this.data.type != 210 && this.data.type != 211 && this.data.type != 212 && this.data.type != 220 && this.data.type != 222 && this.data.type != 217 && this.data.type != 223 && this.data.type != 224 && this.data.type != 225 && this.data.type != 300 && this.data.type != 301 && this.data.type != 302 && this.data.type != 303 && this.data.type != 304 && this.data.type != 307 && this.data.type != 308 && this.data.type != 309 && this.data.type != 310 && this.data.type != 311 && this.data.type != 312 && this.data.type != 384 && this.data.type != 314 && this.data.type != 316 && this.data.type != 319 && this.data.type != 320 && this.data.type != 321 && this.data.type != 326 && this.data.type != 327 && this.data.type != 328 && this.data.type != 330 && this.data.type != 331 && this.data.type != 332 && this.data.type != 336 && this.data.type != 382 && this.data.type != 334 && this.data.type != 393 && this.data.type != 51 && this.data.type != 52 && this.data.type != 13 && this.data.type != 10 && this.data.type != 81 && this.data.type != 82 && this.data.type != 93 && this._options.positionId != null && parseInt(this._options.positionId) > 5 || this.data.status == 3) {
+            if (this.data.type != 200 && this.data.type != 201 && this.data.type != 202 && this.data.type != 210 && this.data.type != 211 && this.data.type != 212 && this.data.type != 220 && this.data.type != 222 && this.data.type != 217 && this.data.type != 223 && this.data.type != 224 && this.data.type != 225 && this.data.type != 300 && this.data.type != 301 && this.data.type != 302 && this.data.type != 303 && this.data.type != 304 && this.data.type != 307 && this.data.type != 308 && this.data.type != 309 && this.data.type != 310 && this.data.type != 311 && this.data.type != 312 && this.data.type != 384 && this.data.type != 314 && this.data.type != 316 && this.data.type != 319 && this.data.type != 320 && this.data.type != 321 && this.data.type != 326 && this.data.type != 327 && this.data.type != 328 && this.data.type != 330 && this.data.type != 331 && this.data.type != 332 && this.data.type != 336 && this.data.type != 382 && this.data.type != 334 && this.data.type != 393 && this.data.type != 51 && this.data.type != 52 && this.data.type != 13 && this.data.type != 10 && this.data.type != 80 && this.data.type != 81 && this.data.type != 82 && this.data.type != 93 && !(self._player.force_rights.__all__ || self._player.force_rights.process_join_apply) || this.data.status == 3) {
                 l1 = null;
                 l2 = null;
-                if (this.data.type == 0) {
+                if (this.data.type == 0 && !(self._player.force_rights.__all__ || self._player.force_rights.process_join_apply)) {
                     Mojo.app.toast.show(self.getL('force', 'join_event_privilege'));
                 }
             } else if (52 == this.data.type && this._options.positionId != null && parseInt(this._options.positionId) > 2) {
@@ -10068,13 +11314,27 @@
                 return Mojo.utils.locale('force', 'seize');
             case 93:
             case 13:
+                if (parseInt(this.data.force_war_id) && parseInt(this.data.int_data)) {
+                    return Mojo.utils.locale('ui', 'look_statistics', {
+                        '__default__': '查看统计'
+                    });
+                }
                 return Mojo.utils.locale('ui', 'revenge', {
                     '__default__': '寻仇'
                 });
+            case 217:
+                if (parseInt(this.data.int_data) && parseInt(this.data.str_data)) {
+                    return Mojo.utils.locale('ui', 'look_statistics', {
+                        '__default__': '查看统计'
+                    });
+                }
+                return null;
             case 52:
                 return Mojo.utils.locale('force', 'start_grain_war', {
                     '__default__': '发起抢粮战'
                 });
+            case 80:
+                return Mojo.utils.locale('force', 'show_detail');
             }
             return null;
         },
@@ -10252,6 +11512,9 @@
                     challenge: force.challenge,
                     challenge_limit: force.challenge_limit
                 }));
+                if (force.challenge >= force.challenge_limit) {
+                    that._forceWarNoticeDiv.removeClass('add-challenge');
+                }
             }
         },
         refresh: function () {
@@ -10312,7 +11575,7 @@
                     self._tabs.element().find(".panel").addClass("box-outter");
                 }
             });
-            this._tabs.addTab(Mojo.utils.locale("force", "forcewar_battle"));
+            this._tabs.addTab(Mojo.utils.locale("force", "foreign"));
             this._tabs.addTab(Mojo.utils.locale("force", "forcewar_defense"));
             this._tabs.addTab(Mojo.utils.locale("force", "forcewar_enemy"));
             this.element().append(this._tabs.element());
@@ -10400,9 +11663,9 @@
                         if (icount == result.contribute.length) {
                             commend += Mojo.utils.formatPlayerName(commendplayer);
                         } else if (icount % 2 == 0) {
-                            commend += Mojo.utils.formatPlayerName(commendplayer) + ",<br/>";
+                            commend += Mojo.utils.formatPlayerName(commendplayer) + ",";
                         } else {
-                            commend += Mojo.utils.formatPlayerName(commendplayer) + ", ";
+                            commend += Mojo.utils.formatPlayerName(commendplayer) + ",";
                         }
                         icount += 1;
                     }
@@ -10425,6 +11688,7 @@
                 }));
             }
             (new Mojo.com.CommonDialog(undefined, {
+                classes: ['forcewar-win-dlg'],
                 title: title,
                 content: content,
                 leftBtnText: Mojo.utils.locale('common', 'ok'),
@@ -10443,7 +11707,7 @@
             this._forceBattlePanel.element().children().remove();
             var self = this;
             var needShowMore = false;
-            if (self._isForceOwner(true) == true) {
+            if (self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.declare_war) {
                 needShowMore = true;
             }
             this._forceOpponentListPanel = new Mojo.ui.ListPanel("forcewar-opponent-listpanel", {
@@ -10453,7 +11717,7 @@
                 pageSize: 20,
                 moreLabel: Mojo.utils.locale('force', 'forcewar_retreat'),
                 moreClick: function (that) {
-                    if (self._isForceOwner(true) == false) {
+                    if (!needShowMore) {
                         return;
                     }
                     (new Mojo.com.CommonDialog(undefined, {
@@ -10615,6 +11879,7 @@
                                                 var onCloseFunc = function (battleDetail) {
                                                     self._refreshForceBattleStatus(true);
                                                     (new Mojo.com.CommonDialog(undefined, {
+                                                        classes: ['forcewar-win-dlg'],
                                                         title: resultTitle,
                                                         content: dlgContent,
                                                         leftBtnText: leftBtnText,
@@ -10957,6 +12222,9 @@
                         }
                     })).open();
                 }
+                if (parseInt(self._forceProfile.protect_status) == 1) {
+                    self._options.getController().getProfile().sync();
+                }
             });
         },
         _createForceSearch: function (targetForceId) {
@@ -10966,7 +12234,10 @@
             var forceSearch = new Mojo.com.ForceSearch('forcewar-forcesearch', {
                 backCallback: function () {
                     forceSearch.element().remove();
-                    forcePage.showCurrent();
+                    Mojo.app.redirect('/force', {
+                        index: 2,
+                        refresh: 1
+                    });
                 },
                 forceSearchParams: {
                     excludes: forcePage.getForceProfile().id
@@ -10975,8 +12246,51 @@
                     targetForceId: targetForceId,
                     btnText: Mojo.utils.locale('force', 'forcewar_action'),
                     moreLabel: Mojo.utils.locale('force', 'refresh'),
+                    typeOfbattle: 'forcewar',
                     onBtnClick: function (data) {
                         self._actionForFood(forceSearch, data);
+                    },
+                    erroCallback: function (response) {
+                        if (response.errorCode == 130012) {
+                            Mojo.app.redirect('/force', {
+                                index: 2,
+                                refresh: 1
+                            });
+                        }
+                    }
+                }
+            });
+            forceSearch.element().appendTo(forcePage.element());
+        },
+        _createForceSearchDiplomacy: function (targetForceId) {
+            var self = this;
+            var forcePage = self._options.getController();
+            forcePage.hideCurrent();
+            var forceSearch = new Mojo.com.ForceSearch('forcewar-forcesearch-diplomacy', {
+                tabText: Mojo.utils.locale('force', 'diplomacy'),
+                backCallback: function () {
+                    forceSearch.element().remove();
+                    forcePage.showCurrent();
+                },
+                forceSearchParams: {
+                    excludes: forcePage.getForceProfile().id,
+                    with_for: 'diplomacy'
+                },
+                forceListOptions: {
+                    type: 'diplomacy',
+                    targetForceId: targetForceId,
+                    btnText: Mojo.utils.locale('force', 'contact'),
+                    showMore: false,
+                    typeOfbattle: 'forcewar',
+                    onBtnClick: function (data) {
+                        var dlg = new Mojo.com.MessageDialog(undefined, {
+                            title: Mojo.utils.locale('force', 'send_diplomacy_to', {
+                                'receiveForceName': data.name
+                            }),
+                            isForceDiplomacy: true,
+                            receiveForceId: data.id
+                        });
+                        dlg.open();
                     },
                     erroCallback: function (response) {
                         if (response.errorCode == 130012) {
@@ -10998,7 +12312,58 @@
             var self = this;
             this._list = new Mojo.com.ScrollPanel(undefined);
             this._list.element().addClass('mojo-com-relation').appendTo(this._forceBattlePanel.element());
-            this._forceWarNoticeDiv = this._list._header.addClass('page-tips');
+            this._forceWarNoticeDiv = this._list._header.addClass('page-tips challenge-tips');
+            this._forceWarNoticeDiv.bind("click", function () {
+                var f = self._options.getController().getForceProfile();
+                if (false == Mojo.utils.isNone(f) && f.challenge < f.challenge_limit) {
+                    Mojo.ajax("/force/challenge", {}, function (response) {
+                        if (response && response.errorCode === 0 && response.data) {
+                            self._forceWarNoticeDiv.html(Mojo.utils.locale('force', 'forcewar_no_battle', {
+                                challenge: response.data.cp_current,
+                                challenge_limit: response.data.cp_total
+                            }));
+                            if (response.data.cp_current >= response.data.cp_total) {
+                                self._forceWarNoticeDiv.removeClass('add-challenge');
+                            }
+                        }
+                        if (response && response.errorCode === 0 && response.data && response.data.cp_current < response.data.cp_total) {
+                            (new Mojo.com.NeedBuyDialog(undefined, {
+                                title: Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                goods: response.data.props,
+                                data: response.data,
+                                stamina: response.data.cp_total,
+                                restoreCount: response.data.cp_current,
+                                allRestoreText: Mojo.utils.locale('force', 'all_chanllenge_get'),
+                                allRestoreTime: response.data.cp_restore_pp,
+                                nextRestoreText: Mojo.utils.locale('force', 'next_chanllenge_get'),
+                                nextRestoreTime: response.data.cp_second,
+                                restoreText: Mojo.utils.locale('force', 'add_challenge_tip'),
+                                needBuyTip: Mojo.utils.locale('force', 'add_challenge_tip'),
+                                useBtnClick: function (that, result) {
+                                    if (result && result.errorCode === 0) {
+                                        Mojo.page.Force.getController().diffForce({
+                                            challenge: parseInt(result.data.challenge)
+                                        });
+                                        self._updateChallange(self, Mojo.page.Force.getController().getData());
+                                        Mojo.app.toast.show(Mojo.utils.locale('common', 'add_cp', {
+                                            name: that._options.goods.goods_name,
+                                            value: result.data.challenge
+                                        }));
+                                    }
+                                },
+                                buyBtnClick: function (that, result) {
+                                    Mojo.page.Force.getController().updatePlayerProfile({
+                                        rm: result.data.player.rm,
+                                        vm: result.data.player.vm
+                                    });
+                                }
+                            })).open();
+                        }
+                    }, function () {}, {
+                        showWait: true
+                    });
+                }
+            });
             var force = this._options.getController().getForceProfile();
             if (Mojo.utils.isNone(force)) {
                 this._options.getController().sync(function () {
@@ -11007,12 +12372,22 @@
                         challenge: force.challenge,
                         challenge_limit: force.challenge_limit
                     }));
+                    if (force.challenge < force.challenge_limit) {
+                        self._forceWarNoticeDiv.addClass("add-challenge");
+                    } else {
+                        self._forceWarNoticeDiv.removeClass("add-challenge");
+                    }
                 });
             } else {
                 self._forceWarNoticeDiv.html(Mojo.utils.locale('force', 'forcewar_no_battle', {
                     challenge: force.challenge,
                     challenge_limit: force.challenge_limit
                 }));
+                if (force.challenge < force.challenge_limit) {
+                    self._forceWarNoticeDiv.addClass("add-challenge");
+                } else {
+                    self._forceWarNoticeDiv.removeClass("add-challenge");
+                }
             }
             this._funs = [{
                 id: 'battle',
@@ -11094,7 +12469,23 @@
                 hasColdDown: false,
                 refresh: 1,
                 eventCode: '24_304'
-            }, ];
+            }, {
+                id: 'diplomacy',
+                label: 'diplomacy',
+                name: 'diplomacy',
+                description: 'diplomacy_description',
+                dynamicinfo: '',
+                index: 6,
+                cold_down: 0,
+                messageRemindCount: 0,
+                coldDownWarning: 'coldDownWarning',
+                imgClass: 'diplomacy',
+                descriptionImgClass: 'diplomacy-cartoon',
+                hasHr: false,
+                hasColdDown: false,
+                refresh: 1,
+                eventCode: ''
+            }];
             $.each(this._funs, function (i, b) {
                 var element = new Mojo.com.RelationBaseMenuElement({
                     elementId: b.id,
@@ -11104,6 +12495,8 @@
                             self._createForceSearch();
                         } else if (b.index == 2) {
                             self._createForceSearchSiege();
+                        } else if (b.index == 6) {
+                            self._createForceSearchDiplomacy();
                         } else {
                             if (self._crazyForceWar) {
                                 return;
@@ -11118,7 +12511,7 @@
                             });
                         }
                     },
-                    elementName: self.locale(b.name) + ((i == 3 && force.type == 2) ? " (" + self.locale('allied') + ")" : ""),
+                    elementName: self.locale(b.name) + ((i == 4 && force.type == 2) ? " (" + self.locale('allied') + ")" : ""),
                     elementDescription: self.locale(b.description),
                     elementDynamicInfo: self.locale(b.dynamicinfo),
                     cold_down: b.cold_down,
@@ -11128,7 +12521,8 @@
                     coldDownWarning: self.locale(b.coldDownWarning),
                     imgClass: b.imgClass,
                     hasHr: b.hasHr,
-                    descriptionImgClass: b.descriptionImgClass
+                    descriptionImgClass: b.descriptionImgClass,
+                    playerInfo: self._playerProfile
                 });
                 self._list.appendData(element);
             });
@@ -11143,12 +12537,27 @@
             var self = this;
             var isViceOwner = true;
             var tip = '';
+            var isClickable = false;
             switch (buttonId) {
             case 'battle':
                 tip = self.locale('forcewar_only_owner_start');
+                if (self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.declare_war) {
+                    isClickable = true;
+                }
+                return {
+                    isClickable: isClickable,
+                    warning: tip
+                };
                 break;
             case 'siege':
                 tip = self.locale('siege_only_owner_start');
+                if (self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.city_war) {
+                    isClickable = true;
+                }
+                return {
+                    isClickable: isClickable,
+                    warning: tip
+                };
                 break;
             case 'capture':
                 tip = self.locale('free_only_ownerorvice_can_ask_surrender');
@@ -11159,6 +12568,16 @@
             case 'alliance':
                 tip = self.locale('free_only_owner_can_ask_alliance');
                 isViceOwner = false;
+                break;
+            case 'diplomacy':
+                if (self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.do_diplomacy) {
+                    isClickable = true;
+                }
+                tip = self.locale('free_only_owner_can_ask_diplomacy');
+                return {
+                    isClickable: isClickable,
+                    warning: tip
+                };
                 break;
             }
             return {
@@ -11305,7 +12724,7 @@
                 loadFunc: function () {},
                 drawFunc: function (data) {
                     var btnDisabled = true;
-                    if (self._isForceOwner() == true) {
+                    if (self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.set_lodgment) {
                         btnDisabled = false;
                     }
                     return (new Mojo.com.ForceWarElement(data, {
@@ -11423,6 +12842,7 @@
                                     goSpecialClass: '',
                                     subClass: 'warClass',
                                     goBtnText: "",
+                                    disableNewForcePlayer: true,
                                     clickFunc: function (forceMemberElement) {
                                         forceMember.element().find(".radio-selected-class").removeClass("radio-selected-class");
                                         forceMemberElement.element().find(".choose-button").addClass("radio-selected-class");
@@ -11576,16 +12996,7 @@
                                                             }).open();
                                                             self._options.getController().getProfile().sync();
                                                         } else {
-                                                            if (Mojo.utils.isNone(response.data)) {
-                                                                (new Mojo.com.CommonDialog(undefined, {
-                                                                    title: Mojo.utils.locale('force', 'forcewar_tip_title'),
-                                                                    content: $('<div class="tip"></div>').html(response.errorMsg),
-                                                                    leftBtnText: Mojo.utils.locale('common', 'ok'),
-                                                                    leftBtnClick: function (that) {
-                                                                        that.close();
-                                                                    }
-                                                                })).open();
-                                                            } else {
+                                                            if (response.errorCode == 130026) {
                                                                 (new Mojo.com.NeedBuyDialog(undefined, {
                                                                     title: Mojo.utils.locale('force', 'forcewar_tip_title'),
                                                                     goods: response.data.props,
@@ -11615,6 +13026,15 @@
                                                                             rm: result.data.player.rm,
                                                                             vm: result.data.player.vm
                                                                         });
+                                                                    }
+                                                                })).open();
+                                                            } else {
+                                                                (new Mojo.com.CommonDialog(undefined, {
+                                                                    title: Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                                                    content: $('<div class="tip"></div>').html(response.errorMsg),
+                                                                    leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                                                    leftBtnClick: function (that) {
+                                                                        that.close();
                                                                     }
                                                                 })).open();
                                                             }
@@ -11795,13 +13215,17 @@
             var citySearch = new Mojo.com.CitySearch('citywar-citysearch', {
                 backCallback: function () {
                     citySearch.element().remove();
-                    forcePage.showCurrent();
+                    Mojo.app.redirect('/force', {
+                        index: 2,
+                        refresh: 1
+                    });
                 },
                 citySearchParams: {},
                 cityListOptions: {
                     targetCityId: targetCityId,
                     btnText: Mojo.utils.locale('force', 'siege_button_txt'),
                     moreLabel: Mojo.utils.locale('force', 'more'),
+                    typeOfbattle: 'siege',
                     onBtnClick: function (data) {
                         self._actionForSiege(citySearch, data);
                     },
@@ -11909,6 +13333,9 @@
                             that.close();
                         }
                     })).open();
+                }
+                if (parseInt(self._forceProfile.protect_status) == 1) {
+                    self._options.getController().getProfile().sync();
                 }
             });
         },
@@ -12031,7 +13458,7 @@
             this._forceBattlePanel.element().children().remove();
             var self = this;
             var needShowMore = false;
-            if (self._isForceOwner(true) == true) {
+            if (self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.city_war) {
                 needShowMore = true;
             }
             this._forceOpponentListPanel = new Mojo.ui.ListPanel("forcewar-opponent-listpanel", {
@@ -12042,7 +13469,7 @@
                 pageSize: 20,
                 moreLabel: Mojo.utils.locale('force', 'forcewar_retreat'),
                 moreClick: function (that) {
-                    if (self._isForceOwner(true) == false) {
+                    if (!needShowMore) {
                         return;
                     }
                     (new Mojo.com.CommonDialog(undefined, {
@@ -12209,6 +13636,7 @@
                                                 var onCloseFunc = function (battleDetail) {
                                                     self._refreshSiegeCityBattleStatus(true);
                                                     self._attackResultDlg = new Mojo.com.CommonDialog(undefined, {
+                                                        classes: ['forcewar-win-dlg'],
                                                         title: resultTitle,
                                                         content: dlgContent,
                                                         leftBtnText: leftBtnText,
@@ -12569,6 +13997,7 @@
                 }));
             }
             (new Mojo.com.CommonDialog(undefined, {
+                classes: ['forcewar-win-dlg'],
                 title: title,
                 content: content,
                 leftBtnText: leftBtnText,
@@ -12707,31 +14136,47 @@
         },
         _createElementGeneral: function (data) {
             if (Mojo.utils.isNone(this._elementGeneral)) {
-                this._elementGeneral = new Mojo.ui.Label();
+                this._elementGeneral = new Mojo.ui.Label(undefined, {
+                    text: ''
+                });
                 this.element().append(this._elementGeneral.element());
             }
-            this._elementGeneral.element().addClass("forcewar-element-label forcewar-element-general");
+            var elementGeneralHtml = this._elementGeneral.element();
+            elementGeneralHtml.addClass("forcewar-element-label forcewar-element-general");
             if (!this._options.isForceWarEnemy) {
                 if (Mojo.utils.isNone(data.captured)) {
-                    this._elementGeneral.element().find(".icon").html(Mojo.utils.locale("force", "forcewar_element_general"));
+                    elementGeneralHtml.find(".icon").html(Mojo.utils.locale("force", "forcewar_element_general"));
                     if (Mojo.utils.isNone(data.defender) == false) {
-                        this._elementGeneral.text(Mojo.utils.formatPlayerName(data.defender));
+                        if (data.defender.title_info) {
+                            elementGeneralHtml.find('.text').html(new Mojo.com.PlayerName(data.defender.title_info).element());
+                        } else {
+                            elementGeneralHtml.find('.text').html(new Mojo.com.PlayerName({
+                                player_name: data.defender.name
+                            }).element());
+                        }
                     } else {
                         this._elementGeneral.text(Mojo.utils.locale('force', 'none'));
                     }
                 } else {
-                    this._elementGeneral.element().find(".icon").html(Mojo.utils.locale("force", "forcewar_element_captured"));
-                    if (data.captured.name) {
-                        this._elementGeneral.text(Mojo.utils.formatPlayerName(data.captured));
+                    elementGeneralHtml.find(".icon").html(Mojo.utils.locale("force", "forcewar_element_captured"));
+                    if (data.captured.title_info) {
+                        elementGeneralHtml.find('.text').html(new Mojo.com.PlayerName(data.captured.title_info).element());
                     } else {
-                        this._elementGeneral.text(Mojo.utils.locale('force', 'none'));
+                        if (data.captured && data.captured.name) {
+                            elementGeneralHtml.find('.text').html(new Mojo.com.PlayerName({
+                                player_name: data.captured.name
+                            }).element());
+                        } else {
+                            this._elementGeneral.text(Mojo.utils.locale('force', 'none'));
+                        }
                     }
                 }
             } else {
-                this._elementGeneral.text('<span class = "baomadeng">' + Mojo.utils.locale('force', 'forcewar_enemy_owner', {
-                    owner_title: '<span class="official">' + data.owner_title + '</span>',
-                    owner_name: data.owner_name
-                }) + '</span>');
+                elementGeneralHtml.find('.text').html(new Mojo.com.PlayerName(data.title_info ? data.title_info : {
+                    player_name: data.owner_name
+                }, {
+                    title: true
+                }).element());
             }
         },
         _createElementValue: function (data) {
@@ -13208,7 +14653,12 @@
             var self = this;
             this._input = $('<input  type="text" maxlength="10" />').val(Mojo.utils.locale('common', 'search_force_hint')).appendTo(this._search);
             this._input.click(function () {
-                self._input.val('');
+                if (self._input.val() == Mojo.utils.locale('common', 'search_force_hint')) {
+                    self._input.val("");
+                } else {
+                    this.selectionStart = 0;
+                    this.selectionEnd = this.value.length;
+                }
             });
         },
         _addButton: function () {
@@ -13223,7 +14673,7 @@
         },
         _doSearch: function () {
             var self = this;
-            window.scrollTo(0);
+            window.scrollTo(0, 0);
             if (this._input.val() == Mojo.utils.locale('common', 'search_force_hint'))
                 this._input.val('');
             if (Mojo.utils.isNone(this._input.val())) {
@@ -13445,6 +14895,11 @@
             $('<div class="forcetype"></div>').appendTo(elementTitle).html(forceTypeName);
             $('<div class="name"></div>').appendTo(elementTitle).html(this._data.name);
             elementTitle.appendTo(this.element());
+            if (this._options.type == 'rand') {
+                if (this._data.auto_agree_apply == 1) {
+                    $('<div class="entry_directly"></div>').appendTo(elementTitle).html(Mojo.utils.locale('force', 'force_entry_without_permission2'));
+                }
+            }
             if (this._options.showRank) {
                 $('<div class="rank"></div>').appendTo(this.element()).html(Mojo.utils.locale('force', 'order', {
                     order: this._data.order ? this._data.order : '?'
@@ -13459,10 +14914,11 @@
             }
             $('<div class="force-id"></div>').appendTo(this.element()).html(Mojo.utils.locale('force', 'force_id') + this._data.id);
             if (!this._options.showGetTaxedGrainContent) {
-                $('<div class="owner"></div>').appendTo(this.element()).html(Mojo.utils.locale('force', 'owner', {
-                    title: this._data.owner_title,
-                    name: this._data.owner_name
-                }));
+                this.element().append(new Mojo.com.PlayerName(this._data.title_info ? this._data.title_info : {
+                    player_name: this._data.owner_name
+                }, {
+                    title: true
+                }).element());
                 if (!this._options.notShowForceMember) {
                     $('<div class="member"></div>').appendTo(this.element()).html(Mojo.utils.locale('force', 'member_count1', {
                         now: this._data.member_num,
@@ -13549,7 +15005,9 @@
                 }
             }
             if (this._options.showBtn) {
-                if (this._options.showForceRest && this._data.is_avoiding != undefined && parseInt(this._data.is_avoiding) == 1) {
+                if (this._data.is_protected && this._data.is_protected == 1 && this._options.searchType != 'createForce') {
+                    this._forceProtected = $('<div class="in-force-protected">' + Mojo.utils.locale("force", "in_force_protected") + '</div>').appendTo(this.element());
+                } else if (this._options.showForceRest && this._data.is_avoiding != undefined && parseInt(this._data.is_avoiding) == 1) {
                     this._avoidWarStatus = $('<div class="in-force-rest">' + Mojo.utils.locale("force", "in_force_rest") + '</div>').appendTo(this.element());
                 } else {
                     var btn = new Mojo.ui.Button(undefined, {
@@ -13557,7 +15015,28 @@
                         classes: ['go-button'],
                         special: self._options.specialClass,
                         click: function () {
-                            self._options.onBtnClick(self._data);
+                            if (!self._options._isDiplomacy && self._options.typeOfbattle) {
+                                var force_profile = Mojo.page.Force == undefined ? undefined : Mojo.page.Force.getController().getForceProfile();
+                                if (false && force_profile && parseInt(force_profile.protect_status) == 1) {
+                                    (new Mojo.com.CommonDialog(undefined, {
+                                        title: Mojo.utils.locale("force", "force_protected_tips"),
+                                        content: '<div class = "paragraph">' + Mojo.utils.locale("force", "force_" + self._options.typeOfbattle + "_content") + '</div>',
+                                        leftBtnText: Mojo.utils.locale("force", self._options.typeOfbattle),
+                                        leftBtnClick: function (that) {
+                                            that.close();
+                                            self._options.onBtnClick(self._data);
+                                        },
+                                        rightBtnText: Mojo.utils.locale("common", "cancel"),
+                                        rightBtnClick: function (that) {
+                                            that.close();
+                                        },
+                                    })).open();
+                                } else {
+                                    self._options.onBtnClick(self._data);
+                                }
+                            } else {
+                                self._options.onBtnClick(self._data);
+                            }
                         },
                     });
                     this.element().append(btn.element());
@@ -13639,6 +15118,8 @@
             var self = this;
             board.appendTo(this._paragraph);
             if (Mojo.utils.isNone(self._user.partners) == true) {
+                this._entryDirectlyForce = $("<div class='force_entry_directly'></div>");
+                this._entryDirectlyForce.appendTo(this._content);
                 return;
             }
             var its_relation = undefined;
@@ -13672,6 +15153,8 @@
             this._paragraph.prependTo(this._list._list);
             this.element().addClass('special-dlg');
             this._list.element().appendTo(this._content);
+            this._entryDirectlyForce = $("<div class='force_entry_directly'></div>");
+            this._entryDirectlyForce.appendTo(this._content);
         },
         _addButtons: function () {
             var self = this;
@@ -13681,7 +15164,11 @@
                     text: Mojo.utils.locale('force', 'join_apply'),
                     special: 'button-big-red',
                     click: function () {
-                        self._applyForce();
+                        if (self._user.code == 3) {
+                            self._doEntryForceDirectly();
+                        } else {
+                            self._applyForce();
+                        }
                     },
                     disableClick: function () {
                         Mojo.app.toast.show(Mojo.utils.locale('force', 'force_appling'));
@@ -13741,6 +15228,63 @@
                 this.closeBtn.element().appendTo(this._footer);
                 btnCount += 1;
             }
+        },
+        _doEntryForceDirectly: function () {
+            var self = this;
+            var param = {
+                force_id: self._force.id,
+                autoAgreeApply: 1
+            };
+            for (var p in self._options.extraParam) {
+                param[p] = self._options.extraParam[p];
+            }
+            Mojo.ajax('/force/apply', param, function (response) {
+                self.close();
+                if (response.errorCode == 0) {
+                    var dlg = new Mojo.ui.Dialog(undefined, {
+                        title: response.data.success ? Mojo.utils.locale('force', 'force_entry_without_permission_title1') : Mojo.utils.locale('force', 'force_entry_without_permission_title2'),
+                        content: $('<div class="tip"></div>').html(response.data.message)
+                    });
+                    if (response.data.success) {
+                        new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('force', 'force_entry_without_permission_btn'),
+                            click: function () {
+                                Mojo.app.redirect('/force');
+                            }
+                        }).element().appendTo(dlg._footer);
+                        new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('common', 'close'),
+                            click: function () {
+                                dlg.close();
+                            }
+                        }).element().appendTo(dlg._footer);
+                    } else {
+                        new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('common', 'ok'),
+                            click: function () {
+                                dlg.close();
+                            }
+                        }).element().appendTo(dlg._footer);
+                    }
+                    dlg.open();
+                } else {
+                    var failDlg = new Mojo.ui.Dialog(undefined, {
+                        title: Mojo.utils.locale('force', 'force_apply_fail', {
+                            '__default__': '申请失败'
+                        }),
+                        content: $('<div class="tip"></div>').html(response.errorMsg)
+                    });
+                    new Mojo.ui.Button(undefined, {
+                        text: Mojo.utils.locale('common', 'close'),
+                        click: function () {
+                            failDlg.close();
+                        }
+                    }).element().appendTo(failDlg._footer);
+                    failDlg.open();
+                }
+            }, function () {}, {
+                showWait: true
+            });
         },
         _doApplyForce: function (value) {
             var self = this;
@@ -13844,7 +15388,28 @@
                     }).element().appendTo(infoDlg._footer);
                     infoDlg.open();
                 };
+            } else if (self._user.code == 3) {
+                this._entryDirectlyForce.html(Mojo.utils.locale('force', 'force_entry_without_permission', {
+                    time: self._formatTime(self._user.forceOwnerLastLoginTime)
+                }));
             }
+        },
+        _formatTime: function (sec) {
+            var str = '';
+            var dd = parseInt(sec / 86400);
+            var hh = parseInt((sec % 86400) / 3600);
+            var mm = parseInt((sec % 3600) / 60);
+            var ss = sec % 60;
+            if (dd > 0) {
+                str = dd + Mojo.utils.locale('common', 'day') + hh + Mojo.utils.locale('common', 'hour');
+            } else if (hh > 0) {
+                str = hh + Mojo.utils.locale('common', 'hour') + mm + Mojo.utils.locale('common', 'minute');
+            } else if (mm > 0) {
+                str = mm + Mojo.utils.locale('common', 'minute') + ss + Mojo.utils.locale('common', 'second');
+            } else {
+                str = ss + Mojo.utils.locale('common', 'second');
+            }
+            return str;
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
@@ -13879,6 +15444,7 @@
         },
         init: function (id, options) {
             this._super(id, options);
+            this._isDiplomacy = options.type == 'diplomacy';
             this.element().addClass('mojo-com-forcelist');
         },
         _getDefaultOptions: function () {
@@ -13915,7 +15481,9 @@
             if (self._options.type == 'rand') {
                 url = '/force/forceListForJoin';
             } else if (self._options.type == 'rank') {
-                url = '/force/ranking';
+                if (self._options.forceData == undefined || parseInt(start) > 0) {
+                    url = '/force/ranking';
+                }
                 if (start + count > 100) {
                     Mojo.app.toast.show(Mojo.utils.locale('force', 'force_list_limit'));
                     self._renderData([]);
@@ -14001,6 +15569,14 @@
             } else if (self._options.type == 'search') {
                 url = '/force/search';
                 $.extend(true, params, self._options.forceSearchByLevelParams);
+            } else if (self._options.type == 'diplomacy') {
+                setTimeout(function () {
+                    self._list.empty();
+                    var diplomacyTip = new Mojo.Object();
+                    diplomacyTip.element().addClass("force-search-diplomacy-tip").html(Mojo.utils.locale('force', 'diplomacy_tip'));
+                    self._addChild(diplomacyTip);
+                    self.resize();
+                }, 100);
             }
             if (url != undefined) {
                 Mojo.ajax(url, params, function (response) {
@@ -14019,12 +15595,24 @@
                         } else if (response.data && $.isArray(response.data.list)) {
                             self._renderData(response.data.list);
                         }
+                        if (self._options.type == 'rank' && parseInt(start) > 0 && self._options.setForceData instanceof Function) {
+                            self._options.setForceData(response.data);
+                        }
                     } else {
                         if (self._options.erroCallback != undefined && self._options.erroCallback instanceof Function) {
                             self._options.erroCallback(response);
                         }
                     }
-                }, function (e) {});
+                }, function (e) {}, {
+                    showWait: true
+                });
+            } else {
+                if (self._options.type == 'rank') {
+                    setTimeout(function () {
+                        self._renderData(self._options.forceData);
+                    }, 100);
+                    self.resize();
+                }
             }
         },
         _renderData: function (forces) {
@@ -14050,6 +15638,7 @@
         _drawForce: function (data) {
             var self = this;
             return new Mojo.com.ForceElement(data, {
+                searchType: self._options.searchType,
                 type: self._options.type,
                 showRank: self._options.type == 'rank' || self._options.showRank == true,
                 showBtn: self._options.showBtn,
@@ -14064,14 +15653,16 @@
                 specialClass: self._options.specialClass,
                 onBtnClick: self._options.onBtnClick,
                 callback: $.noop,
+                isDiplomacy: self._isDiplomacy,
                 showChooseButton: self._options.showChooseButton,
                 showUniteRebelStatus: self._options.showUniteRebelStatus,
                 inDefence: self._options.inDefence,
+                typeOfbattle: self._options.typeOfbattle,
                 chooseClick: function (forceData) {
                     self._options.chooseClick(forceData);
-                },
+                }
             });
-        },
+        }
     });
 })(window, jQuery);;
 (function (w, $, undefined) {
@@ -14448,28 +16039,33 @@
         },
         _addContent: function () {
             var self = this;
-            this._addLabel('name', this._force.name);
-            this._addLabel('force_id', this._force.id);
-            this._addLabel('profile_level', this._force.level);
+            this._addLabel('name', this._force.name, 'name');
+            this._addLabel('force_id', this._force.id, 'forceid');
+            this._addLabel('profile_level', this._force.level, 'level');
             var update = parseInt(this._force.grain_for_next_level);
-            this._addLabel('update_grain', update != 0 ? this._force.grain_for_next_level : Mojo.utils.locale('force', 'level_full'));
+            this._addLabel('update_grain', update != 0 ? this._force.grain_for_next_level : Mojo.utils.locale('force', 'level_full'), 'updategrain');
             this._addLabel('have_grain', {
                 grain: self._force.grain,
                 safe_grain: self._force.grain_protected
-            });
-            this._addLabel('count_member', this._force.member_num + "/" + this._force.member_num_limit);
-            this._addLabel('force_owner', this._force.owner.name);
+            }, 'grain');
+            this._addLabel('count_member', this._force.member_num + "/" + this._force.member_num_limit, 'countmember');
+            this._addLabel('force_owner', this._force.owner.name, 'forceowner');
             if (this._force.vice_owner != null && this._force.vice_owner != undefined) {
-                this._addLabel('force_vice_owner', this._force.vice_owner.name);
+                this._addLabel('force_vice_owner', this._force.vice_owner.name, 'forceviceowner');
             } else {
-                this._addLabel('force_vice_owner', Mojo.utils.locale('force', 'position_empty'));
+                this._addLabel('force_vice_owner', Mojo.utils.locale('force', 'position_empty'), 'forceviceowner');
             }
-            this._addLabel('count_officer_1', this._force.first_class_officer_num + "/" + this._force.first_class_officer_num_limit);
-            this._addLabel('count_officer_2', this._force.second_class_officer_num + "/" + this._force.second_class_officer_num_limit);
-            this._addLabel('count_officer_3', this._force.third_class_officer_num + "/" + this._force.third_class_officer_num_limit);
+            this._addLabel('count_officer_1', this._force.position_3_num + "/" + this._force.position_3_num_limit, 'count_officer_1');
+            this._addLabel('count_officer_2', this._force.position_14_num + "/" + this._force.position_14_num_limit, 'count_officer_2');
+            this._addLabel('count_officer_3', this._force.position_15_num + "/" + this._force.position_15_num_limit, 'count_officer_3');
+            this._addLabel('count_officer_4', this._force.position_16_num + "/" + this._force.position_16_num_limit, 'count_officer_4');
+            this._addLabel('count_officer_5', this._force.position_17_num + "/" + this._force.position_17_num_limit, 'count_officer_5');
+            this._addLabel('count_officer_6', this._force.position_18_num + "/" + this._force.position_18_num_limit, 'count_officer_6');
+            this._addLabel('count_officer_7', this._force.position_19_num + "/" + this._force.position_19_num_limit, 'count_officer_7');
         },
         _addChanllenge: function () {
             this._chanllegecount = new Mojo.ui.Label(undefined, {
+                classes: ['chanlengelabel'],
                 text: Mojo.utils.locale('force', 'count_challenge') + this._force.challenge + "/" + this._force.challenge_limit
             }).element().appendTo(this._paragraph);
             this._chanllenge = $('<div class="chanllenge"></div>').appendTo(this._paragraph);
@@ -14485,13 +16081,13 @@
             } else {
                 this._grain.html(Mojo.utils.locale('force', 'grain_share_cdtip') + this._formatCDTime(this._force.time_to_assign_grain));
             }
-            if (position == 1 && isincd == true) {
+            if ((position == 1 || position == 15) && isincd == true) {
                 this.grainBtn.disable(true);
                 this.grainBtn._options.disableClick = function () {
                     Mojo.app.toast.show(Mojo.utils.locale('force', 'graun_share_cd_no'));
                 };
             } else {
-                if (position == 1) {
+                if (this._player.force_rights.__all__ || this._player.force_rights.assign_grain) {
                     this.grainBtn.disable(false);
                 } else {
                     this.grainBtn.disable(true);
@@ -14548,7 +16144,7 @@
             }
             return str;
         },
-        _addLabel: function (name, value) {
+        _addLabel: function (name, value, className) {
             var self = this;
             var disp_text = undefined;
             if (typeof value == "object") {
@@ -14558,6 +16154,7 @@
             }
             new Mojo.ui.Label(undefined, {
                 text: disp_text,
+                classes: [className]
             }).element().appendTo(this._paragraph);
         },
         _addButtons: function () {
@@ -14574,7 +16171,7 @@
             });
             this.updateBtn.element().appendTo(this._footer);
             this.grainBtn = new Mojo.ui.Button('grain-btn', {
-                text: Mojo.utils.locale('force', 'share_grain'),
+                text: Mojo.utils.locale('force', 'share_grain2'),
                 click: function () {
                     self._shareGrain();
                 },
@@ -14586,7 +16183,6 @@
             var position = parseInt(this._player.position_id);
             if (position != 1) {
                 this.updateBtn.disable(true);
-                this.grainBtn.disable(true);
             } else {
                 var update = parseInt(this._force.grain_for_next_level);
                 if (update == 0) {
@@ -14595,6 +16191,11 @@
                         Mojo.app.toast.show(Mojo.utils.locale('force', 'level_full_tip'));
                     };
                 }
+            }
+            if (this._player.force_rights.__all__ || this._player.force_rights.assign_grain) {
+                this.grainBtn.disable(false);
+            } else {
+                this.grainBtn.disable(true);
             }
         },
         _addForceBuff: function () {
@@ -14675,7 +16276,7 @@
                 special: 'button-big-red',
                 text: Mojo.utils.locale('common', 'Go Statistics'),
                 click: function () {
-                    Mojo.app.redirect('/statistics', {}, 'event', '04_022');
+                    Mojo.app.redirect('/statistics', {});
                 },
             })).element());
             this._footer.append((new Mojo.ui.Button(undefined, {
@@ -14737,6 +16338,10 @@
             new Mojo.ui.Label(undefined, {
                 classes: ['grain'],
                 text: Mojo.utils.locale('common', 'grain') + data.grain
+            }).element().appendTo(this._tips);
+            new Mojo.ui.Label(undefined, {
+                classes: ['gold'],
+                text: Mojo.utils.locale('common', 'gold') + (data.gold || 0)
             }).element().appendTo(this._tips);
             new Mojo.ui.Label(undefined, {
                 classes: ['ep'],
@@ -14819,6 +16424,7 @@
             this._preview = preview;
             this.element().addClass('mojo-com-forceupdatedlg');
             this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
+            this._scrollContent = $('<div class="scrollContent"></div>');
             this._addContent();
         },
         title: function (titletext) {
@@ -14879,6 +16485,7 @@
         _refresh: function () {
             var self = this;
             self._paragraph.empty();
+            self._scrollContent.empty();
             $('<div class="tip"></div>').appendTo(this._paragraph).html(Mojo.utils.locale('force', 'update_tip'));
             var preview = self._preview;
             this._addLabel('force_level', preview.level[0], preview.level[1]);
@@ -14886,7 +16493,7 @@
                 if (parseInt(preview.grain[1]) < 0) {
                     new Mojo.ui.Label(undefined, {
                         text: Mojo.utils.locale('force', 'force_grain') + "<span>" + Mojo.utils.locale('force', 'lake_grain') + "</span>"
-                    }).element().appendTo(this._paragraph);
+                    }).element().appendTo(this._scrollContent);
                 } else {
                     this._addLabel('force_grain', preview.grain[0], preview.grain[1]);
                 }
@@ -14894,21 +16501,37 @@
             if (preview.member_num[0] != preview.member_num[1]) {
                 this._addLabel('member_max', preview.member_num[0], preview.member_num[1]);
             }
-            if (preview.owner_title[0] != preview.owner_title[1]) {
-                this._addLabel('owner_title', preview.owner_title[0], preview.owner_title[1]);
+            if (preview.position_3_num[0] != preview.position_3_num[1]) {
+                this._addLabel('count_officer_1', preview.position_3_num[0], preview.position_3_num[1]);
             }
-            if (preview.first_class_officer_num[0] != preview.first_class_officer_num[1]) {
-                this._addLabel('count_officer_1', preview.first_class_officer_num[0], preview.first_class_officer_num[1]);
+            if (preview.position_14_num[0] != preview.position_14_num[1]) {
+                this._addLabel('count_officer_2', preview.position_14_num[0], preview.position_14_num[1]);
             }
-            if (preview.second_class_officer_num[0] != preview.second_class_officer_num[1]) {
-                this._addLabel('count_officer_2', preview.second_class_officer_num[0], preview.second_class_officer_num[1]);
+            if (preview.position_15_num[0] != preview.position_15_num[1]) {
+                this._addLabel('count_officer_3', preview.position_15_num[0], preview.position_15_num[1]);
             }
-            if (preview.third_class_officer_num[0] != preview.third_class_officer_num[1]) {
-                this._addLabel('count_officer_3', preview.third_class_officer_num[0], preview.third_class_officer_num[1]);
+            if (preview.position_16_num[0] != preview.position_16_num[1]) {
+                this._addLabel('count_officer_4', preview.position_16_num[0], preview.position_16_num[1]);
+            }
+            if (preview.position_17_num[0] != preview.position_17_num[1]) {
+                this._addLabel('count_officer_5', preview.position_17_num[0], preview.position_17_num[1]);
+            }
+            if (preview.position_18_num[0] != preview.position_18_num[1]) {
+                this._addLabel('count_officer_6', preview.position_18_num[0], preview.position_18_num[1]);
+            }
+            if (preview.position_19_num[0] != preview.position_19_num[1]) {
+                this._addLabel('count_officer_7', preview.position_19_num[0], preview.position_19_num[1]);
             }
             if (preview.lodgment_num_limit[0] != preview.lodgment_num_limit[1]) {
                 this._addLabel('position_count', preview.lodgment_num_limit[0], preview.lodgment_num_limit[1]);
             }
+            var s = new Mojo.ui.Scroll(undefined, this._scrollContent, {
+                direction: 2
+            });
+            s.element().appendTo(this._paragraph);
+            setTimeout(function () {
+                s.refresh();
+            })
         },
         _confirmUpdate: function () {
             this.okBtn.disable(true);
@@ -14933,7 +16556,7 @@
             var self = this;
             new Mojo.ui.Label(undefined, {
                 text: Mojo.utils.locale('force', name) + value + " → <span>" + nextvalue + "</span>"
-            }).element().appendTo(this._paragraph);
+            }).element().appendTo(this._scrollContent);
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
@@ -14966,29 +16589,46 @@
         },
         _addContent: function () {
             this._message = $('<div class="paragraph"></div>').appendTo(this._content);
+            this._scrollContent = $('<div class="scrollContent"></div>');
             var force = this._data;
-            $("<div class='info'></div>").appendTo(this._message).html(Mojo.utils.locale('force', 'leve_updated', {
+            $("<div class='info'></div>").appendTo(this._scrollContent).html(Mojo.utils.locale('force', 'leve_updated', {
                 level: force.level[1]
             }));
             this._addLabel('force_level', force.level[0], force.level[1]);
             if (this._isDataChanged(force.member_num)) {
                 this._addLabel('member_max', force.member_num[0], force.member_num[1]);
             }
-            if (this._isDataChanged(force.owner_title)) {
-                this._addLabel('owner_title', force.owner_title[0], force.owner_title[1]);
-            }
-            if (this._isDataChanged(force.first_class_officer_num)) {
+            if (this._isDataChanged()) {
                 this._addLabel('count_officer_1', force.first_class_officer_num[0], force.first_class_officer_num[1]);
             }
-            if (this._isDataChanged(force.second_class_officer_num)) {
-                this._addLabel('count_officer_2', force.second_class_officer_num[0], force.second_class_officer_num[1]);
+            if (this._isDataChanged(force.position_3_num)) {
+                this._addLabel('count_officer_1', force.position_3_num[0], force.position_3_num[1]);
             }
-            if (this._isDataChanged(force.third_class_officer_num)) {
-                this._addLabel('count_officer_3', force.third_class_officer_num[0], force.third_class_officer_num[1]);
+            if (this._isDataChanged(force.position_14_num)) {
+                this._addLabel('count_officer_2', force.position_14_num[0], force.position_14_num[1]);
             }
-            if (this._isDataChanged(force.lodgment_num_limit)) {
-                this._addLabel('position_count', force.lodgment_num_limit[0], force.lodgment_num_limit[1]);
+            if (this._isDataChanged(force.position_15_num)) {
+                this._addLabel('count_officer_3', force.position_15_num[0], force.position_15_num[1]);
             }
+            if (this._isDataChanged(force.position_16_num)) {
+                this._addLabel('count_officer_4', force.position_16_num[0], force.position_16_num[1]);
+            }
+            if (this._isDataChanged(force.position_17_num)) {
+                this._addLabel('count_officer_5', force.position_17_num[0], force.position_17_num[1]);
+            }
+            if (this._isDataChanged(force.position_18_num)) {
+                this._addLabel('count_officer_6', force.position_18_num[0], force.position_18_num[1]);
+            }
+            if (this._isDataChanged(force.position_19_num)) {
+                this._addLabel('count_officer_7', force.position_19_num[0], force.position_19_num[1]);
+            }
+            var s = new Mojo.ui.Scroll(undefined, this._scrollContent, {
+                direction: 2
+            });
+            s.element().appendTo(this._message);
+            setTimeout(function () {
+                s.refresh();
+            })
         },
         _isDataChanged: function (attr) {
             if (attr && attr.length > 1) {
@@ -15000,7 +16640,7 @@
             var self = this;
             new Mojo.ui.Label(undefined, {
                 text: Mojo.utils.locale('force', name) + value + ' → <span>' + newvalue + '</span>'
-            }).element().appendTo(this._message);
+            }).element().appendTo(this._scrollContent);
         },
         _addHandleButtons: function () {
             var self = this;
@@ -15044,9 +16684,9 @@
             }).element().appendTo(s._paragraph);
             s._addLabel('owner', l('force', 'info_owner'), s._data["info_owner"]);
             s._addLabel('vice_owner', l('force', 'info_vice_owner'), s._data["info_vice_owner"]);
-            s._addLabel('first', l('force', 'officer_first'), s._data["officer_first"]);
-            s._addLabel('second', l('force', 'officer_second'), s._data["officer_second"]);
-            s._addLabel('third', l('force', 'officer_third'), s._data["officer_third"]);
+            for (var i = 1; i < 8; i++) {
+                s._addLabel('count_officer_' + i, l('force', 'count_officer_name_' + i), s._data["count_officer_name_" + i]);
+            }
             s._addLabel('member', l('force', 'info_member'), s._data["info_member"]);
             new Mojo.ui.Label(undefined, {
                 classes: ['cd'],
@@ -15056,21 +16696,25 @@
         _addLabel: function (cls, text, val) {
             var l = $("<div class='mem'></div>").appendTo(this._paragraph);
             var t = $("<div class='tit'></div>").html(text);
-            var v = $("<div class='val'></div>").html(val);
+            var v = $("<div class='val'></div>").html(val + '/人');
             l.append(t).append(v);
         },
         _doShare: function (data) {
             var self = this;
             Mojo.ajax("/force/assignGrain", {
-                'owner': data["info_owner"],
-                'vice_owner': data["info_vice_owner"],
-                'first_class_officer': data["officer_first"],
-                'second_class_officer': data["officer_second"],
-                'third_class_officer': data["officer_third"],
-                'member': data["info_member"],
+                'position_1': data["info_owner"],
+                'position_2': data["info_vice_owner"],
+                'position_3': data["count_officer_name_1"],
+                'position_14': data["count_officer_name_2"],
+                'position_15': data["count_officer_name_3"],
+                'position_16': data["count_officer_name_4"],
+                'position_17': data["count_officer_name_5"],
+                'position_18': data["count_officer_name_6"],
+                'position_19': data["count_officer_name_7"],
+                'position_100': data["info_member"]
             }, function (response) {
-                self.close(true);
                 if (response.errorCode == 0) {
+                    self.close(true);
                     Mojo.track.onEvent('24_502');
                     var infoDlg = new Mojo.ui.Dialog(undefined, {
                         title: Mojo.utils.locale('common', 'tips'),
@@ -15085,18 +16729,36 @@
                     }).element().appendTo(infoDlg._footer);
                     infoDlg.open();
                 } else {
+                    self.hide();
                     var errDlg = new Mojo.ui.Dialog(undefined, {
                         title: Mojo.utils.locale('common', 'tips'),
                         classes: ['tip-dialog'],
-                        content: $("<div class='paragraph'></div>").html(response.errorMsg)
+                        content: $("<div class='paragraph'></div>").html(response.errorMsg),
+                        close: function () {
+                            if (self.selfDlgClose !== 0) {
+                                self.close(true);
+                                delete self.selfDlgClose;
+                            }
+                        }
                     });
+                    new Mojo.ui.Button(undefined, {
+                        special: 'button-big-red',
+                        text: Mojo.utils.locale('force', 'g_back_changeBtn'),
+                        click: function () {
+                            self.selfDlgClose = 0;
+                            errDlg.close();
+                            self.close();
+                            self._options._refreshGrain(response);
+                        }
+                    }).element().appendTo(errDlg._footer);
                     new Mojo.ui.Button(undefined, {
                         text: Mojo.utils.locale('common', 'close'),
                         click: function () {
                             errDlg.close();
+                            self.close(true);
                         }
                     }).element().appendTo(errDlg._footer);
-                    errDlg.open();
+                    errDlg.open(true);
                 }
             }, function () {}, {
                 showWait: true
@@ -15145,9 +16807,13 @@
             $('<div id="lastgrain" class="lastgrain"><div>').appendTo(this._paragraph).html(Mojo.utils.locale('force', 'last_grain') + this._force.grain);
             this._addInput('info_owner', 1);
             this._addInput('info_vice_owner', Mojo.utils.isNone(this._force.vice_owner) ? 0 : 1);
-            this._addInput('officer_first', this._force.first_class_officer_num);
-            this._addInput('officer_second', this._force.second_class_officer_num);
-            this._addInput('officer_third', this._force.third_class_officer_num);
+            this._addInput('count_officer_name_1', this._force.position_3_num);
+            this._addInput('count_officer_name_2', this._force.position_14_num);
+            this._addInput('count_officer_name_3', this._force.position_15_num);
+            this._addInput('count_officer_name_4', this._force.position_16_num);
+            this._addInput('count_officer_name_5', this._force.position_17_num);
+            this._addInput('count_officer_name_6', this._force.position_18_num);
+            this._addInput('count_officer_name_7', this._force.position_19_num);
             this._addInput('info_member', parseInt(this._force.member_num) - this._force.officer_num);
             this._paragraph.find('.shareitem .input input').click(function () {
                 this.selectionStart = 0;
@@ -15172,6 +16838,7 @@
                 var v = $(e).val().trim();
                 if (self._isValid(v)) {
                     var i = v == "" ? 0 : parseInt($(e).val(), 10);
+                    $(e).val(i);
                     var c = parseInt($(e).attr('c'), 10);
                     total = total + i * c;
                 } else {
@@ -15252,12 +16919,27 @@
             self.okBtn.element().appendTo(this._footer);
             self.okBtn.disable(true);
             self.okBtn.element().addClass('err');
-            new Mojo.ui.Button(undefined, {
-                text: Mojo.utils.locale('common', 'close'),
+            self.userDefinedBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('force', 'userDefinedBtn'),
                 click: function () {
                     self.close();
+                    self._userDefinedBtnClick();
                 }
             }).element().appendTo(this._footer);
+        },
+        _userDefinedBtnClick: function () {
+            var data = null;
+            var self = this;
+            var dlg = new Mojo.com.ForceDefinedGrainDlg(data, {
+                forceGrainShareDlgData: self._force,
+                allGrain: self._force.grain,
+                memberCount: self._force.member_num,
+                forceGrainShareDlgOpts: self._options,
+                getController: function () {
+                    return self._options.getController();
+                }
+            });
+            dlg.open();
         },
         _hideShareDlg: function () {
             this.element().hide();
@@ -15270,9 +16952,9 @@
             var data = {};
             data["info_owner"] = self._paragraph.find('input[name="info_owner"]').val();
             data["info_vice_owner"] = self._paragraph.find('input[name="info_vice_owner"]').val();
-            data["officer_first"] = self._paragraph.find('input[name="officer_first"]').val();
-            data["officer_second"] = self._paragraph.find('input[name="officer_second"]').val();
-            data["officer_third"] = self._paragraph.find('input[name="officer_third"]').val();
+            for (var i = 1; i < 8; i++) {
+                data["count_officer_name_" + i] = self._paragraph.find('input[name=count_officer_name_' + i + ']').val();
+            }
             data["info_member"] = self._paragraph.find('input[name="info_member"]').val();
             if (!self._isTotalValid(data)) {
                 return;
@@ -15286,6 +16968,12 @@
                     } else {
                         self._showShareDlg();
                     }
+                },
+                _refreshGrain: function (response) {
+                    Mojo.page.Force.getController().sync();
+                    var grain = response.data.grain;
+                    self._force.grain = grain;
+                    self._checkInput();
                 }
             });
             confirmDlg.open(true);
@@ -15468,18 +17156,22 @@
             this._coldDownWarning = options.coldDownWarning;
             this._forceBossWarning = options.forceBossWarning;
             this._exchangeClass = (options.exchangeClass != undefined ? options.exchangeClass : 'go-buy-btn');
-            if (this._data.mallTypeId == 2) {
+            if (this._data.mallTypeId == 1 || this._data.mallTypeId == 2) {
                 this._exchangeClass = '';
             }
             this._card = undefined;
             this.element().append('<div class="goods-detail"></div>');
             var self = this;
             if (this._data.bought && parseInt(this._data.bought) == 1) {
-                this._hasbuy = $("<div class = 'has-buy'></div>").html(Mojo.utils.locale('mall', 'has_buy'));
+                var text = Mojo.utils.locale('mall', 'has_buy');
+                if (data.entity && data.entity.type_id && Mojo.utils.isWhat(data.entity.type_id, 'minis')) {
+                    text = Mojo.utils.locale('mall', 'has_do');
+                }
+                this._hasbuy = $("<div class = 'has-buy'></div>").html(text);
                 this.element().append(this._hasbuy);
             } else {
                 var btnTitle = null;
-                if (this._data.mallTypeId == 2) {
+                if (this._data.mallTypeId == 1 || this._data.mallTypeId == 2) {
                     function getBtnTitle(localeKey, rm) {
                         var btnDiv = $('<div class="niuyige-btn"></div>');
                         btnDiv.append($('<div class="t"></div>').html(Mojo.utils.locale('mall', localeKey)));
@@ -15530,7 +17222,7 @@
                     special: self._exchangeClass
                 });
                 this.element().append(this._goButton.element());
-                if (this._data.mallTypeId == 2) {
+                if (this._data.mallTypeId == 1 || this._data.mallTypeId == 2) {
                     this._goButton.element().addClass('niuyige-button');
                 } else {
                     this._goButton.element().addClass('go-button');
@@ -15585,7 +17277,7 @@
                     if (self._options.onBuy instanceof Function) {
                         if (self._options.type == "secret_treasure") {
                             self._options.onBuy(undefined, self);
-                        } else if (self._data.mallTypeId == 2) {
+                        } else if (self._data.mallTypeId == 1 || self._data.mallTypeId == 2) {
                             self._options.onBuy(undefined, self.shilianBtnClick == true, self);
                         } else {
                             self._options.onBuy(undefined, '2', self);
@@ -15615,6 +17307,23 @@
             var self = this;
             $('<div></div>').addClass("goods-name").html(this._data.name).appendTo(this.element().find('.goods-detail'));
             $('<div></div>').addClass("goods-description").html(this._data.description).appendTo(this.element().find('.goods-detail'));
+            if (this._data.endTime > 0) {
+                var _date = new Date(parseInt(this._data.endTime * 1000));
+                var dateTime = parseInt(_date.getMonth() + 1) + Mojo.utils.locale('common', 'month') + _date.getDate() + Mojo.utils.locale('common', 'dday');
+                var _hour = _date.getHours();
+                var _min = _date.getMinutes();
+                if (_hour < 10) {
+                    _hour = '0' + _hour;
+                }
+                if (_min < 10) {
+                    _min = '0' + _min;
+                }
+                dateTime += "  " + _hour + ":" + _min;
+                var str = Mojo.utils.locale('mall', 'mall_endtime', {
+                    endtime: dateTime
+                });
+                $('<div></div>').addClass("goods-description").html(str).appendTo(this.element().find('.goods-detail'));
+            }
             if (this._levelInfo) {
                 $('<div></div>').addClass("level-info").appendTo(this.element().find('.goods-detail'));
                 $('<div></div>').addClass("level-title").html(this._levelInfo.title).appendTo(this.element().find('.level-info'));
@@ -15624,7 +17333,7 @@
             if (self._options.priceTitle != undefined) {
                 params.priceTitle = self._options.priceTitle;
             }
-            if (this._data.mallTypeId != 2) {
+            if (this._data.mallTypeId != 1 && this._data.mallTypeId != 2) {
                 (new Mojo.com.Price(this._data, params)).element().appendTo(this.element().find(".goods-detail"));
             }
             if (this.hasColdDown && this._data.cold_down && this._data.cold_down > 0) {
@@ -15749,6 +17458,400 @@
 (function (w, $, undefined) {
     w.Mojo = w.Mojo || {};
     w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.LargeEffortEntityDialog = Mojo.com.CommonDialog.extend({
+        init: function (data, options) {
+            this._data = data;
+            this._super(data, options);
+            this.element().addClass('mojo-com-LargeEffortEntityDialog');
+            this._load();
+        },
+        _load: function () {
+            var url = '';
+            if (this._options.subType == 0) {
+                url = '/illustration/achievementSkillDetail';
+            } else if (this._options.subType == 1) {
+                url = '/illustration/achievementExchangeDetail';
+            }
+            var self = this;
+            self._ajaxAchievementBalaBala(url, function (result) {
+                self.detailData = result.data;
+                self._addEffortName();
+                self._addEffortContent();
+                self._addEffortReward();
+                self._addEffortButton();
+                self.open();
+            }, function (result) {
+                Mojo.app.toast.show(result.errorMsg);
+            });
+        },
+        _addEffortName: function () {
+            var n = this.detailData.name;
+            var name = $('<div class="effortname"></div>').appendTo(this._content);
+            $('<div class="name"></div>').html(n).appendTo(name);
+            $('<img class="icon">').attr({
+                src: this.detailData.large_image
+            }).appendTo(name);
+        },
+        _addEffortContent: function () {
+            var _description = this.detailData.description;
+            var _illustrations = this.detailData.illustrations;
+            var description = $('<div class="description"></div>').html(Mojo.utils.locale('entity', 'introduction')).appendTo(this._content);
+            $('<div class="des"></div>').html(_description).appendTo(description);
+            var lightEntity = $('<div class="light-entity"></div>').html('<div>' + Mojo.utils.locale('illustration', 'effort_light') + '</div>');
+            lightEntity.appendTo(description);
+            var str = '<ul class="effort-name">';
+            for (var i = 0; i < _illustrations.length; i++) {
+                var ele = '';
+                var item = _illustrations[i];
+                var name = item.name;
+                var status = item.status;
+                if (status == 1) {
+                    ele = '<li class="light">' + name + '</li>';
+                } else {
+                    ele = '<li>' + name + '</li>';
+                }
+                str += ele;
+                var x = (i + 1) % 4;
+                if (x == 0) {
+                    str += '</ul><ul class="effort-name">';
+                }
+            }
+            str += '</ul>';
+            lightEntity.append($(str));
+        },
+        _addEffortReward: function () {
+            var reward = $('<div class="reward-content"></div>').appendTo(this._content);
+            var leftTitle = $('<div class="left-title"></div>').appendTo(reward);
+            var content = $('<div class="content"></div>').appendTo(reward);
+            var topTitle = $('<div class="top-title"></div>').appendTo(content);
+            var desc = (this._options.subType == 0) ? this.detailData.rewards.description : (this.detailData.status == 2 ? Mojo.utils.locale('illustration', 'effort_getReward') : Mojo.utils.locale('illustration', 'effort_rewardtitle'));
+            topTitle.html(desc);
+            for (var i = 0; i < this.detailData.rewards.entity.length; i++) {
+                var d = this.detailData.rewards.entity[i];
+                var itemEle = $('<div class="itemEle mojo-com-entity-small"></div>').appendTo(content);
+                itemEle.append($('<img class="entity-icon">').attr({
+                    src: d.small_image
+                }));
+                var d_detail = d.entities;
+                if (d_detail) {
+                    itemEle.append($('<div class="minis-flag"></div>'));
+                    d_detail = d_detail[0];
+                    this.rarity_id = d_detail.rarity_id;
+                    this._setMinisFlag(d_detail);
+                }
+                itemEle.append($('<div class="name"></div>').html(d.name));
+                if (this._options.subType == 1) {
+                    itemEle.append($('<div class="count"></div>').html(d.count));
+                }
+            }
+        },
+        _setMinisFlag: function (d) {
+            if (d && d.type_id && Mojo.utils.isWhat(d.type_id, "minis")) {
+                if (Mojo.utils.isWhat(d.entity_type_id, "general")) {
+                    this.element().find(".minis-flag").addClass('minis-flag-type-gp-' + d.entity_group_id).show();
+                } else {
+                    this.element().find(".minis-flag").addClass('minis-flag-type-' + d.entity_type_id).show();
+                }
+            } else {
+                this.element().find(".minis-flag").hide();
+            }
+        },
+        _addEffortButton: function () {
+            var status = this.detailData.status;
+            var subType = this._options.subType;
+            var t = '';
+            this._options.leftBtnText = '';
+            if (subType == 0) {
+                switch ("" + status) {
+                case '0':
+                    this._options.leftBtnDisabled = true;
+                    t = Mojo.utils.locale('illustration', 'effort_active');
+                    t += '<div class="star"><span class="star-icon"></span><span>' + this.detailData.star + '</span></div>';
+                    break;
+                case '1':
+                    t = Mojo.utils.locale('illustration', 'effort_active');
+                    t += '<div class="star"><span class="star-icon"></span><span>' + this.detailData.star + '</span></div>';
+                    break;
+                case '2':
+                    t = '<div class="cancel-active">' + Mojo.utils.locale('illustration', 'effort_cancel_active') + '</div>';
+                    t += '<div class="rm-count"><span class="rm"></span><span>' + this.detailData.rm + '</span></div>';
+                    break;
+                }
+            } else if (subType == 1) {
+                switch ("" + status) {
+                case '0':
+                    this._options.leftBtnDisabled = true;
+                    t = Mojo.utils.locale('illustration', 'effort_get');
+                    break;
+                case '1':
+                    t = Mojo.utils.locale('illustration', 'effort_get');
+                    break;
+                case '2':
+                    break;
+                }
+            }
+            this._options.leftBtnText = t;
+            this._options.rightBtnText = Mojo.utils.locale('common', 'close');
+            var self = this;
+            this._options.leftBtnDisabledClick = function () {
+                self.leftBtnDisabledClick();
+            };
+            this._options.leftBtnClick = function () {
+                self.leftBtnClick();
+            };
+            this._options.rightBtnClick = function () {
+                self.close();
+            };
+            this._addButtons();
+        },
+        leftBtnClick: function () {
+            var status = this.detailData.status;
+            var subType = this._options.subType;
+            if (subType == 0) {
+                switch ("" + status) {
+                case '0':
+                    break;
+                case '1':
+                    this._active();
+                    break;
+                case '2':
+                    this._cancelActive();
+                    break;
+                }
+            } else if (subType == 1) {
+                switch ("" + status) {
+                case '0':
+                    break;
+                case '1':
+                    this._get();
+                    break;
+                case '2':
+                    break;
+                }
+            }
+        },
+        _active: function () {
+            var self = this;
+            var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_activeContent', {
+                star: this.detailData.star,
+                name: this.detailData.name
+            }));
+            var dlg = new Mojo.com.CommonDialog(undefined, {
+                title: Mojo.utils.locale('illustration', 'effort_activeConfirm'),
+                content: content,
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                rightBtnText: Mojo.utils.locale('common', 'cancel'),
+                leftBtnClick: function () {
+                    dlg.hide();
+                    self._ajaxAchievementBalaBala('/illustration/achievementSkillEnable', function () {
+                        var dlg2 = new Mojo.com.CommonDialog('achievementSkillEnableOk', {
+                            title: Mojo.utils.locale('illustration', 'effort_activeOk'),
+                            content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_activeOkContent', {
+                                name: self.detailData.name
+                            })),
+                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                            leftBtnClick: function () {
+                                self.close();
+                                dlg.close();
+                                dlg2.close();
+                            },
+                            close: function () {
+                                self.close();
+                                dlg.close();
+                            }
+                        });
+                        dlg2.open(true);
+                        self._options.refresh();
+                    }, function () {
+                        var dlg3 = new Mojo.com.CommonDialog(undefined, {
+                            title: Mojo.utils.locale('illustration', 'effort_activeFaild'),
+                            content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_activeFaildContent')),
+                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                            leftBtnClick: function () {
+                                self.close();
+                                dlg.close();
+                                dlg3.close();
+                            },
+                            close: function () {
+                                self.close();
+                                dlg.close();
+                            }
+                        });
+                        dlg3.open(true);
+                    });
+                },
+                rightBtnClick: function () {
+                    dlg.close();
+                },
+                close: function () {
+                    self.element().show();
+                }
+            });
+            this.element().hide();
+            dlg.open(true);
+        },
+        _cancelActive: function () {
+            var self = this;
+            var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_cancel_activeContent', {
+                rm: this.detailData.rm,
+                name: this.detailData.name
+            }));
+            var dlg = new Mojo.com.CommonDialog(undefined, {
+                title: Mojo.utils.locale('illustration', 'effort_cancel_active'),
+                content: content,
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                rightBtnText: Mojo.utils.locale('common', 'cancel'),
+                leftBtnClick: function () {
+                    dlg.hide();
+                    self._ajaxAchievementBalaBala('/illustration/achievementSkillDisable', function (result) {
+                        var dlg2 = new Mojo.com.CommonDialog('achievementSkillDisableOk', {
+                            title: Mojo.utils.locale('illustration', 'effort_cancel_activeOk'),
+                            content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_cancel_activeOkContent', {
+                                name: self.detailData.name,
+                                star: result.data.star
+                            })),
+                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                            leftBtnClick: function () {
+                                self.close();
+                                dlg.close();
+                                dlg2.close();
+                            },
+                            close: function () {
+                                self.close();
+                                dlg.close();
+                            }
+                        });
+                        dlg2.open(true);
+                        self._options.refresh();
+                    }, function (result) {
+                        if (result.errorCode == 10005) {
+                            var dlg3 = new Mojo.com.CommonDialog(undefined, {
+                                title: Mojo.utils.locale('illustration', 'effort_cancel_activeFaild'),
+                                content: $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_cancel_activeFaildContent')),
+                                leftBtnText: Mojo.utils.locale('common', 'go_payment'),
+                                leftBtnClick: function () {
+                                    Mojo.app.redirect('/newmall', {
+                                        selected: 5
+                                    });
+                                },
+                                rightBtnText: Mojo.utils.locale('common', 'close'),
+                                rightBtnClick: function () {
+                                    self.close();
+                                    dlg.close();
+                                    dlg3.close();
+                                },
+                                close: function () {
+                                    self.close();
+                                    dlg.close();
+                                }
+                            });
+                            dlg3.open(true);
+                        } else {
+                            Mojo.app.toast.show(result.errorMsg);
+                        }
+                    });
+                },
+                rightBtnClick: function () {
+                    dlg.close();
+                },
+                close: function () {
+                    self.element().show();
+                }
+            });
+            this.element().hide();
+            dlg.open(true);
+        },
+        _get: function () {
+            var self = this;
+            self._ajaxAchievementBalaBala('/illustration/achievementExchange', function (result) {
+                self.close();
+                var content = $('<div class="paragraph"></div>').html(Mojo.utils.locale('illustration', 'effort_getOkContent'));
+                var itemContent = $('<div class="itemContent"></div>').appendTo(content);
+                $.each(result.data, function (i, d) {
+                    if (d.name != undefined) {
+                        var itemEle = $('<div class="itemEle"></div>').appendTo(itemContent);
+                        itemEle.append($('<img class="entity-icon">').attr({
+                            src: d.small_image
+                        }));
+                        itemEle.append($('<div class="name"></div>').html(d.name));
+                        itemEle.append($('<div class="count"></div>').html(d.count));
+                    } else if ($.isArray(d) && d.length > 0) {
+                        $.each(d, function (j, k) {
+                            var itemEle = $('<div class="itemEle"></div>').appendTo(itemContent);
+                            itemEle.append($('<img class="entity-icon">').attr({
+                                src: k.small_image
+                            }));
+                            itemEle.append($('<div class="name"></div>').html(k.name));
+                            itemEle.append($('<div class="count"></div>').html(k.count));
+                        });
+                    }
+                });
+                var dlg = new Mojo.com.CommonDialog('achievementExchangeOk', {
+                    title: Mojo.utils.locale('illustration', 'effort_getOk'),
+                    content: content,
+                    leftBtnText: Mojo.utils.locale('common', 'ok'),
+                    leftBtnClick: function () {
+                        dlg.close();
+                    },
+                    close: function () {
+                        self._options.refresh();
+                    }
+                });
+                if (self.rarity_id) {
+                    Mojo.gap.niudanAnimationPlay(function () {
+                        dlg.open();
+                    });
+                } else {
+                    dlg.open();
+                }
+            }, function (result) {
+                Mojo.app.toast.show(result.errorMsg);
+            });
+        },
+        _ajaxAchievementBalaBala: function (url, callback, callbackErr) {
+            var self = this;
+            Mojo.ajax(url, {
+                id: self._options.id
+            }, function (result) {
+                if (result.errorCode == 0) {
+                    if (callback && callback instanceof Function) {
+                        callback(result);
+                    }
+                } else {
+                    if (callbackErr && callbackErr instanceof Function) {
+                        callbackErr(result);
+                    }
+                }
+            }, function () {}, {
+                showWait: true
+            });
+        },
+        leftBtnDisabledClick: function () {
+            var status = this.detailData.status;
+            var subType = this._options.subType;
+            if (subType == 0) {
+                switch ("" + status) {
+                case '0':
+                    Mojo.app.toast.show(Mojo.utils.locale('illustration', 'effort_notlight'));
+                    break;
+                case '1':
+                    break;
+                case '2':
+                    break;
+                }
+            } else if (subType == 1) {
+                switch ("" + status) {
+                case '0':
+                    Mojo.app.toast.show(Mojo.utils.locale('illustration', 'effort_notget'));
+                    break;
+                case '1':
+                    break;
+                case '2':
+                    break;
+                }
+            }
+        }
+    });
     w.Mojo.com.LargeEntity = w.Mojo.com.Entity.extend({
         clsname: function () {
             return "com.LargeEntity";
@@ -15893,7 +17996,7 @@
                     value: this.data.xp,
                     max: this.data.next_xp,
                     labelTemplate: '',
-                    classes: ['mojo-com-entity-large--row--picture--attributes--mojo-ui-progress'],
+                    classes: ['mojo-com-entity-large--row--picture--attributes--mojo-ui-progress']
                 })).element()).append('<div class="level mojo-com-entity-large--row--picture--attributes--level">' + this.data.level + '</div>');
             }
             this._effects = $('<div class="effects mojo-com-entity-large--row--picture--attributes--effects"></div>').appendTo(this._row1.find('.attributes'));
@@ -16284,8 +18387,8 @@
                     self._refreshGrainBar(response.data.player_force);
                     Mojo.track.onBuy(goods.id, 1, 'remark', true);
                     if (goods && parseInt(goods.entity.type_id) == 8) {
-                        Mojo.gap.niudanAnimationPlay(goods.entity.rarity_id);
                         var entity = response.data.entities[0];
+                        var niudanPuppetData = response.data.niudanPuppetData[0];
                         var t = Mojo.utils.locale('mall', 'open_minis_result');
                         if (false === Mojo.utils.isNone(response.data.extra_entity)) {
                             t = Mojo.utils.locale('mall', 'heaven_bless');
@@ -16296,14 +18399,23 @@
                         });
                         var tip = undefined;
                         if (false === Mojo.utils.isNone(response.data.extra_entity)) {
-                            tip = Mojo.utils.locale('mall', 'open_minis_tip2', {
-                                __default__: '主公~您扭出了【{{:name}}】~',
+                            tip = Mojo.utils.locale('mall', 'open_minis_tip', {
+                                moneyname: niudanPuppetData.name,
+                                count: niudanPuppetData.count,
                                 name: entity.name
                             });
                         } else if (parseInt(response.data.type) == 2) {
-                            tip = Mojo.utils.locale('mall', 'open_minis_tip1').replace(/\{\{name\}\}/g, entity.name);
+                            tip = Mojo.utils.locale('mall', 'open_minis_tip1', {
+                                moneyname: niudanPuppetData.name,
+                                count: niudanPuppetData.count,
+                                name: entity.name
+                            });
                         } else {
-                            tip = Mojo.utils.locale('mall', 'open_minis_tip').replace(/\{\{name\}\}/g, entity.name);
+                            tip = Mojo.utils.locale('mall', 'open_minis_tip', {
+                                moneyname: niudanPuppetData.name,
+                                count: niudanPuppetData.count,
+                                name: entity.name
+                            });
                         }
                         $('<div></div>').addClass('tip').html(tip).appendTo(entityDetailDialog._content);
                         if (false === Mojo.utils.isNone(response.data.extra_entity)) {
@@ -16335,9 +18447,9 @@
                                 }
                             }
                         }).element().appendTo(entityDetailDialog._footer);
-                        setTimeout(function () {
+                        Mojo.gap.niudanAnimationPlay(function () {
                             entityDetailDialog.open();
-                        }, 400);
+                        });
                     } else if (goods && parseInt(goods.entity.type_id) == 7) {
                         var entity = response.data.entities[0];
                         var exchangeSuccessfulDialog = new Mojo.ui.Dialog(undefined, {
@@ -16360,8 +18472,8 @@
                             special: 'button-big-blue',
                             click: function () {
                                 exchangeSuccessfulDialog.close();
-                                Mojo.app.redirect('/mall', {
-                                    selected: 2
+                                Mojo.app.redirect('/newmall', {
+                                    selected: 4
                                 });
                             }
                         }).element().appendTo(exchangeSuccessfulDialog._footer);
@@ -16747,22 +18859,28 @@
         },
         _refresh: function () {
             var self = this;
-            if (this._data instanceof Object) {
-                this._setCard();
-            } else if (this._data instanceof String) {
-                Mojo.ajax("/detail", {
+            if (typeof this._data == "object") {
+                self._setCard();
+                this._setMinisFlag();
+                if (this._options.callback instanceof Function) {
+                    this._options.callback(this);
+                }
+            } else if (typeof this._data == "string") {
+                Mojo.ajax("/entity/detail", {
                     id: this._data,
-                    pid: this._options.pid
+                    pid: this._options.pid,
+                    eid: this._options.eid,
+                    rebirth_count: this._options.rebirthCount
                 }, function (response) {
                     if (response && response.errorCode === 0) {
                         self._data = response.data;
                         self._setCard();
+                        self._setMinisFlag();
+                        if (self._options.callback instanceof Function) {
+                            self._options.callback(self);
+                        }
                     }
                 });
-            }
-            this._setMinisFlag();
-            if (this._options.callback instanceof Function) {
-                this._options.callback(this);
             }
         },
         _setCard: function () {
@@ -16791,7 +18909,7 @@
                     self._options.click(self);
                 }
             });
-        }
+        },
     });
 })(window, jQuery);;
 (function (w, $, undefined) {
@@ -16817,8 +18935,8 @@
                 this._footer.append((new Mojo.ui.Button(undefined, {
                     text: Mojo.utils.locale('common', 'go_payment'),
                     click: function () {
-                        Mojo.app.redirect('/mall', {
-                            selected: 4
+                        Mojo.app.redirect('/newmall', {
+                            selected: 5
                         });
                     },
                     special: 'button-big-red',
@@ -16827,8 +18945,8 @@
                 this._footer.append((new Mojo.ui.Button(undefined, {
                     text: Mojo.utils.locale('common', 'go_vm'),
                     click: function () {
-                        Mojo.app.redirect('/mall', {
-                            selected: 2
+                        Mojo.app.redirect('/newmall', {
+                            selected: 4
                         });
                     },
                     special: 'button-big-red',
@@ -16900,6 +19018,35 @@
                 }
             });
         },
+        _sendWeiboFromJs: function (message) {
+            Mojo.app.weibo.statusesUpdate({
+                access_token: self._data.access_token,
+                status: message,
+                errorFunc: function () {
+                    Mojo.app.toast.show(Mojo.utils.locale('weibo', 'Send Success'));
+                    self.close();
+                    Mojo.ajax('/player/weiboPublish', {}, function (result) {
+                        Mojo.app.refreshCurrentProfile();
+                        self.afterPublish();
+                    });
+                },
+                successFunc: function () {
+                    Mojo.app.toast.show(Mojo.utils.locale('weibo', 'Send Success'));
+                    self.close();
+                    Mojo.ajax('/player/weiboPublish', {}, function (result) {
+                        Mojo.app.refreshCurrentProfile();
+                        self.afterPublish();
+                    });
+                },
+                failedFunc: function () {
+                    self.close();
+                    Mojo.ajax('/player/weiboPublish', {}, function (result) {
+                        self.afterPublish();
+                    });
+                },
+            });
+        },
+        _sendWeiboFromNative: function () {},
         _addHandleButtons: function () {
             var self = this;
             self._sendBtn = new Mojo.ui.Button(undefined, {
@@ -16919,32 +19066,11 @@
                         self._sendBtn.disable(false);
                         return;
                     }
-                    Mojo.app.weibo.statusesUpdate({
-                        access_token: self._data.access_token,
-                        status: message,
-                        errorFunc: function () {
-                            Mojo.app.toast.show(Mojo.utils.locale('weibo', 'Send Success'));
-                            self.close();
-                            Mojo.ajax('/player/weiboPublish', {}, function (result) {
-                                Mojo.app.refreshCurrentProfile();
-                                self.afterPublish();
-                            });
-                        },
-                        successFunc: function () {
-                            Mojo.app.toast.show(Mojo.utils.locale('weibo', 'Send Success'));
-                            self.close();
-                            Mojo.ajax('/player/weiboPublish', {}, function (result) {
-                                Mojo.app.refreshCurrentProfile();
-                                self.afterPublish();
-                            });
-                        },
-                        failedFunc: function () {
-                            self.close();
-                            Mojo.ajax('/player/weiboPublish', {}, function (result) {
-                                self.afterPublish();
-                            });
-                        },
-                    });
+                    if (Mojo.app.isNativeApp()) {
+                        mojo.gap.shareweibo('system', 'shareweibo', ["", message])
+                    } else {
+                        self._sendWeiboFromJs(message);
+                    }
                 },
             });
             this._footer.append(self._sendBtn.element());
@@ -16959,7 +19085,7 @@
         afterPublish: function () {},
         close: function () {
             this._super();
-            window.scrollTo(0);
+            window.scrollTo(0, 0);
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
@@ -17101,7 +19227,7 @@
                 click: function () {
                     Mojo.app.redirect('/settings', {
                         selected: 1
-                    }, 'event', '04_056');
+                    });
                     self.close();
                 },
             })).element());
@@ -17146,7 +19272,7 @@
                     self._redirectToSettings = 1;
                     Mojo.app.redirect('/settings', {
                         selected: 1
-                    }, 'event', '04_056');
+                    });
                     self.close();
                 },
             })).element());
@@ -17218,7 +19344,7 @@
                 click: function () {
                     Mojo.app.redirect('/settings', {
                         selected: 1
-                    }, 'event', '04_056');
+                    });
                     self.close();
                 },
             })).element());
@@ -17266,7 +19392,7 @@
                 click: function () {
                     Mojo.app.redirect('/settings', {
                         selected: 1
-                    }, 'event', '04_056');
+                    });
                     self.close();
                 },
             })).element());
@@ -17320,9 +19446,7 @@
         _addContent: function () {
             var self = this;
             self._platform = Mojo.app.getPlatform();
-            if (Mojo.app.getPlatform() == 'facebook')
-                self.element().find('.icon').addClass('fb');
-            var txt = (self._platform == 'sina' ? Mojo.utils.locale('weibo', 'Send weibo') : Mojo.utils.locale('facebook', 'Send weibo'));
+            var txt = Mojo.utils.locale('weibo', 'Send weibo');
             self.text(txt);
             var weibocontent = self._options.defaultText || self._options.content;
             var weibotitle = self._options.defaultTitle || self._options.title;
@@ -17337,38 +19461,20 @@
                         }
                         if (access_token != null && access_token != '') {
                             if (self._options.expire == 1) {
-                                if (self._platform == 'facebook') {
-                                    (new Mojo.com.FacebookExpireDialog()).open(true);
-                                } else {
-                                    (new Mojo.com.WeiboExpireDialog()).open(true);
-                                }
+                                (new Mojo.com.WeiboExpireDialog()).open(true);
                             } else {
-                                if (self._platform == 'facebook') {
-                                    (new Mojo.com.FacebookFeedDialog({
-                                        access_token: access_token
-                                    }, {
-                                        defaultText: weibocontent,
-                                        appendix: appendixtxt,
-                                        defaultTitle: weibotitle
-                                    })).open(true);
-                                } else {
-                                    (new Mojo.com.WeiboPublishDialog({
-                                        access_token: access_token
-                                    }, {
-                                        defaultText: weibocontent,
-                                        appendix: appendixtxt
-                                    })).open(true);
-                                }
-                            }
-                        } else {
-                            if (self._platform == 'facebook') {
-                                (new Mojo.com.FacebookBindDialog()).open(true);
-                            } else {
-                                (new Mojo.com.WeiboBindDialog({
-                                    showGoBindDialog: self._options.showGoBindDialog,
-                                    level: self._options.level
+                                (new Mojo.com.WeiboPublishDialog({
+                                    access_token: access_token
+                                }, {
+                                    defaultText: weibocontent,
+                                    appendix: appendixtxt
                                 })).open(true);
                             }
+                        } else {
+                            (new Mojo.com.WeiboBindDialog({
+                                showGoBindDialog: self._options.showGoBindDialog,
+                                level: self._options.level
+                            })).open(true);
                         }
                     }
                     self._options.levelUpBtnClick();
@@ -17416,9 +19522,14 @@
                 this._orderFilter = this.element().children("." + self._options.orderFilterId).first();
             } else {
                 this.element().show();
-                this._typeFilter = $('<div class="typeFilter"><div class="entityType">' + Mojo.utils.locale('force', 'order_condition') + '</div></div>').appendTo(this._entityFilterPanel);
+                this._typeFilter = $('<div class="typeFilter"><div class="entityType">' + Mojo.utils.locale('force', 'order_conditions') + '</div></div>').appendTo(this._entityFilterPanel);
+                this._typeFilterList = $('<div class="filter-list"></div>').appendTo(this._typeFilter);
                 this._orderFilter = $('<div class="orderFilter"><div class="entityOrder">' + Mojo.utils.locale('force', 'order_force') + '</div></div>').appendTo(this._entityFilterPanel);
                 this._typeFilter = this._entityFilterPanel.children("." + self._options.typeFilterId).first();
+                this._typeFilterScroll = new Mojo.ui.Scroll(undefined, this._typeFilterList, {
+                    direction: 2
+                });
+                this._typeFilterScroll.element().appendTo(this._typeFilter);
                 Mojo.utils.center(this._entityFilterPanel);
             }
             this._typeArray = this._options.typeId.toString().split(',');
@@ -17458,6 +19569,7 @@
                     } else {
                         self._showDialog(result);
                     }
+                    self._typeFilterScroll.refresh();
                 });
             } else {
                 self._removeFilters();
@@ -17471,10 +19583,10 @@
                     self._options.typeId = 1;
                 }
                 for (var i in Mojo.app.data.forceCategory.types) {
-                    if (Mojo.app.data.forceCategory.types[i].id == '6' || Mojo.app.data.forceCategory.types[i].id == '7' || Mojo.app.data.forceCategory.types[i].id == '8') {
+                    if (!self._options.showAll && (Mojo.app.data.forceCategory.types[i].id == '6' || Mojo.app.data.forceCategory.types[i].id == '7' || Mojo.app.data.forceCategory.types[i].id == '8')) {
                         continue;
                     }
-                    self._filter = $('<div></div>').attr("id", "type-" + Mojo.app.data.forceCategory.types[i].id).addClass(self._options.filterElementClass).appendTo(self._typeFilter).data({
+                    self._filter = $('<div></div>').attr("id", "type-" + Mojo.app.data.forceCategory.types[i].id).addClass(self._options.filterElementClass).appendTo(self._typeFilterList).data({
                         id: Mojo.app.data.forceCategory.types[i].id
                     }).html('<div class="radio"></div>' + Mojo.app.data.forceCategory.types[i].name).click(function () {
                         self._filterElements = self._typeFilter.find("." + self._options.filterElementClass);
@@ -17557,7 +19669,7 @@
                 orderId: 0,
                 isRebirth: false,
                 filterUrl: '/force/filter',
-                title: Mojo.utils.locale('force', 'order_condition'),
+                title: Mojo.utils.locale('force', 'order_conditions'),
                 callback: $.noop,
                 typeFilterSelected: 0,
                 rarityFilterSelected: 0,
@@ -17597,8 +19709,8 @@
         _addHeader: function () {
             this._tips = $('<div class="paragraph"></div>').appendTo(this._content);
             var title = '';
-            if (this._data.title != undefined && this._data.title != '') {
-                title = '[<span class="official">' + this._data.title + '</span>]';
+            if (this._data.title_info != undefined && this._data.title_info != '') {
+                title = Mojo.utils.playerNameHtmlStr(this._data.title_info);
             }
             this._header = $('<div class="header"></div>').html(Mojo.utils.locale('force', 'select_assign_title', {
                 honor: title,
@@ -17802,6 +19914,7 @@
                 this._assistType = this.action;
             }
             this._forcePage = this.parent._options.getController();
+            this._forceProfile = this._forcePage.getForceProfile();
             if (this.inBattle == true) {
                 self._forceWarAjax("/forceCrazy/battleStatus", {
                     type: self.battleType,
@@ -18391,7 +20504,7 @@
                                                         },
                                                         rightBtnText: rightBtnText,
                                                         rightBtnClick: function (that) {
-                                                            if (fight.defender != undefined || (fight.status == 1 && playerLevel < 105)) {
+                                                            if (fight.defender == undefined || (fight.defender != undefined && fight.status == 1 && playerLevel < 105)) {
                                                                 that.close();
                                                             } else {
                                                                 that.hide();
@@ -18785,7 +20898,7 @@
             var self = this;
             var usurpTipDlg = new Mojo.com.CommonDialog(undefined, {
                 title: Mojo.utils.locale('force', 'usurp'),
-                content: $('<div class="paragraph"></div>').html(self.locale('usurp_tip')),
+                content: $('<div class="paragraph"></div>').html('主公~发起霸占需要用2个小时来行军准备，并扣除军令，确定要霸占这个势力吗？'),
                 classes: ['usurp-tip-dialog'],
                 leftBtnText: 　self.locale('usurp'),
                 leftBtnClick: function (that) {
@@ -18797,12 +20910,6 @@
                     that.close();
                 }
             });
-            var grainCost = $('<div class="cost-grain"></div>').html('<div class="cg-content">' + self.locale('grain_cost') + '</div>').appendTo(usurpTipDlg._content);
-            var gcLabel = new Mojo.ui.Label(undefined, {
-                text: previewData.grain,
-                classes: ['fgrain'],
-            });
-            gcLabel.element().appendTo(grainCost);
             var challengeCost = $('<div class="cost-challenge"></div>').html('<div class="cc-content">' + self.locale('challenge_cost') + '</div>').appendTo(usurpTipDlg._content);
             var ccLabel = new Mojo.ui.Label(undefined, {
                 text: previewData.challenge,
@@ -18822,6 +20929,9 @@
                     self._showBattleTipDialog(response.data);
                 } else {
                     self._createFailedDlg(response);
+                }
+                if (parseInt(self._forceProfile.protect_status) == 1) {
+                    self._forcePage.getProfile().sync();
                 }
             }, function () {}, {
                 showWait: true
@@ -18847,6 +20957,7 @@
                 forceListOptions: {
                     type: self.targetForceId ? 'forceinfo' : 'crazyforce',
                     purpose: self.action,
+                    typeOfbattle: self.action,
                     ids: self.targetForceId,
                     listData: forceList,
                     btnText: Mojo.utils.locale('force', self.action),
@@ -18865,6 +20976,9 @@
                                     self._actionForCapitulate();
                                 } else {
                                     self._createFailedDlg(response);
+                                }
+                                if (parseInt(self._forceProfile.protect_status) == 1) {
+                                    self._forcePage.getProfile().sync();
                                 }
                             }, function () {}, {
                                 showWait: true
@@ -19119,6 +21233,7 @@
             }
             if (forceUpdate != true) {
                 self._forceBattleHandle = setTimeout(function () {
+                    clearTimeout(self._forceBattleHandle);
                     self._refreshForceBattleStatus();
                 }, 1000);
             }
@@ -19291,6 +21406,7 @@
             this._exchangeClass = options.exchangeClass;
             this._hasHr = options.hasHr;
             this._descriptionImgClass = options.descriptionImgClass;
+            this._playerInfo = options.playerInfo;
             this._count = undefined;
             this._setIcon();
             this._setButton();
@@ -19310,6 +21426,9 @@
                 dlgdesc = '';
             }
             this._icon.click(function () {
+                if (self.elementId == 'diplomacy') {
+                    return;
+                }
                 var infoDlg = new Mojo.ui.Dialog(undefined, {
                     title: dlgtitle + Mojo.utils.locale('ui', 'Introduction'),
                     classes: ['relaion-tip-dialog']
@@ -19714,9 +21833,15 @@
                     text: self._data.lose_vm,
                 })).element());
                 if (this._options.atackBtnText == Mojo.utils.locale('battle', 'action')) {
-                    $("<div></div>").addClass('tips').appendTo(this._content).html(Mojo.utils.locale('battle', 'battle_tip'));
-                } else {
-                    $("<div></div>").addClass('tips').appendTo(this._content).html(Mojo.utils.locale('rob', 'rob_tip'));
+                    if (self._data.is_friend_or_colleague) {
+                        $("<div></div>").addClass('tips larger-and-red').appendTo(this._content).html(Mojo.utils.locale('battle', 'battle_friend_or_colleague_tip'));
+                    } else {
+                        $("<div></div>").addClass('tips').appendTo(this._content).html(Mojo.utils.locale('battle', 'battle_tip'));
+                    }
+                } else if (this._options.atackBtnText == Mojo.utils.locale('rob', 'rob')) {
+                    if (self._data.is_friend_or_colleague) {
+                        $("<div></div>").addClass('tips larger-and-red').appendTo(this._content).html(Mojo.utils.locale('battle', 'battle_friend_or_colleague_tip'));
+                    }
                 }
                 if (self._data.entity_rate != null && self._data.entity_rate != undefined && self._data.entity_rate != '') {
                     this._rate = $('<div class="rate"></div>').html(self._data.entity_rate).appendTo(this._ifwin);
@@ -19799,6 +21924,11 @@
                                                                 self._options.callback(entity_id, entity_valid, entity_img);
                                                             },
                                                             show_detail_first: true,
+                                                            hideOpplist: function () {
+                                                                if (self._options.hideOpplist instanceof Function) {
+                                                                    self._options.hideOpplist();
+                                                                }
+                                                            },
                                                             rBtnClickCallback: function (that) {
                                                                 var detailDlg = new Mojo.com.BattleDetailDialog(response.data, {
                                                                     title: dlgtitle,
@@ -20394,6 +22524,11 @@
                                                 callback: function (entity_id, entity_valid, entity_img) {
                                                     self._options.callback(entity_id, entity_valid, entity_img);
                                                 },
+                                                hideOpplist: function () {
+                                                    if (self._options.hideOpplist instanceof Function) {
+                                                        self._options.hideOpplist();
+                                                    }
+                                                },
                                             })).open(true);
                                             self.close();
                                         } else if (result.errorCode == 10003) {
@@ -20472,12 +22607,24 @@
             }
             if (this._options.tutorial_mode === false) {
                 if (self._data.times >= 3 || (self._options.entity_id != '' && self._data.entity != null && self._data.entity.valid != -1)) {
-                    this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
-                        text: Mojo.utils.locale('ui', 'Close'),
-                        click: function () {
-                            self.close();
-                        },
-                    })).element());
+                    if (self._data.times >= 3) {
+                        this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
+                            text: Mojo.utils.locale('ui', 'Close'),
+                            click: function () {
+                                self.close();
+                            },
+                        })).element());
+                    } else {
+                        this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
+                            text: Mojo.utils.locale('rob', 'backToRob'),
+                            click: function () {
+                                self.close();
+                                if (self._options.hideOpplist instanceof Function) {
+                                    self._options.hideOpplist();
+                                }
+                            },
+                        })).element());
+                    }
                 } else {
                     this._footer.append((this._detailBtn = new Mojo.ui.Button('close-btn', {
                         text: Mojo.utils.locale('battle', 'formation detail'),
@@ -20619,6 +22766,8 @@
                                     Mojo.app.toast.show(Mojo.utils.locale("common", "buy sp succ"));
                                     if (self._options.forceProfile) {
                                         self._options.forceProfile.updatePlayerProfile(result.data.player);
+                                    } else if (self._options.bgProfile) {
+                                        self._options.bgProfile.data(result.data.player);
                                     }
                                 } else {
                                     (new Mojo.com.BuyFailDialog({
@@ -20661,6 +22810,8 @@
                             self._refresh();
                             if (self._options.fightProfile) {
                                 self._options.fightProfile.spRefresh(self._data.sp);
+                            } else if (self._options.bgProfile) {
+                                self._options.bgProfile.data(result.data.player);
                             } else if (self._options.forceProfile) {
                                 self._options.forceProfile.updatePlayerProfile(result.data.player);
                             }
@@ -21424,8 +23575,8 @@
                                                 special: "button-big-red",
                                                 click: function () {
                                                     failDialog.close();
-                                                    Mojo.app.redirect("/mall", {
-                                                        selected: 2
+                                                    Mojo.app.redirect("/newmall", {
+                                                        selected: 4
                                                     });
                                                 }
                                             }).element().appendTo(failDialog._footer);
@@ -21436,8 +23587,8 @@
                                                 special: "button-big-red",
                                                 click: function () {
                                                     failDialog.close();
-                                                    Mojo.app.redirect("/mall", {
-                                                        selected: 4
+                                                    Mojo.app.redirect("/newmall", {
+                                                        selected: 5
                                                     });
                                                 }
                                             }).element().appendTo(failDialog._footer);
@@ -21523,13 +23674,34 @@
                                     });
                                 }
                             });
-                            dlg.open();
+                            if (parseInt(self._data.challenge.rm) > 0) {
+                                Mojo.ajax('/force/checkPlayerBuyedRm', {
+                                    type: 'forceboss'
+                                }, function (res2) {
+                                    if (res2.errorCode == 0) {
+                                        dlg.open();
+                                    } else {
+                                        (new Mojo.com.CommonDialog(undefined, {
+                                            title: res2.data ? res2.data.title : Mojo.utils.locale('force', 'force_assistant_prompt_title'),
+                                            content: $('<div class="tip"></div>').html(res2.errorMsg),
+                                            leftBtnText: Mojo.utils.locale('common', 'ok'),
+                                            leftBtnClick: function (that) {
+                                                that.close();
+                                            }
+                                        })).open();
+                                    }
+                                }, function () {}, {
+                                    showWait: true
+                                });
+                            } else {
+                                dlg.open();
+                            }
                         },
                     });
                     bossLevelSelectDlg.open();
                 },
                 disableClick: function () {
-                    if (parseInt(self._playerProfile.position_id) > 3) {
+                    if (!(self._playerProfile.force_rights.__all__ || self._playerProfile.force_rights.start_challenge)) {
                         Mojo.app.toast.show(Mojo.utils.locale('force', 'force_boss_challenge_no_right'));
                     } else if (self._data.limit == 0) {
                         Mojo.app.toast.show(Mojo.utils.locale('force', 'force_boss_challenge_no_right2'));
@@ -21640,8 +23812,8 @@
                                         special: "button-big-red",
                                         click: function () {
                                             failDialog.close();
-                                            Mojo.app.redirect("/mall", {
-                                                selected: 4
+                                            Mojo.app.redirect("/newmall", {
+                                                selected: 5
                                             });
                                         }
                                     }).element().appendTo(failDialog._footer);
@@ -22163,6 +24335,7 @@
         _showForceWarResultDialog: function (result, callback, res, dlgtitle) {
             var self = this;
             var resultDlg = undefined;
+            var superBonusDlg = undefined;
             var content = $('<div class="tip"></div>');
             var title = "";
             var rightBtnText = Mojo.utils.locale('common', 'close');
@@ -22194,27 +24367,55 @@
                     var temp = $('<div class="paragraph"></div>').appendTo(content);
                     if (result.data.killer == 1) {
                         if (result.data.lucky != undefined) {
-                            temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des7', {
-                                level: result.data.boss.level,
-                                name: result.data.boss.name
-                            }));
+                            if (result.data.super_bonus) {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des7_superbonus', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            } else {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des7', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            }
                         } else {
-                            temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des2', {
-                                level: result.data.boss.level,
-                                name: result.data.boss.name
-                            }));
+                            if (result.data.super_bonus) {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des2_superbonus', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            } else {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des2', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            }
                         }
                     } else {
                         if (result.data.lucky != undefined) {
-                            temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des6', {
-                                level: result.data.boss.level,
-                                name: result.data.boss.name
-                            }));
+                            if (result.data.super_bonus) {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des6_superbonus', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            } else {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des6', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            }
                         } else {
-                            temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des1', {
-                                level: result.data.boss.level,
-                                name: result.data.boss.name
-                            }));
+                            if (result.data.super_bonus) {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des1_superbonus', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            } else {
+                                temp.html(Mojo.utils.locale('force', 'force_boss_challenge_final_des1', {
+                                    level: result.data.boss.level,
+                                    name: result.data.boss.name
+                                }));
+                            }
                         }
                     }
                     var sumgrain = 0;
@@ -22299,6 +24500,25 @@
                             rightBtnClick(that);
                         },
                     });
+                    if (result.data.super_bonus) {
+                        superBonusDlg = new Mojo.ui.Dialog(undefined, {
+                            title: self.locale('exchange'),
+                            content: (new Mojo.com.LargeEntity(result.data.super_bonus.entity)).element()
+                        });
+                        superBonusDlg.element().addClass('with-extra-entity');
+                        $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_final_des8', {
+                            boss: result.data.boss.name,
+                            name: result.data.super_bonus.entity.name
+                        })).appendTo(superBonusDlg._content);
+                        var closeBtn = new Mojo.ui.Button(undefined, {
+                            text: Mojo.utils.locale('common', 'close'),
+                            special: 'button-bg-red',
+                            click: function () {
+                                superBonusDlg.close();
+                            }
+                        });
+                        closeBtn.element().appendTo(superBonusDlg._footer);
+                    }
                 } else {
                     title = Mojo.utils.locale('force', 'force_boss_challenge_final_win');
                     var temp = $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'force_boss_challenge_final_des5', {
@@ -22348,6 +24568,9 @@
                         rightBtnClick(that);
                     },
                 });
+            }
+            if (result.data.super_bonus) {
+                superBonusDlg.open();
             }
             resultDlg.open();
         },
@@ -22442,7 +24665,7 @@
                                 self.element().show();
                             }
                         }).open(true);
-                    })
+                    });
                     bossObj.element().append(bossImage.element());
                     var bossInfo = new Mojo.Object(undefined, {
                         classes: ['com-force-callenge-boss-info']
@@ -23448,7 +25671,7 @@
                 this._protectTime.element().html(Mojo.utils.locale('force', 'city_my_protect_time', {
                     time: self._formatCDTime(self._data.city.protection)
                 }));
-                if (self._data.city.protection == undefined || 　self._data.city.protection　 <= 0) {
+                if (self._data.city.protection == undefined || self._data.city.protection <= 0) {
                     this._protectTime.element().hide();
                 }
                 self._subContent.element().append(this._protectTime.element());
@@ -23462,6 +25685,7 @@
                 }
                 this._cityHeart.element().html(Mojo.utils.locale('force', 'city_heart2', {
                     city_heart: self._data.city.popular,
+                    city_heart_max: self._data.attr.popular,
                     city_heart_defence: self._cityDefence
                 }));
                 self._subContent.element().append(this._cityHeart.element());
@@ -23470,6 +25694,10 @@
                 } else {
                     this._cityHeart.element().find('span').addClass("city-heart-highlight-red");
                 }
+                var cityHeartDetailBtn = $('<span class="chat hear-detail-btn"></span>').html('详细').appendTo(this._cityHeart.element());
+                cityHeartDetailBtn.click(function (e) {
+                    self._cityHeartDetailDlg();
+                });
                 if (self._recordTimeHandle != undefined) {
                     clearTimeout(self._recordTimeHandle);
                 }
@@ -23522,7 +25750,8 @@
                         var dlg = new Mojo.com.CommonDialog(undefined, {
                             title: Mojo.utils.locale('force', 'city_placate_dlg_title'),
                             content: $('<div class="tip"></div>').html(Mojo.utils.locale('force', 'city_placate_dlg_content', {
-                                rm: self._data.city.cost
+                                rm: self._data.city.cost,
+                                popular: self._data.attr.popular
                             })),
                             leftBtnText: Mojo.utils.locale('force', 'city_placate'),
                             leftBtnClick: function (that) {
@@ -23537,8 +25766,8 @@
                                         special: "button-big-red",
                                         click: function () {
                                             failDialog.close();
-                                            Mojo.app.redirect("/mall", {
-                                                selected: 4
+                                            Mojo.app.redirect("/newmall", {
+                                                selected: 5
                                             });
                                         }
                                     }).element().appendTo(failDialog._footer);
@@ -23585,7 +25814,7 @@
                 } else {
                     this._placateButton.element().addClass("placate-button-with-rm");
                 }
-                if (parseInt(self._playerProfile.position_id) > 5) {
+                if (parseInt(self._playerProfile.position_id) > 19) {
                     self._placateButton.disable(true);
                 }
             }
@@ -23602,6 +25831,67 @@
             if (parseInt(self._data.store_grain) < 1) {
                 self._getGrainButton.disable(true);
             }
+        },
+        _cityHeartDetailDlg: function () {
+            var self = this;
+            var dlg = new Mojo.com.CommonDialog('force-city-heartDetail-dlg', {
+                title: '民心',
+                leftBtnText: self.getL('common', 'close'),
+                leftBtnClick: function (that) {
+                    that.close();
+                }
+            });
+            var list = new Mojo.ui.ListPanel('force-city-heartDetail', {
+                showMore: true,
+                moreLabel: self.getL('force', 'more'),
+                pageSize: 10,
+                scrollable: true,
+                loadFunc: function (start, count, params, that) {
+                    Mojo.ajax('/force/messageList', {
+                        start: start,
+                        count: count,
+                        type: 'city'
+                    }, function (result) {
+                        if (result.errorCode == 0) {
+                            if (result.data && result.data.messages && result.data.messages.length >= 10) {
+                                list._options.alwaysMore = true;
+                                list._more.element().show();
+                                list.resize();
+                            }
+                            that.appendData(result.data.messages);
+                        }
+                    });
+                },
+                drawFunc: function (data) {
+                    var t = self._getMsgTime(data.create_time);
+                    var obj = new Mojo.Object(undefined, {
+                        classes: ['force-city-heartDetail-element']
+                    });
+                    obj.element().html(data.content + '（' + t + '）' || '');
+                    return obj;
+                }
+            });
+            setTimeout(function () {
+                var paragraph = $('<div class="paragraph"></div>').appendTo(dlg._content);
+                list.element().appendTo(paragraph);
+                dlg.open();
+                list.resize();
+            });
+        },
+        _getMsgTime: function (time) {
+            var date = new Date();
+            var now = date.getTime() / 1000;
+            var send = parseInt(time);
+            var t = parseInt(now - send);
+            if (t < 1) {
+                t = 1;
+            }
+            var day = parseInt(t / (3600 * 24));
+            var hour = parseInt((t % (3600 * 24)) / 3600);
+            var minute = parseInt((t % 3600) / 60);
+            var second = t % 60;
+            return (((day > 0 ? day + Mojo.utils.locale('ui', 'days') : "") || (hour > 0 ? hour + Mojo.utils.locale('ui', 'hours') : "") || (minute > 0 ? minute + Mojo.utils.locale('ui', 'minutes') : "") || (second > 0 ? second + Mojo.utils.locale('ui', 'seconds') : "")) +
+                Mojo.utils.locale('ui', 'ago'));
         },
         _placateCity: function (pcost) {
             var self = this;
@@ -23621,8 +25911,8 @@
                         special: "button-big-red",
                         click: function () {
                             failDialog.close();
-                            Mojo.app.redirect("/mall", {
-                                selected: 4
+                            Mojo.app.redirect("/newmall", {
+                                selected: 5
                             });
                         }
                     }).element().appendTo(failDialog._footer);
@@ -24200,19 +26490,45 @@
             this._cityOwnerRank.html(str);
             this._cityOwnerRank.appendTo(this.element());
             if (this._options.showBtn) {
+                var player = Mojo.page.Force.getController().getPlayerProfile();
+                var isDisable = !(player.force_rights.__all__ || player.force_rights.declare_war);
                 self.btn = new Mojo.ui.Button(undefined, {
                     text: self._options.btnText,
                     classes: ['go-button'],
                     special: self._options.specialClass,
+                    disabled: isDisable ? true : false,
                     disableClick: function () {
-                        if (parseInt(forcelevel) < parseInt(self._data.attr.lv_min) || parseInt(forcelevel) > parseInt(self._data.attr.lv_max)) {
+                        if (isDisable) {
+                            Mojo.app.toast.show(Mojo.utils.locale('force', 'siege_button_disable_msg3'));
+                        } else if (parseInt(forcelevel) < parseInt(self._data.attr.lv_min) || parseInt(forcelevel) > parseInt(self._data.attr.lv_max)) {
                             Mojo.app.toast.show(Mojo.utils.locale('force', 'siege_button_disable_msg'));
                         } else if (self._data.city.protection > 0) {
                             Mojo.app.toast.show(Mojo.utils.locale('force', 'siege_button_disable_msg2'));
                         }
                     },
                     click: function () {
-                        self._options.onBtnClick(self._data);
+                        if (self._options.typeOfbattle) {
+                            var force_profile = Mojo.page.Force == undefined ? undefined : Mojo.page.Force.getController().getForceProfile();
+                            if (force_profile && parseInt(force_profile.protect_status) == 1) {
+                                (new Mojo.com.CommonDialog(undefined, {
+                                    title: Mojo.utils.locale("force", "force_protected_tips"),
+                                    content: '<div class = "paragraph">' + Mojo.utils.locale("force", "force_" + self._options.typeOfbattle + "_content") + '</div>',
+                                    leftBtnText: Mojo.utils.locale("force", self._options.typeOfbattle),
+                                    leftBtnClick: function (that) {
+                                        that.close();
+                                        self._options.onBtnClick(self._data);
+                                    },
+                                    rightBtnText: Mojo.utils.locale("common", "cancel"),
+                                    rightBtnClick: function (that) {
+                                        that.close();
+                                    },
+                                })).open();
+                            } else {
+                                self._options.onBtnClick(self._data);
+                            }
+                        } else {
+                            self._options.onBtnClick(self._data);
+                        }
                     },
                 });
                 this.element().append(self.btn.element());
@@ -24320,7 +26636,12 @@
             var self = this;
             this._input = $('<input  type="text" maxlength="10" />').val(Mojo.utils.locale('force', 'force_city_search_hint')).appendTo(this._search);
             this._input.click(function () {
-                self._input.val('');
+                if (self._input.val() == Mojo.utils.locale('force', 'force_city_search_hint')) {
+                    self._input.val("");
+                } else {
+                    this.selectionStart = 0;
+                    this.selectionEnd = this.value.length;
+                }
             });
         },
         _addButton: function () {
@@ -24335,7 +26656,7 @@
         },
         _doSearch: function () {
             var self = this;
-            window.scrollTo(0);
+            window.scrollTo(0, 0);
             if (this._input.val() == Mojo.utils.locale('force', 'force_city_search_hint'))
                 this._input.val('');
             if (Mojo.utils.isNone(this._input.val())) {
@@ -24373,6 +26694,7 @@
         init: function (id, options) {
             this._super(id, options);
             this.element().addClass('mojo-com-citylist');
+            this._playerProfile = Mojo.page.Force == undefined ? undefined : Mojo.page.Force.getController().getPlayerProfile();
         },
         _getDefaultOptions: function () {
             var self = this;
@@ -24458,7 +26780,9 @@
                 type: self._options.type,
                 showBtn: self._options.showBtn,
                 btnText: self._options.btnText,
+                typeOfbattle: self._options.typeOfbattle,
                 onBtnClick: self._options.onBtnClick,
+                position_id: self._playerProfile && self._playerProfile.position_id ? self._playerProfile.position_id : undefined,
                 callback: $.noop,
             });
         },
@@ -24678,7 +27002,7 @@
             if (this._options.onClose instanceof Function) {
                 this._options.onClose();
             }
-            w.scrollTo(0);
+            w.scrollTo(0, 0);
         },
         _getDefaultOptions: function () {
             return $.extend(true, this._super(), {
@@ -24821,5 +27145,1238 @@
                 }
             }).element().appendTo(this._footer);
         },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.MsgInputDialog = w.Mojo.ui.Dialog.extend({
+        init: function (options) {
+            this._super(undefined, options);
+            this.element().addClass('mojo-com-msginputdlg');
+            this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
+            this._addContent();
+            this._addButtons();
+        },
+        _addContent: function () {
+            var self = this;
+            if (this._options.warnText) {
+                this._warn = $("<div class='warn-tip'></div>").appendTo(this._paragraph).html(this._options.warnText);
+            }
+            this._count = $("<div class='words-tip'></div>").appendTo(this._paragraph);
+            this._count.html(this._options.maxlen);
+            this._slogan = $("<div class='slogan'></div>").appendTo(this._paragraph);
+            this._sloganInput = $("<textarea id='sloganInput' maxlength='" + this._options.maxlen + "'></textarea>").val(self._options.defaultText).appendTo(this._slogan);
+            this._sloganInput.focus(function () {
+                if ($(this).val() == self._options.defaultText) {
+                    $(this).val('');
+                }
+            });
+            this._sloganInput.bind("input propertychange", function () {
+                var maxLength = $(this).attr('maxlength');
+                var v = $(this).val().length;
+                if (v <= maxLength) {
+                    self._count.html(maxLength - v);
+                    return true;
+                } else {
+                    $(this).val($(this).val().substring(0, maxLength));
+                    return false;
+                }
+            }).click(function () {
+                if (self._sloganInput.val() == self._options.defaultText) {
+                    self._sloganInput.val("");
+                } else {
+                    this.selectionStart = 0;
+                    this.selectionEnd = this.value.length;
+                }
+            });
+        },
+        _addButtons: function () {
+            var self = this;
+            this.applyBtn = new Mojo.ui.Button(undefined, {
+                special: 'button-big-red',
+                text: self._options.leftBtnText,
+                click: function () {
+                    var value = self._slogan.find('#sloganInput').val();
+                    if (value == self._options.defaultText) {
+                        value = "";
+                    }
+                    self._options.leftBtnClick(value, self);
+                },
+            }).element().appendTo(this._footer);
+            this.closeBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('ui', 'Close'),
+                click: function () {
+                    self.close();
+                },
+            }).element().appendTo(this._footer);
+        },
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('force', 'join_apply_force'),
+                defaultText: Mojo.utils.locale('force', 'join_slogen'),
+                warnText: undefined,
+                maxlen: 100,
+                leftBtnText: Mojo.utils.locale('force', 'send_apply'),
+                leftBtnClick: $.noop
+            });
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceInviteElement = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.ForceInviteElement";
+        },
+        init: function (data, options) {
+            this._data = data;
+            this._super(options.id, options);
+            this.element().addClass('mojo-com-forceinviteelement').addClass('box-inner');
+            this.element().append('<div class="attributes"></div><div class="buttons"></div>');
+            this._addAttributes();
+            this._addButtons();
+        },
+        _addAttributes: function () {
+            var attack, defence, name, login_time, time_unit;
+            if (parseInt(this._data.attack_min) > parseInt(this._data.attack_max)) {
+                attack = this._data.attack_min;
+            } else {
+                attack = this._data.attack_min + '-' + this._data.attack_max;
+            }
+            if (parseInt(this._data.defence_min) > parseInt(this._data.defence_max)) {
+                defence = this._data.defence_min;
+            } else {
+                defence = this._data.defence_min + '-' + this._data.defence_max;
+            }
+            var title_info = this._data.title_info;
+            name = $('<div class="name"></div>').append(new Mojo.com.PlayerName(title_info ? title_info : {
+                player_name: this._data.name
+            }).element());
+            this.element().find('.attributes').append('<div class="level">' + Mojo.utils.locale('common', 'lv') + this._data.level + '</div>').append(name).append('<hr>');
+            if (this._data.id != undefined && this._data.id != '') {
+                this.element().find('.attributes').append('<div class="player-id">' + Mojo.utils.locale('common', 'id') + this._data.id + '</div>');
+            }
+            if (this._data.last_login_time != undefined) {
+                this.element().find('.attributes').append('<div class="login-time">' + Mojo.utils.locale('common', 'login_time') + Mojo.utils.getFromNowTime(this._data.last_login_time) + '</div>');
+            }
+            this.element().find('.attributes').append('<div class="attack">' + Mojo.utils.locale('common', 'new_attack') + attack + '</div>');
+            this.element().find('.attributes').append('<div class="defence">' + Mojo.utils.locale('common', 'new_defence') + '?' + '</div>');
+        },
+        _addButtons: function () {
+            var self = this;
+            if (this._options.button1 != undefined) {
+                this._btn1 = new Mojo.ui.Button(undefined, {
+                    classes: ['go-button'],
+                    text: this._options.button1,
+                    click: function () {
+                        self._options.clickButton1(self._data, self);
+                    },
+                    special: 'go-communicate-btn'
+                });
+                this.element().find('.buttons').append(this._btn1.element());
+            }
+        },
+        _getDefaultOptions: function () {
+            return {
+                isFriend: true,
+                button1: undefined,
+                classButton1: '',
+                clickButton1: $.noop,
+                id: undefined,
+            };
+        },
+    });
+})(window, jQuery);;
+(function (w, $, undefined) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.WarningNotEnoughDialog = w.Mojo.ui.Dialog.extend({
+        clsname: function () {
+            return "com.WarningNotEnoughDialog";
+        },
+        init: function (id, data, options) {
+            this._data = data;
+            this._super(id, options);
+            this.element().addClass("mojo-com-warningnotnnoughdialog");
+            this.leftButton = undefined;
+            this.rightButton = undefined;
+            this._notEnough = false;
+            this._addContent(this._data);
+            this._addButtons();
+        },
+        _getDefaultOptions: function () {
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('mall', 'buy_warning_title2'),
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                leftBtnClick: undefined,
+                rightBtnText: Mojo.utils.locale('common', 'think_again'),
+                rightBtnClick: undefined,
+                deviceaware: true
+            });
+        },
+        _addContent: function (data) {
+            var self = this;
+            var has = Mojo.app.otherPayProps.count;
+            var discount = (data.discount && data.discount != '' && data.discount != 100) ? parseInt(data.discount) / 100 : 1;
+            var need = (data.other_pay_count && data.other_pay_count != '') ? parseInt(data.other_pay_count) * discount : 0;
+            if (this._options.shilianBtnClick == true) {
+                need = (data.ext_other_pay_count && data.ext_other_pay_count != '') ? data.ext_other_pay_count : 0;
+            }
+            if (has != undefined && need != undefined && has < need && self._options.showWarning) {
+                this._notEnough = true;
+                this._options.title = Mojo.utils.locale('mall', 'find_token_not_enough');
+                this.element().find('.title').html(this._options.title);
+                var price_num = new Mojo.ui.Label(undefined, {
+                    text: (need - has) * 10,
+                    classes: ['rm find-price'],
+                });
+                var price = $('<div class="find-price-title"></div>').html(Mojo.utils.locale('common', 'price_title')).append(price_num.element());
+                var paragraph = $('<div class="paragraph">' + Mojo.utils.locale('mall', 'find_token_not_enough_content', {
+                    has: has,
+                    need: need - has
+                }) + '</div>').append(price);
+                var content = $('<div class="find-sth"></div>').append(paragraph).appendTo(this._content);
+            } else {
+                var content = $('<div class="tip"></div>').html(Mojo.utils.locale('mall', 'buy_warning_content2')).appendTo(this._content);
+            }
+        },
+        _addButtons: function () {
+            var self = this;
+            self.leftButton = new Mojo.ui.Button(undefined, {
+                text: self._options.leftBtnText,
+                disabled: self._options.leftBtnDisabled,
+                special: "button-big-red",
+                click: function () {
+                    self.close();
+                    if (self._options.leftBtnClick instanceof Function) {
+                        self._options.leftBtnClick(self, self._notEnough);
+                    }
+                }
+            });
+            self.leftButton.element().appendTo(self._footer);
+            self.rightButton = new Mojo.ui.Button(undefined, {
+                text: self._options.rightBtnText,
+                special: 'button-big-blue',
+                disabled: self._options.rightBtnDisabled,
+                click: function () {
+                    self.close();
+                    if (self._options.rightBtnClick instanceof Function) {
+                        self._options.rightBtnClick(self);
+                    }
+                }
+            });
+            self.rightButton.element().appendTo(self._footer);
+        }
+    });
+})(window, jQuery);;;
+(function (w, $) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.page = w.Mojo.page || {};
+    w.Mojo.com.EntityFind = w.Mojo.Object.extend({
+        clsname: function () {
+            return "com.EntityFind";
+        },
+        init: function (id, options) {
+            this._super(id, options);
+            this.element().addClass('search-area');
+            this._search = $("<div class='search-input'></div>");
+            this._search.appendTo(this.element());
+            this._addContent();
+            this._addButton();
+        },
+        _addContent: function () {
+            var self = this;
+            this._input = $('<input  type="text" maxlength="10" />').val(this._options.initValue).appendTo(this._search);
+            this._input.click(function () {
+                this.selectionStart = 0;
+                this.selectionEnd = this.value.length;
+            });
+            this._input.bind("change paste keyup input", function () {
+                self._options.updateNameParam(self._input.val());
+            });
+        },
+        _addButton: function () {
+            var self = this;
+            new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'search'),
+                special: 'force-search-btn',
+                click: function () {
+                    self._doSearch();
+                }
+            }).element().appendTo(self.element());
+        },
+        _doSearch: function () {
+            var self = this;
+            if (Mojo.utils.isNone(this._input.val())) {
+                if (self._options.noinput() == false) {
+                    return;
+                }
+            }
+            self._options.onSearch(this._input.val());
+        },
+        inputVal: function (val) {
+            if (undefined === val) {
+                return this._input.val();
+            }
+            this._input.val(val);
+            return val;
+        },
+        _getDefaultOptions: function () {
+            return {
+                onSearch: $.noop,
+                param: {},
+                noinput: function () {
+                    return false;
+                }
+            };
+        },
+    });
+})(window, jQuery);;;
+(function (w, $) {
+    w.Mojo = w.Mojo || {};
+    w.Mojo.com = w.Mojo.com || {};
+    w.Mojo.com.ForceDefinedGrainListView = w.Mojo.Object.extend({
+        init: function (data, options) {
+            this._super('com-page-forcedefinedgrain', options);
+            this._data = data;
+            this._forceMemberListData = null;
+            this._tempCustomGrainData = jQuery.extend({}, this._options.customGrainData);
+            this.element().addClass('com-page-forcedefinedgrain mojo-com-forcemember');
+            this._addBroadcast();
+            this._addTab();
+            this._addBtns();
+            this._addList();
+        },
+        _addListHead: function () {
+            this.dang_memberCount = $('<div class="page-tips"></div>').appendTo(this.forceMemberList._header);
+        },
+        _updataListHead: function () {
+            var count = this._getCustomCount4Level(this._options.customGrainLevel);
+            this.dang_memberCount.html(Mojo.utils.locale('force', 'dang_memberCount', {
+                level: Mojo.utils.locale('force', 'level' + this._options.customGrainLevel),
+                count: count
+            }));
+        },
+        _addBroadcast: function () {
+            var broadcast = new Mojo.com.Broadcast();
+            this.element().append(broadcast.element());
+        },
+        _addTab: function () {
+            this._tabs = new Mojo.ui.Tabs();
+            this.element().append(this._tabs.element());
+            this._tabs.addTab(Mojo.utils.locale('force', 'g_selectMember'));
+            this._ForceMemberPanel = this._tabs.element().find('.panel').addClass('box-outter');
+        },
+        _addBtns: function () {
+            var self = this;
+            this._backBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('common', 'back'),
+                click: function () {
+                    self._backBtnClick();
+                },
+                classes: ['back-btn', 'back-btn1']
+            });
+            this._backBtn.element().appendTo(this.element());
+            this._sortBtn = new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('force', 'order_force'),
+                click: function () {
+                    self._forceFilterDlg();
+                },
+                classes: ['back-btn', 'back-btn2']
+            });
+            this._sortBtn.element().appendTo(this.element());
+        },
+        _getShengyuGrain: function () {
+            var customGrainData = this._options.customGrainData;
+            var allGrain = customGrainData.allGrain;
+            for (var i = 1; i <= 5; i++) {
+                var g = customGrainData['grain_' + i];
+                var num = this._getCustomCount4Level(i);
+                allGrain -= g * num;
+            }
+            customGrainData.shengyuGrain = allGrain;
+            return customGrainData.shengyuGrain;
+        },
+        _getCustomCount4Level: function (l) {
+            var customGrainData = this._tempCustomGrainData;
+            var pidsLevel = customGrainData['pids_' + l];
+            var pidsLevelArr = pidsLevel ? pidsLevel.split(',') : [];
+            return pidsLevelArr.length;
+        },
+        _backBtnClick: function () {
+            var self = this;
+            if (this._backBtn.element().text() == Mojo.utils.locale('common', 'back')) {
+                self._mergeTempCustomGrainData();
+                self._getShengyuGrain();
+                self._options.back(self._options.customGrainData, self._forceMemberListData);
+            } else {
+                var customGrainData = self._options.customGrainData;
+                var tempCustomGrainData = self._tempCustomGrainData;
+                var customGrainLevel = self._options.customGrainLevel;
+                var paragraph = $("<div class='paragraph'></div>");
+                var title = $('<div class="head"></div>').appendTo(paragraph);
+                var member = $('<span class="member"></span>').appendTo(title).html(Mojo.utils.locale('force', 'g_changedItem', {
+                    num: tempCustomGrainData.selectedMember,
+                    count: tempCustomGrainData.memberCount
+                }));
+                var grain = $('<span class="grain"></span>').appendTo(title);
+                var shengyuGrain = self._getShengyuGrain();
+                if (shengyuGrain < 0) {
+                    grain.html(Mojo.utils.locale('force', 'g_remainderGrain2', {
+                        grainNum: shengyuGrain
+                    }));
+                } else {
+                    grain.html(Mojo.utils.locale('force', 'g_remainderGrain', {
+                        grainNum: shengyuGrain
+                    }));
+                }
+                var p_grain = $('<div class="p_grain"></div>').appendTo(paragraph);
+                $('<span class="level-1"></span>').appendTo(p_grain).html(Mojo.utils.locale('force', 'g_xLevel', {
+                    level: customGrainLevel
+                }));
+                var self = this;
+                this._input = $('<input  type="text" maxlength="5" value=0>').appendTo(p_grain);
+                this._input.click(function () {
+                    this.selectionStart = 0;
+                    this.selectionEnd = this.value.length;
+                });
+                this._input.bind("input", function () {
+                    var g = Number('' + self._input.val());
+                    if (!isNaN(g)) {
+                        self._input.val(g);
+                        var num = self._getCustomCount4Level(customGrainLevel);
+                        var v = tempCustomGrainData.shengyuGrain - g * num;
+                        if (v < 0) {
+                            grain.html(Mojo.utils.locale('force', 'g_remainderGrain2', {
+                                grainNum: v
+                            }));
+                        } else {
+                            grain.html(Mojo.utils.locale('force', 'g_remainderGrain', {
+                                grainNum: v
+                            }));
+                        }
+                    }
+                });
+                var leng = 0;
+                if (tempCustomGrainData['pids_' + customGrainLevel]) {
+                    var ids = tempCustomGrainData['pids_' + customGrainLevel].split(',');
+                    leng = ids.length;
+                }
+                $('<span class="level-2"></span>').appendTo(p_grain).html(Mojo.utils.locale('force', 'g_xNum', {
+                    num: leng
+                }));
+                var dlg = new Mojo.com.CommonDialog(undefined, {
+                    title: Mojo.utils.locale('force', 'g_setNumber'),
+                    classes: ['set-custom-grain-dialog'],
+                    content: paragraph,
+                    leftBtnText: Mojo.utils.locale('common', 'ok'),
+                    leftBtnClick: function () {
+                        var g = Number(self._input.val());
+                        if (isNaN(g) || g < 0) {
+                            Mojo.app.toast.show('您的输入有误！');
+                            return;
+                        }
+                        self._mergeTempCustomGrainData();
+                        customGrainData['grain_' + customGrainLevel] = g;
+                        self._getShengyuGrain();
+                        self._options.back(customGrainData, self._forceMemberListData);
+                        dlg.close();
+                    },
+                    rightBtnText: Mojo.utils.locale('common', 'back'),
+                    rightBtnClick: function () {
+                        dlg.close();
+                    }
+                });
+                dlg.open();
+            }
+        },
+        _forceFilterDlg: function () {
+            var paragraph = $("<div class='paragraph'></div>");
+            var typeFilter = $('<div class="typeFilter"><div class="entityType">' + Mojo.utils.locale('force', 'order_conditions') + '</div></div>').appendTo(paragraph);
+            var filterList = $('<div class="filter-list"></div>').appendTo(typeFilter);
+            var typeFilterScroll = new Mojo.ui.Scroll(undefined, filterList, {
+                direction: 2
+            });
+            typeFilterScroll.element().appendTo(typeFilter);
+            this._typeList = this._getFilterList(1);
+            this._typeList.element().appendTo(filterList);
+            var orderFilter = $('<div class="orderFilter"><div class="entityOrder">' + Mojo.utils.locale('force', 'order_conditions') + '</div></div>').appendTo(paragraph);
+            var orderList = $('<div class="order-list"></div>').appendTo(orderFilter);
+            this._orderList = this._getFilterList(2);
+            this._orderList.element().appendTo(orderList);
+            var self = this;
+            var filter = this._getFilterData();
+            var ele = this._otherCondition = new Mojo.ui.Button(undefined, {
+                text: '',
+                classes: ['combo', 'otherCondition'],
+                click: function () {
+                    if (ele.element().hasClass('combo-selected-class')) {
+                        ele.element().removeClass('combo-selected-class');
+                        self._otherConditionVal = 0;
+                    } else {
+                        ele.element().addClass('combo-selected-class');
+                        self._otherConditionVal = 1;
+                    }
+                }
+            });
+            if (filter) {
+                var otherVal = filter.split(',')[2];
+                if (otherVal == 1) {
+                    ele.element().addClass('combo-selected-class');
+                    self._otherConditionVal = 1;
+                }
+            }
+            var otherCondition = $('<div class="condition"></div>').appendTo(paragraph);
+            this._otherCondition.element().appendTo(otherCondition);
+            $('<span class="condition-txt"></span>').html(Mojo.utils.locale('force', 'g_condition_txt')).appendTo(otherCondition);
+            $('<div class="g_benqigongxian"></div>').html(Mojo.utils.locale('force', 'g_benqigongxian')).appendTo(paragraph);
+            $('<div class="g_gongxianyuanbao"></div>').html(Mojo.utils.locale('force', 'g_gongxianyuanbao')).appendTo(paragraph);
+            var self = this;
+            var dlg = new Mojo.com.CommonDialog(undefined, {
+                title: Mojo.utils.locale('force', 'order_conditions'),
+                classes: ['force_defined_grain_dlg', 'tip-dialog', 'mojo-com-force-filter'],
+                content: paragraph,
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                leftBtnClick: function () {
+                    dlg.close();
+                    self._updateFilterData();
+                    self._resetList();
+                }
+            });
+            dlg.open();
+        },
+        _getFilterList: function (type) {
+            var d = [];
+            var selected = this._getFilterData() || null;
+            if (type == 1) {
+                if (selected) {
+                    selected = selected.split(',')[0];
+                }
+                d = [{
+                    selected: selected == 1,
+                    value: 1,
+                    label: Mojo.utils.locale('force', 'g_filtertype1')
+                }, {
+                    selected: selected == 4,
+                    value: 4,
+                    label: Mojo.utils.locale('force', 'g_filtertype4')
+                }, {
+                    selected: selected == 9,
+                    value: 9,
+                    label: Mojo.utils.locale('force', 'g_filtertype9')
+                }, {
+                    selected: selected == 10,
+                    value: 10,
+                    label: Mojo.utils.locale('force', 'g_filtertype10')
+                }];
+            } else {
+                if (selected) {
+                    selected = selected.split(',')[1];
+                }
+                d = [{
+                    selected: selected == 1,
+                    value: 1,
+                    label: Mojo.utils.locale('force', 'g_order1')
+                }, {
+                    selected: selected == 2,
+                    value: 2,
+                    label: Mojo.utils.locale('force', 'g_order2')
+                }];
+            }
+            var radioGroup = new Mojo.ui.RadioGroup(undefined, {
+                direction: 'vertical',
+                data: d
+            });
+            radioGroup.element().find('.mojo-ui-radio').addClass('box-inner mojo-ui-listpanel-child');
+            return radioGroup;
+        },
+        _updateFilterData: function () {
+            var type = this._typeList.value() || '1';
+            var order = this._orderList.value() || '1';
+            var otherCondition = this._otherConditionVal == undefined ? 1 : this._otherConditionVal;
+            Mojo.app.saveStorage('customGrainFilter', type + ',' + order + ',' + otherCondition);
+        },
+        _getFilterData: function () {
+            return Mojo.app.getStorage('customGrainFilter') || '1,1,1';
+        },
+        _addList: function () {
+            var self = this;
+            self._createMemberList();
+        },
+        _createMemberList: function () {
+            var filterData = this._getFilterData().split(',');
+            var self = this;
+            this.forceMemberList = new Mojo.ui.ListPanel('force-membergrain-list', {
+                scrollable: true,
+                showMore: true,
+                alwaysMore: true,
+                pageSize: 50,
+                emptyLabel: Mojo.utils.locale('force', 'not_this_member'),
+                moreLabel: Mojo.utils.locale('force', 'g_moreLabel'),
+                moreClick: function () {
+                    self._selectAll();
+                },
+                loadFunc: function (start, count, params) {
+                    Mojo.utils.ajaxUtil({
+                        url: '/force/playerList',
+                        params: {
+                            start: start,
+                            count: self._options.customGrainData.memberCount,
+                            type_id: filterData[0],
+                            order_id: filterData[1],
+                            search: self._options.entityName || ''
+                        },
+                        callback: function (result) {
+                            self._addListHead();
+                            self._addSearch();
+                            self._forceMemberListData = result.data;
+                            self.forceMemberList.appendData(result.data.list, true);
+                            self._updataListHead();
+                        }
+                    });
+                },
+                drawFunc: function (d) {
+                    var otherCondition = self._getFilterData().split(',')[2];
+                    if (otherCondition == 0) {
+                        var l = self._options.customGrainLevel;
+                        var _t = self._isSelected(d);
+                        if ((_t && l == _t.level) || !_t) {
+                            return self._getListElement(d);
+                        }
+                    } else {
+                        return self._getListElement(d);
+                    }
+                }
+            });
+            this._ForceMemberPanel.append(this.forceMemberList.element());
+        },
+        _getListElement: function (d) {
+            var selected = this._isSelected(d);
+            var obj = new Mojo.Object(undefined, {
+                classes: ['mojo-com-forceMemberListElement', 'box-inner mojo-com-forcememberelement']
+            });
+            var ele = obj.element();
+            if (parseInt(d.is_self) == 1) {
+                ele.addClass('self');
+            }
+            $('<div class="force-member-level">' + Mojo.utils.locale('common', 'lv') + d.level + '</div>').appendTo(ele);
+            new Mojo.com.PlayerName(d.title_info ? d.title_info : {
+                player_name: d.name
+            }).element().appendTo($('<div class="force-member-name"></div>').appendTo(ele));
+            $('<hr>').appendTo(ele);
+            var official = '';
+            switch (parseInt(d.title_info.position_id)) {
+            case 1:
+                official = Mojo.utils.locale('force', 'info_owner');
+                break;
+            case 2:
+                official = Mojo.utils.locale('force', 'info_vice_owner');
+                break;
+            case 3:
+                official = Mojo.utils.locale('force', 'official3');
+                break;
+            case 4:
+                official = Mojo.utils.locale('force', 'official4');
+                break;
+            case 5:
+                official = Mojo.utils.locale('force', 'official5');
+                break;
+            default:
+                official = undefined;
+                break;
+            }
+            if (official != undefined) {
+                $('<div class="force-member-official">' + Mojo.utils.locale('force', 'official') + official + '</div>').appendTo(ele);
+            }
+            if (selected && selected.level != this._options.customGrainLevel) {
+                ele.append('<div class="force-member-login">' + Mojo.utils.locale('force', 'g_selectedTxt', {
+                    level: Mojo.utils.locale('force', 'level' + selected.level),
+                    grain: selected.grain
+                }) + '</div>');
+            }
+            ele.append('<div class="force-member-offer-with-official">' + Mojo.utils.locale('force', 'g_filtertype33') + d.period_contribute + '</div>');
+            ele.append('<div class="force-member-offer-with-official">' + Mojo.utils.locale('force', 'g_filtertype55') + d.period_contribute_rm + '</div>');
+            var self = this;
+            var btn = new Mojo.ui.Button(undefined, {
+                text: '',
+                classes: ['choose-button', 'combo', 'entity-id' + d.id],
+                click: function () {
+                    self._chooseClick(btn.element(), d);
+                }
+            });
+            btn.element().appendTo(obj.element());
+            btn.element().attr('entity-id', d.id);
+            if (selected && selected.level == this._options.customGrainLevel) {
+                self._updataComboStatus(btn.element());
+                this._options.customGrainData['grain_' + selected.level] = 0;
+                this._getShengyuGrain();
+                this._tempCustomGrainData = jQuery.extend({}, this._options.customGrainData);
+            }
+            return obj;
+        },
+        _chooseClick: function (ele, d) {
+            if (ele.hasClass('combo-selected-class')) {
+                ele.removeClass('combo-selected-class');
+                ele.parent().removeClass('selected-class');
+                this._updataCustomGrainDataIds(ele, 2, d);
+            } else {
+                ele.addClass('combo-selected-class');
+                ele.parent().addClass('selected-class');
+                this._updataCustomGrainDataIds(ele, 1, d);
+            }
+            this._updataBackBtnStatus();
+            this._updataListHead();
+        },
+        _updataComboStatus: function (ele) {
+            if (ele.hasClass('combo-selected-class')) {
+                ele.removeClass('combo-selected-class');
+                ele.parent().removeClass('selected-class');
+            } else {
+                ele.addClass('combo-selected-class');
+                ele.parent().addClass('selected-class');
+            }
+            this._updataBackBtnStatus();
+        },
+        _updataBackBtnStatus: function () {
+            var self = this;
+            setTimeout(function () {
+                var selected = self.forceMemberList.element().find('.selected-class');
+                if (selected.length > 0) {
+                    self._backBtn.text(Mojo.utils.locale('common', 'ok'));
+                } else {
+                    self._backBtn.text(Mojo.utils.locale('common', 'back'));
+                }
+            });
+        },
+        _selectAll: function () {
+            var list = this._forceMemberListData.list;
+            var selfLevel = this._options.customGrainLevel;
+            for (var i = 0; i < list.length; i++) {
+                var item = list[i];
+                var id = item.id;
+                var selected = this._isSelectedOther(item, selfLevel);
+                if (selected) {
+                    continue;
+                }
+                var selectedTemp = this._isSelectedTemp(item, selfLevel);
+                if (!selectedTemp) {
+                    var cls = '.entity-id' + id;
+                    var btnEle = this.forceMemberList.element().find(cls);
+                    this._chooseClick(btnEle, item);
+                }
+            }
+        },
+        _isSelected: function (d) {
+            var id = d.id;
+            var customGrainData = this._options.customGrainData;
+            for (var i = 1; i <= 5; i++) {
+                var pids = customGrainData['pids_' + i];
+                if (pids) {
+                    if (pids.indexOf(id) > -1) {
+                        return {
+                            level: i,
+                            grain: customGrainData['grain_' + i]
+                        }
+                    }
+                }
+            }
+        },
+        _isSelectedOther: function (d, level) {
+            var id = d.id;
+            var customGrainData = this._options.customGrainData;
+            if (!customGrainData) {
+                return;
+            }
+            for (var i = 1; i <= 5; i++) {
+                if (level && level == i) {
+                    continue;
+                }
+                var pids = customGrainData['pids_' + i];
+                if (pids) {
+                    if (pids.indexOf(id) > -1) {
+                        return {
+                            level: i,
+                            grain: customGrainData['grain_' + i]
+                        }
+                    }
+                }
+            }
+        },
+        _isSelectedTemp: function (d, level) {
+            var id = d.id;
+            var customGrainData = this._tempCustomGrainData;
+            if (!customGrainData) {
+                return;
+            }
+            var pids = customGrainData['pids_' + level];
+            if (pids) {
+                if (pids.indexOf(id) > -1) {
+                    return {
+                        level: level,
+                        grain: customGrainData['grain_' + level]
+                    }
+                }
+            }
+        },
+        _getArrStr2Arr: function (arrStr) {
+            return arrStr ? arrStr.split(',') : [];
+        },
+        _updataCustomGrainDataIds: function (btnEle, flag, d) {
+            var id = d.id;
+            var customGrainLevel = this._options.customGrainLevel;
+            var otherSelected = this._isSelectedOther(d, customGrainLevel);
+            if (otherSelected) {
+                var temp = this._tempCustomGrainData;
+                var otherGrain = otherSelected.grain;
+                var otherLevel = otherSelected.level;
+                var memberLogin = btnEle.parent().find('.force-member-login');
+                Mojo.app.toast.show('成员档次已变更');
+                if (flag == 1) {
+                    temp['shengyuGrain'] -= otherGrain;
+                    memberLogin.hide();
+                    this._removeTempCustomGrainData(id, otherLevel);
+                    this._addTempCustomGrainData(id, customGrainLevel);
+                } else {
+                    temp['shengyuGrain'] += otherGrain;
+                    memberLogin.show();
+                    this._removeTempCustomGrainData(id, customGrainLevel);
+                    this._addTempCustomGrainData(id, otherSelected.level);
+                }
+            } else {
+                if (flag == 1) {
+                    this._addTempCustomGrainData(id, customGrainLevel);
+                } else {
+                    this._removeTempCustomGrainData(id, customGrainLevel);
+                }
+            }
+        },
+        _addTempCustomGrainData: function (id, level) {
+            var temp = this._tempCustomGrainData;
+            var pidsArr_l = this._getArrStr2Arr(temp['pids_' + level]);
+            pidsArr_l.push(id);
+            temp['pids_' + level] = pidsArr_l.join(',');
+            var pidsArr = this._getArrStr2Arr(temp['pids']);
+            if ($.inArray(id, pidsArr) < 0) {
+                pidsArr.push(id);
+                temp['pids'] = pidsArr.join(',');
+            }
+            temp['selectedMember'] = pidsArr.length;
+        },
+        _removeTempCustomGrainData: function (id, level) {
+            var temp = this._tempCustomGrainData;
+            var pidsArr_l = this._getArrStr2Arr(temp['pids_' + level]);
+            var idx = $.inArray(id, pidsArr_l);
+            if (idx > -1) {
+                pidsArr_l.splice(idx, 1);
+                temp['pids_' + level] = pidsArr_l.join(',');
+            }
+            var pidsArr = this._getArrStr2Arr(temp['pids']);
+            var idx2 = $.inArray(id, pidsArr);
+            if (idx2 > -1) {
+                pidsArr.splice(idx2, 1);
+                temp['pids'] = pidsArr.join(',');
+            }
+            temp['selectedMember'] = pidsArr.length;
+        },
+        _mergeTempCustomGrainData: function () {
+            var temp = this._tempCustomGrainData;
+            var customGrainData = this._options.customGrainData;
+            for (var i = 1; i <= 5; i++) {
+                customGrainData['pids_' + i] = temp['pids_' + i];
+            }
+            customGrainData['pids'] = temp['pids'];
+            customGrainData['selectedMember'] = temp['selectedMember'];
+        },
+        _resetList: function () {
+            if (this.forceMemberList) {
+                this.forceMemberList.element().remove();
+            }
+            this._mergeTempCustomGrainData();
+            this._createMemberList();
+        },
+        _addSearch: function () {
+            var self = this;
+            var search = new Mojo.com.EntityFind(undefined, {
+                initValue: self._options.entityName == undefined ? '' : self._options.entityName,
+                updateNameParam: function (name) {
+                    self._options.entityName = name;
+                },
+                onSearch: function (name) {
+                    self._lastFilter = 'search';
+                    self._options.entityName = name;
+                    self._resetList();
+                },
+                noinput: function () {
+                    return true;
+                }
+            }).element().appendTo(this.forceMemberList._header);
+        }
+    });
+    w.Mojo.com.ForceDefinedGrainDlg = w.Mojo.ui.Dialog.extend({
+        init: function (data, options) {
+            this._super(undefined, options);
+            this.customGrainData = options.customGrainData || {
+                pids: options.pids || '',
+                pids_1: options.pids_1 || '',
+                pids_2: options.pids_2 || '',
+                pids_3: options.pids_3 || '',
+                pids_4: options.pids_4 || '',
+                pids_5: options.pids_5 || '',
+                grain: options.allGrain || 0,
+                grain_1: options.grain_1 || 0,
+                grain_2: options.grain_2 || 0,
+                grain_3: options.grain_3 || 0,
+                grain_4: options.grain_4 || 0,
+                grain_5: options.grain_5 || 0,
+                allGrain: options.allGrain,
+                shengyuGrain: options.shengyuGrain || options.allGrain,
+                selectedMember: options.selectedMember || 0,
+                memberCount: options.memberCount || 0,
+                forceMemberListData: options.forceMemberListData
+            };
+            this._data = data;
+            this.element().addClass('mojo-com-forcedefinedgraindlg');
+            this._paragraph = $("<div class='paragraph'></div>").appendTo(this._content);
+            this._head = $("<div class='head'><span class='member'></span><span class='grain'></span></div>").appendTo(this._paragraph);
+            this._list = $("<div class='list-parent'></div>").appendTo(this._paragraph);
+            this._load();
+            this._addButtons();
+        },
+        _load: function () {
+            this._addContent();
+        },
+        _addContent: function (data) {
+            this._addHead(data);
+            this._addList(data);
+        },
+        _addHead: function () {
+            this._setMember();
+            this._setGrain();
+        },
+        _setMember: function (d) {
+            this._head.find('.member').html(Mojo.utils.locale('force', 'g_changedItem', {
+                num: this.customGrainData.selectedMember,
+                count: this.customGrainData.memberCount
+            }));
+        },
+        _setGrain: function (d) {
+            var grain = this._head.find('.grain');
+            grain.html(Mojo.utils.locale('force', 'g_remainderGrain', {
+                grainNum: this.customGrainData.shengyuGrain
+            }));
+            if (this.customGrainData.shengyuGrain < 0) {
+                grain.css({
+                    color: '#CC3513'
+                });
+            }
+        },
+        _addButtons: function () {
+            var self = this;
+            var d = this.customGrainData;
+            var g = d.allGrain == d.shengyuGrain;
+            self._okButton = new Mojo.ui.Button(undefined, {
+                special: 'button-big-red',
+                disabled: g || d.shengyuGrain < 0 || d.selectedMember <= 0,
+                text: Mojo.utils.locale('common', 'ok'),
+                click: function () {
+                    self._assignGrainCustomOk();
+                },
+                disableClick: function () {
+                    if (g || d.selectedMember <= 0) {
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'grain_not_input'));
+                    } else if (d.shengyuGrain < 0) {
+                        Mojo.app.toast.show(Mojo.utils.locale('force', 'grain_share_fail'));
+                    }
+                }
+            }).element().appendTo(this._footer);
+            new Mojo.ui.Button(undefined, {
+                text: Mojo.utils.locale('force', 'by_position'),
+                click: function () {
+                    self.close();
+                    new Mojo.com.ForceGrainShareDlg(self._options.forceGrainShareDlgData, self._options.forceGrainShareDlgOpts).open();
+                }
+            }).element().appendTo(this._footer);
+        },
+        _addList: function (d) {
+            var self = this;
+            this._listPanel = new Mojo.ui.ListPanel('payment-listpanel', {
+                scrollable: true,
+                showMore: false,
+                pageSize: 20,
+                loadFunc: function () {
+                    setTimeout(function () {
+                        self._listPanel.appendData(self._getLevels());
+                        self._listPanel.resize();
+                    }, 100);
+                },
+                drawFunc: function (d) {
+                    return self._getListElement(d);
+                }
+            });
+            this._paragraph.append(this._listPanel.element());
+        },
+        _getListElement: function (d) {
+            var obj = new Mojo.Object(undefined, {
+                classes: ['mojo-com-forcedefinedgrainelement', 'box-inner']
+            });
+            var level_body = $('<div class="level-body"></div>').html(Mojo.utils.locale('force', 'g_level_bodys', {
+                level: d.level,
+                num: d.bodys
+            })).appendTo(obj.element());
+            var level_grain = $('<div class="level-grain"></div>').html(Mojo.utils.locale('force', 'g_level_grain', {
+                num: d.everyOneGrain
+            })).appendTo(obj.element());
+            var self = this;
+            var btn = new Mojo.ui.Button(undefined, {
+                classes: ['go-button'],
+                special: 'go-exchange-btn',
+                text: Mojo.utils.locale('force', 'assignbuff'),
+                click: function () {
+                    self._goAllot(d.level);
+                    self.close();
+                }
+            }).element().appendTo(obj.element());
+            return obj;
+        },
+        _goAllot: function (level) {
+            $('body > .mojo-page').hide();
+            var self = this;
+            var list = new Mojo.com.ForceDefinedGrainListView(undefined, {
+                customGrainData: self.customGrainData,
+                customGrainLevel: level,
+                allGrain: self._options.allGrain,
+                back: function (customGrainData, forceMemberListData) {
+                    self.customGrainData = customGrainData || self.customGrainData;
+                    self._options.forceMemberListData = forceMemberListData;
+                    list.element().remove();
+                    $('body > .mojo-page').show();
+                    self._newSelfDlg();
+                },
+                refresh: function () {}
+            });
+            list.element().appendTo($(document.body));
+        },
+        _getPreAssignGrainCustomData: function () {
+            var newList = {};
+            var forceMemberListData = this._options.forceMemberListData;
+            if (!forceMemberListData) {
+                return;
+            }
+            var player_num = forceMemberListData.player_num;
+            var player_num_limit = forceMemberListData.player_num_limit;
+            var memberList = forceMemberListData.list;
+            var customGrainData = this.customGrainData;
+            for (var i = 1; i <= 5; i++) {
+                var level = i;
+                var grain_level = customGrainData['grain_' + level];
+                var pids = customGrainData['pids_' + level];
+                var pids_arr = pids ? pids.split(',') : 0;
+                var count_level = pids_arr.length;
+                var allGrain_level = grain_level;
+                newList[level] = {};
+                newList[level]['count'] = count_level || 0;
+                newList[level]['grain'] = allGrain_level || 0;
+                newList[level]['titles'] = [];
+                for (var j = 0; j < count_level; j++) {
+                    var pid = pids_arr[j];
+                    for (var k = 0; k < memberList.length; k++) {
+                        var member = memberList[k];
+                        var memberId = member.id;
+                        if (pid == memberId) {
+                            var titleInfo = member.title_info;
+                            newList[level]['titles'].push(titleInfo);
+                        }
+                    }
+                }
+            }
+            return newList;
+        },
+        _assignGrainCustomOk: function () {
+            var d = this.customGrainData;
+            var selectedMember = d.selectedMember;
+            if (selectedMember <= 0) {
+                return;
+            }
+            var _d = this._getPreAssignGrainCustomData();
+            var self = this;
+            var dlg = new Mojo.com.CommonDialog('com-profile-base-dialog', {
+                title: Mojo.utils.locale('force', 'g_faliang_t'),
+                classes: ['g_faliang_detail_dlg'],
+                content: paragraph,
+                leftBtnText: Mojo.utils.locale('common', 'ok'),
+                leftBtnClick: function () {
+                    Mojo.utils.ajaxUtil({
+                        url: '/force/assignGrainCustom',
+                        params: {
+                            pids_1: d.pids_1 || '',
+                            pids_2: d.pids_2 || '',
+                            pids_3: d.pids_3 || '',
+                            pids_4: d.pids_4 || '',
+                            pids_5: d.pids_5 || '',
+                            grain_1: d.grain_1 || 0,
+                            grain_2: d.grain_2 || 0,
+                            grain_3: d.grain_3 || 0,
+                            grain_4: d.grain_4 || 0,
+                            grain_5: d.grain_5 || 0
+                        },
+                        callback: function (result) {
+                            Mojo.page.Force.getController().sync();
+                            dlg.close();
+                            var dlgconfirm = new Mojo.com.CommonDialog(undefined, {
+                                title: Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                content: $("<div class='paragraph tip'></div>").html(Mojo.utils.locale('force', 'g_sendgrain_ok')),
+                                rightBtnText: Mojo.utils.locale('common', 'close'),
+                                rightBtnClick: function () {
+                                    dlgconfirm.close();
+                                }
+                            });
+                            dlgconfirm.open();
+                        },
+                        errcallback: function (result) {
+                            if (result.errorCode == '130048') {
+                                var grain = result.data.grain;
+                                Mojo.page.Force.getController().sync();
+                                self._options.forceGrainShareDlgData.grain = grain;
+                                self.customGrainData.allGrain = grain;
+                                self.customGrainData.grain = grain;
+                                self.customGrainData.shengyuGrain = grain;
+                                self._getShengyuGrain();
+                            }
+                            dlg.close();
+                            var dlgconfirm = new Mojo.com.CommonDialog(undefined, {
+                                title: Mojo.utils.locale('force', 'forcewar_tip_title'),
+                                content: $("<div class='paragraph tip'></div>").html(result.errorMsg),
+                                leftBtnText: Mojo.utils.locale('force', 'g_back_changeBtn'),
+                                leftBtnClick: function () {
+                                    dlgconfirm.close();
+                                    self._newSelfDlg();
+                                },
+                                rightBtnText: Mojo.utils.locale('common', 'close'),
+                                rightBtnClick: function () {
+                                    dlgconfirm.close();
+                                }
+                            });
+                            dlgconfirm.open();
+                        }
+                    });
+                },
+                rightBtnText: Mojo.utils.locale('common', 'back'),
+                rightBtnClick: function () {
+                    dlg.close();
+                    self._newSelfDlg();
+                }
+            });
+            var scrollerContent = $("<div class='scrollerContent'></div>");
+            $('<div class="tips1"></div>').html(Mojo.utils.locale('force', 'g_faliang_detail_confirm')).appendTo(scrollerContent);
+            var top_dang = $('<div class="top-dang"></div>').appendTo(scrollerContent);
+            var tips3 = $('<div class="tips3"></div>').appendTo(scrollerContent);
+            $('<div class="tips2"></div>').html(Mojo.utils.locale('force', 'g_faliang_detail_confirm2')).appendTo(scrollerContent);
+            var list = _d;
+            var num = 0;
+            for (var i = 1; i <= 5; i++) {
+                var item = list[i];
+                var count = item.count;
+                num += count;
+                var grain = item.grain;
+                var level = Mojo.utils.locale('force', 'level' + i);
+                $('<div class="dang"></div>').html(Mojo.utils.locale('force', 'g_level_bodys2', {
+                    level: level,
+                    grain: grain,
+                    num: count
+                })).appendTo(top_dang);
+                if (item.count > 0) {
+                    var titles = item.titles;
+                    var titlesSort = titles;
+                    if (titles.length > 1) {
+                        titlesSort = titles.sort(function (a, b) {
+                            var p_a = a.nobility_grade;
+                            var p_b = b.nobility_grade;
+                            return p_b - p_a;
+                        });
+                    }
+                    var dang = $('<div class="dang"></div>').appendTo(scrollerContent);
+                    var t = $('<div class="dang-t"></div>').html(Mojo.utils.locale('force', 'g_faliang_detail_count', {
+                        level: level
+                    })).appendTo(dang);
+                    for (var j = 0; j <= titlesSort.length; j++) {
+                        var titleInfo = titlesSort[j];
+                        var pn = Mojo.utils.playerNameHtmlStr(titleInfo);
+                        dang.append(pn);
+                    }
+                }
+            }
+            tips3.html(Mojo.utils.locale('force', 'g_level_bodys3', {
+                num: this.customGrainData.memberCount - this.customGrainData.selectedMember
+            }));
+            this.close();
+            var paragraph = $("<div class='paragraph'></div>").appendTo(dlg._content);
+            var s = new Mojo.ui.Scroll(undefined, scrollerContent, {
+                direction: 2
+            });
+            s.element().appendTo(paragraph);
+            dlg.open();
+            s.refresh();
+        },
+        _getLevels: function () {
+            var levelList = [];
+            for (var i = 0; i < 5; i++) {
+                var idx = i + 1;
+                levelList.push({
+                    level: idx,
+                    bodys: this.customGrainData['pids_' + idx] ? this.customGrainData['pids_' + idx].split(',').length : 0,
+                    everyOneGrain: this.customGrainData['grain_' + idx]
+                });
+            }
+            return levelList;
+        },
+        _newSelfDlg: function () {
+            var self = this;
+            setTimeout(function () {
+                window.scrollTo(0, 0);
+                var dlg2 = new Mojo.com.ForceDefinedGrainDlg(self._data, {
+                    forceGrainShareDlgData: self._options.forceGrainShareDlgData,
+                    forceGrainShareDlgOpts: self._options.forceGrainShareDlgOpts,
+                    customGrainData: self.customGrainData,
+                    forceMemberListData: self._options.forceMemberListData,
+                    getController: function () {
+                        return self._options.getController();
+                    }
+                });
+                dlg2.open();
+            }, 300);
+        },
+        _getShengyuGrain: function () {
+            var customGrainData = this.customGrainData;
+            var allGrain = customGrainData.allGrain;
+            for (var i = 1; i <= 5; i++) {
+                var g = customGrainData['grain_' + i];
+                var num = this._getCustomCount4Level(i);
+                allGrain -= g * num;
+            }
+            customGrainData.shengyuGrain = allGrain;
+            return customGrainData.shengyuGrain;
+        },
+        _getCustomCount4Level: function (l) {
+            var customGrainData = this.customGrainData;
+            var pidsLevel = customGrainData['pids_' + l];
+            var pidsLevelArr = pidsLevel ? pidsLevel.split(',') : [];
+            return pidsLevelArr.length;
+        },
+        _getDefaultOptions: function () {
+            var levelList = [];
+            for (var i = 0; i < 5; i++) {
+                levelList.push({
+                    level: i + 1,
+                    bodys: 0,
+                    everyOneGrain: 0
+                });
+            }
+            return $.extend(true, this._super(), {
+                title: Mojo.utils.locale('force', 'send_definedgrain'),
+                levelList: levelList
+            });
+        }
     });
 })(window, jQuery);
