@@ -8,6 +8,7 @@
     // "fuben":自动闯关
     // "biansuiweibao":变碎为宝活动祝福石或转生丹
     // "mission":自动任务
+    // "misaward":自动任务领奖
     // "huangjin":黄巾宝藏祝福石、转生丹
     // "signin": 自动签到
     // "qiandai": 变碎为宝钱袋

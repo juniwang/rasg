@@ -15675,6 +15675,59 @@ function trackClient(appkeys) {
                 });
             }, self.auto_time(fn));
         },
+        auto_misaward: function(fn){
+            var self=this;
+            var mav_time = self.auto_time(fn);
+            var mai = 0;
+            var malist = [];
+            setTimeout(function(){
+                Mojo.ajax("/mission/taskawardlist", {}, function(result){
+                    if(result.errorCode==0 && result.data && result.data.list){
+                        for (var i = 0; i < result.data.list.length; i++) {
+                            var item = result.data.list[i];
+                            if(item.has_done==true && item.cd_time==0){
+                                malist.push(item);
+                            }
+                        };
+                        Mojo.app.toast.show2("[任务奖励]获取任务奖励列表成功,可领数量:"+malist.length); 
+                        var auto_misaward_iv = setInterval(function(){
+                            if(mai<malist.length){
+                                var tali = malist[mai];
+                                if(tali.has_done==true && tali.cd_time==0){
+                                    var msg="[任务奖励]获取`"+tali.task_scenario_name+"`奖励";
+                                    Mojo.ajax("/mission/gettaskaward", {task_scenario_id:tali.task_scenario_id}, function(resp){
+                                        mai=mai+1;
+                                        if(resp.errorCode==0){
+                                            msg = msg+"成功";
+                                            if(resp.data&&resp.data.entities&&resp.data.entities.length>0){
+                                                msg=msg+",获得："+resp.data.entities[0].name;
+                                            }
+                                            Mojo.app.toast.show2(msg);
+                                        }else{
+                                           Mojo.app.toast.show2(msg+"失败:"+resp.errorMsg); 
+                                        }
+                                    }, function(){
+                                        Mojo.app.toast.show2(msg+"失败");
+                                        mai = mai+1;
+                                    });
+                                }else{
+                                    mai = mai+1;
+                                }
+                            }else{
+                                window.clearInterval(auto_misaward_iv);
+                                self.auto_finish(fn);
+                            }
+                        }, mav_time);
+                    } else{
+                        Mojo.app.toast.show2("[任务奖励]获取任务奖励列表失败");
+                        self.auto_finish(fn);
+                    }
+                }, function(){
+                    Mojo.app.toast.show2("[任务奖励]获取任务奖励列表异常");
+                    self.auto_finish(fn);
+                });
+            }, mav_time);
+        },
         auto_salary: function(fn){
             var self=this;
             setTimeout(function(){
@@ -15744,6 +15797,7 @@ function trackClient(appkeys) {
                 case "activity": return 4400;//inverval
                 case "bgexchange": return 4600; //interval
                 case "fex": return 4800;//interval
+                case "misaward": return 5000; //inverval
                 default: return 4000;
             }
         },
@@ -15802,6 +15856,9 @@ function trackClient(appkeys) {
                             break;
                         case "collect":
                             self.auto_collect(fn);
+                            break;
+                        case "misaward":
+                            self.auto_misaward(fn);
                             break;
                         case "biansuiweibao":
                             self.auto_biansuiweibao(fn);
