@@ -31,12 +31,7 @@ namespace sgll.net.Core.Queue
                     var battle = SGLL.Data.ForceBoss.Battle;
                     if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
                     {
-                        if (SGLL.Data.PlayerInfo.SP > 0 || (MatchParam(SR.ParaKey.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig)))
-                        {
-                            return 0;
-                        }
-                        else
-                            return 1;
+                        return 0;
                     }
                 }
 
@@ -57,19 +52,7 @@ namespace sgll.net.Core.Queue
                 var battle = SGLL.Data.ForceBoss.Battle;
                 if (battle.AttackFree > 0 && battle.AttackRMCost == 0 && DateTime.Now > battle.LastAttackTime.AddSeconds(battle.AttackTimeout))
                 {
-                    if (SGLL.Data.PlayerInfo != null && SGLL.Data.PlayerInfo.SP == 0)
-                    {
-                        if (MatchParam(SR.ParaKey.AutoForceBossSP, "true", true) && HasDaoju(SR.Daoju.TiliBig))
-                        {
-                            UseEntity(SR.Daoju.TiliBig);
-                            SGLL.CallStatusUpdate(this, ChangedType.ForceBoss | ChangedType.Profile | ChangedType.Daoju);
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        AttackBossFree();
-                    }
+                    AttackBossFree();
                 }
             }
         }
