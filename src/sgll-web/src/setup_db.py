@@ -7,5 +7,4 @@ def setup_db():
     # in case upgrade the table structure, the origin table need be dropped firstly
     Base.metadata.create_all(bind=engine)
 
-
 setup_db()
