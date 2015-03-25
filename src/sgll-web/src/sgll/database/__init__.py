@@ -11,7 +11,8 @@ from sgll.functions import safe_get_config
 
 
 engine = create_engine(safe_get_config("mysql.connection", "mysql://root:root@localhost/sgll"),
-                       convert_unicode=True)
+#                       convert_unicode=True,
+                       encoding='utf8')
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
