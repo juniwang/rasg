@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 class SQLAlchemyAdapterMetaClass(type):
     @staticmethod
     def wrap(func):

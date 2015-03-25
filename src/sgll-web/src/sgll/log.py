@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import logging
 import logging.config
 from os.path import realpath, dirname

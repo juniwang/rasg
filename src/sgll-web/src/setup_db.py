@@ -1,4 +1,5 @@
-from sgll.database import Base, engine
+from sgll.database.models import Base
+from sgll.database import engine
 
 
 def setup_db():

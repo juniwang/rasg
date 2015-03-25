@@ -1,17 +1,45 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import backref, relation
 from . import Base, db_adapter
 import json
+from datetime import datetime
 
 
 def relationship(*arg, **kw):
     ret = relation(*arg, **kw)
     db_adapter.commit()
     return ret
+
+
+def date_serializer(date):
+    return long((date - datetime(1970, 1, 1)).total_seconds() * 1000)
+
+
+def to_dic(inst, cls):
+    # add your coversions for things like datetime's
+    # and what-not that aren't serializable.
+    convert = dict()
+
+    d = dict()
+    for c in cls.__table__.columns:
+        v = getattr(inst, c.name)
+        if c.type.__class__ in convert.keys() and v is not None:
+            try:
+                func = convert[c.type.__class__]
+                d[c.name] = func(v)
+            except:
+                d[c.name] = "Error:  Failed to covert using ", str(convert[c.type.__class__])
+        elif v is None:
+            d[c.name] = str()
+        else:
+            d[c.name] = v
+    return d
+
+
+def to_json(inst, cls):
+    return json.dumps(to_dic(inst, cls))
 
 
 class Player(Base):
@@ -24,8 +52,11 @@ class Player(Base):
     dan = Column(Integer)
     shi = Column(Integer)
 
+    def dic(self):
+        return to_dic(self, self.__class__)
+
     def json(self):
-        return json.dumps(self)
+        return to_json(self, self.__class__)
 
     def __init__(self, **kwargs):
         super(Player, self).__init__(**kwargs)
@@ -44,8 +75,11 @@ class Figure(Base):
     init_star = Column(Integer)
     figure_type = Column(Integer)  # Figure_type
 
+    def dic(self):
+        return to_dic(self, self.__class__)
+
     def json(self):
-        return json.dumps(self)
+        return to_json(self, self.__class__)
 
     def __init__(self, **kwargs):
         super(Figure, self).__init__(**kwargs)
@@ -66,9 +100,11 @@ class FigureData(Base):
     figure_id = Column(Integer, ForeignKey('figure.id', ondelete='CASCADE'))
     figure = relationship('Figure', backref=backref('data', lazy='dynamic'))
 
-    def json(self):
-        return json.dumps(self)
+    def dic(self):
+        return to_dic(self, self.__class__)
 
+    def json(self):
+        return to_json(self, self.__class__)
     def __init__(self, **kwargs):
         super(FigureData, self).__init__(**kwargs)
 
@@ -91,8 +127,11 @@ class Card(Base):
     player_id = Column(Integer, ForeignKey('player.id', ondelete='CASCADE'))
     player = relationship('Player', backref=backref('cards', lazy='dynamic'))
 
+    def dic(self):
+        return to_dic(self, self.__class__)
+
     def json(self):
-        return json.dumps(self)
+        return to_json(self, self.__class__)
 
     def __init__(self, **kwargs):
         super(Card, self).__init__(**kwargs)
