@@ -77,7 +77,7 @@ $(document).ready(function(){
     $("#idel").click(function(){
         name = $("#tags").val()
         $.ajax({
-            url: "/api/farm/seed/"+name,
+            url: "/api/farm/seed/"+name+"?del=1",
             type: "DELETE",
             success: function(){
                 $("#num").val("")

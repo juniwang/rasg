@@ -1,3 +1,3 @@
 import sys
-sys.path.append("/home/opentech/open-hackathon/open-hackathon/src")
-from hackathon import app as application
+sys.path.append("/home/ubuntu/rasg/src/sgll-web/src")
+from sgll import app as application
