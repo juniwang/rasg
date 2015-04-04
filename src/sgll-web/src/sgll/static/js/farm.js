@@ -112,7 +112,9 @@ $(document).ready(function(){
             }),
             contentType: "application/json",
             success: function(data){
-                $("#msg").html("更新成功")
+                $("#msg").html("添加/更新成功")
+                $("#num").val("")
+                $("#tags").val("")
                 old=$("#num").data("seeds")
                 new_data=old.map(function(o){
                     if(o.name==name){
