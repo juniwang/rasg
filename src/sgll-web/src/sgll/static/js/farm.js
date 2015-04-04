@@ -100,7 +100,7 @@ $(document).ready(function(){
     $("#igo").click(function(){
         name = $("#tags").val()
         number = +$("#num").val()
-        if(!number){
+        if(isNaN(number)){
             $("#msg").html("请输入数字")
             return
         }

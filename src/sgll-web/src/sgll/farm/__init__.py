@@ -46,7 +46,8 @@ class FarmManager():
         return "OK"
 
     def get_sell_list(self):
-        return self.db.find_all_objects(Seed, Seed.number != DISABLE_COUNT)
+        return Seed.query.filter(Seed.number != DISABLE_COUNT).order_by(Seed.number.desc()).all()
+        # return self.db.find_all_objects(Seed, Seed.number != DISABLE_COUNT)
 
 
 farm = FarmManager(db_adapter)
