@@ -7,7 +7,7 @@ sys.path.append("..")
 from flask_restful import Resource, reqparse
 from sgll.player import player_manager
 from flask import request
-import json
+
 
 class PlayerResource(Resource):
     def get(self):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import backref, relation
 from . import Base, db_adapter
 import json
@@ -105,6 +105,7 @@ class FigureData(Base):
 
     def json(self):
         return to_json(self, self.__class__)
+
     def __init__(self, **kwargs):
         super(FigureData, self).__init__(**kwargs)
 
@@ -120,6 +121,7 @@ class Card(Base):
     skill_level = Column(Integer)
     graduated = Column(Integer)
     number = Column(Integer)
+    update_time = Column(DateTime)
 
     figure_id = Column(Integer, ForeignKey('figure.id', ondelete='CASCADE'))
     figure = relationship('Figure', backref=backref('cards', lazy='dynamic'))
@@ -138,3 +140,23 @@ class Card(Base):
 
     def __repr__(self):
         return "Card: " + self.json()
+
+
+class Seed(Base):
+    __tablename__ = 'seed'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50))
+    number = Column(Integer)
+
+    def dic(self):
+        return to_dic(self, self.__class__)
+
+    def json(self):
+        return to_json(self, self.__class__)
+
+    def __init__(self, **kwargs):
+        super(Seed, self).__init__(**kwargs)
+
+    def __repr__(self):
+        return "Seed: " + self.json()

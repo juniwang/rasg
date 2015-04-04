@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript" src="/static/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery/jquery-ui.js"></script>
+    <script type="text/javascript" src="/static/js/farm.js"></script>
+    <link rel="stylesheet" href="/static/css/jquery-ui.css">
+</head>
+<body>
+<div>
+    <div>
+        <a class="nav1" fd="plant" href="javascript:void(0)">种植</a>
+        <a class="nav1" fd="edit" href="javascript:void(0)">编辑</a>
+        <a class="nav1" fd="sell" href="javascript:void(0)">卖出</a>
+    </div>
+    <div style="margin-top:20px">
+        <div class="div1" id="plant" style="display:none">
+        </div>
+        <div class="div1" id="edit" style="display:none">
+            <div class="ui-widget"><label for="tags">种子: </label> <input id="tags"></div>
+            <p></p>
+
+            <div class="ui-widget"><label for="num">数量: </label><input id="num" type="text"/></div>
+
+            <p><a href="javascript:void(0)" id="igo">GO</a></p>
+
+            <p><a href="javascript:void(0)" id="idel">删除</a></p>
+
+            <p><label id="msg"></label></p>
+        </div>
+        <div class="div1" id="sell" style="display:none">
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
