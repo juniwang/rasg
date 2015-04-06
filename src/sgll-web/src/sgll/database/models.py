@@ -119,9 +119,13 @@ class Card(Base):
     id = Column(Integer, primary_key=True)
     skill_name = Column(String(10))
     skill_level = Column(Integer)
-    graduated = Column(Integer)
-    number = Column(Integer)
     update_time = Column(DateTime)
+
+    graduated = Column(Integer)
+    ready_to_convert = Column(Integer)
+    is_seed = Column(Integer)
+    dan_shi = Column(Integer)
+    need_enhance = Column(Integer)
 
     figure_id = Column(Integer, ForeignKey('figure.id', ondelete='CASCADE'))
     figure = relationship('Figure', backref=backref('cards', lazy='dynamic'))
