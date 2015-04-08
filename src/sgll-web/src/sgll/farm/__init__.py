@@ -27,7 +27,7 @@ class FarmManager():
             return seed
 
     def get_top_seeds(self, limit=10):
-        return Seed.query.order_by(Seed.number).limit(limit).all()
+        return Seed.query.filter(Seed.number != DISABLE_COUNT).order_by(Seed.number).limit(limit).all()
 
     def get_seed_by_name(self, name):
         return self.db.find_first_object_by(Seed, name=name)

@@ -14,6 +14,8 @@ def shutdown_session(exception=None):
 
 
 api.add_resource(PlayerResource, "/api/sgll/player")
+api.add_resource(FigureListResource, "/api/sgll/fgs")
+api.add_resource(CardResource, "/api/sgll/card/<string:name>")
 
 api.add_resource(SeedResource, "/api/farm/seed/<string:name>")
 api.add_resource(SeedListResource, "/api/farm/seed/list")
@@ -28,3 +30,14 @@ def index():
 @app.route("/farm")
 def farm():
     return render_template("farm/index.html")
+
+
+@app.route("/sgll")
+@app.route("/sgll/card")
+def sgll():
+    return render_template("sgll/card.html")
+
+
+@app.route("/sgll/fg")
+def fg():
+    return render_template("sgll/figure.html")

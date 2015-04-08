@@ -21,6 +21,7 @@ def to_dic(inst, cls):
     # add your coversions for things like datetime's
     # and what-not that aren't serializable.
     convert = dict()
+    convert[DateTime] = date_serializer
 
     d = dict()
     for c in cls.__table__.columns:
@@ -117,15 +118,15 @@ class Card(Base):
     __tablename__ = 'card'
 
     id = Column(Integer, primary_key=True)
-    skill_name = Column(String(10))
-    skill_level = Column(Integer)
+    skill_name = Column(String(10), default="")
+    skill_level = Column(Integer, default=0)
     update_time = Column(DateTime)
 
-    graduated = Column(Integer)
-    ready_to_convert = Column(Integer)
-    is_seed = Column(Integer)
-    dan_shi = Column(Integer)
-    need_enhance = Column(Integer)
+    graduated = Column(Integer, default=0)
+    ready_to_convert = Column(Integer, default=0)
+    is_seed = Column(Integer, default=0)
+    dan_shi = Column(Integer, default=0)
+    need_enhance = Column(Integer, default=0)
 
     figure_id = Column(Integer, ForeignKey('figure.id', ondelete='CASCADE'))
     figure = relationship('Figure', backref=backref('cards', lazy='dynamic'))
@@ -134,7 +135,9 @@ class Card(Base):
     player = relationship('Player', backref=backref('cards', lazy='dynamic'))
 
     def dic(self):
-        return to_dic(self, self.__class__)
+        d = to_dic(self, self.__class__)
+        d["figure"] = self.figure.dic()
+        return d
 
     def json(self):
         return to_json(self, self.__class__)
