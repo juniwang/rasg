@@ -20,7 +20,11 @@ class Sg():
         return [x.name for x in fs]
 
     def add_figure(self, name):
-        return ""
+        fg = self.__get_figure_by_name(name)
+        if fg is None:
+            fg = Figure(name=name)
+            self.db.add_object(fg)
+        return fg
 
     def search_card_by_name(self, name):
         f = self.__get_figure_by_name(name)

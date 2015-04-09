@@ -15,6 +15,7 @@ def shutdown_session(exception=None):
 
 api.add_resource(PlayerResource, "/api/sgll/player")
 api.add_resource(FigureListResource, "/api/sgll/fgs")
+# api.add_resource(FigureResource, "/api/sgll/fgs")
 api.add_resource(CardResource, "/api/sgll/card/<string:name>")
 
 api.add_resource(SeedResource, "/api/farm/seed/<string:name>")

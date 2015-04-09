@@ -52,3 +52,8 @@ class CardResource(Resource):
             return "Bad Request", 400
 
         return sg.update_card(body)
+
+
+class FigureResource(Resource):
+    def post(self, name):
+        return sg.add_figure(name)

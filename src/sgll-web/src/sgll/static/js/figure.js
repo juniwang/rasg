@@ -38,10 +38,10 @@ var fg = (function () {
 
     var add_figure=function(name){
         $.ajax({
-            url: "/api/sgll/card/"+name,
+            url: "/api/sgll/fg/"+name,
             type: "POST",
             success: function(){
-                search_card(name)
+                search_figure(name)
             },
             error: function(){
                 alert("添加失败")
