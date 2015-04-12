@@ -93,16 +93,19 @@ class FigureData(Base):
     __tablename__ = 'figure_data'
 
     id = Column(Integer, primary_key=True)
-    data_type = Column(String(20))
-    comment = Column(String(50))
-    min = Column(Integer)
-    max = Column(Integer)
+    is_attack = Column(Integer, default=0)
+    data_type = Column(String(20), default="")
+    comment = Column(String(50), default="")
+    min = Column(Integer, default=0)
+    max = Column(Integer, default=0)
 
     figure_id = Column(Integer, ForeignKey('figure.id', ondelete='CASCADE'))
     figure = relationship('Figure', backref=backref('data', lazy='dynamic'))
 
     def dic(self):
-        return to_dic(self, self.__class__)
+        d = to_dic(self, self.__class__)
+        d["figure"] = self.figure.dic()
+        return d
 
     def json(self):
         return to_json(self, self.__class__)

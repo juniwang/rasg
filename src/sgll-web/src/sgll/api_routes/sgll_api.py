@@ -57,3 +57,29 @@ class CardResource(Resource):
 class FigureResource(Resource):
     def post(self, name):
         return sg.add_figure(name)
+
+    def get(self, name):
+        return sg.get_figure_by_name(name)
+
+    def delete(self, name):
+        return sg.delete_figure_by_name(name)
+
+    def put(self, name):
+        body = request.get_json()
+        return sg.add_or_update_figure(name, body)
+
+
+class TopDataResource(Resource):
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('t', type=int, location='args', default=0)
+        args = parser.parse_args()
+
+        if args["t"] == 0:
+            return sg.get_yz_list()
+        elif args["t"] == 1:
+            return sg.get_weapon_list()
+        elif args["t"] == 2:
+            return sg.get_armor_list()
+        else:
+            return ""

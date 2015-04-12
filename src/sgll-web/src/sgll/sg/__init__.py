@@ -6,6 +6,7 @@ sys.path.append("..")
 from sgll.database.models import Figure, FigureData, Player, Card
 from sgll.database import db_adapter
 from datetime import datetime
+from sgll.enum import FIGURE_TYPE
 
 
 class Sg():
@@ -19,12 +20,69 @@ class Sg():
         fs = self.db.find_all_objects(Figure)
         return [x.name for x in fs]
 
+    def get_figure_by_name(self, name):
+        f = self.__get_figure_by_name(name)
+        if f is None:
+            return "Not Found", 404
+
+        dic = f.dic()
+        dic["data"] = [d.dic() for d in f.data.all()]
+        return dic
+
+    def delete_figure_by_name(self, name):
+        self.db.delete_all_objects_by(Figure, name=name)
+        return "OK"
+
+
     def add_figure(self, name):
         fg = self.__get_figure_by_name(name)
         if fg is None:
             fg = Figure(name=name)
             self.db.add_object(fg)
-        return fg
+        return fg.dic()
+
+
+    def add_or_update_figure(self, name, body):
+        fg = self.__get_figure_by_name(name)
+        if fg is None:
+            fg = Figure(name=name)
+            self.db.add_object(fg)
+
+        if "avatar" in body:
+            fg.avatar = body["avatar"]
+        if "country" in body:
+            fg.country = body["country"]
+        if "init_star" in body:
+            fg.init_star = int(body["init_star"])
+        if "figure_type" in body:
+            fg.figure_type = body["figure_type"]
+        self.db.commit()
+
+        fg.data.delete()
+        self.db.commit()
+
+        fds = []
+        if "data" in body:
+            fds = body["data"]
+
+        map(lambda d: self.add_figure_data(fg, d), fds)
+        return fg.dic()
+
+    def add_figure_data(self, figure, data):
+        is_attack = int(data["is_attack"]) if "is_attack" in data else 0
+        min = int(data["min"]) if "min" in data else 0
+        max = int(data["max"]) if "max" in data else 0
+        data_type = data["data_type"] if "data_type" in data else ""
+        comment = data["comment"] if "comment" in data else ""
+
+        fd = FigureData(is_attack=is_attack,
+                        data_type=data_type,
+                        comment=comment,
+                        min=min,
+                        max=max,
+                        figure=figure)
+        self.db.add_object(fd)
+        return fd
 
     def search_card_by_name(self, name):
         f = self.__get_figure_by_name(name)
@@ -72,6 +130,34 @@ class Sg():
             card.need_enhance = data["need_enhance"]
         card.update_time = datetime.utcnow()
         self.db.commit()
+
+    def get_yz_list(self):
+        att = FigureData.query.join(Figure).filter(FigureData.is_attack == 1,
+                                                   Figure.figure_type == FIGURE_TYPE.PERSON).order_by(
+            FigureData.max.desc()).limit(7).all()
+        att_j = [fd.dic() for fd in att]
+
+        dl = FigureData.query.join(Figure).filter(FigureData.is_attack == 0,
+                                                  Figure.figure_type == FIGURE_TYPE.PERSON).order_by(
+            FigureData.max.desc()).limit(15).all()
+        dl_j = [fd.dic() for fd in dl]
+
+        return {
+            "attack": att_j,
+            "defense": dl_j
+        }
+
+    def get_weapon_list(self):
+        att = FigureData.query.join(Figure).filter(FigureData.is_attack == 1,
+                                                   Figure.figure_type == FIGURE_TYPE.WEAPON).order_by(
+            FigureData.max.desc()).all()
+        return [fd.dic() for fd in att]
+
+    def get_armor_list(self):
+        att = FigureData.query.join(Figure).filter(FigureData.is_attack == 0,
+                                                   Figure.figure_type == FIGURE_TYPE.ARMOR).order_by(
+            FigureData.max.desc()).all()
+        return [fd.dic() for fd in att]
 
 
 sg = Sg(db_adapter)

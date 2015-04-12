@@ -1,0 +1,15 @@
+<li class="item" id="data-li-<%= id %>">
+    <select class="is_attack">
+        <option value="1" <% if(is_attack) {%>selected<%} %>>攻</option>
+        <option value="0" <% if(!is_attack) {%>selected<%} %>>防</option>
+    </select>
+    <select class="data_type">
+        <option value="BASIC" <% if(data_type=="BASIC") {%>selected<%} %>>基础数据</option>
+        <option value="OPT" <% if(data_type=="OPT") {%>selected<%} %>>最优数据</option>
+        <option value="OTHER" <% if(data_type=="OTHER") {%>selected<%} %>>其他</option>
+    </select>:
+    <input class="min" type="text" value="<%= min %>" style="width:40px" />~
+    <input class="max" type="text" value="<%= max %>" style="width:40px" />
+    <input class="comment" type="text" value="<%= comment %>" />
+    <a class="delete_li" title="delete data" href="javascript:fg.delete_data_li('data-li-<%= id %>')"><img width="16" src="/static/pic/minus_alt.png" /></a>
+</li>

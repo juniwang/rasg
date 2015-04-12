@@ -2,37 +2,53 @@ var fg = (function () {
     var SPACE = "&nbsp;&nbsp;"
     var LEVEL = ["","★","★★","★★★","★★★★","★★★★★"]
 
-    var update_figure=function(card, id){
-        card.skill_level=$("#"+id+" .skill_level").val()
-        card.skill_name=$("#"+id+" .skill_name").val()
-        card.graduated=$("#"+id+" .graduated").val()
-        card.ready_to_convert=$("#"+id+" .ready_to_convert").val()
-        card.is_seed=$("#"+id+" .is_seed").val()
-        card.dan_shi=$("#"+id+" .dan_shi").val()
-        card.need_enhance=$("#"+id+" .need_enhance").val()
+    var show_error_msg = function(m){
+         $("#result").html(m)
+    }
+
+    var update_figure=function(figure){
+        figure.avatar=$("#result .avatar").val()
+        figure.country=$("#result .country").val()
+        figure.init_star=$("#result .init_star").val()
+        figure.figure_type=$("#result .figure_type").val()
+
+        data=[]
+        $("#result .data .item").each(function(i, li){
+            data.push({
+                is_attack: $(li).children(".is_attack").val(),
+                data_type: $(li).children(".data_type").val(),
+                min: $(li).children(".min").val(),
+                max: $(li).children(".max").val(),
+                comment: $(li).children(".comment").val(),
+            })
+        });
+        figure.data=data
 
         $.ajax({
-            url: "/api/sgll/card/"+card.figure.name,
+            url: "/api/sgll/fg/"+figure.name,
             type: "PUT",
-            data: JSON.stringify(card),
+            data: JSON.stringify(figure),
             contentType: "application/json",
             success: function(){
-                search_card(card.figure.name)
+                $("#result").append($("<p>更新成功</p>"))
+                search_figure(figure.name)
             },
             error: function(){
-                alert("修改失败")
+                show_error_msg("修改失败")
             }
         })
     };
 
     var search_figure=function(name){
         $.ajax({
-            url: "/api/sgll/card/"+name,
+            url: "/api/sgll/fg/"+name,
             type: "GET",
             success: function(data){
-                show_cards(data, $("#result"))
+                show_figure(data)
             },
-            error: function(){alert("查询失败")}
+            error: function(){
+                show_error_msg("图鉴不存在")
+            }
         })
     };
 
@@ -44,67 +60,63 @@ var fg = (function () {
                 search_figure(name)
             },
             error: function(){
-                alert("添加失败")
+                show_error_msg("添加失败")
             }
         })
     };
 
-    var delete_figure=function(card){
+    var delete_figure=function(name){
         $.ajax({
-            url: "/api/sgll/card/"+card.figure.name+"?id="+card.id,
+            url: "/api/sgll/fg/"+name,
             type: "DELETE",
             success: function(){
-                search_card(card.figure.name)
+                $("#tags").val("")
+                show_error_msg("删除成功")
             },
             error: function(){
-                alert("删除失败")
+                show_error_msg("删除失败")
             }
         })
     };
 
-    var edit_el = function(card){
-        el=$("<a href='#'>编辑</a>").on("click", function(){
-                var id="ca-edit-"+card.id
-                var de_el = $("#"+id)
-                if(!de_el.length){
-                    var html = new EJS({url: '/static/ejs/de6.ejs', cache: false}).render(card);
-                    $(this).parent().append($(html))
-                    $("#"+id+" .skill_name").val(card.skill_name)
-                    $("#"+id+" .skill_level").val(card.skill_level)
-                    $("#"+id+" input.update").on("click", function(){
-                        update_card(card, id)
-                    })
-                }
-                de_el.toggle()
-            });
-        return el
+    var add_data_li = function(){
+        ni = {
+            id:$("#result .data .item").length+1,
+            is_attack:1,
+            data_type:"BASIC",
+            min:"",
+            max:"",
+            comment:""
+        }
+        nh=new EJS({url: '/static/ejs/fg_li_05.ejs', cache: false}).render(ni)
+        $("#result .data").append($(nh))
+    }
+
+    var delete_data_li=function(li_id){
+        $("#"+li_id).remove()
     };
 
-    var delete_el = function(card){
-        el=$("<a href='#'>删除</a>").on("click", function(){
-                delete_card(card)
-            });
-        return el
-    };
-
-
-    var show_figure=function(data, container){
+    var show_figure=function(figure){
+        container = $('#result')
         container.empty()
 
-        $(data).each(function(i, card){
-            row = $("<p/>")
-            row.append(card.figure.name).append(SPACE)
-            row.append(card.skill_name).append(LEVEL[card.skill_level]).append(SPACE)
-            // op
-            row.append(edit_el(card)).append(SPACE)
-            row.append(delete_el(card)).append(SPACE)
-            container.append(row)
-        })
+        var html = new EJS({url: '/static/ejs/fg_12.ejs', cache: false}).render(figure);
+        container.html(html)
+
+        $("#result .country").val(figure.country)
+        $("#result .init_star").val(figure.init_star)
+        $("#result .figure_type").val(figure.figure_type)
+        $("#result input.update").on("click", function(){
+            update_figure(figure)
+        });
     }
 
     return {
         add_figure: add_figure,
-        search_figure: search_figure
+        search_figure: search_figure,
+        delete_figure: delete_figure,
+        add_data_li: add_data_li,
+        delete_data_li: delete_data_li
     };
 } ());
 
@@ -126,6 +138,14 @@ $(document).ready(function(){
             return;
         }
         fg.search_figure(name)
+    });
+
+    $("#delete").click(function(){
+        name=$("#tags").val()
+        if(!name){
+            return;
+        }
+        fg.delete_figure(name)
     });
 
     $("#snewfg").click(function(){

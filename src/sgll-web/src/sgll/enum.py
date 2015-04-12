@@ -11,7 +11,14 @@ class COUNTRY:
 
 
 class FIGURE_TYPE:
-    PERSON = "武将"
-    WEAPON = "武器"
-    ARMOR = "战甲"
-    HORSE = "坐骑"
+    PERSON = 0
+    WEAPON = 1
+    ARMOR = 2
+    HORSE = 3
+    TREASURE = 4
+
+
+class DATA_TYPE:
+    BASIC = "BASIC"
+    OPT = "OPT"
+    OTHER = "OTHER"
