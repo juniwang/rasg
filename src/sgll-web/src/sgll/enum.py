@@ -18,7 +18,7 @@ class FIGURE_TYPE:
     TREASURE = 4
 
 
-class DATA_TYPE:
+class FIGURE_DATA_TYPE:
     BASIC = "BASIC"
     OPT = "OPT"
     OTHER = "OTHER"

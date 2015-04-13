@@ -6,7 +6,7 @@ sys.path.append("..")
 from sgll.database.models import Figure, FigureData, Player, Card
 from sgll.database import db_adapter
 from datetime import datetime
-from sgll.enum import FIGURE_TYPE
+from sgll.enum import FIGURE_TYPE, FIGURE_DATA_TYPE
 
 
 class Sg():
@@ -133,11 +133,13 @@ class Sg():
 
     def get_yz_list(self):
         att = FigureData.query.join(Figure).filter(FigureData.is_attack == 1,
+                                                   FigureData.data_type == FIGURE_DATA_TYPE.BASIC,
                                                    Figure.figure_type == FIGURE_TYPE.PERSON).order_by(
             FigureData.max.desc()).limit(7).all()
         att_j = [fd.dic() for fd in att]
 
         dl = FigureData.query.join(Figure).filter(FigureData.is_attack == 0,
+                                                  FigureData.data_type == FIGURE_DATA_TYPE.BASIC,
                                                   Figure.figure_type == FIGURE_TYPE.PERSON).order_by(
             FigureData.max.desc()).limit(15).all()
         dl_j = [fd.dic() for fd in dl]
@@ -146,6 +148,22 @@ class Sg():
             "attack": att_j,
             "defense": dl_j
         }
+
+    def get_opt_attack_list(self):
+        att = FigureData.query.join(Figure).filter(FigureData.is_attack == 1,
+                                                   FigureData.data_type == FIGURE_DATA_TYPE.OPT,
+                                                   Figure.figure_type == FIGURE_TYPE.PERSON).order_by(
+            FigureData.max.desc()).limit(30).all()
+        return [fd.dic() for fd in att]
+
+
+    def get_opt_defense_list(self):
+        dl = FigureData.query.join(Figure).filter(FigureData.is_attack == 0,
+                                                  FigureData.data_type == FIGURE_DATA_TYPE.OPT,
+                                                  Figure.figure_type == FIGURE_TYPE.PERSON).order_by(
+            FigureData.max.desc()).limit(30).all()
+        return [fd.dic() for fd in dl]
+
 
     def get_weapon_list(self):
         att = FigureData.query.join(Figure).filter(FigureData.is_attack == 1,

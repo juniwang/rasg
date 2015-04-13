@@ -81,5 +81,9 @@ class TopDataResource(Resource):
             return sg.get_weapon_list()
         elif args["t"] == 2:
             return sg.get_armor_list()
+        elif args["t"] == 3:
+            return sg.get_opt_attack_list()
+        elif args["t"] == 4:
+            return sg.get_opt_defense_list()
         else:
             return ""
