@@ -7,7 +7,7 @@ from sgll.database.models import Seed
 from sgll.database import db_adapter
 
 
-DISABLE_COUNT = 100000
+DISABLE_COUNT = -1
 
 
 class FarmManager():
@@ -46,7 +46,7 @@ class FarmManager():
         return "OK"
 
     def get_sell_list(self):
-        return Seed.query.filter(Seed.number != DISABLE_COUNT).order_by(Seed.number.desc()).all()
+        return Seed.query.filter(Seed.number != DISABLE_COUNT).order_by(Seed.number.desc()).limit(5).all()
         # return self.db.find_all_objects(Seed, Seed.number != DISABLE_COUNT)
 
 
