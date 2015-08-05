@@ -9,7 +9,7 @@ from logging import DEBUG, INFO
 
 class Log(object):
     def __init__(self):
-        # logging.config.fileConfig("%s/logging.conf" % dirname(realpath(__file__)))
+        logging.config.fileConfig("%s/logging.conf" % dirname(realpath(__file__))
         # create logger
         self.logger = logging.getLogger("myLogger")
 
