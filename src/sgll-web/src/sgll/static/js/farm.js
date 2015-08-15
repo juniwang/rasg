@@ -18,8 +18,14 @@ $(document).ready(function(){
                         row = $("<p/>")
                         row.append(f.name)
                         row.append("&nbsp;&nbsp;["+f.number+"]&nbsp;&nbsp;")
-                        del = $("<a href='#'>完成</a>").on("click", function(){
+                        don = $("<a href='#'>完成</a>").on("click", function(){
                             ld.disable(f.name)
+                        })
+                        row.append(don)
+                        del = $("<a href='#' style='margin-left:20px'>删除</a>").on("click", function(){
+                            ld.del(f.name, function(){
+                                ld.plant()
+                            })
                         })
                         row.append(del)
                         c.append(row)
@@ -40,6 +46,16 @@ $(document).ready(function(){
                 },
                 error: function(){
                     c.html("error")
+                }
+            })
+        },
+        del: function(name, success){
+            $.ajax({
+                url: "/api/farm/seed/"+name+"?del=1",
+                type: "DELETE",
+                success: success | function(){} ,
+                error: function(){
+                    $("#msg").html("error")
                 }
             })
         },
@@ -76,24 +92,17 @@ $(document).ready(function(){
 
     $("#idel").click(function(){
         name = $("#tags").val()
-        $.ajax({
-            url: "/api/farm/seed/"+name+"?del=1",
-            type: "DELETE",
-            success: function(){
-                $("#num").val("")
-                $("#tags").val("")
-                $("#msg").val("删除成功")
-                old=$("#num").data("seeds")
-                new_data=old.filter(function(o){
-                    if(o.name!=name){
-                        return o
-                    }
-                })
-                $("#num").data("seeds",new_data)
-            },
-            error: function(){
-                $("#msg").html("error")
-            }
+        ld.del(name, function(){
+            $("#num").val("")
+            $("#tags").val("")
+            $("#msg").val("删除成功")
+            old=$("#num").data("seeds")
+            new_data=old.filter(function(o){
+                if(o.name!=name){
+                    return o
+                }
+            })
+            $("#num").data("seeds",new_data)
         })
     })
 
