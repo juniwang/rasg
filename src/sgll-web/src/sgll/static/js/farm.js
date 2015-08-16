@@ -53,7 +53,7 @@ $(document).ready(function(){
             $.ajax({
                 url: "/api/farm/seed/"+name+"?del=1",
                 type: "DELETE",
-                success: success | function(){} ,
+                success: success ,
                 error: function(){
                     $("#msg").html("error")
                 }
