@@ -76,6 +76,7 @@ namespace sgllapp.Data
         [JsonProperty("category")]
         public int Category { get; set; }
 
+        [JsonProperty("skills")]
         public List<Skill> Skills { get; set; }
     }
 
@@ -85,6 +86,7 @@ namespace sgllapp.Data
         public int Id { get; set; }
 
         [Column("card_id")]
+        [JsonProperty("card_id")]
         public string CardId { get; set; }
 
         public Card Card { get; set; }
