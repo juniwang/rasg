@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,15 +13,56 @@ namespace sgllapp.Data
 {
     public class RedAtomRefresh
     {
+        // persons
         static readonly string[] countries = new string[] { "shu", "wei", "wu", "qun", "jin", "dong" };
         static string personUrlFormat = "http://zlz.sg.redatoms.com/controller/api/getPersonList.php?country={0}";
         static string skillUrlFormat = "http://zlz.sg.redatoms.com/controller/api/getEntitySkill.php?id={0}";
 
+        // equipments
         static readonly string[] categories = new string[] { "wuqi", "fangju", "zuoqi", "baowu" };
         const string PUTONG = "putong";
         const string WANMEI = "wanmei";
         static string equipUrlFormat = "http://zlz.sg.redatoms.com/controller/api/getEquipList.php?category={0}&rebirth={1}";
         List<Card> allCards;
+
+        // pics
+        /* example url:
+         * http://wsa.sg.redatoms.com/mojo/resources/classic/mobile/image/entity/5/small/b101.png
+         * http://wsa.sg.redatoms.com/mojo/resources/classic/mobile/image/entity/4/small/z107.png
+         * http://wsa.sg.redatoms.com/mojo/resources/classic/mobile/image/entity/3/small/f101.png
+         * http://wsa.sg.redatoms.com/mojo/resources/classic/mobile/image/entity/2/small/w114.png
+         * http://wsa.sg.redatoms.com/mojo/resources/classic/mobile/image/entity/1/small/j1104.png
+        */
+        static readonly string[] sizes = new string[] { "small", "large" };
+        static readonly string imageUriFormat = "http://wsa.sg.redatoms.com/mojo/resources/classic/mobile/image/entity/{0}/{1}/{2}";
+
+
+        public void DownloadPics()
+        {
+            using (var db = SgllContext.Create())
+            {
+                foreach (var card in db.Cards.ToList())
+                {
+                    foreach (var size in sizes)
+                    {
+                        var url = string.Format(imageUriFormat, card.Category.ToString(), size, card.ImageName);
+                        string local = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "pics", card.Category.ToString(), size, card.ImageName);
+                        FileInfo fi = new FileInfo(local);
+                        if (!fi.Directory.Exists)
+                            fi.Directory.Create();
+                        if (fi.Exists)
+                            continue;
+                            
+                        using (WebClient wc = new WebClient())
+                        {
+                            wc.DownloadFile(new Uri(url), local);
+                        }
+                        Thread.Sleep(50);
+                    }
+                }
+            }
+        }
+
 
         public async Task RefreshEquipments()
         {
@@ -43,7 +86,7 @@ namespace sgllapp.Data
                     var existing = db.Cards.FirstOrDefault(p => p.Id == card.Id);
                     if (existing != null)
                     {
-                        db.Cards.Remove(existing);
+                        // db.Cards.Remove(existing);
                         await db.SaveChangesAsync();
                     }
                     card.CreateTime = DateTime.UtcNow;
@@ -86,7 +129,7 @@ namespace sgllapp.Data
                     var existing = allCards.FirstOrDefault(c => c.Id == card.Id);
                     if (existing != null)
                     {
-                        db.Cards.Remove(existing);
+                        // db.Cards.Remove(existing);
                         await db.SaveChangesAsync();
                     }
                     await db.Cards.AddAsync(card);

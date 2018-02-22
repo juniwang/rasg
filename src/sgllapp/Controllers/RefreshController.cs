@@ -20,6 +20,7 @@ namespace sgllapp.Controllers
         {
             // await Refresher.RefreshAllCountries();
             // await Refresher.RefreshEquipments();
+            // Refresher.DownloadPics();
             return "refreshed";
         }
 

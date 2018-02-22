@@ -38,7 +38,7 @@ namespace sgllapp.Data
             using (var db = SgllContext.Create())
             {
                 allCards = db.Cards
-                             .Include(c => c.Skills)
+                             //.Include(c => c.Skills)
                              .ToList();
             }
         }

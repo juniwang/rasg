@@ -49,22 +49,32 @@ namespace sgllapp.Data
         public string ImageName { get; set; }
 
         [Column("attack_max")]
+        [JsonProperty("attack_max")]
         public int? AttackMax { get; set; }
 
         [Column("attack_min")]
+        [JsonProperty("attack_min")]
         public int? AttackMin { get; set; }
 
         [Column("defence_max")]
+        [JsonProperty("defence_max")]
         public int? DefenceMax { get; set; }
 
         [Column("defence_min")]
+        [JsonProperty("defence_min")]
         public int? DefenceMin { get; set; }
 
         [Column("createtime")]
+        [JsonIgnore]
         public DateTime CreateTime { get; set; }
 
         [Column("updatetime")]
+        [JsonIgnore]
         public DateTime? UpdateTime { get; set; }
+
+        [Column("category")]
+        [JsonProperty("category")]
+        public int Category { get; set; }
 
         public List<Skill> Skills { get; set; }
     }
