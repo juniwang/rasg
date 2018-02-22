@@ -24,6 +24,7 @@ Material from Red Atoms
 - **bXXX**: 宝物, entity category `5`
 
 ## skill type
+- -1: Unknown type
 - 1: 普通攻击，比如仁德刘备的技能‘十八路诸侯’
 - 2: 普通防御，比如仁德刘备的技能‘皇帝印记’
 - 3: 国家鸡血，比如仁德刘备的技能‘蜀国荣耀’，董奉的技能‘妙手回春-吴’
